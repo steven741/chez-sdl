@@ -1,3 +1,5 @@
+;;;; -*- mode: Scheme; -*-
+
 (library
   (sdl (2 0 7))
 
@@ -8,8 +10,8 @@
 
     ;; Syntactice Sugar
     sdl-err-rep
-    sdl-safe-eval
     sdl-get-event
+    sdl-safe-eval
 
     ;; https://forums.libsdl.org/viewtopic.php?t=12160
     ;; https://discourse.libsdl.org/t/sdl-2-0-6-released/23109
@@ -771,7 +773,14 @@
   (define sdl
     (begin
       ;; Check for version string here.
-      (load-shared-object "libSDL2.so")))
+
+      ;; Load library
+      (case (machine-type)
+        ((ti3nt i3nt ta6nt a6nt)     (load-shared-object "SDL2.dll"))
+        ((i3le ti3le a6le ta6le)     (load-shared-object "libSDL2.so"))
+        ((i3osx ti3osx a6osx ta6osx) (load-shared-object "libSDL2.dylib"))
+        (else
+          (error 'sdl "unknown machine type" (machine-type))))))
 
   (define event-mem 0)
 
@@ -1873,13 +1882,17 @@
       (else var!)))
 
 
-  ;; Tagged pattern matching
+  ;; TODO: Use Records
+  ;; We want to use tagged pattern matching
   ;; for the event system.
   ;;
-  ; ('EMPTY)
-  ; ('UNKNOWN)
-  ; ('QUIT)
-  ; ('KEYDOWN TODO)
+  ;
+  ; Data Spec
+  ;
+  ; ['EMPTY]->[/]
+  ; ['UNKNOWN]->[/]
+  ; ['QUIT]->[/]
+  ; ['KEYDOWN]->[]->[/]
 
   (define (sdl-get-event)
     ;; Get new event
