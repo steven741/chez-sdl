@@ -1,7 +1,3 @@
-#! /usr/bin/scheme --script
-
-(load "../../lib/sdl.sls")
-
 (import (sdl (2)))
 
 
@@ -88,4 +84,7 @@
   (event-loop)
   (main-loop))
 
-(main-loop)
+
+(scheme-start
+ (lambda fns
+   (main-loop)))

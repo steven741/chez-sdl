@@ -782,7 +782,7 @@
         (else
           (error 'sdl "unknown machine type" (machine-type))))))
 
-  (define event-mem 0)
+  (define event-mem)
 
 
   ;;;
@@ -1882,17 +1882,7 @@
       (else var!)))
 
 
-  ;; TODO: Use Records
-  ;; We want to use tagged pattern matching
-  ;; for the event system.
   ;;
-  ;
-  ; Data Spec
-  ;
-  ; ['EMPTY]->[/]
-  ; ['UNKNOWN]->[/]
-  ; ['QUIT]->[/]
-  ; ['KEYDOWN]->[]->[/]
 
   (define (sdl-get-event)
     ;; Get new event
