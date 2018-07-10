@@ -1,4 +1,5 @@
-(import (sdl (2)))
+(import (chezscheme)
+	(sdl (2)))
 
 
 (sdl-init SDL-INIT-VIDEO)
@@ -85,6 +86,7 @@
   (main-loop))
 
 
+;; Scheme Start
 (scheme-start
  (lambda fns
    (main-loop)))
