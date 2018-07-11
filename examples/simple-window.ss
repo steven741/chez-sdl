@@ -6,47 +6,28 @@
 
 ;; Create window and bind to win
 (define win
-  (sdl-safe-eval
-    (sdl-create-window! "test window"
-                        SDL-WINDOWPOS-UNDEFINED
-                        SDL-WINDOWPOS-UNDEFINED
-                        640
-                        480
-                        (bitwise-ior
-                          SDL-WINDOW-SHOWN
-                          SDL-WINDOW-ALLOW-HIGHDPI))
-    (lambda ()
-      (sdl-err-rep "Couldn't get window."))))
+  (sdl-create-window! "test window"
+                      SDL-WINDOWPOS-UNDEFINED
+                      SDL-WINDOWPOS-UNDEFINED
+                      640
+                      480
+                      (bitwise-ior
+                        SDL-WINDOW-SHOWN
+                        SDL-WINDOW-ALLOW-HIGHDPI)))
 
 ;; Create a renderer and bind to ren
 (define ren
-  (sdl-safe-eval
-    (sdl-create-renderer! win
-                          -1
-                          (bitwise-ior
-                            SDL-RENDERER-ACCELERATED
-                            SDL-RENDERER-PRESENTVSYNC))
-    (lambda ()
-      (sdl-err-rep "Couldn't get renderer.")
-      (sdl-destroy-window win))))
+  (sdl-create-renderer! win
+                        -1
+                        (bitwise-ior
+                          SDL-RENDERER-ACCELERATED
+                          SDL-RENDERER-PRESENTVSYNC)))
 
 ;; Load BMP file and create a surface for image
 (define tex
   (let*
-    ([bmp (sdl-safe-eval
-            (sdl-load-bmp! "hello.bmp")
-            (lambda ()
-              (sdl-err-rep "Failed to load bmp.")
-              (sdl-destroy-renderer ren)
-              (sdl-destroy-window   win)))]
-
-     [tex (sdl-safe-eval
-            (sdl-create-texture-from-surface! ren bmp)
-            (lambda ()
-              (sdl-err-rep "Failed to create texture.")
-              (sdl-free-surface     bmp)
-              (sdl-destroy-renderer ren)
-              (sdl-destroy-window   win)))])
+    ([bmp (sdl-load-bmp! "hello.bmp")]
+     [tex (sdl-create-texture-from-surface! ren bmp)])
 
     (sdl-free-surface bmp)
     tex))

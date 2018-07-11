@@ -11,7 +11,6 @@
     ;; Syntactice Sugar
     sdl-err-rep
     sdl-get-event
-    sdl-safe-eval
 
     ;; https://forums.libsdl.org/viewtopic.php?t=12160
     ;; https://discourse.libsdl.org/t/sdl-2-0-6-released/23109
@@ -27,6 +26,8 @@
     ;; https://wiki.libsdl.org/CategoryVideo
     sdl-create-window!
     sdl-destroy-window
+    sdl-get-window-surface
+    sdl-update-window-surface
 
     ;; Renderer
     ;; https://wiki.libsdl.org/CategoryRender
@@ -46,7 +47,12 @@
     ;; https://wiki.libsdl.org/CategorySurface
     sdl-load-bmp!
     sdl-load-bmp-rw!
+    sdl-fill-rect
     sdl-free-surface
+
+    ;; Pixels
+    ;; https://wiki.libsdl.org/CategoryPixels
+    sdl-map-rgb
 
     ;; IO
     ;; https://wiki.libsdl.org/CategoryIO
@@ -62,7 +68,16 @@
     sdl-poll-event!
     sdl-peep-events!
 
-    ; Data
+    ;;;
+    ;;; Data
+    ;;;
+
+    sdl-rect
+    sdl-color
+    sdl-palette
+    sdl-pixel-format
+    sdl-surface
+
     sdl-event
     sdl-common-event
     sdl-window-event
@@ -836,7 +851,7 @@
   
   ;; https://wiki.libsdl.org/SDL_LoadBMP_RW
   (define sdl-load-bmp-rw!
-    (foreign-procedure "SDL_LoadBMP_RW" (void* int) void*))
+    (foreign-procedure "SDL_LoadBMP_RW" (void* int) (* sdl-surface)))
 
   ;; https://wiki.libsdl.org/SDL_LoadBMP
   (define (sdl-load-bmp! file)
@@ -844,7 +859,7 @@
 
   ;; https://wiki.libsdl.org/SDL_CreateTextureFromSurface
   (define sdl-create-texture-from-surface!
-    (foreign-procedure "SDL_CreateTextureFromSurface" (void* void*) void*))
+    (foreign-procedure "SDL_CreateTextureFromSurface" (void* (* sdl-surface)) void*))
 
   ;; https://wiki.libsdl.org/SDL_RenderClear
   (define sdl-render-clear
@@ -872,7 +887,23 @@
 
   ;; https://wiki.libsdl.org/SDL_FreeSurface
   (define sdl-free-surface
-    (foreign-procedure "SDL_FreeSurface" (void*) void))
+    (foreign-procedure "SDL_FreeSurface" ((* sdl-surface)) void))
+
+  ;; https://wiki.libsdl.org/SDL_FillRect
+  (define sdl-fill-rect
+    (foreign-procedure "SDL_FillRect" ((* sdl-surface) void* unsigned-32) int))
+
+  ;; https://wiki.libsdl.org/SDL_MapRGB
+  (define sdl-map-rgb
+    (foreign-procedure "SDL_MapRGB" ((* sdl-pixel-format) unsigned-8 unsigned-8 unsigned-8) unsigned-32))
+
+  ;; https://wiki.libsdl.org/SDL_GetWindowSurface
+  (define sdl-get-window-surface
+    (foreign-procedure "SDL_GetWindowSurface" (void*) (* sdl-surface)))
+
+  ;; https://wiki.libsdl.org/SDL_UpdateWindowSurface
+  (define sdl-update-window-surface
+    (foreign-procedure "SDL_UpdateWindowSurface" (void*) int))
 
   ;; https://wiki.libsdl.org/SDL_Delay
   (define sdl-delay
@@ -1776,7 +1807,7 @@
     (struct
       [type      unsigned-32]
       [timestamp unsigned-32]
-      [msg       void*])) ; this shouldn't be void* it should be SDL_SysWMmsg*
+      [msg       void*])) ; NOTE: this shouldn't be void* it should be SDL_SysWMmsg*
 
   ;; https://wiki.libsdl.org/SDL_TouchFingerEvent
   (define-ftype sdl-touch-finger-event
@@ -1857,6 +1888,74 @@
       [padding (array 56 unsigned-8)]))
 
 
+  ;;;
+  ;;; Data
+  ;;;
+
+  ;; https://wiki.libsdl.org/SDL_Rect
+  (define-ftype sdl-rect
+    (struct
+      [x int]
+      [y int]
+      [w int]
+      [h int]))
+
+  ;; https://wiki.libsdl.org/SDL_Color
+  (define-ftype sdl-color
+    (struct
+      [r unsigned-8]
+      [g unsigned-8]
+      [b unsigned-8]
+      [a unsigned-8]))
+
+  ;; https://wiki.libsdl.org/SDL_Palette
+  (define-ftype sdl-palette
+    (struct
+      [ncolors  int]
+      [colors   (* sdl-color)]
+      [version  unsigned-32]
+      [refcount int]))
+
+  ;; https://wiki.libsdl.org/SDL_PixelFormat
+  (define-ftype sdl-pixel-format
+    (struct
+      [format          unsigned-32]
+      [palette         (* sdl-palette)]
+      [bits-per-pixel  unsigned-8]
+      [bytes-per-pixel unsigned-8]
+      [padding         (array 2 unsigned-8)]
+      [r-mask          unsigned-32]
+      [g-mask          unsigned-32]
+      [b-mask          unsigned-32]
+      [a-mask          unsigned-32]
+      [r-loss          unsigned-8]
+      [g-loss          unsigned-8]
+      [b-loss          unsigned-8]
+      [a-loss          unsigned-8]
+      [r-shift         unsigned-8]
+      [g-shift         unsigned-8]
+      [b-shift         unsigned-8]
+      [a-shift         unsigned-8]
+      [refcount        int]
+      [next            (* sdl-pixel-format)]))
+
+  ;; https://wiki.libsdl.org/SDL_Surface
+  (define-ftype sdl-surface
+    (struct
+      [flags     unsigned-32]
+      [format    (* sdl-pixel-format)]
+      [w         int]
+      [h         int]
+      [pitch     int]
+      [pixels    void*]
+      [userdata  void*]
+      [locked    int]
+      [lock-data void*]
+      [clip-rect sdl-rect]
+      [b-map     void*] ; NOTE: Should be SDL_BlitMap
+      [refcount  int]))
+
+
 
   ;;; Syntactic Sugar
 
@@ -1869,17 +1968,6 @@
     (display "SDL: "         (current-error-port))
     (display (sdl-get-error) (current-error-port))
     (newline                 (current-error-port)))
-
-
-  ;; Ensure our subroutine's aren't NULL.
-
-  (define (sdl-safe-eval var! on-exit)
-    (cond
-      ((= var! 0) (on-exit)
-                  (sdl-quit)
-                  (exit))
-
-      (else var!)))
 
 
   ;;
