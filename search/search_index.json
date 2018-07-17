@@ -1,0 +1,14 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Getting Started",
+            "title": "Home"
+        },
+        {
+            "location": "/#getting-started",
+            "text": "",
+            "title": "Getting Started"
+        }
+    ]
+}
