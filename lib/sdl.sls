@@ -1,35 +1,25 @@
 ;;;; -*- mode: Scheme; -*-
 
 (library
-  (sdl (2 0 7))
+    (sdl (2 0 7))
 
   (export
     ;;;
     ;;; Procedures
     ;;;
 
-    ;; Syntactice Sugar
-    sdl-err-rep
     sdl-get-event
 
-    ;; https://forums.libsdl.org/viewtopic.php?t=12160
-    ;; https://discourse.libsdl.org/t/sdl-2-0-6-released/23109
-    ;; https://discourse.libsdl.org/t/sdl-2-0-7-released/23279
-    ;; https://wiki.libsdl.org/CategoryAPI
-
-    ;; Init
     ;; https://wiki.libsdl.org/CategoryInit
     sdl-init
     sdl-quit
 
-    ;; Video
     ;; https://wiki.libsdl.org/CategoryVideo
     sdl-create-window!
     sdl-destroy-window
     sdl-get-window-surface
     sdl-update-window-surface
 
-    ;; Renderer
     ;; https://wiki.libsdl.org/CategoryRender
     sdl-create-renderer!
     sdl-create-texture-from-surface!
@@ -39,31 +29,24 @@
     sdl-destroy-texture
     sdl-destroy-renderer
 
-    ;; Timer
     ;; https://wiki.libsdl.org/CategoryTimer
     sdl-delay
 
-    ;; Surface
     ;; https://wiki.libsdl.org/CategorySurface
     sdl-load-bmp!
     sdl-load-bmp-rw!
     sdl-fill-rect
     sdl-free-surface
 
-    ;; Pixels
     ;; https://wiki.libsdl.org/CategoryPixels
     sdl-map-rgb
 
-    ;; IO
     ;; https://wiki.libsdl.org/CategoryIO
     sdl-rw-from-file!
 
-    ;; Error
     ;; https://wiki.libsdl.org/CategoryError
     sdl-get-error
 
-
-    ;; Events
     ;; https://wiki.libsdl.org/CategoryEvents
     sdl-poll-event!
     sdl-peep-events!
@@ -804,7 +787,6 @@
   ;;; Procedures
   ;;;
 
-  ;; https://wiki.libsdl.org/SDL_Init
   (define (sdl-init flags)
     ; Allocate some memory on the heap
     (set! event-mem (make-ftype-pointer sdl-event (foreign-alloc (ftype-sizeof sdl-event))))
@@ -821,7 +803,7 @@
           (newline                 (current-error-port))
           (exit))))
 
-  ;; https://wiki.libsdl.org/SDL_Quit
+
   (define (sdl-quit)
     ; Release the memory from init
     (foreign-free (ftype-pointer-address event-mem))
@@ -829,89 +811,51 @@
     ; Call the subroutine
     (foreign-procedure "SDL_Quit" () void))
 
-  ;; https://wiki.libsdl.org/SDL_PollEvent
-  (define sdl-poll-event!
-    (foreign-procedure "SDL_PollEvent" ((* sdl-event)) int))
 
-  ;; https://wiki.libsdl.org/SDL_PeepEvents
-  (define sdl-peep-events!
-    (foreign-procedure "SDL_PeepEvents" ((* sdl-event) int unsigned unsigned-32 unsigned-32) int))
-
-  ;; https://wiki.libsdl.org/SDL_CreateWindow
-  (define sdl-create-window!
-    (foreign-procedure "SDL_CreateWindow" (string int int int int unsigned-32) void*))
-
-  ;; https://wiki.libsdl.org/SDL_CreateRenderer
-  (define sdl-create-renderer!
-    (foreign-procedure "SDL_CreateRenderer" (void* int unsigned-32) void*))
-
-  ;; https://wiki.libsdl.org/SDL_RWFromFile
-  (define sdl-rw-from-file!
-    (foreign-procedure "SDL_RWFromFile" (string string) void*))
-  
-  ;; https://wiki.libsdl.org/SDL_LoadBMP_RW
-  (define sdl-load-bmp-rw!
-    (foreign-procedure "SDL_LoadBMP_RW" (void* int) (* sdl-surface)))
-
-  ;; https://wiki.libsdl.org/SDL_LoadBMP
   (define (sdl-load-bmp! file)
     (sdl-load-bmp-rw! (sdl-rw-from-file! file "rb") 1))
 
-  ;; https://wiki.libsdl.org/SDL_CreateTextureFromSurface
-  (define sdl-create-texture-from-surface!
-    (foreign-procedure "SDL_CreateTextureFromSurface" (void* (* sdl-surface)) void*))
 
-  ;; https://wiki.libsdl.org/SDL_RenderClear
-  (define sdl-render-clear
-    (foreign-procedure "SDL_RenderClear" (void*) int))
+  (define (sdl-render-copy ren tex src dst)
+    (define (make-rect vec)
+      (let ([rect (make-ftype-pointer sdl-rect (foreign-alloc (ftype-sizeof sdl-rect)))])
+	(ftype-set! sdl-rect (x) rect (vector-ref vec 0))
+	(ftype-set! sdl-rect (y) rect (vector-ref vec 1))
+	(ftype-set! sdl-rect (w) rect (vector-ref vec 2))
+	(ftype-set! sdl-rect (h) rect (vector-ref vec 3))
+	rect))
 
-  ;; https://wiki.libsdl.org/SDL_RenderCopy
-  (define sdl-render-copy
-    (foreign-procedure "SDL_RenderCopy" (void* void* void* void*) int))
+    (let ([func   (foreign-procedure "SDL_RenderCopy" (void* void* void* void*) int)]
+	  [srcVal (if (eq? 0 src) 0 (make-rect src))]
+	  [dstVal (if (eq? 0 dst) 0 (make-rect dst))])
+      (func ren tex srcVal dstVal)
+      (if (eq? 0 srcVal)
+	  0
+	  (foreign-free (ftype-pointer-address srcVal)))
+      (if (eq? 0 dstVal)
+	  0
+	  (foreign-free (ftype-pointer-address dstVal)))))
 
-  ;; https://wiki.libsdl.org/SDL_RenderPresent
-  (define sdl-render-present
-    (foreign-procedure "SDL_RenderPresent" (void*) void))
 
-  ;; https://wiki.libsdl.org/SDL_DestroyTexture
-  (define sdl-destroy-texture
-    (foreign-procedure "SDL_DestroyTexture" (void*) void))
-
-  ;; https://wiki.libsdl.org/SDL_DestroyRenderer
-  (define sdl-destroy-renderer
-    (foreign-procedure "SDL_DestroyRenderer" (void*) void))
-
-  ;; https://wiki.libsdl.org/SDL_DestroyWindow
-  (define sdl-destroy-window
-    (foreign-procedure "SDL_DestroyWindow" (void*) void))
-
-  ;; https://wiki.libsdl.org/SDL_FreeSurface
-  (define sdl-free-surface
-    (foreign-procedure "SDL_FreeSurface" ((* sdl-surface)) void))
-
-  ;; https://wiki.libsdl.org/SDL_FillRect
-  (define sdl-fill-rect
-    (foreign-procedure "SDL_FillRect" ((* sdl-surface) void* unsigned-32) int))
-
-  ;; https://wiki.libsdl.org/SDL_MapRGB
-  (define sdl-map-rgb
-    (foreign-procedure "SDL_MapRGB" ((* sdl-pixel-format) unsigned-8 unsigned-8 unsigned-8) unsigned-32))
-
-  ;; https://wiki.libsdl.org/SDL_GetWindowSurface
-  (define sdl-get-window-surface
-    (foreign-procedure "SDL_GetWindowSurface" (void*) (* sdl-surface)))
-
-  ;; https://wiki.libsdl.org/SDL_UpdateWindowSurface
-  (define sdl-update-window-surface
-    (foreign-procedure "SDL_UpdateWindowSurface" (void*) int))
-
-  ;; https://wiki.libsdl.org/SDL_Delay
-  (define sdl-delay
-    (foreign-procedure "SDL_Delay" (unsigned-32) void))
-
-  ;; https://wiki.libsdl.org/SDL_GetError
-  (define sdl-get-error
-    (foreign-procedure "SDL_GetError" () string))
+  (define sdl-poll-event!                  (foreign-procedure "SDL_PollEvent" ((* sdl-event)) int))
+  (define sdl-peep-events!                 (foreign-procedure "SDL_PeepEvents" ((* sdl-event) int unsigned unsigned-32 unsigned-32) int))
+  (define sdl-create-window!               (foreign-procedure "SDL_CreateWindow" (string int int int int unsigned-32) void*))
+  (define sdl-create-renderer!             (foreign-procedure "SDL_CreateRenderer" (void* int unsigned-32) void*))
+  (define sdl-rw-from-file!                (foreign-procedure "SDL_RWFromFile" (string string) void*))
+  (define sdl-load-bmp-rw!                 (foreign-procedure "SDL_LoadBMP_RW" (void* int) (* sdl-surface)))
+  (define sdl-create-texture-from-surface! (foreign-procedure "SDL_CreateTextureFromSurface" (void* (* sdl-surface)) void*))
+  (define sdl-render-clear                 (foreign-procedure "SDL_RenderClear" (void*) int))
+  (define sdl-render-present               (foreign-procedure "SDL_RenderPresent" (void*) void))
+  (define sdl-destroy-texture              (foreign-procedure "SDL_DestroyTexture" (void*) void))
+  (define sdl-destroy-renderer             (foreign-procedure "SDL_DestroyRenderer" (void*) void))
+  (define sdl-destroy-window               (foreign-procedure "SDL_DestroyWindow" (void*) void))
+  (define sdl-free-surface                 (foreign-procedure "SDL_FreeSurface" ((* sdl-surface)) void))
+  (define sdl-fill-rect                    (foreign-procedure "SDL_FillRect" ((* sdl-surface) void* unsigned-32) int))
+  (define sdl-map-rgb                      (foreign-procedure "SDL_MapRGB" ((* sdl-pixel-format) unsigned-8 unsigned-8 unsigned-8) unsigned-32))
+  (define sdl-get-window-surface           (foreign-procedure "SDL_GetWindowSurface" (void*) (* sdl-surface)))
+  (define sdl-update-window-surface        (foreign-procedure "SDL_UpdateWindowSurface" (void*) int))
+  (define sdl-delay                        (foreign-procedure "SDL_Delay" (unsigned-32) void))
+  (define sdl-get-error                    (foreign-procedure "SDL_GetError" () string))
 
 
   ;;;
@@ -1957,27 +1901,12 @@
 
 
 
-  ;;; Syntactic Sugar
-
-  ;; Error Report Procedure
-
-  (define (sdl-err-rep msg)
-    ;; Dump message to stderr
-    (display msg             (current-error-port))
-    (newline                 (current-error-port))
-    (display "SDL: "         (current-error-port))
-    (display (sdl-get-error) (current-error-port))
-    (newline                 (current-error-port)))
-
-
-  ;;
-
   (define (sdl-get-event)
     ;; Get new event
     (if (= (sdl-poll-event! event-mem) 0)
 
         ;; No more events in pool.
-        '(EMPTY)
+        '(NONE)
 
         ;; Start packaging the data
         (let
@@ -1993,5 +1922,4 @@
                (ftype-pointer->sexpr (ftype-&ref sdl-event (key) event-mem)))
              (list 'KEYDOWN))
 
-            ; Hmm... the library doesn't know about this event.
             (else '(UNKNOWN)))))))

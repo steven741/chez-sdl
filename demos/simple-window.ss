@@ -46,7 +46,7 @@
 (define (event-loop)
   (define (loop e)
     (cond
-      ((eq? (car e) 'EMPTY)   '())
+      ((eq? (car e) 'NONE)    '())
       ((eq? (car e) 'QUIT)    (should-quit))
       ((eq? (car e) 'KEYDOWN) (loop (sdl-get-event)))
       (else
