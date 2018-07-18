@@ -1,3 +1,21 @@
-site_name: chez-sdl
+site_name: Chez-SDL
+site_author: Steven Watson
+repo_url: https://github.com/steven741/chez-sdl
+
+
 pages:
-    - Home: index.md
+    - 'Getting Strated': index.md
+
+    - Tutorials:
+      - 'Overview of SDL 2': 'tuts/sdl.md'
+      - 'Handling Events': 'tuts/events.md'
+      - 'Renderer Basics': 'tuts/renderer.md'
+      - 'Renderer Techniques': 'tuts/advanced-renderer.md'
+      - 'Complete Example: Tetris': 'tuts/tetris.md'
+
+    - Reference: ref.md
+
+
+theme: readthedocs
+
+copyright: <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.

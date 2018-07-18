@@ -8,12 +8,12 @@
 
 (define (simple-window)
   (compile-library "lib/sdl.sls")
-  (compile-program "examples/simple-window.ss")
-  (compile-whole-program "examples/simple-window.wpo"
-			 "examples/simple-window")
-  (make-boot-file "examples/simple-window.boot"
+  (compile-program "demos/simple-window.ss")
+  (compile-whole-program "demos/simple-window.wpo"
+			 "demos/simple-window")
+  (make-boot-file "demos/simple-window.boot"
 		  '("petite" "scheme")
-		  "examples/simple-window"))
+		  "demos/simple-window"))
 
 (define (lesson-01)
   (compile-library "lib/sdl.sls")
@@ -29,12 +29,12 @@
   (lesson-01))
 
 (define (clean)
-  (define (from-example name)
-    (delete-file (string-append "./examples/" name ".so"))
-    (delete-file (string-append "./examples/" name ".wpo"))
-    (delete-file (string-append "./examples/" name))
-    (delete-file (string-append "./examples/" name ".boot")))
-  (define (from-tutorial name)
+  (define (from-demos name)
+    (delete-file (string-append "./demos/" name ".so"))
+    (delete-file (string-append "./demos/" name ".wpo"))
+    (delete-file (string-append "./demos/" name))
+    (delete-file (string-append "./demos/" name ".boot")))
+  (define (from-tutorials name)
     (delete-file (string-append "./tutorials/" name ".so"))
     (delete-file (string-append "./tutorials/" name ".wpo"))
     (delete-file (string-append "./tutorials/" name))
@@ -44,8 +44,8 @@
     (delete-file (string-append "./lib/" name ".wpo")))
 
   (from-lib "sdl")
-  (from-example "simple-window")
-  (from-tutorial "lesson-01"))
+  (from-demos "simple-window")
+  (from-tutorials "lesson-01"))
 
 (define (main args)
   (cond

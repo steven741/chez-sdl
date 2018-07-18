@@ -1,3 +1,8 @@
-# chez-sdl
+# Under Construction
 
-# Getting Started
+```scheme
+(import (sdl))
+
+(sdl-init SDL-VIDEO-INIT)
+(sdl-quit)
+```
