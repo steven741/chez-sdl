@@ -2,13 +2,98 @@
     "docs": [
         {
             "location": "/",
-            "text": "Getting Started",
-            "title": "Home"
+            "text": "Under Construction\n\n\n(import (sdl))\n\n(sdl-init SDL-VIDEO-INIT)\n(sdl-quit)",
+            "title": "Getting Strated"
         },
         {
-            "location": "/#getting-started",
+            "location": "/#under-construction",
+            "text": "(import (sdl))\n\n(sdl-init SDL-VIDEO-INIT)\n(sdl-quit)",
+            "title": "Under Construction"
+        },
+        {
+            "location": "/tuts/sdl/",
+            "text": "TODO",
+            "title": "Overview of SDL 2"
+        },
+        {
+            "location": "/tuts/sdl/#todo",
             "text": "",
-            "title": "Getting Started"
+            "title": "TODO"
+        },
+        {
+            "location": "/tuts/events/",
+            "text": "TODO",
+            "title": "Handling Events"
+        },
+        {
+            "location": "/tuts/events/#todo",
+            "text": "",
+            "title": "TODO"
+        },
+        {
+            "location": "/tuts/renderer/",
+            "text": "TODO",
+            "title": "Renderer Basics"
+        },
+        {
+            "location": "/tuts/renderer/#todo",
+            "text": "",
+            "title": "TODO"
+        },
+        {
+            "location": "/tuts/advanced-renderer/",
+            "text": "TODO",
+            "title": "Renderer Techniques"
+        },
+        {
+            "location": "/tuts/advanced-renderer/#todo",
+            "text": "",
+            "title": "TODO"
+        },
+        {
+            "location": "/tuts/tetris/",
+            "text": "TODO",
+            "title": "Complete Example: Tetris"
+        },
+        {
+            "location": "/tuts/tetris/#todo",
+            "text": "",
+            "title": "TODO"
+        },
+        {
+            "location": "/ref/",
+            "text": "Basics\n\n\nVideo\n\n\nEvents\n\n\nForce Feedback\n\n\nAudio\n\n\nPower Management",
+            "title": "Reference"
+        },
+        {
+            "location": "/ref/#basics",
+            "text": "",
+            "title": "Basics"
+        },
+        {
+            "location": "/ref/#video",
+            "text": "",
+            "title": "Video"
+        },
+        {
+            "location": "/ref/#events",
+            "text": "",
+            "title": "Events"
+        },
+        {
+            "location": "/ref/#force-feedback",
+            "text": "",
+            "title": "Force Feedback"
+        },
+        {
+            "location": "/ref/#audio",
+            "text": "",
+            "title": "Audio"
+        },
+        {
+            "location": "/ref/#power-management",
+            "text": "",
+            "title": "Power Management"
         }
     ]
 }

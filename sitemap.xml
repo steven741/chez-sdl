@@ -2,7 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>/</loc>
-     <lastmod>2018-07-17</lastmod>
+     <lastmod>2018-07-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/tuts/sdl/</loc>
+     <lastmod>2018-07-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/tuts/events/</loc>
+     <lastmod>2018-07-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/tuts/renderer/</loc>
+     <lastmod>2018-07-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/tuts/advanced-renderer/</loc>
+     <lastmod>2018-07-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/tuts/tetris/</loc>
+     <lastmod>2018-07-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/ref/</loc>
+     <lastmod>2018-07-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
