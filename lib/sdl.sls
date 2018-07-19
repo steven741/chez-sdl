@@ -3,63 +3,130 @@
 (library
     (sdl (2 0 7))
   (export
-    sdl-get-event
-    sdl-init
-    sdl-quit
-    sdl-create-window!
-    sdl-destroy-window
-    sdl-get-window-surface
-    sdl-update-window-surface
-    sdl-create-renderer!
-    sdl-create-texture-from-surface!
-    sdl-render-clear
-    sdl-render-copy
-    sdl-render-present
-    sdl-destroy-texture
-    sdl-destroy-renderer
-    sdl-delay
-    sdl-load-bmp!
-    sdl-load-bmp-rw!
-    sdl-fill-rect
-    sdl-free-surface
-    sdl-map-rgb
-    sdl-rw-from-file!
-    sdl-get-error
-    sdl-poll-event!
-    sdl-peep-events!
+   ;;;;;;;;;;;;;
+   ;;; Basic ;;;
+   ;;;;;;;;;;;;;
+   SDL-INIT-TIMER
+   SDL-INIT-AUDIO
+   SDL-INIT-VIDEO
+   SDL-INIT-JOYSTICK
+   SDL-INIT-HAPTIC
+   SDL-INIT-GAMECONTROLLER
+   SDL-INIT-EVENTS
+   SDL-INIT-EVERYTHING
 
-    sdl-rect
-    sdl-color
-    sdl-palette
-    sdl-pixel-format
-    sdl-surface
+   sdl-init
+   sdl-quit
 
-    sdl-event
-    sdl-common-event
-    sdl-window-event
-    sdl-keyboard-event
-    sdl-text-editing-event
-    sdl-text-input-event
-    sdl-mouse-motion-event
-    sdl-mouse-button-event
-    sdl-mouse-wheel-event
-    sdl-joy-axis-event
-    sdl-joy-ball-event
-    sdl-joy-hat-event
-    sdl-joy-button-event
-    sdl-joy-device-event
-    sdl-controller-axis-event
-    sdl-controller-button-event
-    sdl-controller-device-event
-    sdl-audio-device-event
-    sdl-quit-event 
-    sdl-user-event
-    sdl-sys-wm-event
-    sdl-touch-finger-event
-    sdl-multi-gesture-event
-    sdl-dollar-gesture-event
-    sdl-drop-event
-    sdl-keysym
+
+
+   ;;;;;;;;;;;;;
+   ;;; Video ;;;
+   ;;;;;;;;;;;;;
+   SDL-WINDOW-FULLSCREEN
+   SDL-WINDOW-OPENGL
+   SDL-WINDOW-SHOWN
+   SDL-WINDOW-HIDDEN
+   SDL-WINDOW-BORDERLESS
+   SDL-WINDOW-RESIZABLE
+   SDL-WINDOW-MINIMIZED
+   SDL-WINDOW-MAXIMIZED
+   SDL-WINDOW-INPUT-GRABBED
+   SDL-WINDOW-INPUT-FOCUS
+   SDL-WINDOW-MOUSE-FOCUS
+   SDL-WINDOW-FULLSCREEN-DESKTOP
+   SDL-WINDOW-FOREIGN
+   SDL-WINDOW-ALLOW-HIGHDPI
+
+   SDL-WINDOWPOS-UNDEFINED-MASK
+   SDL-WINDOWPOS-UNDEFINED-DISPLAY
+   SDL-WINDOWPOS-UNDEFINED
+   SDL-WINDOWPOS-ISUNDEFINED
+
+   SDL-WINDOWPOS-CENTERED-MASK
+   SDL-WINDOWPOS-CENTERED-DISPLAY
+   SDL-WINDOWPOS-CENTERED
+   SDL-WINDOWPOS-ISCENTERED
+
+   SDL-RENDERER-SOFTWARE
+   SDL-RENDERER-ACCELERATED
+   SDL-RENDERER-PRESENTVSYNC
+   SDL-RENDERER-TARGETTEXTURE
+
+   SDL-ADDEVENT
+   SDL-PEEKEVENT
+   SDL-GETEVENT
+
+
+   sdl-rect
+   sdl-color
+   sdl-palette
+   sdl-pixel-format
+   sdl-surface
+
+
+   sdl-create-window
+   sdl-get-window-surface
+   sdl-update-window-surface
+   sdl-destroy-window
+   sdl-free-surface
+
+   sdl-create-renderer!
+   sdl-create-texture-from-surface!
+   sdl-render-clear
+   sdl-render-copy
+   sdl-render-present
+   sdl-destroy-texture
+   sdl-destroy-renderer
+   sdl-load-bmp!
+   sdl-load-bmp-rw!
+   sdl-fill-rect
+   sdl-map-rgb
+
+
+
+   ;;;;;;;;;;;;;
+   ;;; Event ;;;
+   ;;;;;;;;;;;;;
+   sdl-event
+   sdl-common-event
+   sdl-window-event
+   sdl-keyboard-event
+   sdl-text-editing-event
+   sdl-text-input-event
+   sdl-mouse-motion-event
+   sdl-mouse-button-event
+   sdl-mouse-wheel-event
+   sdl-joy-axis-event
+   sdl-joy-ball-event
+   sdl-joy-hat-event
+   sdl-joy-button-event
+   sdl-joy-device-event
+   sdl-controller-axis-event
+   sdl-controller-button-event
+   sdl-controller-device-event
+   sdl-audio-device-event
+   sdl-quit-event 
+   sdl-user-event
+   sdl-sys-wm-event
+   sdl-touch-finger-event
+   sdl-multi-gesture-event
+   sdl-dollar-gesture-event
+   sdl-drop-event
+   sdl-keysym
+
+   sdl-get-event
+   sdl-poll-event!
+   sdl-peep-events!
+
+
+
+   ;;;;;;;;;;;;;
+   ;;; Other ;;;
+   ;;;;;;;;;;;;;
+   sdl-rw-from-file!
+   sdl-get-error
+
 
     SDL-FIRSTEVENT-E
     SDL-QUIT-E
@@ -614,52 +681,10 @@
     KMOD-CTRL
     KMOD-SHIFT
     KMOD-ALT
-    KMOD-GUI
-
-    SDL-INIT-TIMER
-    SDL-INIT-AUDIO
-    SDL-INIT-VIDEO
-    SDL-INIT-JOYSTICK
-    SDL-INIT-HAPTIC
-    SDL-INIT-GAMECONTROLLER
-    SDL-INIT-EVENTS
-    SDL-INIT-EVERYTHING
-
-    SDL-WINDOW-FULLSCREEN
-    SDL-WINDOW-OPENGL
-    SDL-WINDOW-SHOWN
-    SDL-WINDOW-HIDDEN
-    SDL-WINDOW-BORDERLESS
-    SDL-WINDOW-RESIZABLE
-    SDL-WINDOW-MINIMIZED
-    SDL-WINDOW-MAXIMIZED
-    SDL-WINDOW-INPUT-GRABBED
-    SDL-WINDOW-INPUT-FOCUS
-    SDL-WINDOW-MOUSE-FOCUS
-    SDL-WINDOW-FULLSCREEN-DESKTOP
-    SDL-WINDOW-FOREIGN
-    SDL-WINDOW-ALLOW-HIGHDPI
-
-    SDL-WINDOWPOS-UNDEFINED-MASK
-    SDL-WINDOWPOS-UNDEFINED-DISPLAY
-    SDL-WINDOWPOS-UNDEFINED
-    SDL-WINDOWPOS-ISUNDEFINED
-
-    SDL-WINDOWPOS-CENTERED-MASK
-    SDL-WINDOWPOS-CENTERED-DISPLAY
-    SDL-WINDOWPOS-CENTERED
-    SDL-WINDOWPOS-ISCENTERED
-
-    SDL-RENDERER-SOFTWARE
-    SDL-RENDERER-ACCELERATED
-    SDL-RENDERER-PRESENTVSYNC
-    SDL-RENDERER-TARGETTEXTURE
-
-    SDL-ADDEVENT
-    SDL-PEEKEVENT
-    SDL-GETEVENT)
+    KMOD-GUI)
 
   (import (chezscheme))
+
 
   (define sdl
     (begin
@@ -667,13 +692,20 @@
 
       ;; Load library
       (case (machine-type)
-        ((ti3nt i3nt ta6nt a6nt)     (load-shared-object "SDL2.dll"))
-        ((i3le ti3le a6le ta6le)     (load-shared-object "libSDL2.so"))
-        ((i3osx ti3osx a6osx ta6osx) (load-shared-object "libSDL2.dylib"))
-        (else
+        ((ti3nt i3nt ta6nt a6nt)
+	 (load-shared-object "SDL2.dll"))
+
+        ((i3le ti3le a6le ta6le)
+	 (load-shared-object "libSDL2.so"))
+
+        ((i3osx ti3osx a6osx ta6osx)
+	 (load-shared-object "libSDL2.dylib"))
+
+	(else
           (error 'sdl "unknown machine type" (machine-type))))))
 
   (define event-mem)
+
 
   (include "sdl-basic.sls")
   (include "sdl-video.sls")
