@@ -16,7 +16,8 @@
 (define SDL-WINDOW-INPUT-GRABBED      #x00000100)
 (define SDL-WINDOW-INPUT-FOCUS        #x00000200)
 (define SDL-WINDOW-MOUSE-FOCUS        #x00000400)
-(define SDL-WINDOW-FULLSCREEN-DESKTOP (bitwise-ior SDL-WINDOW-FULLSCREEN #x00001000))
+(define SDL-WINDOW-FULLSCREEN-DESKTOP (bitwise-ior SDL-WINDOW-FULLSCREEN
+						   #x00001000))
 (define SDL-WINDOW-FOREIGN            #x00000800)
 (define SDL-WINDOW-ALLOW-HIGHDPI      #x00002000)
 
@@ -51,40 +52,31 @@
 (define SDL-RENDERER-TARGETTEXTURE #x00000008)
 
 
-(define SDL-ADDEVENT  0)
-(define SDL-PEEKEVENT 1)
-(define SDL-GETEVENT  2)
-
-
-;; https://wiki.libsdl.org/SDL_Rect
-(define-ftype sdl-rect
+(define-ftype sdl-c-rect
   (struct
     [x int]
     [y int]
     [w int]
     [h int]))
 
-;; https://wiki.libsdl.org/SDL_Color
-(define-ftype sdl-color
+(define-ftype sdl-c-color
   (struct
     [r unsigned-8]
     [g unsigned-8]
     [b unsigned-8]
     [a unsigned-8]))
 
-;; https://wiki.libsdl.org/SDL_Palette
-(define-ftype sdl-palette
+(define-ftype sdl-c-palette
   (struct
     [ncolors  int]
-    [colors   (* sdl-color)]
+    [colors   (* sdl-c-color)]
     [version  unsigned-32]
     [refcount int]))
 
-;; https://wiki.libsdl.org/SDL_PixelFormat
-(define-ftype sdl-pixel-format
+(define-ftype sdl-c-pixel-format
   (struct
     [format          unsigned-32]
-    [palette         (* sdl-palette)]
+    [palette         (* sdl-c-palette)]
     [bits-per-pixel  unsigned-8]
     [bytes-per-pixel unsigned-8]
     [padding         (array 2 unsigned-8)]
@@ -101,13 +93,12 @@
     [b-shift         unsigned-8]
     [a-shift         unsigned-8]
     [refcount        int]
-    [next            (* sdl-pixel-format)]))
+    [next            (* sdl-c-pixel-format)]))
 
-;; https://wiki.libsdl.org/SDL_Surface
-(define-ftype sdl-surface
+(define-ftype sdl-c-surface
   (struct
     [flags     unsigned-32]
-    [format    (* sdl-pixel-format)]
+    [format    (* sdl-c-pixel-format)]
     [w         int]
     [h         int]
     [pitch     int]
@@ -115,32 +106,98 @@
     [userdata  void*]
     [locked    int]
     [lock-data void*]
-    [clip-rect sdl-rect]
+    [clip-rect sdl-c-rect]
     [b-map     void*] ; NOTE: Should be SDL_BlitMap
     [refcount  int]))
 
 
-(define (sdl-create-window title x y w h . flags)
-  (define create-win
-    (foreign-procedure "SDL_CreateWindow" (string int int int int unsigned-32) void*))
-
-  (if (null? flags)
-      (create-win title x y w h SDL-WINDOW-SHOWN)
-      (create-win title x y w h (fold-right bitwise-ior #x00000000 flags))))
+(define-record-type sdl-rect
+  (fields x
+	  y
+	  w
+	  h))
 
 
-(define sdl-get-window-surface
-  (foreign-procedure "SDL_GetWindowSurface" (void*) (* sdl-surface)))
+(define (sdl-surface? s) #f)
+
+(define (sdl-surface-fmt s) 0)
+
+(define (sdl-surface-w s) 0)
+
+(define (sdl-surface-h s) 0)
+
+(define (sdl-surface-pitch s) 0)
+
+(define (sdl-surface-pxl s) 0)
 
 
-(define sdl-update-window-surface
-  (foreign-procedure "SDL_UpdateWindowSurface" (void*) int))
+(define sdl-create-window
+  (foreign-procedure "SDL_CreateWindow"
+		     (string int int int int unsigned-32) void*))
 
 
 (define sdl-destroy-window
   (foreign-procedure "SDL_DestroyWindow" (void*) void))
 
 
-(define sdl-free-surface
-  (foreign-procedure "SDL_FreeSurface" ((* sdl-surface)) void))
+(define sdl-disable-screen-saver
+  (foreign-procedure "SDL_DisableScreenSaver" () void))
 
+
+(define sdl-enable-screen-saver
+  (foreign-procedure "SDL_EnableScreenSaver" () void))
+
+
+(define sdl-get-window-surface
+  (foreign-procedure "SDL_GetWindowSurface" (void*) (* sdl-c-surface)))
+
+
+(define sdl-update-window-surface
+  (foreign-procedure "SDL_UpdateWindowSurface" (void*) int))
+
+
+
+(define sdl-free-surface
+  (foreign-procedure "SDL_FreeSurface" ((* sdl-c-surface)) void))
+
+
+(define (sdl-load-bmp file)
+  (sdl-load-bmp-rw! (sdl-rw-from-file! file "rb") 1))
+
+
+(define sdl-create-renderer
+  (foreign-procedure "SDL_CreateRenderer" (void* int unsigned-32) void*))
+
+
+(define sdl-create-texture-from-surface
+  (foreign-procedure "SDL_CreateTextureFromSurface"
+		     (void* (* sdl-c-surface)) void*))
+
+
+(define sdl-render-clear
+  (foreign-procedure "SDL_RenderClear" (void*) int))
+
+
+(define sdl-render-present
+  (foreign-procedure "SDL_RenderPresent" (void*) void))
+
+
+(define sdl-destroy-texture
+  (foreign-procedure "SDL_DestroyTexture" (void*) void))
+
+
+(define sdl-destroy-renderer
+  (foreign-procedure "SDL_DestroyRenderer" (void*) void))
+
+
+(define sdl-fill-rect
+  (foreign-procedure "SDL_FillRect"
+		     ((* sdl-c-surface) void* unsigned-32) int))
+
+
+(define sdl-map-rgb
+  (foreign-procedure "SDL_MapRGB"
+		     ((* sdl-c-pixel-format)
+		      unsigned-8
+		      unsigned-8
+		      unsigned-8) unsigned-32))
