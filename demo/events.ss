@@ -24,15 +24,17 @@
 (define (event-loop)
   (sdl-poll-event)
   (cond
-   ((sdl-event-none?)    (event-loop))
-   ((sdl-event-quit?)    '())
-   ((sdl-event-keyup?)   (event-loop))
-   ((sdl-event-keydown?) (event-loop))
+   ((sdl-event-none?)            (event-loop))
+   ((sdl-event-quit?)            '())
+   ((sdl-event-key-up? SDLK-A)   (pretty-print "A is released.")
+                                 (event-loop))
+   ((sdl-event-key-down? SDLK-A) (pretty-print "A is pressed.")
+                                 (event-loop))
    (else
     (event-loop))))
 
-(event-loop)
 
+(event-loop)
 
 (sdl-destroy-window win)
 (sdl-quit)

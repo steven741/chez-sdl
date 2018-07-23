@@ -107,7 +107,7 @@
 	(make-ftype-pointer sdl-c-event
 			    (foreign-alloc (ftype-sizeof sdl-c-event))))
 
-  ((foreign-procedure "SDL_Init" (unsigned-32) int) flags))
+  (= 0 ((foreign-procedure "SDL_Init" (unsigned-32) int) flags)))
 
 
 (define (sdl-quit)
@@ -158,17 +158,17 @@
   (let
       ([s (make-ftype-pointer
 	   sdl-c-version
-	   (foreign-alloc (ftype-sizeof
-			   sdl-c-version)))])
+	   (foreign-alloc (ftype-sizeof sdl-c-version)))])
     ((foreign-procedure "SDL_GetVersion" ((* sdl-c-version)) void) s)
+
     (let
-	([ret (list
+	([ver (list
 	       (ftype-ref sdl-c-version (major) s)
 	       (ftype-ref sdl-c-version (minor) s)
 	       (ftype-ref sdl-c-version (patch) s))])
       (foreign-free (ftype-pointer-address s))
 
-      ret)))
+      ver)))
 
 
 (define sdl-get-revision

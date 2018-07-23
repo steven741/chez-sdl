@@ -152,7 +152,7 @@
    sdl-enable-screen-saver
    sdl-get-window-surface
    sdl-update-window-surface
- 
+
    sdl-create-renderer
    sdl-create-texture-from-surface
    sdl-render-clear
@@ -174,24 +174,354 @@
    ;;;;;;;;;;;;;
    ;;; Event ;;;
    ;;;;;;;;;;;;;
+   SDL-SCANCODE-UNKNOWN            SDLK-UNKNOWN
+   SDL-SCANCODE-A                  SDLK-A
+   SDL-SCANCODE-B                  SDLK-B
+   SDL-SCANCODE-C                  SDLK-C
+   SDL-SCANCODE-D                  SDLK-D
+   SDL-SCANCODE-E                  SDLK-E
+   SDL-SCANCODE-F                  SDLK-F
+   SDL-SCANCODE-G                  SDLK-G
+   SDL-SCANCODE-H                  SDLK-H
+   SDL-SCANCODE-I                  SDLK-I
+   SDL-SCANCODE-J                  SDLK-J
+   SDL-SCANCODE-K                  SDLK-K
+   SDL-SCANCODE-L                  SDLK-L
+   SDL-SCANCODE-M                  SDLK-M
+   SDL-SCANCODE-N                  SDLK-N
+   SDL-SCANCODE-O                  SDLK-O
+   SDL-SCANCODE-P                  SDLK-P
+   SDL-SCANCODE-Q                  SDLK-Q
+   SDL-SCANCODE-R                  SDLK-R
+   SDL-SCANCODE-S                  SDLK-S
+   SDL-SCANCODE-T                  SDLK-T
+   SDL-SCANCODE-U                  SDLK-U
+   SDL-SCANCODE-V                  SDLK-V
+   SDL-SCANCODE-W                  SDLK-W
+   SDL-SCANCODE-X                  SDLK-X
+   SDL-SCANCODE-Y                  SDLK-Y
+   SDL-SCANCODE-Z                  SDLK-Z
+   SDL-SCANCODE-1                  SDLK-1
+   SDL-SCANCODE-2                  SDLK-2
+   SDL-SCANCODE-3                  SDLK-3
+   SDL-SCANCODE-4                  SDLK-4
+   SDL-SCANCODE-5                  SDLK-5
+   SDL-SCANCODE-6                  SDLK-6
+   SDL-SCANCODE-7                  SDLK-7
+   SDL-SCANCODE-8                  SDLK-8
+   SDL-SCANCODE-9                  SDLK-9
+   SDL-SCANCODE-0                  SDLK-0
+   SDL-SCANCODE-RETURN             SDLK-RETURN
+   SDL-SCANCODE-ESCAPE             SDLK-ESCAPE
+   SDL-SCANCODE-BACKSPACE          SDLK-BACKSPACE
+   SDL-SCANCODE-TAB                SDLK-TAB
+   SDL-SCANCODE-SPACE              SDLK-SPACE
+   SDL-SCANCODE-MINUS              SDLK-MINUS
+   SDL-SCANCODE-EQUALS             SDLK-EQUALS
+   SDL-SCANCODE-LEFTBRACKET        SDLK-LEFTBRACKET
+   SDL-SCANCODE-RIGHTBRACKET       SDLK-RIGHTBRACKET
+   SDL-SCANCODE-BACKSLASH          SDLK-BACKSLASH
+   SDL-SCANCODE-NONUSHASH
+   SDL-SCANCODE-SEMICOLON          SDLK-SEMICOLON
+   SDL-SCANCODE-APOSTROPHE         SDLK-QUOTE
+   SDL-SCANCODE-GRAVE              SDLK-BACKQUOTE
+   SDL-SCANCODE-COMMA              SDLK-COMMA
+   SDL-SCANCODE-PERIOD             SDLK-PERIOD
+   SDL-SCANCODE-SLASH              SDLK-SLASH
+   SDL-SCANCODE-CAPSLOCK           SDLK-CAPSLOCK
+   SDL-SCANCODE-F1                 SDLK-F1
+   SDL-SCANCODE-F2                 SDLK-F2
+   SDL-SCANCODE-F3                 SDLK-F3
+   SDL-SCANCODE-F4                 SDLK-F4
+   SDL-SCANCODE-F5                 SDLK-F5
+   SDL-SCANCODE-F6                 SDLK-F6
+   SDL-SCANCODE-F7                 SDLK-F7
+   SDL-SCANCODE-F8                 SDLK-F8
+   SDL-SCANCODE-F9                 SDLK-F9
+   SDL-SCANCODE-F10                SDLK-F10
+   SDL-SCANCODE-F11                SDLK-F11
+   SDL-SCANCODE-F12                SDLK-F12
+   SDL-SCANCODE-PRINTSCREEN        SDLK-PRINTSCREEN
+   SDL-SCANCODE-SCROLLLOCK         SDLK-SCROLLLOCK
+   SDL-SCANCODE-PAUSE              SDLK-PAUSE
+   SDL-SCANCODE-INSERT             SDLK-INSERT
+   SDL-SCANCODE-HOME               SDLK-HOME
+   SDL-SCANCODE-PAGEUP             SDLK-PAGEUP
+   SDL-SCANCODE-DELETE             SDLK-DELETE
+   SDL-SCANCODE-END                SDLK-END
+   SDL-SCANCODE-PAGEDOWN           SDLK-PAGEDOWN
+   SDL-SCANCODE-RIGHT              SDLK-RIGHT
+   SDL-SCANCODE-LEFT               SDLK-LEFT
+   SDL-SCANCODE-DOWN               SDLK-DOWN
+   SDL-SCANCODE-UP                 SDLK-UP
+   SDL-SCANCODE-NUMLOCKCLEAR       SDLK-NUMLOCKCLEAR
+   SDL-SCANCODE-KP-DIVIDE          SDLK-KP-DIVIDE
+   SDL-SCANCODE-KP-MULTIPLY        SDLK-KP-MULTIPLY
+   SDL-SCANCODE-KP-MINUS           SDLK-KP-MINUS
+   SDL-SCANCODE-KP-PLUS            SDLK-KP-PLUS
+   SDL-SCANCODE-KP-ENTER           SDLK-KP-ENTER
+   SDL-SCANCODE-KP-1               SDLK-KP-1
+   SDL-SCANCODE-KP-2               SDLK-KP-2
+   SDL-SCANCODE-KP-3               SDLK-KP-3
+   SDL-SCANCODE-KP-4               SDLK-KP-4
+   SDL-SCANCODE-KP-5               SDLK-KP-5
+   SDL-SCANCODE-KP-6               SDLK-KP-6
+   SDL-SCANCODE-KP-7               SDLK-KP-7
+   SDL-SCANCODE-KP-8               SDLK-KP-8
+   SDL-SCANCODE-KP-9               SDLK-KP-9
+   SDL-SCANCODE-KP-0               SDLK-KP-0
+   SDL-SCANCODE-KP-PERIOD          SDLK-KP-PERIOD
+   SDL-SCANCODE-NONUSBACKSLASH
+   SDL-SCANCODE-APPLICATION        SDLK-APPLICATION
+   SDL-SCANCODE-POWER              SDLK-POWER
+   SDL-SCANCODE-KP-EQUALS          SDLK-KP-EQUALS
+   SDL-SCANCODE-F13                SDLK-F13
+   SDL-SCANCODE-F14                SDLK-F14
+   SDL-SCANCODE-F15                SDLK-F15
+   SDL-SCANCODE-F16                SDLK-F16
+   SDL-SCANCODE-F17                SDLK-F17
+   SDL-SCANCODE-F18                SDLK-F18
+   SDL-SCANCODE-F19                SDLK-F19
+   SDL-SCANCODE-F20                SDLK-F20
+   SDL-SCANCODE-F21                SDLK-F21
+   SDL-SCANCODE-F22                SDLK-F22
+   SDL-SCANCODE-F23                SDLK-F23
+   SDL-SCANCODE-F24                SDLK-F24
+   SDL-SCANCODE-EXECUTE            SDLK-EXECUTE
+   SDL-SCANCODE-HELP               SDLK-HELP
+   SDL-SCANCODE-MENU               SDLK-MENU
+   SDL-SCANCODE-SELECT             SDLK-SELECT
+   SDL-SCANCODE-STOP               SDLK-STOP
+   SDL-SCANCODE-AGAIN              SDLK-AGAIN
+   SDL-SCANCODE-UNDO               SDLK-UNDO
+   SDL-SCANCODE-CUT                SDLK-CUT
+   SDL-SCANCODE-COPY               SDLK-COPY
+   SDL-SCANCODE-PASTE              SDLK-PASTE
+   SDL-SCANCODE-FIND               SDLK-FIND
+   SDL-SCANCODE-MUTE               SDLK-MUTE
+   SDL-SCANCODE-VOLUMEUP           SDLK-VOLUMEUP
+   SDL-SCANCODE-VOLUMEDOWN         SDLK-VOLUMEDOWN
+   SDL-SCANCODE-KP-COMMA           SDLK-KP-COMMA
+   SDL-SCANCODE-KP-EQUALSAS400     SDLK-KP-EQUALSAS400
+   SDL-SCANCODE-INTERNATIONAL1
+   SDL-SCANCODE-INTERNATIONAL2
+   SDL-SCANCODE-INTERNATIONAL3
+   SDL-SCANCODE-INTERNATIONAL4
+   SDL-SCANCODE-INTERNATIONAL5
+   SDL-SCANCODE-INTERNATIONAL6
+   SDL-SCANCODE-INTERNATIONAL7
+   SDL-SCANCODE-INTERNATIONAL8
+   SDL-SCANCODE-INTERNATIONAL9
+   SDL-SCANCODE-LANG1
+   SDL-SCANCODE-LANG2
+   SDL-SCANCODE-LANG3
+   SDL-SCANCODE-LANG4
+   SDL-SCANCODE-LANG5
+   SDL-SCANCODE-LANG6
+   SDL-SCANCODE-LANG7
+   SDL-SCANCODE-LANG8
+   SDL-SCANCODE-LANG9
+   SDL-SCANCODE-ALTERASE           SDLK-ALTERASE
+   SDL-SCANCODE-SYSREQ             SDLK-SYSREQ
+   SDL-SCANCODE-CANCEL             SDLK-CANCEL
+   SDL-SCANCODE-CLEAR              SDLK-CLEAR
+   SDL-SCANCODE-PRIOR              SDLK-PRIOR
+   SDL-SCANCODE-RETURN2            SDLK-RETURN2
+   SDL-SCANCODE-SEPARATOR          SDLK-SEPARATOR
+   SDL-SCANCODE-OUT                SDLK-OUT
+   SDL-SCANCODE-OPER               SDLK-OPER
+   SDL-SCANCODE-CLEARAGAIN         SDLK-CLEARAGAIN
+   SDL-SCANCODE-CRSEL              SDLK-CRSEL
+   SDL-SCANCODE-EXSEL              SDLK-EXSEL
+   SDL-SCANCODE-KP-00              SDLK-KP-00
+   SDL-SCANCODE-KP-000             SDLK-KP-000
+   SDL-SCANCODE-THOUSANDSSEPARATOR SDLK-THOUSANDSSEPARATOR
+   SDL-SCANCODE-DECIMALSEPARATOR   SDLK-DECIMALSEPARATOR
+   SDL-SCANCODE-CURRENCYUNIT       SDLK-CURRENCYUNIT
+   SDL-SCANCODE-CURRENCYSUBUNIT    SDLK-CURRENCYSUBUNIT
+   SDL-SCANCODE-KP-LEFTPAREN       SDLK-KP-LEFTPAREN
+   SDL-SCANCODE-KP-RIGHTPAREN      SDLK-KP-RIGHTPAREN
+   SDL-SCANCODE-KP-LEFTBRACE       SDLK-KP-LEFTBRACE
+   SDL-SCANCODE-KP-RIGHTBRACE      SDLK-KP-RIGHTBRACE
+   SDL-SCANCODE-KP-TAB             SDLK-KP-TAB
+   SDL-SCANCODE-KP-BACKSPACE       SDLK-KP-BACKSPACE
+   SDL-SCANCODE-KP-A               SDLK-KP-A
+   SDL-SCANCODE-KP-B               SDLK-KP-B
+   SDL-SCANCODE-KP-C               SDLK-KP-C
+   SDL-SCANCODE-KP-D               SDLK-KP-D
+   SDL-SCANCODE-KP-E               SDLK-KP-E
+   SDL-SCANCODE-KP-F               SDLK-KP-F
+   SDL-SCANCODE-KP-XOR             SDLK-KP-XOR
+   SDL-SCANCODE-KP-POWER           SDLK-KP-POWER
+   SDL-SCANCODE-KP-PERCENT         SDLK-KP-PERCENT
+   SDL-SCANCODE-KP-LESS            SDLK-KP-LESS
+   SDL-SCANCODE-KP-GREATER         SDLK-KP-GREATER
+   SDL-SCANCODE-KP-AMPERSAND       SDLK-KP-AMPERSAND
+   SDL-SCANCODE-KP-DBLAMPERSAND    SDLK-KP-DBLAMPERSAND
+   SDL-SCANCODE-KP-VERTICALBAR     SDLK-KP-VERTICALBAR
+   SDL-SCANCODE-KP-DBLVERTICALBAR  SDLK-KP-DBLVERTICALBAR
+   SDL-SCANCODE-KP-COLON           SDLK-KP-COLON
+   SDL-SCANCODE-KP-HASH            SDLK-KP-HASH
+   SDL-SCANCODE-KP-SPACE           SDLK-KP-SPACE
+   SDL-SCANCODE-KP-AT              SDLK-KP-AT
+   SDL-SCANCODE-KP-EXCLAM          SDLK-KP-EXCLAM
+   SDL-SCANCODE-KP-MEMSTORE        SDLK-KP-MEMSTORE
+   SDL-SCANCODE-KP-MEMRECALL       SDLK-KP-MEMRECALL
+   SDL-SCANCODE-KP-MEMCLEAR        SDLK-KP-MEMCLEAR
+   SDL-SCANCODE-KP-MEMADD          SDLK-KP-MEMADD
+   SDL-SCANCODE-KP-MEMSUBTRACT     SDLK-KP-MEMSUBTRACT
+   SDL-SCANCODE-KP-MEMMULTIPLY     SDLK-KP-MEMMULTIPLY
+   SDL-SCANCODE-KP-MEMDIVIDE       SDLK-KP-MEMDIVIDE
+   SDL-SCANCODE-KP-PLUSMINUS       SDLK-KP-PLUSMINUS
+   SDL-SCANCODE-KP-CLEAR           SDLK-KP-CLEAR
+   SDL-SCANCODE-KP-CLEARENTRY      SDLK-KP-CLEARENTRY
+   SDL-SCANCODE-KP-BINARY          SDLK-KP-BINARY
+   SDL-SCANCODE-KP-OCTAL           SDLK-KP-OCTAL
+   SDL-SCANCODE-KP-DECIMAL         SDLK-KP-DECIMAL
+   SDL-SCANCODE-KP-HEXADECIMAL     SDLK-KP-HEXADECIMAL
+   SDL-SCANCODE-LCTRL              SDLK-LCTRL
+   SDL-SCANCODE-LSHIFT             SDLK-LSHIFT
+   SDL-SCANCODE-LALT               SDLK-LALT
+   SDL-SCANCODE-LGUI               SDLK-LGUI
+   SDL-SCANCODE-RCTRL              SDLK-RCTRL
+   SDL-SCANCODE-RSHIFT             SDLK-RSHIFT
+   SDL-SCANCODE-RALT               SDLK-RALT
+   SDL-SCANCODE-RGUI               SDLK-RGUI
+   SDL-SCANCODE-MODE               SDLK-MODE
+   SDL-SCANCODE-AUDIONEXT          SDLK-AUDIONEXT
+   SDL-SCANCODE-AUDIOPREV          SDLK-AUDIOPREV
+   SDL-SCANCODE-AUDIOSTOP          SDLK-AUDIOSTOP
+   SDL-SCANCODE-AUDIOPLAY          SDLK-AUDIOPLAY
+   SDL-SCANCODE-AUDIOMUTE          SDLK-AUDIOMUTE
+   SDL-SCANCODE-MEDIASELECT        SDLK-MEDIASELECT
+   SDL-SCANCODE-WWW                SDLK-WWW
+   SDL-SCANCODE-MAIL               SDLK-MAIL
+   SDL-SCANCODE-CALCULATOR         SDLK-CALCULATOR
+   SDL-SCANCODE-COMPUTER           SDLK-COMPUTER
+   SDL-SCANCODE-AC-SEARCH          SDLK-AC-SEARCH
+   SDL-SCANCODE-AC-HOME            SDLK-AC-HOME
+   SDL-SCANCODE-AC-BACK            SDLK-AC-BACK
+   SDL-SCANCODE-AC-FORWARD         SDLK-AC-FORWARD
+   SDL-SCANCODE-AC-STOP            SDLK-AC-STOP
+   SDL-SCANCODE-AC-REFRESH         SDLK-AC-REFRESH
+   SDL-SCANCODE-AC-BOOKMARKS       SDLK-AC-BOOKMARKS
+   SDL-SCANCODE-BRIGHTNESSDOWN     SDLK-BRIGHTNESSDOWN
+   SDL-SCANCODE-BRIGHTNESSUP       SDLK-BRIGHTNESSUP
+   SDL-SCANCODE-DISPLAYSWITCH      SDLK-DISPLAYSWITCH
+   SDL-SCANCODE-KBDILLUMTOGGLE     SDLK-KBDILLUMTOGGLE
+   SDL-SCANCODE-KBDILLUMDOWN       SDLK-KBDILLUMDOWN
+   SDL-SCANCODE-KBDILLUMUP         SDLK-KBDILLUMUP
+   SDL-SCANCODE-EJECT              SDLK-EJECT
+   SDL-SCANCODE-SLEEP              SDLK-SLEEP
+   SDL-SCANCODE-APP1               SDLK-APP1
+   SDL-SCANCODE-APP2               SDLK-APP2
+   SDL-SCANCODE-AUDIOREWIND        SDLK-AUDIOREWIND
+   SDL-SCANCODE-AUDIOFASTFORWARD   SDLK-AUDIOFASTFORWARD
+                                   SDLK-EXCLAIM
+                                   SDLK-QUOTEDBL
+				   SDLK-HASH
+				   SDLK-PERCENT
+				   SDLK-DOLLAR
+				   SDLK-AMPERSAND
+				   SDLK-LEFTPAREN
+				   SDLK-RIGHTPAREN
+				   SDLK-ASTERISK
+				   SDLK-PLUS
+				   SDLK-COLON
+				   SDLK-LESS
+				   SDLK-GREATER
+				   SDLK-QUESTION
+				   SDLK-AT
+				   SDLK-CARET
+				   SDLK-UNDERSCORE
+
+   KMOD-NONE
+   KMOD-LSHIFT
+   KMOD-RSHIFT
+   KMOD-LCTRL
+   KMOD-RCTRL
+   KMOD-LALT
+   KMOD-RALT
+   KMOD-LGUI
+   KMOD-RGUI
+   KMOD-NUM
+   KMOD-CAPS
+   KMOD-MODE
+   KMOD-RESERVED
+   KMOD-CTRL
+   KMOD-SHIFT
+   KMOD-ALT
+   KMOD-GUI
+
+   sdl-poll-event
+
+   sdl-event-timestamp
    sdl-event-none?
    sdl-event-quit?
    sdl-event-keyup?
    sdl-event-keydown?
 
-   sdl-poll-event
+   ; Window Events
+   #|
+   sdl-event-win-id
+   sdl-event-win-x
+   sdl-event-win-y
+   sdl-event-win-w
+   sdl-event-win-h
+   sdl-event-win-shown?
+   sdl-event-win-hidden?
+   sdl-event-win-exposed?
+   sdl-event-win-moved?
+   sdl-event-win-resized?
+   sdl-event-win-size-changed?
+   sdl-event-win-minimized?
+   sdl-event-win-maximized?
+   sdl-event-win-restored?
+   sdl-event-win-enter?
+   sdl-event-win-leave?
+   sdl-event-win-focus-gained?
+   sdl-event-win-focus-lost?
+   sdl-event-win-close?
+   sdl-event-win-take-focus?
+   sdl-event-win-hit-test?
+   |#
+
+   ; Keyboard Events
+   sdl-event-key-repeat?
+   sdl-event-key-up?
+   sdl-event-key-down?
+   sdl-event-mod-up?
+   sdl-event-mod-down?
+   sdl-event-code-up?
+   sdl-event-code-down?
+
+   ; Text Events
+   ; Mouse Events
+   ; Joystick Events
+   ; Game Controller
+   ; Audio Events
+   ; Touch Events
+   ; Drag & Drop Events
 
 
    ;;;;;;;;;;;;;
    ;;; Force ;;;
    ;;;;;;;;;;;;;
-
+   
    ;;;;;;;;;;;;;
    ;;; Power ;;;
    ;;;;;;;;;;;;;
    sdl-get-power-info
 
 
+   ;;;;;;;;;;;;;
+   ;;; Timer ;;;
+   ;;;;;;;;;;;;;
+   
+   ;;;;;;;;;;;;;
+   ;;; Touch ;;;
+   ;;;;;;;;;;;;;
+   
    ;;;;;;;;;;;;;
    ;;; Extra ;;;
    ;;;;;;;;;;;;;
@@ -239,4 +569,6 @@
   (include "lib/sdl-event.sls")
   (include "lib/sdl-force.sls")
   (include "lib/sdl-power.sls")
+  (include "lib/sdl-timer.sls")
+  (include "lib/sdl-touch.sls")
   (include "lib/sdl-extra.sls"))

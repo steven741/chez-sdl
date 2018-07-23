@@ -4,12 +4,6 @@
 ;;;;
 ;;;;
 
-
-(define SDL-ADDEVENT  0)
-(define SDL-PEEKEVENT 1)
-(define SDL-GETEVENT  2)
-
-
 ;;;
 ;;; Keyboard
 ;;;
@@ -327,32 +321,32 @@
 (define SDLK-CARET        (char->integer #\^))
 (define SDLK-UNDERSCORE   (char->integer #\_))
 (define SDLK-BACKQUOTE    (char->integer #\`))
-(define SDLK-a            (char->integer #\a))
-(define SDLK-b            (char->integer #\b))
-(define SDLK-c            (char->integer #\c))
-(define SDLK-d            (char->integer #\d))
-(define SDLK-e            (char->integer #\e))
-(define SDLK-f            (char->integer #\f))
-(define SDLK-g            (char->integer #\g))
-(define SDLK-h            (char->integer #\h))
-(define SDLK-i            (char->integer #\i))
-(define SDLK-j            (char->integer #\j))
-(define SDLK-k            (char->integer #\k))
-(define SDLK-l            (char->integer #\l))
-(define SDLK-m            (char->integer #\m))
-(define SDLK-n            (char->integer #\n))
-(define SDLK-o            (char->integer #\o))
-(define SDLK-p            (char->integer #\p))
-(define SDLK-q            (char->integer #\q))
-(define SDLK-r            (char->integer #\r))
-(define SDLK-s            (char->integer #\s))
-(define SDLK-t            (char->integer #\t))
-(define SDLK-u            (char->integer #\u))
-(define SDLK-v            (char->integer #\v))
-(define SDLK-w            (char->integer #\w))
-(define SDLK-x            (char->integer #\x))
-(define SDLK-y            (char->integer #\y))
-(define SDLK-z            (char->integer #\z))
+(define SDLK-A            (char->integer #\a))
+(define SDLK-B            (char->integer #\b))
+(define SDLK-C            (char->integer #\c))
+(define SDLK-D            (char->integer #\d))
+(define SDLK-E            (char->integer #\e))
+(define SDLK-F            (char->integer #\f))
+(define SDLK-G            (char->integer #\g))
+(define SDLK-H            (char->integer #\h))
+(define SDLK-I            (char->integer #\i))
+(define SDLK-J            (char->integer #\j))
+(define SDLK-K            (char->integer #\k))
+(define SDLK-L            (char->integer #\l))
+(define SDLK-M            (char->integer #\m))
+(define SDLK-N            (char->integer #\n))
+(define SDLK-O            (char->integer #\o))
+(define SDLK-P            (char->integer #\p))
+(define SDLK-Q            (char->integer #\q))
+(define SDLK-R            (char->integer #\r))
+(define SDLK-S            (char->integer #\s))
+(define SDLK-T            (char->integer #\t))
+(define SDLK-U            (char->integer #\u))
+(define SDLK-V            (char->integer #\v))
+(define SDLK-W            (char->integer #\w))
+(define SDLK-X            (char->integer #\x))
+(define SDLK-Y            (char->integer #\y))
+(define SDLK-Z            (char->integer #\z))
 
 (define SDLK-CAPSLOCK (SDL-SCANCODE-TO-KEYCODE SDL-SCANCODE-CAPSLOCK))
 
@@ -827,7 +821,7 @@
   (struct
    [type      unsigned-32]
    [timestamp unsigned-32]
-   [msg       void*])) ; NOTE: this shouldn't be void* it should be SDL_SysWMmsg*
+   [msg       void*]))
 
 (define-ftype sdl-c-touch-finger-event
   (struct
@@ -904,26 +898,225 @@
 
 
 (define (sdl-poll-event)
-  (sdl-poll-event! event-mem) '())
+  (if (= 0 (sdl-poll-event! event-mem))
+      (set! _sdl-event-none? #t)
+      (set! _sdl-event-none? #f)))
 
-
+(define _sdl-event-none? #t)
 (define (sdl-event-none?)
-  (null-ptr? event-mem))
+  _sdl-event-none?)
 
+
+(define (sdl-event-timestamp)
+  (error 'SDL "not implemented") sdl-event-timestamp)
+
+
+;;; Application Events ;;;
 
 (define (sdl-event-quit?)
-  (if (null-ptr? event-mem)
+  (if (sdl-event-none?)
       #f
-      (= SDL-QUIT-E (ftype-ref sdl-c-event (type) event-mem))))
+      (= SDL-QUIT-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
 
+(define (sdl-event-terminating?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-APP-TERMINATING-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-low-memory?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-APP-LOWMEMORY-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-will-enter-background?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-APP-WILLENTERBACKGROUND-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-did-enter-background?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-APP-DIDENTERBACKGROUND-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-will-enter-foreground?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-APP-WILLENTERFOREGROUND-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-did-enter-foreground?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-APP-DIDENTERFOREGROUND-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+
+;;; Window Events ;;;
+
+(define (sdl-event-window?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-WINDOWEVENT-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-syswm?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-SYSWMEVENT-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+
+;;; Keyboard Events ;;;
 
 (define (sdl-event-keyup?)
-  (if (null-ptr? event-mem)
+  (if (sdl-event-none?)
       #f
-      (= SDL-KEYUP-E (ftype-ref sdl-c-event (type) event-mem))))
-
+      (= SDL-KEYUP-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
 
 (define (sdl-event-keydown?)
-  (if (null-ptr? event-mem)
+  (if (sdl-event-none?)
       #f
-      (= SDL-KEYDOWN-E (ftype-ref sdl-c-event (type) event-mem))))
+      (= SDL-KEYDOWN-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-text-editing?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-TEXTEDITING-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-text-input?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-TEXTINPUT-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-key-map-changed?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-KEYMAPCHANGED-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+
+(define (sdl-event-key-repeat?)
+  (if (or (sdl-event-keyup?)
+	  (sdl-event-keydown?))
+      (not
+       (= 0 (ftype-ref sdl-c-keyboard-event (repeat)
+		       (ftype-&ref sdl-c-event (key) event-mem))))
+      #f))
+
+(define (sdl-event-key-up? key)
+  (if (sdl-event-keyup?)
+      (= key
+	 (ftype-ref sdl-c-keysym (sym)
+		    (ftype-&ref sdl-c-keyboard-event (keysym)
+				(ftype-&ref sdl-c-event (key) event-mem))))
+      #f))
+
+(define (sdl-event-key-down? key)
+  (if (sdl-event-keydown?)
+      (= key
+	 (ftype-ref sdl-c-keysym (sym)
+		    (ftype-&ref sdl-c-keyboard-event (keysym)
+				(ftype-&ref sdl-c-event (key) event-mem))))
+      #f))
+
+(define (sdl-event-code-up? code)
+  (if (sdl-event-keyup?)
+      (= code
+	 (ftype-ref sdl-c-keysym (scancode)
+		    (ftype-&ref sdl-c-keyboard-event (keysym)
+				(ftype-&ref sdl-c-event (key) event-mem))))
+      #f))
+
+(define (sdl-event-code-down? code)
+  (if (sdl-event-keydown?)
+      (= code
+	 (ftype-ref sdl-c-keysym (scancode)
+		    (ftype-&ref sdl-c-keyboard-event (keysym)
+				(ftype-&ref sdl-c-event (key) event-mem))))
+      #f))
+
+(define (sdl-event-mod-up? mod)
+  (if (sdl-event-keyup?)
+      (= mod
+	 (ftype-ref sdl-c-keysym (mod)
+		    (ftype-&ref sdl-c-keyboard-event (keysym)
+				(ftype-&ref sdl-c-event (key) event-mem))))
+      #f))
+
+(define (sdl-event-mod-down? mod)
+  (if (sdl-event-keydown?)
+      (= mod
+	 (ftype-ref sdl-c-keysym (mod)
+		    (ftype-&ref sdl-c-keyboard-event (keysym)
+				(ftype-&ref sdl-c-event (key) event-mem))))
+      #f))
+
+
+;;; Mouse Events ;;;
+
+
+;;; Joystick Events ;;;
+
+
+;;; Game Controller Events ;;;
+
+#|
+;; Mouse events
+(define SDL-MOUSEMOTION-E     #x400)
+(define SDL-MOUSEBUTTONDOWN-E #x401)
+(define SDL-MOUSEBUTTONUP-E   #x402)
+(define SDL-MOUSEWHEEL-E      #x403)
+
+;; Joystick events
+(define SDL-JOYAXISMOTION-E    #x600)
+(define SDL-JOYBALLMOTION-E    #x601)
+(define SDL-JOYHATMOTION-E     #x602)
+(define SDL-JOYBUTTONDOWN-E    #x603)
+(define SDL-JOYBUTTONUP-E      #x604)
+(define SDL-JOYDEVICEADDED-E   #x605)
+(define SDL-JOYDEVICEREMOVED-E #x606)
+
+;; Game controller events
+(define SDL-CONTROLLERAXISMOTION-E     #x650)
+(define SDL-CONTROLLERBUTTONDOWN-E     #x651)
+(define SDL-CONTROLLERBUTTONUP-E       #x652)
+(define SDL-CONTROLLERDEVICEADDED-E    #x653)
+(define SDL-CONTROLLERDEVICEREMOVED-E  #x654)
+(define SDL-CONTROLLERDEVICEREMAPPED-E #x655)
+
+;; Touch events
+(define SDL-FINGERDOWN-E   #x700)
+(define SDL-FINGERUP-E     #x701)
+(define SDL-FINGERMOTION-E #x702)
+
+;; Gesture events
+(define SDL-DOLLARGESTURE-E #x800)
+(define SDL-DOLLARRECORD-E  #x801)
+(define SDL-MULTIGESTURE-E  #x802)
+
+;; Clipboard events
+(define SDL-CLIPBOARDUPDATE-E #x900)
+
+;; Drag and drop events
+(define SDL-DROPFILE-E     #x1000)
+(define SDL-DROPTEXT-E     #x1001)
+(define SDL-DROPBEGIN-E    #x1002)
+(define SDL-DROPCOMPLETE-E #x1003)
+
+;; Audio hotplug events
+(define SDL-AUDIODEVICEADDED-E   #x1100)
+(define SDL-AUDIODEVICEREMOVED-E #x1101)
+
+;; Render events
+(define SDL-RENDER-TARGETS-RESET-E #x2000)
+(define SDL-RENDER-DEVICE-RESET-E  #x2001)
+|#
