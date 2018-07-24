@@ -900,7 +900,7 @@
 (define-ftype sdl-c-event
   (union
    [type unsigned-32]
-   
+
    [common   sdl-c-common-event]
    [window   sdl-c-window-event]
    [key      sdl-c-keyboard-event]
@@ -925,7 +925,7 @@
    [mgesture sdl-c-multi-gesture-event]
    [dgesture sdl-c-dollar-gesture-event]
    [drop     sdl-c-drop-event]
-   
+
    [padding (array 56 unsigned-8)]))
 
 
@@ -949,6 +949,12 @@
   (if (sdl-event-none?)
       #f
       (= SDL-QUIT-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-clipboard?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-CLIPBOARDUPDATE-E
 	 (ftype-ref sdl-c-event (type) event-mem))))
 
 (define (sdl-event-terminating?)
@@ -985,6 +991,18 @@
   (if (sdl-event-none?)
       #f
       (= SDL-APP-DIDENTERFOREGROUND-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-render-target-reset?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-RENDER-TARGETS-RESET-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-render-device-reset?)
+  (if (sdl-event-render-device-reset?)
+      #f
+      (= SDL-RENDER-DEVICE-RESET-E
 	 (ftype-ref sdl-c-event (type) event-mem))))
 
 
@@ -1421,7 +1439,8 @@
 			  (ftype-&ref sdl-c-event (wheel) event-mem))])
 	(cond
 	 ((= d 0) 'SDL-MOUSE-WHEEL-NORMAL)
-	 ((= d 1) 'SDL-MOUSE-WHEEL-FLIPPED)))
+	 ((= d 1) 'SDL-MOUSE-WHEEL-FLIPPED)
+	 (else '())))
       '()))
 
 
@@ -1430,18 +1449,17 @@
 
 ;;; Game Controller Events ;;;
 
-#|
-   [wheel    sdl-c-mouse-wheel-event]
 
-(define-ftype sdl-c-mouse-wheel-event
-  (struct
-   [type      unsigned-32]
-   [timestamp unsigned-32]
-   [windowID  unsigned-32]
-   [which     unsigned-32]
-   [x         integer-32]
-   [y         integer-32]
-   [direction unsigned-32]))
+;;; Drag & Drop Events ;;;
+
+
+#|
+;; Drag and drop events
+(define SDL-DROPFILE-E     #x1000)
+(define SDL-DROPTEXT-E     #x1001)
+(define SDL-DROPBEGIN-E    #x1002)
+(define SDL-DROPCOMPLETE-E #x1003)
+
 
 ;; Joystick events
 (define SDL-JOYAXISMOTION-E    #x600)
@@ -1470,20 +1488,7 @@
 (define SDL-DOLLARRECORD-E  #x801)
 (define SDL-MULTIGESTURE-E  #x802)
 
-;; Clipboard events
-(define SDL-CLIPBOARDUPDATE-E #x900)
-
-;; Drag and drop events
-(define SDL-DROPFILE-E     #x1000)
-(define SDL-DROPTEXT-E     #x1001)
-(define SDL-DROPBEGIN-E    #x1002)
-(define SDL-DROPCOMPLETE-E #x1003)
-
 ;; Audio hotplug events
 (define SDL-AUDIODEVICEADDED-E   #x1100)
 (define SDL-AUDIODEVICEREMOVED-E #x1101)
-
-;; Render events
-(define SDL-RENDER-TARGETS-RESET-E #x2000)
-(define SDL-RENDER-DEVICE-RESET-E  #x2001)
 |#

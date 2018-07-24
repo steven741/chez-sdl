@@ -459,12 +459,15 @@
 
    ; Application Events
    sdl-event-quit?
+   sdl-event-clipboard?
    sdl-event-terminating?
    sdl-event-low-memory?
    sdl-event-will-enter-background?
    sdl-event-did-enter-background?
    sdl-event-will-enter-foreground?
    sdl-event-did-enter-foreground?
+   sdl-event-render-target-reset?
+   sdl-event-render-device-reset?
 
    ; Window Events
    sdl-event-window?
