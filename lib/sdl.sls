@@ -517,7 +517,11 @@
    ;;;;;;;;;;;;;
    ;;; Timer ;;;
    ;;;;;;;;;;;;;
-   
+   sdl-delay
+   sdl-get-ticks
+   sdl-get-performance-counter
+   sdl-get-performance-frequency
+
    ;;;;;;;;;;;;;
    ;;; Touch ;;;
    ;;;;;;;;;;;;;
