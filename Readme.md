@@ -11,7 +11,6 @@ This is a SDL 2 interface for Chez Scheme.
 * Clipboard
 
 ## Events
-* Windowing Events
 * Textual Input Handling
 * Mouse Events
 * Joystick Events
@@ -25,12 +24,6 @@ This is a SDL 2 interface for Chez Scheme.
 
 ## Audio
 * Basic audio system
-
-## Timer
-* Counters
-
-
-   [window   sdl-c-window-event]
 
    [edit     sdl-c-text-editing-event]
    [text     sdl-c-text-input-event]

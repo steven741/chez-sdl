@@ -457,21 +457,25 @@
 
    sdl-event-timestamp
    sdl-event-none?
+
+   ; Application Events
    sdl-event-quit?
-   sdl-event-keyup?
-   sdl-event-keydown?
+   sdl-event-terminating?
+   sdl-event-low-memory?
+   sdl-event-will-enter-background?
+   sdl-event-did-enter-background?
+   sdl-event-will-enter-foreground?
+   sdl-event-did-enter-foreground?
 
    ; Window Events
-   #|
-   sdl-event-win-id
-   sdl-event-win-x
-   sdl-event-win-y
-   sdl-event-win-w
-   sdl-event-win-h
+   sdl-event-window?
+   sdl-event-syswm?
+
    sdl-event-win-shown?
    sdl-event-win-hidden?
    sdl-event-win-exposed?
    sdl-event-win-moved?
+   
    sdl-event-win-resized?
    sdl-event-win-size-changed?
    sdl-event-win-minimized?
@@ -484,9 +488,17 @@
    sdl-event-win-close?
    sdl-event-win-take-focus?
    sdl-event-win-hit-test?
-   |#
+
+   sdl-event-win-id
+   sdl-event-win-x
+   sdl-event-win-y
+   sdl-event-win-w
+   sdl-event-win-h
 
    ; Keyboard Events
+   sdl-event-keyup?
+   sdl-event-keydown?
+
    sdl-event-key-repeat?
    sdl-event-key-up?
    sdl-event-key-down?

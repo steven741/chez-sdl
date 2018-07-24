@@ -631,6 +631,25 @@
 (define SDL-LASTEVENT-E #xFFFF)
 
 
+;; Window Events
+(define SDL-WINDOW-EVENT-SHOWN        1)
+(define SDL-WINDOW-EVENT-HIDDEN       2)
+(define SDL-WINDOW-EVENT-EXPOSED      3)
+(define SDL-WINDOW-EVENT-MOVED        4)
+(define SDL-WINDOW-EVENT-RESIZED      5)
+(define SDL-WINDOW-EVENT-SIZE-CHANGED 6)
+(define SDL-WINDOW-EVENT-MINIMIZED    7)
+(define SDL-WINDOW-EVENT-MAXIMIZED    8)
+(define SDL-WINDOW-EVENT-RESTORED     9)
+(define SDL-WINDOW-EVENT-ENTER        10)
+(define SDL-WINDOW-EVENT-LEAVE        11)
+(define SDL-WINDOW-EVENT-FOCUS-GAINED 12)
+(define SDL-WINDOW-EVENT-FOCUS-LOST   13)
+(define SDL-WINDOW-EVENT-CLOSE        14)
+(define SDL-WINDOW-EVENT-TAKE-FOCUS   15)
+(define SDL-WINDOW-EVENT-HIT-TEST     16)
+
+
 (define-ftype sdl-c-keysym
   (struct
    [scancode unsigned]
@@ -969,6 +988,134 @@
       #f
       (= SDL-SYSWMEVENT-E
 	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-win-shown?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-SHOWN
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-hidden?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-HIDDEN
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-exposed?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-EXPOSED
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-moved?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-MOVED
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-resized?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-RESIZED
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-size-changed?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-SIZE-CHANGED
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-minimized?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-MINIMIZED
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-maximized?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-MAXIMIZED
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-restored?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-RESTORED
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-enter?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-ENTER
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-leave?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-LEAVE
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-focus-gained?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-FOCUS-GAINED
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-focus-lost?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-FOCUS-LOST
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-close?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-CLOSE
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-take-focus?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-TAKE-FOCUS
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-hit-test?)
+  (if (sdl-event-window?)
+      (= SDL-WINDOW-EVENT-HIT-TEST
+	 (ftype-ref sdl-c-window-event (event)
+		    (ftype-&ref sdl-c-event (window) event-mem)))
+      #f))
+
+(define (sdl-event-win-id)
+  (ftype-ref sdl-c-window-event (windowID)
+	     (ftype-&ref sdl-c-event (window) event-mem)))
+(define (sdl-event-win-x)
+  (ftype-ref sdl-c-window-event (data1)
+	     (ftype-&ref sdl-c-event (window) event-mem)))
+(define (sdl-event-win-y)
+  (ftype-ref sdl-c-window-event (data2)
+	     (ftype-&ref sdl-c-event (window) event-mem)))
+(define (sdl-event-win-w)
+  (ftype-ref sdl-c-window-event (data1)
+	     (ftype-&ref sdl-c-event (window) event-mem)))
+(define (sdl-event-win-h)
+  (ftype-ref sdl-c-window-event (data2)
+	     (ftype-&ref sdl-c-event (window) event-mem)))
 
 
 ;;; Keyboard Events ;;;
