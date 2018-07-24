@@ -16,7 +16,6 @@ This is a SDL 2 interface for Chez Scheme.
 * Game Controller Events
 * Audio Device Events
 * Touch Events
-* Drag & Drop Events
 
 ## Force Feeback
 * Haptics
@@ -39,5 +38,3 @@ This is a SDL 2 interface for Chez Scheme.
    [tfinger  sdl-c-touch-finger-event]
    [mgesture sdl-c-multi-gesture-event]
    [dgesture sdl-c-dollar-gesture-event]
-
-   [drop     sdl-c-drop-event]

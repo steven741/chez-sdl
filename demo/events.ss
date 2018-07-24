@@ -27,6 +27,9 @@
    ((sdl-event-none?)            (event-loop))
    ((sdl-event-quit?)            '())
 
+   ((sdl-event-drop-file?)       (pretty-print (sdl-event-drop-file))
+                                 (event-loop))
+
    ((sdl-event-mouse-motion?)    (pretty-print "Current mouse position:")
                                  (pretty-print (sdl-event-mouse-motion-x))
                                  (pretty-print (sdl-event-mouse-motion-y))

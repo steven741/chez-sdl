@@ -1452,15 +1452,55 @@
 
 ;;; Drag & Drop Events ;;;
 
+(define (sdl-event-drop-file?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-DROPFILE-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
 
+(define (sdl-event-drop-text?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-DROPTEXT-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-drop-begin?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-DROPBEGIN-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-drop-complete?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-DROPCOMPLETE-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-drop-file)
+  ;;;
+  ;;; This isn't a very elegant solution.
+  ;;;
+  (define (read-all)
+    (letrec
+	([e-ptr (ftype-&ref sdl-c-event (drop) event-mem)]
+	 [c-ptr (ftype-ref sdl-c-drop-event (file) e-ptr)]
+	 [loop (lambda (x)
+		 (let
+		     ([c (ftype-ref char () c-ptr x)])
+		   (if (char=? c #\nul)
+		       '()
+		       (cons c (loop (+ x 1))))))])
+      (let
+	  ([chars (loop 0)])
+	;; Free the memory
+	(sdl-free-c c-ptr)
+	;; Eval to chars
+	chars)))
+  (if (or (sdl-event-drop-file?)
+	  (sdl-event-drop-text?))
+      (list->string (read-all))
+      '()))
 #|
-;; Drag and drop events
-(define SDL-DROPFILE-E     #x1000)
-(define SDL-DROPTEXT-E     #x1001)
-(define SDL-DROPBEGIN-E    #x1002)
-(define SDL-DROPCOMPLETE-E #x1003)
-
-
 ;; Joystick events
 (define SDL-JOYAXISMOTION-E    #x600)
 (define SDL-JOYBALLMOTION-E    #x601)

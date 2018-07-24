@@ -550,6 +550,11 @@
    ; Audio Events
    ; Touch Events
    ; Drag & Drop Events
+   sdl-event-drop-file?
+   sdl-event-drop-text?
+   sdl-event-drop-begin?
+   sdl-event-drop-complete?
+   sdl-event-drop-file
 
 
    ;;;;;;;;;;;;;
@@ -608,6 +613,8 @@
   (define sdl-load-bmp-rw!
     (foreign-procedure "SDL_LoadBMP_RW" (void* int) (* sdl-c-surface)))
 
+  (define sdl-free-c
+    (foreign-procedure "SDL_free" ((* char)) void))
 
   (define event-mem)
 
