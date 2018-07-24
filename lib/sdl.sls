@@ -434,7 +434,6 @@
 				   SDLK-AT
 				   SDLK-CARET
 				   SDLK-UNDERSCORE
-
    KMOD-NONE
    KMOD-LSHIFT
    KMOD-RSHIFT
@@ -475,7 +474,7 @@
    sdl-event-win-hidden?
    sdl-event-win-exposed?
    sdl-event-win-moved?
-   
+
    sdl-event-win-resized?
    sdl-event-win-size-changed?
    sdl-event-win-minimized?
@@ -498,6 +497,7 @@
    ; Keyboard Events
    sdl-event-keyup?
    sdl-event-keydown?
+   sdl-event-keymap-changed?
 
    sdl-event-key-repeat?
    sdl-event-key-up?
@@ -508,7 +508,40 @@
    sdl-event-code-down?
 
    ; Text Events
+   sdl-event-text-editing?
+   sdl-event-text-input?
+   sdl-event-text-editing-text
+   sdl-event-text-input-text
+
    ; Mouse Events
+   sdl-event-mouse-motion?
+   sdl-event-mouse-button-down?
+   sdl-event-mouse-button-up?
+   sdl-event-mouse-wheel?
+
+   sdl-event-mouse-motion-which
+   sdl-event-mouse-motion-x
+   sdl-event-mouse-motion-y
+   sdl-event-mouse-motion-x-rel
+   sdl-event-mouse-motion-y-rel
+   sdl-event-mouse-motion-b-left?
+   sdl-event-mouse-motion-b-middle?
+   sdl-event-mouse-motion-b-right?
+   sdl-event-mouse-motion-b-x1?
+   sdl-event-mouse-motion-b-x2?
+
+   sdl-event-mouse-button-which
+   sdl-event-mouse-button-state
+   sdl-event-mouse-button-button
+   sdl-event-mouse-button-clicks
+   sdl-event-mouse-button-x
+   sdl-event-mouse-button-y
+
+   sdl-event-mouse-wheel-which
+   sdl-event-mouse-wheel-direction
+   sdl-event-mouse-wheel-x
+   sdl-event-mouse-wheel-y
+
    ; Joystick Events
    ; Game Controller
    ; Audio Events
@@ -574,9 +607,6 @@
 
 
   (define event-mem)
-
-  (define (null-ptr? ptr)
-    (= 0 (ftype-pointer-address ptr)))
 
 
   (include "lib/sdl-basic.sls")

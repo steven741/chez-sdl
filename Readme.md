@@ -12,7 +12,6 @@ This is a SDL 2 interface for Chez Scheme.
 
 ## Events
 * Textual Input Handling
-* Mouse Events
 * Joystick Events
 * Game Controller Events
 * Audio Device Events
@@ -24,13 +23,6 @@ This is a SDL 2 interface for Chez Scheme.
 
 ## Audio
 * Basic audio system
-
-   [edit     sdl-c-text-editing-event]
-   [text     sdl-c-text-input-event]
-
-   [motion   sdl-c-mouse-motion-event]
-   [button   sdl-c-mouse-button-event]
-   [wheel    sdl-c-mouse-wheel-event]
 
    [jaxis    sdl-c-joy-axis-event]
    [jball    sdl-c-joy-ball-event]

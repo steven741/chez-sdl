@@ -649,6 +649,19 @@
 (define SDL-WINDOW-EVENT-TAKE-FOCUS   15)
 (define SDL-WINDOW-EVENT-HIT-TEST     16)
 
+(define (sdl-button x)
+  (bitwise-arithmetic-shift-right 1 (- x 1)))
+(define sdl-button-left   1)
+(define sdl-button-middle 2)
+(define sdl-button-right  3)
+(define sdl-button-x1     4)
+(define sdl-button-x2     5)
+(define sdl-button-l-mask  (sdl-button sdl-button-left))
+(define sdl-button-m-mask  (sdl-button sdl-button-middle))
+(define sdl-button-r-mask  (sdl-button sdl-button-right))
+(define sdl-button-x1-mask (sdl-button sdl-button-x1))
+(define sdl-button-x2-mask (sdl-button sdl-button-x2))
+
 
 (define-ftype sdl-c-keysym
   (struct
@@ -927,7 +940,7 @@
 
 
 (define (sdl-event-timestamp)
-  (error 'SDL "not implemented") sdl-event-timestamp)
+  (error 'SDL "not implemented" sdl-event-timestamp))
 
 
 ;;; Application Events ;;;
@@ -1144,12 +1157,11 @@
       (= SDL-TEXTINPUT-E
 	 (ftype-ref sdl-c-event (type) event-mem))))
 
-(define (sdl-event-key-map-changed?)
+(define (sdl-event-keymap-changed?)
   (if (sdl-event-none?)
       #f
       (= SDL-KEYMAPCHANGED-E
 	 (ftype-ref sdl-c-event (type) event-mem))))
-
 
 (define (sdl-event-key-repeat?)
   (if (or (sdl-event-keyup?)
@@ -1207,8 +1219,210 @@
 				(ftype-&ref sdl-c-event (key) event-mem))))
       #f))
 
+(define (sdl-event-text-editing-text)
+  (error 'SDL "not implemented" sdl-event-text-editing-text))
+  #|
+  (if (sdl-event-text-editing?)
+      (foreign-ref
+       string
+       (+ (ftype-ref sdl-c-text-editing-event (start)
+		     (ftype-&ref sdl-c-event (edit) event-mem))
+	  (ftype-&ref sdl-c-text-editing-event (text)
+		      (ftype-&ref sdl-c-event (edit) event-mem)))
+       (ftype-ref sdl-c-text-editing-event (length)
+		   (ftype-&ref sdl-c-event (edit) event-mem)))
+      '()))
+  |#
+
+(define (sdl-event-text-input-text)
+  (error 'SDL "not implemented" sdl-event-text-input-text))
+  #|
+  (define (loop x)
+    (let ([c (ftype-ref
+	      char ()
+	      (ftype-&ref sdl-c-text-input-event (text)
+			  (ftype-&ref sdl-c-event (text) event-mem) x))])
+
+      (if (char=? c #\nul)
+	  '()
+	  (cons c (loop (+ x 1))))))
+  (loop 0))
+  |#
+
 
 ;;; Mouse Events ;;;
+(define (sdl-event-mouse-motion?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-MOUSEMOTION-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-mouse-button-down?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-MOUSEBUTTONDOWN-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-mouse-button-up?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-MOUSEBUTTONUP-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-mouse-wheel?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-MOUSEWHEEL-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-mouse-motion-which)
+  (if (sdl-event-mouse-motion?)
+      (ftype-ref sdl-c-mouse-motion-event (which)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-motion-x)
+  (if (sdl-event-mouse-motion?)
+      (ftype-ref sdl-c-mouse-motion-event (x)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-motion-y)
+  (if (sdl-event-mouse-motion?)
+      (ftype-ref sdl-c-mouse-motion-event (y)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-motion-x-rel)
+  (if (sdl-event-mouse-motion?)
+      (ftype-ref sdl-c-mouse-motion-event (xrel)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-motion-y-rel)
+  (if (sdl-event-mouse-motion?)
+      (ftype-ref sdl-c-mouse-motion-event (yrel)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-motion-b-left?)
+  (if (sdl-event-mouse-motion?)
+      (bitwise-and
+       sdl-button-l-mask
+       (ftype-ref sdl-c-mouse-motion-event (state)
+		  (ftype-&ref sdl-c-event (motion) event-mem)))
+      #f))
+
+(define (sdl-event-mouse-motion-b-middle?)
+  (if (sdl-event-mouse-motion?)
+      (bitwise-and
+       sdl-button-m-mask
+       (ftype-ref sdl-c-mouse-motion-event (state)
+		  (ftype-&ref sdl-c-event (motion) event-mem)))
+      #f))
+
+(define (sdl-event-mouse-motion-b-right?)
+  (if (sdl-event-mouse-motion?)
+      (bitwise-and
+       sdl-button-r-mask
+       (ftype-ref sdl-c-mouse-motion-event (state)
+		  (ftype-&ref sdl-c-event (motion) event-mem)))
+      #f))
+
+(define (sdl-event-mouse-motion-b-x1?)
+  (if (sdl-event-mouse-motion?)
+      (bitwise-and
+       sdl-button-x1-mask
+       (ftype-ref sdl-c-mouse-motion-event (state)
+		  (ftype-&ref sdl-c-event (motion) event-mem)))
+      #f))
+
+(define (sdl-event-mouse-motion-b-x2?)
+  (if (sdl-event-mouse-motion?)
+      (bitwise-and
+       sdl-button-x2-mask
+       (ftype-ref sdl-c-mouse-motion-event (state)
+		  (ftype-&ref sdl-c-event (motion) event-mem)))
+      #f))
+
+(define (sdl-event-mouse-button-which)
+  (if (or sdl-event-mouse-button-up?
+	  sdl-event-mouse-button-down?)
+      (ftype-ref sdl-c-mouse-button-event (which)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-button-state)
+  (if (or sdl-event-mouse-button-up?
+	  sdl-event-mouse-button-down?)
+      (if (= 0 (ftype-ref sdl-c-mouse-button-event (state)
+			  (ftype-&ref sdl-c-event (motion) event-mem)))
+	  'SDL-RELEASED
+	  'SDL-PRESSED)
+      '()))
+
+(define (sdl-event-mouse-button-button)
+  (if (or sdl-event-mouse-button-up?
+	  sdl-event-mouse-button-down?)
+      (let
+	  ([b (ftype-ref sdl-c-mouse-button-event (button)
+			 (ftype-&ref sdl-c-event (motion) event-mem))])
+	(cond
+	 ((bitwise-and b sdl-button-l-mask)  'SDL-BUTTON-LEFT)
+	 ((bitwise-and b sdl-button-m-mask)  'SDL-BUTTON-MIDDLE)
+	 ((bitwise-and b sdl-button-r-mask)  'SDL-BUTTON-RIGHT)
+	 ((bitwise-and b sdl-button-x1-mask) 'SDL-BUTTON-X1)
+	 ((bitwise-and b sdl-button-x2-mask) 'SDL-BUTTON-X2)
+	 (else '())))
+      '()))
+
+(define (sdl-event-mouse-button-clicks)
+  (if (or sdl-event-mouse-button-up?
+	  sdl-event-mouse-button-down?)
+      (ftype-ref sdl-c-mouse-button-event (clicks)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-button-x)
+  (if (or sdl-event-mouse-button-up?
+	  sdl-event-mouse-button-down?)
+      (ftype-ref sdl-c-mouse-button-event (x)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-button-y)
+  (if (or sdl-event-mouse-button-up?
+	  sdl-event-mouse-button-down?)
+      (ftype-ref sdl-c-mouse-button-event (y)
+		 (ftype-&ref sdl-c-event (motion) event-mem))
+      '()))
+
+(define (sdl-event-mouse-wheel-which)
+  (if (sdl-event-mouse-wheel?)
+      (ftype-ref sdl-c-mouse-wheel-event (which)
+		 (ftype-&ref sdl-c-event (wheel) event-mem))
+      '()))
+
+(define (sdl-event-mouse-wheel-x)
+  (if (sdl-event-mouse-wheel?)
+      (ftype-ref sdl-c-mouse-wheel-event (x)
+		 (ftype-&ref sdl-c-event (wheel) event-mem))
+      '()))
+
+(define (sdl-event-mouse-wheel-y)
+  (if (sdl-event-mouse-wheel?)
+      (ftype-ref sdl-c-mouse-wheel-event (y)
+		 (ftype-&ref sdl-c-event (wheel) event-mem))
+      '()))
+
+(define (sdl-event-mouse-wheel-direction)
+  (if (sdl-event-mouse-wheel?)
+      (let ([d (ftype-ref sdl-c-mouse-wheel-event (direction)
+			  (ftype-&ref sdl-c-event (wheel) event-mem))])
+	(cond
+	 ((= d 0) 'SDL-MOUSE-WHEEL-NORMAL)
+	 ((= d 1) 'SDL-MOUSE-WHEEL-FLIPPED)))
+      '()))
 
 
 ;;; Joystick Events ;;;
@@ -1217,11 +1431,17 @@
 ;;; Game Controller Events ;;;
 
 #|
-;; Mouse events
-(define SDL-MOUSEMOTION-E     #x400)
-(define SDL-MOUSEBUTTONDOWN-E #x401)
-(define SDL-MOUSEBUTTONUP-E   #x402)
-(define SDL-MOUSEWHEEL-E      #x403)
+   [wheel    sdl-c-mouse-wheel-event]
+
+(define-ftype sdl-c-mouse-wheel-event
+  (struct
+   [type      unsigned-32]
+   [timestamp unsigned-32]
+   [windowID  unsigned-32]
+   [which     unsigned-32]
+   [x         integer-32]
+   [y         integer-32]
+   [direction unsigned-32]))
 
 ;; Joystick events
 (define SDL-JOYAXISMOTION-E    #x600)

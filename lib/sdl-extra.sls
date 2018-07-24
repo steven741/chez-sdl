@@ -15,7 +15,7 @@
   (let
       ([window (sdl-create-window title x y w h flags)])
 
-    (if (null-ptr? window)
+    (if (ftype-pointer-null? window)
         (error 'SDL (sdl-get-error))
 	(begin
 	  (proc window)

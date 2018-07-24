@@ -26,6 +26,11 @@
   (cond
    ((sdl-event-none?)            (event-loop))
    ((sdl-event-quit?)            '())
+   ((sdl-event-mouse-motion?)    (pretty-print "Current mouse position:")
+                                 (pretty-print (sdl-event-mouse-motion-x))
+                                 (pretty-print (sdl-event-mouse-motion-y))
+				 (newline)
+                                 (event-loop))
    ((sdl-event-key-up? SDLK-A)   (pretty-print "A is released.")
                                  (event-loop))
    ((sdl-event-key-down? SDLK-A) (pretty-print "A is pressed.")
