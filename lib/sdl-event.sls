@@ -1253,19 +1253,18 @@
   |#
 
 (define (sdl-event-text-input-text)
-  (error 'SDL "not implemented" sdl-event-text-input-text))
-  #|
   (define (loop x)
     (let ([c (ftype-ref
 	      char ()
 	      (ftype-&ref sdl-c-text-input-event (text)
-			  (ftype-&ref sdl-c-event (text) event-mem) x))])
+			  (ftype-&ref sdl-c-event (text) event-mem)) x)])
 
       (if (char=? c #\nul)
 	  '()
 	  (cons c (loop (+ x 1))))))
-  (loop 0))
-  |#
+  (if (sdl-event-text-input?)
+      (loop 0)
+      '()))
 
 
 ;;; Mouse Events ;;;
@@ -1450,6 +1449,35 @@
 ;;; Game Controller Events ;;;
 
 
+;;; Audio Events ;;;
+
+(define (sdl-event-audio-device-added?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-AUDIODEVICEADDED-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-audio-device-removed?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-AUDIODEVICEREMOVED-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-audio-device-which)
+  (if (or (sdl-event-audio-device-added?)
+	  (sdl-event-audio-device-removed?))
+      (ftype-ref sdl-c-audio-device-event (which)
+		 (ftype-&ref sdl-c-event (adevice) event-mem))
+      '()))
+
+(define (sdl-event-audio-device-iscapture?)
+  (if (or (sdl-event-audio-device-added?)
+	  (sdl-event-audio-device-removed?))
+      (not (= 0 (ftype-ref sdl-c-audio-device-event (iscapture)
+			   (ftype-&ref sdl-c-event (adevice) event-mem))))
+      '()))
+
+
 ;;; Drag & Drop Events ;;;
 
 (define (sdl-event-drop-file?)
@@ -1477,9 +1505,7 @@
 	 (ftype-ref sdl-c-event (type) event-mem))))
 
 (define (sdl-event-drop-file)
-  ;;;
-  ;;; This isn't a very elegant solution.
-  ;;;
+  ;; This is a little messy.
   (define (read-all)
     (letrec
 	([e-ptr (ftype-&ref sdl-c-event (drop) event-mem)]
@@ -1494,11 +1520,11 @@
 	  ([chars (loop 0)])
 	;; Free the memory
 	(sdl-free-c c-ptr)
-	;; Eval to chars
-	chars)))
+	;; Eval to string
+	(list->string chars))))
   (if (or (sdl-event-drop-file?)
 	  (sdl-event-drop-text?))
-      (list->string (read-all))
+      (read-all)
       '()))
 #|
 ;; Joystick events
@@ -1527,8 +1553,4 @@
 (define SDL-DOLLARGESTURE-E #x800)
 (define SDL-DOLLARRECORD-E  #x801)
 (define SDL-MULTIGESTURE-E  #x802)
-
-;; Audio hotplug events
-(define SDL-AUDIODEVICEADDED-E   #x1100)
-(define SDL-AUDIODEVICEREMOVED-E #x1101)
 |#

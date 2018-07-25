@@ -11,10 +11,8 @@ This is a SDL 2 interface for Chez Scheme.
 * Clipboard
 
 ## Events
-* Textual Input Handling
 * Joystick Events
 * Game Controller Events
-* Audio Device Events
 * Touch Events
 
 ## Force Feeback
@@ -32,8 +30,6 @@ This is a SDL 2 interface for Chez Scheme.
    [caxis    sdl-c-controller-axis-event]
    [cbutton  sdl-c-controller-button-event]
    [cdevice  sdl-c-controller-device-event]
-
-   [adevice  sdl-c-audio-device-event]
 
    [tfinger  sdl-c-touch-finger-event]
    [mgesture sdl-c-multi-gesture-event]

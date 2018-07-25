@@ -546,9 +546,17 @@
    sdl-event-mouse-wheel-y
 
    ; Joystick Events
+
    ; Game Controller
+
    ; Audio Events
+   sdl-event-audio-device-added?
+   sdl-event-audio-device-removed?
+   sdl-event-audio-device-which
+   sdl-event-audio-device-iscapture?
+
    ; Touch Events
+   
    ; Drag & Drop Events
    sdl-event-drop-file?
    sdl-event-drop-text?
