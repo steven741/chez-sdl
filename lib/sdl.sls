@@ -457,7 +457,7 @@
    sdl-event-timestamp
    sdl-event-none?
 
-   ; Application Events
+   ;; Application Events
    sdl-event-quit?
    sdl-event-clipboard?
    sdl-event-terminating?
@@ -469,7 +469,7 @@
    sdl-event-render-target-reset?
    sdl-event-render-device-reset?
 
-   ; Window Events
+   ;; Window Events
    sdl-event-window?
    sdl-event-syswm?
 
@@ -497,7 +497,7 @@
    sdl-event-win-w
    sdl-event-win-h
 
-   ; Keyboard Events
+   ;; Keyboard Events
    sdl-event-keyup?
    sdl-event-keydown?
    sdl-event-keymap-changed?
@@ -510,13 +510,13 @@
    sdl-event-code-up?
    sdl-event-code-down?
 
-   ; Text Events
+   ;; Text Events
    sdl-event-text-editing?
    sdl-event-text-input?
    sdl-event-text-editing-text
    sdl-event-text-input-text
 
-   ; Mouse Events
+   ;; Mouse Events
    sdl-event-mouse-motion?
    sdl-event-mouse-button-down?
    sdl-event-mouse-button-up?
@@ -545,9 +545,9 @@
    sdl-event-mouse-wheel-x
    sdl-event-mouse-wheel-y
 
-   ; Joystick Events
+   ;; Joystick Events
 
-   ; Game Controller
+   ;; Game Controller
 
    ; Audio Events
    sdl-event-audio-device-added?
@@ -555,9 +555,29 @@
    sdl-event-audio-device-which
    sdl-event-audio-device-iscapture?
 
-   ; Touch Events
-   
-   ; Drag & Drop Events
+   ;; Touch Events
+   sdl-event-finger-down?
+   sdl-event-finger-up?
+   sdl-event-finger-motion?
+   sdl-event-dollar-gesture?
+   sdl-event-dollar-record?
+   sdl-event-multi-gesture?
+
+   sdl-event-touch-id
+   sdl-event-touch-x
+   sdl-event-touch-y
+   sdl-event-touch-dx
+   sdl-event-touch-dy
+   sdl-event-touch-pressure
+ 
+   sdl-event-finger-id
+   sdl-event-gesture-id
+   sdl-event-gesture-num-fingers
+   sdl-event-dollar-gesture-error
+   sdl-event-multi-gesture-dTheta
+   sdl-event-multi-gesture-dDist
+
+   ;; Drag & Drop Events
    sdl-event-drop-file?
    sdl-event-drop-text?
    sdl-event-drop-begin?

@@ -1478,6 +1478,177 @@
       '()))
 
 
+;;; Touch Events ;;;
+
+(define (sdl-event-finger-down?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-FINGERDOWN-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-finger-up?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-FINGERUP-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-finger-motion?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-FINGERMOTION-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-dollar-gesture?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-DOLLARGESTURE-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-dollar-record?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-DOLLARRECORD-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-multi-gesture?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-MULTIGESTURE-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-touch-id)
+  (cond
+   ;; Touch Events
+   ((or (sdl-event-finger-down?)
+	(sdl-event-finger-up?)
+	(sdl-event-finger-motion?))
+    (ftype-ref sdl-c-touch-finger-event (touchId)
+	       (ftype-&ref sdl-c-event (tfinger) event-mem)))
+   ;; Gesture Events
+   ((or (sdl-event-dollar-gesture?)
+	(sdl-event-dollar-record?))
+    (ftype-ref sdl-c-dollar-gesture-event (touchId)
+	       (ftype-&ref sdl-c-event (dgesture) event-mem)))
+   ;; Multi-Gesture Events
+   ((sdl-event-multi-gesture?)
+    (ftype-ref sdl-c-multi-gesture-event (touchId)
+	       (ftype-&ref sdl-c-event (mgesture) event-mem)))
+   ;; Alternative
+   (else '())))
+
+(define (sdl-event-finger-id)
+  (if (or (sdl-event-finger-down?)
+	  (sdl-event-finger-up?)
+	  (sdl-event-finger-motion?))
+      (ftype-ref sdl-c-touch-finger-event (fingerId)
+		 (ftype-&ref sdl-c-event (tfinger) event-mem))
+      '()))
+
+(define (sdl-event-gesture-id)
+  (if (or (sdl-event-dollar-gesture?)
+	  (sdl-event-dollar-record?))
+      (ftype-ref sdl-c-dollar-gesture-event (gestureId)
+		 (ftype-&ref sdl-c-event (dgesture) event-mem))
+      '()))
+
+(define (sdl-event-gesture-num-fingers)
+  (cond
+   ;; Gesture Events
+   ((or (sdl-event-dollar-gesture?)
+	(sdl-event-dollar-record?))
+    (ftype-ref sdl-c-dollar-gesture-event (numFingers)
+	       (ftype-&ref sdl-c-event (dgesture) event-mem)))
+   ;; Multi-Gesture Events
+   ((sdl-event-multi-gesture?)
+    (ftype-ref sdl-c-multi-gesture-event (numFingers)
+	       (ftype-&ref sdl-c-event (mgesture) event-mem)))
+   ;; Alternative
+   (else '())))
+
+(define (sdl-event-multi-gesture-dTheta)
+  (if (sdl-event-multi-gesture?)
+      (ftype-ref sdl-c-multi-gesture-event (dTheta)
+		 (ftype-&ref sdl-c-event (mgesture) event-mem))
+      '()))
+
+(define (sdl-event-multi-gesture-dDist)
+  (if (sdl-event-multi-gesture?)
+      (ftype-ref sdl-c-multi-gesture-event (dDist)
+		 (ftype-&ref sdl-c-event (mgesture) event-mem))
+      '()))
+
+(define (sdl-event-dollar-gesture-error)
+  (if (or (sdl-event-dollar-gesture?)
+	  (sdl-event-dollar-record?))
+      (ftype-ref sdl-c-dollar-gesture-event (error)
+		 (ftype-&ref sdl-c-event (dgesture) event-mem))
+      '()))
+
+(define (sdl-event-touch-x)
+  (cond
+   ;; Touch Events
+   ((or (sdl-event-finger-down?)
+	(sdl-event-finger-up?)
+	(sdl-event-finger-motion?))
+    (ftype-ref sdl-c-touch-finger-event (x)
+	       (ftype-&ref sdl-c-event (tfinger) event-mem)))
+   ;; Gesture Events
+   ((or (sdl-event-dollar-gesture?)
+	(sdl-event-dollar-record?))
+    (ftype-ref sdl-c-dollar-gesture-event (x)
+	       (ftype-&ref sdl-c-event (dgesture) event-mem)))
+   ;; Multi-Gesture Events
+   ((sdl-event-multi-gesture?)
+    (ftype-ref sdl-c-multi-gesture-event (x)
+	       (ftype-&ref sdl-c-event (mgesture) event-mem)))
+   ;; Alternative
+   (else '())))
+
+(define (sdl-event-touch-y)
+  (cond
+   ;; Touch Events
+   ((or (sdl-event-finger-down?)
+	(sdl-event-finger-up?)
+	(sdl-event-finger-motion?))
+    (ftype-ref sdl-c-touch-finger-event (y)
+	       (ftype-&ref sdl-c-event (tfinger) event-mem)))
+   ;; Gesture Events
+   ((or (sdl-event-dollar-gesture?)
+	(sdl-event-dollar-record?))
+    (ftype-ref sdl-c-dollar-gesture-event (y)
+	       (ftype-&ref sdl-c-event (dgesture) event-mem)))
+   ;; Multi-Gesture Events
+   ((sdl-event-multi-gesture?)
+    (ftype-ref sdl-c-multi-gesture-event (y)
+	       (ftype-&ref sdl-c-event (mgesture) event-mem)))
+   ;; Alternative
+   (else '())))
+
+(define (sdl-event-touch-dx)
+  (if (or (sdl-event-finger-down?)
+	  (sdl-event-finger-up?)
+	  (sdl-event-finger-motion?))
+      (ftype-ref sdl-c-touch-finger-event (dx)
+		 (ftype-&ref sdl-c-event (tfinger) event-mem))
+      '()))
+
+(define (sdl-event-touch-dy)
+  (if (or (sdl-event-finger-down?)
+	  (sdl-event-finger-up?)
+	  (sdl-event-finger-motion?))
+      (ftype-ref sdl-c-touch-finger-event (dy)
+		 (ftype-&ref sdl-c-event (tfinger) event-mem))
+      '()))
+
+(define (sdl-event-touch-pressure)
+  (if (or (sdl-event-finger-down?)
+	  (sdl-event-finger-up?)
+	  (sdl-event-finger-motion?))
+      (ftype-ref sdl-c-touch-finger-event (pressure)
+		 (ftype-&ref sdl-c-event (tfinger) event-mem))
+      '()))
+
+
 ;;; Drag & Drop Events ;;;
 
 (define (sdl-event-drop-file?)
@@ -1543,14 +1714,4 @@
 (define SDL-CONTROLLERDEVICEADDED-E    #x653)
 (define SDL-CONTROLLERDEVICEREMOVED-E  #x654)
 (define SDL-CONTROLLERDEVICEREMAPPED-E #x655)
-
-;; Touch events
-(define SDL-FINGERDOWN-E   #x700)
-(define SDL-FINGERUP-E     #x701)
-(define SDL-FINGERMOTION-E #x702)
-
-;; Gesture events
-(define SDL-DOLLARGESTURE-E #x800)
-(define SDL-DOLLARRECORD-E  #x801)
-(define SDL-MULTIGESTURE-E  #x802)
 |#
