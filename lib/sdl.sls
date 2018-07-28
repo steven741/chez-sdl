@@ -546,10 +546,27 @@
    sdl-event-mouse-wheel-y
 
    ;; Joystick Events
+   
 
    ;; Game Controller
+   sdl-event-con-dev-added?
+   sdl-event-con-dev-removed?
+   sdl-event-con-dev-remapped?
+   sdl-event-con-device
 
-   ; Audio Events
+   sdl-event-con-axis?
+   sdl-event-con-axis-device
+   sdl-event-con-axis
+   sdl-event-con-motion
+
+   sdl-event-con-button-up?
+   sdl-event-con-button-down?
+   sdl-event-con-button?
+   sdl-event-con-button-pressed?
+   sdl-event-con-button
+   sdl-event-con-button-device
+
+   ;; Audio Events
    sdl-event-audio-device-added?
    sdl-event-audio-device-removed?
    sdl-event-audio-device-which
@@ -603,8 +620,9 @@
    sdl-get-performance-counter
    sdl-get-performance-frequency
 
+
    ;;;;;;;;;;;;;
-   ;;; Touch ;;;
+   ;;; Input ;;;
    ;;;;;;;;;;;;;
    
    ;;;;;;;;;;;;;
@@ -654,5 +672,5 @@
   (include "lib/sdl-force.sls")
   (include "lib/sdl-power.sls")
   (include "lib/sdl-timer.sls")
-  (include "lib/sdl-touch.sls")
+  (include "lib/sdl-input.sls")
   (include "lib/sdl-extra.sls"))

@@ -1445,8 +1445,136 @@
 
 ;;; Joystick Events ;;;
 
+#|
+   [jaxis    sdl-c-joy-axis-event]
+   [jball    sdl-c-joy-ball-event]
+   [jhat     sdl-c-joy-hat-event]
+   [jbutton  sdl-c-joy-button-event]
+   [jdevice  sdl-c-joy-device-event]
+
+;; Joystick events
+(define SDL-JOYAXISMOTION-E    #x600)
+(define SDL-JOYBALLMOTION-E    #x601)
+(define SDL-JOYHATMOTION-E     #x602)
+(define SDL-JOYBUTTONDOWN-E    #x603)
+(define SDL-JOYBUTTONUP-E      #x604)
+(define SDL-JOYDEVICEADDED-E   #x605)
+(define SDL-JOYDEVICEREMOVED-E #x606)
+|#
+
 
 ;;; Game Controller Events ;;;
+
+(define (sdl-event-con-dev-added?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-CONTROLLERDEVICEADDED-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-con-dev-removed?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-CONTROLLERDEVICEREMOVED-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-con-dev-remapped?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-CONTROLLERDEVICEREMAPPED-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-con-device)
+  (if (or (sdl-event-con-dev-added?)
+	  (sdl-event-con-dev-removed?)
+	  (sdl-event-con-dev-remapped?))
+      (ftype-ref sdl-c-controller-device-event (which)
+		 (ftype-&ref sdl-c-event (cdevice) event-mem))
+      '()))
+
+(define (sdl-event-con-axis?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-CONTROLLERAXISMOTION-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-con-axis-device)
+  (if (sdl-event-con-axis?)
+      (ftype-ref sdl-c-controller-axis-event (which)
+		 (ftype-&ref sdl-c-event (caxis) event-mem))
+      '()))
+
+(define (sdl-event-con-axis)
+  (if (sdl-event-con-axis?)
+      (let
+	  ([axis (ftype-ref sdl-c-controller-axis-event (axis)
+			    (ftype-&ref sdl-c-event (caxis) event-mem))])
+	(cond
+	 ((= 0 axis) 'SDL-CONTROLLER-AXIS-LEFT-X)
+	 ((= 1 axis) 'SDL-CONTROLLER-AXIS-LEFT-Y)
+	 ((= 2 axis) 'SDL-CONTROLLER-AXIS-RIGHT-X)
+	 ((= 3 axis) 'SDL-CONTROLLER-AXIS-RIGHT-Y)
+	 ((= 4 axis) 'SDL-CONTROLLER-AXIS-TRIGGER-LEFT)
+	 ((= 5 axis) 'SDL-CONTROLLER-AXIS-TRIGGER-RIGHT)
+	 (else '())))
+      '()))
+
+(define (sdl-event-con-motion)
+  (if (sdl-event-con-axis?)
+      (ftype-ref sdl-c-controller-axis-event (value)
+		 (ftype-&ref sdl-c-event (caxis) event-mem))
+      '()))
+
+(define (sdl-event-con-button-up?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-CONTROLLERBUTTONUP-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-con-button-down?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-CONTROLLERBUTTONDOWN-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-con-button?)
+  (or (sdl-event-con-button-up?)
+      (sdl-event-con-button-down?)))
+
+(define (sdl-event-con-button-pressed?)
+  (if (sdl-event-con-button?)
+      (= 1 (ftype-ref sdl-c-controller-button-event (state)
+		      (ftype-&ref sdl-c-event (cbutton) event-mem)))
+      '()))
+
+(define (sdl-event-con-button)
+  (if (sdl-event-con-button?)
+      (let
+	  ([button (ftype-ref sdl-c-controller-button-event (button)
+			      (ftype-&ref sdl-c-event (cbutton) event-mem))])
+	(cond
+	 ((=  0 button) 'SDL-CONTROLLER-BUTTON-A)
+	 ((=  1 button) 'SDL-CONTROLLER-BUTTON-B)
+	 ((=  2 button) 'SDL-CONTROLLER-BUTTON-X)
+	 ((=  3 button) 'SDL-CONTROLLER-BUTTON-Y)
+	 ((=  4 button) 'SDL-CONTROLLER-BUTTON-BACK)
+	 ((=  5 button) 'SDL-CONTROLLER-BUTTON-GUIDE)
+	 ((=  6 button) 'SDL-CONTROLLER-BUTTON-START)
+	 ((=  7 button) 'SDL-CONTROLLER-BUTTON-LEFT-STICK)
+	 ((=  8 button) 'SDL-CONTROLLER-BUTTON-RIGHT-STICK)
+	 ((=  9 button) 'SDL-CONTROLLER-BUTTON-LEFT-SHOULDER)
+	 ((= 10 button) 'SDL-CONTROLLER-BUTTON-RIGHT-SHOULDER)
+	 ((= 11 button) 'SDL-CONTROLLER-BUTTON-UP)
+	 ((= 12 button) 'SDL-CONTROLLER-BUTTON-DOWN)
+	 ((= 13 button) 'SDL-CONTROLLER-BUTTON-LEFT)
+	 ((= 14 button) 'SDL-CONTROLLER-BUTTON-RIGHT)
+	 (else '())))
+      '()))
+
+(define (sdl-event-con-button-device)
+  (if (sdl-event-con-button?)
+      (ftype-ref sdl-c-controller-button-event (which)
+		 (ftype-&ref sdl-c-event (cbutton) event-mem))
+      '()))
 
 
 ;;; Audio Events ;;;
@@ -1697,21 +1825,3 @@
 	  (sdl-event-drop-text?))
       (read-all)
       '()))
-#|
-;; Joystick events
-(define SDL-JOYAXISMOTION-E    #x600)
-(define SDL-JOYBALLMOTION-E    #x601)
-(define SDL-JOYHATMOTION-E     #x602)
-(define SDL-JOYBUTTONDOWN-E    #x603)
-(define SDL-JOYBUTTONUP-E      #x604)
-(define SDL-JOYDEVICEADDED-E   #x605)
-(define SDL-JOYDEVICEREMOVED-E #x606)
-
-;; Game controller events
-(define SDL-CONTROLLERAXISMOTION-E     #x650)
-(define SDL-CONTROLLERBUTTONDOWN-E     #x651)
-(define SDL-CONTROLLERBUTTONUP-E       #x652)
-(define SDL-CONTROLLERDEVICEADDED-E    #x653)
-(define SDL-CONTROLLERDEVICEREMOVED-E  #x654)
-(define SDL-CONTROLLERDEVICEREMAPPED-E #x655)
-|#
