@@ -1445,22 +1445,158 @@
 
 ;;; Joystick Events ;;;
 
-#|
-   [jaxis    sdl-c-joy-axis-event]
-   [jball    sdl-c-joy-ball-event]
-   [jhat     sdl-c-joy-hat-event]
-   [jbutton  sdl-c-joy-button-event]
-   [jdevice  sdl-c-joy-device-event]
+(define (sdl-event-joy-dev-added?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-JOYDEVICEADDED-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
 
-;; Joystick events
-(define SDL-JOYAXISMOTION-E    #x600)
-(define SDL-JOYBALLMOTION-E    #x601)
-(define SDL-JOYHATMOTION-E     #x602)
-(define SDL-JOYBUTTONDOWN-E    #x603)
-(define SDL-JOYBUTTONUP-E      #x604)
-(define SDL-JOYDEVICEADDED-E   #x605)
-(define SDL-JOYDEVICEREMOVED-E #x606)
-|#
+(define (sdl-event-joy-dev-removed?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-JOYDEVICEREMOVED-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-joy-device)
+  (if (or (sdl-event-joy-dev-added?)
+	  (sdl-event-joy-dev-removed?))
+      (ftype-ref sdl-c-joy-device-event (which)
+		 (ftype-&ref sdl-c-event (jdevice) event-mem))
+      '()))
+
+(define (sdl-event-joy-button-up?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-JOYBUTTONUP-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-joy-button-down?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-JOYBUTTONDOWN-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-joy-button?)
+  (or (sdl-event-joy-button-up?)
+      (sdl-event-joy-button-down?)))
+
+(define (sdl-event-joy-button-pressed?)
+  (if (sdl-event-joy-button?)
+      (= 1 (ftype-ref sdl-c-joy-button-event (state)
+		      (ftype-&ref sdl-c-event (jbutton) event-mem)))
+      '()))
+
+(define (sdl-event-joy-button-device)
+  (if (sdl-event-joy-button?)
+      (ftype-ref sdl-c-joy-button-event (which)
+		 (ftype-&ref sdl-c-event (jbutton) event-mem))
+      '()))
+
+(define (sdl-event-joy-button)
+  (if (sdl-event-joy-button?)
+      (ftype-ref sdl-c-joy-button-event (button)
+		 (ftype-&ref sdl-c-event (jbutton) event-mem))
+      '()))
+
+(define (sdl-event-joy-hat?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-JOYHATMOTION-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-joy-hat-device)
+  (if (sdl-event-joy-hat?)
+      (ftype-ref sdl-c-joy-hat-event (which)
+		 (ftype-&ref sdl-c-event (jhat) event-mem))
+      '()))
+
+(define (sdl-event-joy-hat)
+  (if (sdl-event-joy-hat?)
+      (ftype-ref sdl-c-joy-hat-event (hat)
+		 (ftype-&ref sdl-c-event (jhat) event-mem))
+      '()))
+
+(define (sdl-event-joy-hat-pos)
+  (define SDL_HAT_CENTERED    #x00)
+  (define SDL_HAT_UP          #x01)
+  (define SDL_HAT_RIGHT       #x02)
+  (define SDL_HAT_DOWN        #x04)
+  (define SDL_HAT_LEFT        #x08)
+  (define SDL_HAT_RIGHTUP     (bitwise-ior SDL_HAT_RIGHT SDL_HAT_UP))
+  (define SDL_HAT_RIGHTDOWN   (bitwise-ior SDL_HAT_RIGHT SDL_HAT_DOWN))
+  (define SDL_HAT_LEFTUP      (bitwise-ior SDL_HAT_LEFT SDL_HAT_UP))
+  (define SDL_HAT_LEFTDOWN    (bitwise-ior SDL_HAT_LEFT SDL_HAT_DOWN))
+
+  (if (sdl-event-joy-hat?)
+      (let
+	  ([pos (ftype-ref sdl-c-joy-hat-event (value)
+			   (ftype-&ref sdl-c-event (jhat) event-mem))])
+	(cond
+	 ((= pos SDL_HAT_CENTERED)  'SDL-HAT-CENTERED)
+	 ((= pos SDL_HAT_UP)        'SDL-HAT-UP)
+	 ((= pos SDL_HAT_RIGHT)     'SDL-HAT-RIGHT)
+	 ((= pos SDL_HAT_DOWN)      'SDL-HAT-DOWN)
+	 ((= pos SDL_HAT_LEFT)      'SDL-HAT-LEFT)
+	 ((= pos SDL_HAT_RIGHTUP)   'SDL-HAT-RIGHT-UP)
+	 ((= pos SDL_HAT_RIGHTDOWN) 'SDL-HAT-RIGHT-DOWN)
+	 ((= pos SDL_HAT_LEFTUP)    'SDL-HAT-LEFT-UP)
+	 ((= pos SDL_HAT_LEFTDOWN)  'SDL-HAT-LEFT-DOWN)
+	 (else '())))
+      '()))
+
+(define (sdl-event-joy-ball?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-JOYBALLMOTION-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-joy-ball)
+  (if (sdl-event-joy-ball?)
+      (ftype-ref sdl-c-joy-ball-event (ball)
+		 (ftype-&ref sdl-c-event (jball) event-mem))
+      '()))
+
+(define (sdl-event-joy-ball-x-rel)
+  (if (sdl-event-joy-ball?)
+      (ftype-ref sdl-c-joy-ball-event (xrel)
+		 (ftype-&ref sdl-c-event (jball) event-mem))
+      '()))
+
+(define (sdl-event-joy-ball-y-rel)
+  (if (sdl-event-joy-ball?)
+      (ftype-ref sdl-c-joy-ball-event (yrel)
+		 (ftype-&ref sdl-c-event (jball) event-mem))
+      '()))
+
+(define (sdl-event-joy-ball-device)
+  (if (sdl-event-joy-ball?)
+      (ftype-ref sdl-c-joy-ball-event (which)
+		 (ftype-&ref sdl-c-event (jball) event-mem))
+      '()))
+
+(define (sdl-event-joy-axis?)
+  (if (sdl-event-none?)
+      #f
+      (= SDL-JOYAXISMOTION-E
+	 (ftype-ref sdl-c-event (type) event-mem))))
+
+(define (sdl-event-joy-axis)
+  (if (sdl-event-joy-axis?)
+      (ftype-ref sdl-c-joy-axis-event (axis)
+		 (ftype-&ref sdl-c-event (jaxis) event-mem))
+      '()))
+
+(define (sdl-event-joy-axis-motion)
+  (if (sdl-event-joy-axis?)
+      (ftype-ref sdl-c-joy-axis-event (value)
+		 (ftype-&ref sdl-c-event (jaxis) event-mem))
+      '()))
+
+(define (sdl-event-joy-axis-device)
+  (if (sdl-event-joy-axis?)
+      (ftype-ref sdl-c-joy-axis-event (which)
+		 (ftype-&ref sdl-c-event (jaxis) event-mem))
+      '()))
 
 
 ;;; Game Controller Events ;;;

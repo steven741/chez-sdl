@@ -546,7 +546,32 @@
    sdl-event-mouse-wheel-y
 
    ;; Joystick Events
-   
+   sdl-event-joy-dev-added?
+   sdl-event-joy-dev-removed?
+   sdl-event-joy-device
+
+   sdl-event-joy-button-up?
+   sdl-event-joy-button-down?
+   sdl-event-joy-button?
+   sdl-event-joy-button-pressed?
+   sdl-event-joy-button-device
+   sdl-event-joy-button
+
+   sdl-event-joy-hat?
+   sdl-event-joy-hat
+   sdl-event-joy-hat-pos
+   sdl-event-joy-hat-device
+
+   sdl-event-joy-ball?
+   sdl-event-joy-ball
+   sdl-event-joy-ball-x-rel
+   sdl-event-joy-ball-y-rel
+   sdl-event-joy-ball-device
+
+   sdl-event-joy-axis?
+   sdl-event-joy-axis
+   sdl-event-joy-axis-motion
+   sdl-event-joy-axis-device
 
    ;; Game Controller
    sdl-event-con-dev-added?
