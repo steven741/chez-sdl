@@ -10,8 +10,12 @@ This is a SDL 2 interface for Chez Scheme.
 * Surfaces
 * Clipboard
 
-## Events
-* Joystick Events
+## Input
+* Keyboard
+* Mouse
+* Joystick
+* Game Controller
+* Touch
 
 ## Force Feeback
 * Haptics
