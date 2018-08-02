@@ -675,21 +675,6 @@
 	(else
          (error 'sdl "unknown machine type" (machine-type))))))
 
-  (define sdl-poll-event!
-    (foreign-procedure "SDL_PollEvent" ((* sdl-c-event)) int))
-
-  (define sdl-rw-from-file!
-    (foreign-procedure "SDL_RWFromFile" (string string) void*))
-
-  (define sdl-load-bmp-rw!
-    (foreign-procedure "SDL_LoadBMP_RW" (void* int) (* sdl-c-surface)))
-
-  (define sdl-free-c
-    (foreign-procedure "SDL_free" ((* char)) void))
-
-  (define event-mem)
-
-
   (include "lib/sdl-basic.sls")
   (include "lib/sdl-video.sls")
   (include "lib/sdl-audio.sls")

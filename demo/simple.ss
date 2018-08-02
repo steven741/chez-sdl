@@ -23,8 +23,7 @@
 
 
 ;; Sleep for 2 seconds
-(sleep (make-time 'time-duration 0 2))
-
+(sdl-delay 2000)
 
 ;; Exit
 (sdl-destroy-window win)

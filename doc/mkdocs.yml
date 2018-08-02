@@ -5,9 +5,8 @@ repo_url: https://github.com/steven741/chez-sdl
 
 pages:
     - 'Getting Strated': index.md
-
+    - 'Overview of SDL 2': 'sdl.md'
     - Tutorials:
-      - 'Overview of SDL 2': 'tuts/sdl.md'
       - 'Handling Events': 'tuts/events.md'
       - 'Renderer Basics': 'tuts/renderer.md'
       - 'Renderer Techniques': 'tuts/advanced-renderer.md'

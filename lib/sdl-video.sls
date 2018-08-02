@@ -4,6 +4,16 @@
 ;;;;
 ;;;;
 
+(define sdl-rw-from-file!
+  (foreign-procedure "SDL_RWFromFile" (string string) void*))
+
+(define sdl-load-bmp-rw!
+  (foreign-procedure "SDL_LoadBMP_RW" (void* int) (* sdl-c-surface)))
+
+
+;;;
+;;;
+;;;
 
 (define SDL-WINDOW-FULLSCREEN         #x00000001)
 (define SDL-WINDOW-OPENGL             #x00000002)

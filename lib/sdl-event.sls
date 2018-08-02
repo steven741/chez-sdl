@@ -4,6 +4,15 @@
 ;;;;
 ;;;;
 
+(define sdl-poll-event!
+  (foreign-procedure "SDL_PollEvent" ((* sdl-c-event)) int))
+
+(define sdl-free-c
+  (foreign-procedure "SDL_free" ((* char)) void))
+
+(define event-mem)
+
+
 ;;;
 ;;; Keyboard
 ;;;
