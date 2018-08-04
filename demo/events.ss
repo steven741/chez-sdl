@@ -35,21 +35,21 @@
 
    #|
    |#
-   ((sdl-event-drop-text?) (pretty-print (sdl-event-drop-file))
+   ((sdl-event-drop-text?) (printf (sdl-event-drop-file))
                            (event-loop))
    #|
    |#
-   ((sdl-event-mouse-motion?) (pretty-print "Current mouse position:")
-                              (pretty-print (sdl-event-mouse-motion-x))
-                              (pretty-print (sdl-event-mouse-motion-y))
+   ((sdl-event-mouse-motion?) (printf "Current mouse position: (~d,~d)~n"
+				      (sdl-event-mouse-motion-x)
+				      (sdl-event-mouse-motion-y))
                               (event-loop))
    #|
    |#
-   ((sdl-event-key-up? SDLK-A) (pretty-print "A is released.")
+   ((sdl-event-key-up? SDLK-A) (printf "A is released.~n")
                                (event-loop))
    #|
    |#
-   ((sdl-event-key-down? SDLK-A) (pretty-print "A is pressed.")
+   ((sdl-event-key-down? SDLK-A) (printf "A is pressed.~n")
                                  (event-loop))
    #|
    |#

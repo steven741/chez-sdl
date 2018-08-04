@@ -174,6 +174,10 @@
    ;;;;;;;;;;;;;
    ;;; Event ;;;
    ;;;;;;;;;;;;;
+   SDL-QUERY
+   SDL-IGNORE
+   SDL-DISABLE
+   SDL-ENABLE
    SDL-SCANCODE-UNKNOWN            SDLK-UNKNOWN
    SDL-SCANCODE-A                  SDLK-A
    SDL-SCANCODE-B                  SDLK-B
@@ -649,6 +653,19 @@
    ;;;;;;;;;;;;;
    ;;; Input ;;;
    ;;;;;;;;;;;;;
+   SDL-SYSTEM-CURSOR-ARROW
+   SDL-SYSTEM-CURSOR-IBEAM
+   SDL-SYSTEM-CURSOR-WAIT
+   SDL-SYSTEM-CURSOR-CROSSHAIR
+   SDL-SYSTEM-CURSOR-WAITARROW
+   SDL-SYSTEM-CURSOR-SIZENWSE
+   SDL-SYSTEM-CURSOR-SIZENESW
+   SDL-SYSTEM-CURSOR-SIZEWE
+   SDL-SYSTEM-CURSOR-SIZENS
+   SDL-SYSTEM-CURSOR-SIZEALL
+   SDL-SYSTEM-CURSOR-NO
+   SDL-SYSTEM-CURSOR-HAND
+
    sdl-get-key-from-name
    sdl-get-key-from-scancode
    sdl-get-key-name
@@ -665,6 +682,20 @@
    sdl-set-text-input-rect!
    sdl-start-text-input
    sdl-stop-text-input
+
+   sdl-capture-mouse
+   sdl-create-color-cursor
+   sdl-create-system-cursor
+   sdl-free-cursor
+   sdl-show-cursor
+   sdl-get-cursor
+   sdl-get-mouse-focus
+   sdl-get-default-cursor
+   sdl-warp-mouse-in-window
+   sdl-warp-mouse-global
+   sdl-set-cursor!
+   sdl-set-relative-mouse-mode!
+   sdl-get-relative-mouse-mode
 
    ;;;;;;;;;;;;;
    ;;; Extra ;;;
@@ -690,6 +721,11 @@
 
 	(else
          (error 'sdl "unknown machine type" (machine-type))))))
+
+  (define SDL-QUERY  -1)
+  (define SDL-IGNORE  0)
+  (define SDL-DISABLE 0)
+  (define SDL-ENABLE  1)
 
   (include "lib/sdl-basic.sls")
   (include "lib/sdl-video.sls")

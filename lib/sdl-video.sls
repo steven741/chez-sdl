@@ -120,6 +120,10 @@
     [b-map     void*] ; NOTE: Should be SDL_BlitMap
     [refcount  int]))
 
+(define-ftype sdl-c-window
+  (struct
+    [flags unsigned-32]))
+
 
 (define-record-type sdl-rect
   (fields x

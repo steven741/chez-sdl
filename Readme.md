@@ -11,8 +11,6 @@ This is a SDL 2 interface for Chez Scheme.
 * Clipboard
 
 ## Input
-* Keyboard
-* Mouse
 * Joystick
 * Game Controller
 * Touch
