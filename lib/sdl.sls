@@ -649,7 +649,23 @@
    ;;;;;;;;;;;;;
    ;;; Input ;;;
    ;;;;;;;;;;;;;
-   
+   sdl-get-key-from-name
+   sdl-get-key-from-scancode
+   sdl-get-key-name
+   sdl-get-keyboard-focus
+   sdl-get-keyboard-state
+   sdl-get-mod-state
+   sdl-get-scancode-from-key
+   sdl-get-scancode-from-name
+   sdl-get-scancode-name
+   sdl-has-screen-keyboard-support?
+   sdl-is-screen-keyboard-shown?
+   sdl-is-text-input-active?
+   sdl-set-mod-state!
+   sdl-set-text-input-rect!
+   sdl-start-text-input
+   sdl-stop-text-input
+
    ;;;;;;;;;;;;;
    ;;; Extra ;;;
    ;;;;;;;;;;;;;

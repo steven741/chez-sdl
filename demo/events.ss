@@ -24,7 +24,6 @@
 (define (event-loop)
   ;; Put a new event in the library.
   (sdl-poll-event)
-
   (cond
    #|
    |#
