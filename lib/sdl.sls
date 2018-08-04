@@ -166,6 +166,10 @@
    sdl-fill-rect
    sdl-free-surface
 
+   sdl-get-clipboard-text
+   sdl-has-clipboard-text?
+   sdl-set-clipboard-text!
+
 
    ;;;;;;;;;;;;;
    ;;; Audio ;;;
@@ -666,6 +670,12 @@
    SDL-SYSTEM-CURSOR-NO
    SDL-SYSTEM-CURSOR-HAND
 
+   sdl-finger?
+   sdl-finger-id
+   sdl-finger-x
+   sdl-finger-y
+   sdl-finger-p
+
    sdl-get-key-from-name
    sdl-get-key-from-scancode
    sdl-get-key-name
@@ -696,6 +706,14 @@
    sdl-set-cursor!
    sdl-set-relative-mouse-mode!
    sdl-get-relative-mouse-mode
+
+   sdl-joystick-close
+   sdl-joystick-current-power-level
+   sdl-joystick-event-state
+   sdl-joystick-from-instance-id
+   sdl-joystick-get-attached
+   sdl-joystick-get-axis
+   sdl-joystick-get-ball
 
    sdl-get-num-touch-devices
    sdl-get-touch-device

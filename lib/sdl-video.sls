@@ -212,3 +212,23 @@
 		      unsigned-8
 		      unsigned-8
 		      unsigned-8) unsigned-32))
+
+
+;;;
+;;;
+;;;
+
+(define sdl-get-clipboard-text
+  (foreign-procedure "SDL_GetClipboardText" () string))
+
+(define _sdl-has-clipboard-text?
+  (foreign-procedure "SDL_HasClipboardText" () int))
+
+(define sdl-has-clipboard-text?
+  (= 1 (_sdl-has-clipboard-text?)))
+
+(define _sdl-set-clipboard-text!
+  (foreign-procedure "SDL_SetClipboardText" (string) int))
+
+(define (sdl-set-clipboard-text! text)
+  (= 1 (_sdl-set-clipboard-text! text)))

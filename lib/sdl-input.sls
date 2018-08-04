@@ -22,6 +22,14 @@
   (struct
    [type unsigned-32]))
 
+(define-ftype sdl-c-joystick
+  (struct
+   [type unsigned-32]))
+
+(define-ftype sdl-c-game-controller
+  (struct
+   [type unsigned-32]))
+
 (define-ftype sdl-c-finger
   (struct
    [id       integer-64]
@@ -32,6 +40,11 @@
 (define-record-type sdl-finger
   (fields id x y p))
 
+
+
+;;;
+;;;
+;;;
 
 
 (define sdl-get-key-from-name
@@ -101,6 +114,12 @@
 
 
 
+
+;;;
+;;;
+;;;
+
+
 (define _sdl-capture-mouse
   (foreign-procedure "SDL_CaptureMouse" (int) int))
 
@@ -153,6 +172,67 @@
 ;;       GetRelativeMouseState,
 ;;       GetGlobalMouseState,
 ;;       GetMouseState
+
+
+(define sdl-joystick-close
+  (foreign-procedure "SDL_JoystickClose" ((* sdl-c-joystick)) void))
+
+(define _sdl-joystick-current-power-level
+  (foreign-procedure "SDL_JoystickCurrentPowerLevel" ((* sdl-c-joystick)) int))
+
+(define (sdl-joystick-current-power-level joystick)
+  (let ((level (_sdl-joystick-current-power-level joystick)))
+    (cond
+     ((= level -1) 'SDL-JOYSTICK-POWER-UNKNOWN)
+     ((= level  0) 'SDL-JOYSTICK-POWER-EMPTY)
+     ((= level  1) 'SDL-JOYSTICK-POWER-LOW)
+     ((= level  2) 'SDL-JOYSTICK-POWER-MEDIUM)
+     ((= level  3) 'SDL-JOYSTICK-POWER-FULL)
+     ((= level  4) 'SDL-JOYSTICK-POWER-WIRED)
+     ((= level  5) 'SDL-JOYSTICK-POWER-MAX)
+     (else '()))))
+
+(define sdl-joystick-event-state
+  (foreign-procedure "SDL_JoystickEventState" (int) int))
+
+(define sdl-joystick-from-instance-id
+  (foreign-procedure "SDL_JoystickFromInstanceID"
+		     (integer-32)
+		     (* sdl-c-joystick)))
+
+(define _sdl-joystick-get-attached
+  (foreign-procedure "SDL_JoystickGetAttached" ((* sdl-c-joystick)) int))
+
+(define (sdl-joystick-get-attached joystick)
+  (= 1 (_sdl-joystick-get-attached joystick)))
+
+(define sdl-joystick-get-axis
+  (foreign-procedure "SDL_JoystickGetAxis" ((* sdl-c-joystick) int) integer-16))
+
+(define _sdl-joystick-get-ball
+  (foreign-procedure "SDL_JoystickGetBall"
+		     ((* sdl-c-joystick) int (* int) (* int))
+		     int))
+
+(define (sdl-joystick-get-ball joystick ball)
+  (let* ((dx   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	 (dy   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	 (err  (_sdl-joystick-get-ball joystick ball dx dy))
+	 (dpos (list dx dy)))
+    ;; Release allocated memory
+    (foreign-free (ftype-pointer-address dx))
+    (foreign-free (ftype-pointer-address dy))
+    (if (= err 0)
+	dpos
+	'())))
+
+
+
+;; TODO: 
+
+;;;
+;;;
+;;;
 
 
 (define sdl-get-num-touch-devices

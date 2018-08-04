@@ -62,10 +62,14 @@
   (cond
    ((null? args)                     (all))
    ((string=? (car args) "all")      (all))
-   ((string=? (car args) "simple")   (simple))
-   ((string=? (car args) "events")   (events))
-   ((string=? (car args) "surfaces") (surfaces))
-   ((string=? (car args) "renderer") (renderer))
+   ((string=? (car args) "simple")   (simple)
+                                     (make (cdr args)))
+   ((string=? (car args) "events")   (events)
+                                     (make (cdr args)))
+   ((string=? (car args) "surfaces") (surfaces)
+                                     (make (cdr args)))
+   ((string=? (car args) "renderer") (renderer)
+                                     (make (cdr args)))
    ((string=? (car args) "clean")    (clean))
    (else
     (make (cdr args)))))
