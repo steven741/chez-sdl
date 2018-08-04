@@ -126,10 +126,7 @@
 
 
 (define-record-type sdl-rect
-  (fields x
-	  y
-	  w
-	  h))
+  (fields x y w h))
 
 
 (define (sdl-surface? s) #f)

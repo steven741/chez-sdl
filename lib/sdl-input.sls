@@ -18,6 +18,22 @@
 (define SDL-SYSTEM-CURSOR-HAND     11)
 
 
+(define-ftype sdl-c-cursor
+  (struct
+   [type unsigned-32]))
+
+(define-ftype sdl-c-finger
+  (struct
+   [id       integer-64]
+   [x        float]
+   [y        float]
+   [pressure float]))
+
+(define-record-type sdl-finger
+  (fields id x y p))
+
+
+
 (define sdl-get-key-from-name
   (foreign-procedure "SDL_GetKeyFromName" (string) int))
 
@@ -92,16 +108,16 @@
   (= 0 (_sdl-capture-mouse (if enable 1 0))))
 
 (define sdl-create-color-cursor
-  (foreign-procedure "SDL_CreateColorCursor" ((*sdl-c-surface) int int) void*))
+  (foreign-procedure "SDL_CreateColorCursor" ((* sdl-c-surface) int int) (* sdl-c-cursor)))
 
 (define sdl-create-system-cursor
-  (foreign-procedure "SDL_CreateSystemCursor" (int) void*))
+  (foreign-procedure "SDL_CreateSystemCursor" (int) (* sdl-c-cursor)))
 
 (define sdl-free-cursor
-  (foreign-procedure "SDL_FreeCursor" (void*) void))
+  (foreign-procedure "SDL_FreeCursor" ((* sdl-c-cursor)) void))
 
 (define sdl-get-cursor
-  (foreign-procedure "SDL_GetCursor" () void*))
+  (foreign-procedure "SDL_GetCursor" () (* sdl-c-cursor)))
 
 (define sdl-show-cursor
   (foreign-procedure "SDL_ShowCursor" (int) int))
@@ -110,7 +126,7 @@
   (foreign-procedure "SDL_GetMouseFocus" () (* sdl-c-window)))
 
 (define sdl-get-default-cursor
-  (foreign-procedure "SDL_GetDefaultCursor" () void*))
+  (foreign-procedure "SDL_GetDefaultCursor" () (* sdl-c-cursor)))
 
 (define sdl-warp-mouse-in-window
   (foreign-procedure "SDL_WarpMouseInWindow" ((* sdl-c-window) int int) void))
@@ -119,7 +135,7 @@
   (foreign-procedure "SDL_WarpMouseGlobal" (int int) int))
 
 (define sdl-set-cursor!
-  (foreign-procedure "SDL_SetCursor" (void*) void))
+  (foreign-procedure "SDL_SetCursor" ((* sdl-c-cursor)) void))
 
 (define _sdl-set-relative-mouse-mode!
   (foreign-procedure "SDL_SetRelativeMouseMode" (int) int))
@@ -137,3 +153,23 @@
 ;;       GetRelativeMouseState,
 ;;       GetGlobalMouseState,
 ;;       GetMouseState
+
+
+(define sdl-get-num-touch-devices
+  (foreign-procedure "SDL_GetNumTouchDevices" () int))
+
+(define sdl-get-touch-device
+  (foreign-procedure "SDL_GetTouchDevice" (int) integer-64))
+
+(define sdl-get-num-touch-fingers
+  (foreign-procedure "SDL_GetNumTouchFingers" (integer-64) int))
+
+(define _sdl-get-touch-finger
+  (foreign-procedure "SDL_GetTouchFinger" (integer-64 int) (* sdl-c-finger)))
+
+(define (sdl-get-touch-finger touch-id index)
+  (let ((finger (_sdl-get-touch-finger touch-id index)))
+    (make-sdl-finger (ftype-ref sdl-c-finger (id)       finger)
+		     (ftype-ref sdl-c-finger (x)        finger)
+		     (ftype-ref sdl-c-finger (y)        finger)
+		     (ftype-ref sdl-c-finger (pressure) finger))))

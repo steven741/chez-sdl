@@ -697,6 +697,11 @@
    sdl-set-relative-mouse-mode!
    sdl-get-relative-mouse-mode
 
+   sdl-get-num-touch-devices
+   sdl-get-touch-device
+   sdl-get-num-touch-fingers
+   sdl-get-touch-finger
+
    ;;;;;;;;;;;;;
    ;;; Extra ;;;
    ;;;;;;;;;;;;;
