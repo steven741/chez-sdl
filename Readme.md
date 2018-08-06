@@ -9,9 +9,6 @@ This is a SDL 2 interface for Chez Scheme.
 * Rect
 * Surfaces
 
-## Input
-* Game Controller
-
 ## Force Feeback
 * Haptics
 

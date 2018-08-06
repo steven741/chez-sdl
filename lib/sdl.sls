@@ -727,6 +727,22 @@
    sdl-joystick-num-buttons
    sdl-joystick-num-hats
 
+   sdl-game-controller?
+   sdl-game-controller-attached?
+   sdl-game-controller-button-pressed?
+   sdl-game-controller-axis
+   sdl-game-controller-open
+   sdl-game-controller-close
+   sdl-game-controller-name
+   sdl-game-controller-name-for-index
+   sdl-game-controller-mapping
+   sdl-button->string
+   sdl-axis->string
+   string->sdl-button
+   string->sdl-axis
+   sdl-controller->sdl-joystick
+   sdl-joystick-id->sdl-controller
+
    sdl-get-num-touch-devices
    sdl-get-touch-device
    sdl-get-num-touch-fingers
