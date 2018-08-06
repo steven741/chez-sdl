@@ -17,7 +17,6 @@
 (define SDL-SYSTEM-CURSOR-NO       10)
 (define SDL-SYSTEM-CURSOR-HAND     11)
 
-
 (define-ftype sdl-c-cursor
   (struct
    [type unsigned-32]))
@@ -174,8 +173,14 @@
 ;;       GetMouseState
 
 
+(define sdl-joystick-open
+  (foreign-procedure "SDL_JoystickOpen" (int) (* sdl-c-joystick)))
+
 (define sdl-joystick-close
   (foreign-procedure "SDL_JoystickClose" ((* sdl-c-joystick)) void))
+
+(define sdl-joystick-num
+  (foreign-procedure "SDL_NumJoysticks" () int))
 
 (define _sdl-joystick-current-power-level
   (foreign-procedure "SDL_JoystickCurrentPowerLevel" ((* sdl-c-joystick)) int))
@@ -226,9 +231,62 @@
 	dpos
 	'())))
 
+(define sdl-joystick-get-button
+  (foreign-procedure "SDL_JoystickGetButton"
+		     ((* sdl-c-joystick) int)
+		     unsigned-8))
+
+(define _sdl-joystick-get-hat
+  (foreign-procedure "SDL_JoystickGetHat" ((* sdl-c-joystick) int) unsigned-8))
+
+(define (sdl-joystick-get-hat joystick index)
+  (define SDL_HAT_CENTERED    #x00)
+  (define SDL_HAT_UP          #x01)
+  (define SDL_HAT_RIGHT       #x02)
+  (define SDL_HAT_DOWN        #x04)
+  (define SDL_HAT_LEFT        #x08)
+  (define SDL_HAT_RIGHTUP     (bitwise-ior SDL_HAT_RIGHT SDL_HAT_UP))
+  (define SDL_HAT_RIGHTDOWN   (bitwise-ior SDL_HAT_RIGHT SDL_HAT_DOWN))
+  (define SDL_HAT_LEFTUP      (bitwise-ior SDL_HAT_LEFT  SDL_HAT_UP))
+  (define SDL_HAT_LEFTDOWN    (bitwise-ior SDL_HAT_LEFT  SDL_HAT_DOWN))
+  (let ([pos (_sdl-joystick-get-hat joystick index)])
+    (cond
+     ((= pos SDL_HAT_CENTERED)  'SDL-HAT-CENTERED)
+     ((= pos SDL_HAT_UP)        'SDL-HAT-UP)
+     ((= pos SDL_HAT_RIGHT)     'SDL-HAT-RIGHT)
+     ((= pos SDL_HAT_DOWN)      'SDL-HAT-DOWN)
+     ((= pos SDL_HAT_LEFT)      'SDL-HAT-LEFT)
+     ((= pos SDL_HAT_RIGHTUP)   'SDL-HAT-RIGHT-UP)
+     ((= pos SDL_HAT_RIGHTDOWN) 'SDL-HAT-RIGHT-DOWN)
+     ((= pos SDL_HAT_LEFTUP)    'SDL-HAT-LEFT-UP)
+     ((= pos SDL_HAT_LEFTDOWN)  'SDL-HAT-LEFT-DOWN)
+     (else '()))))
+
+(define sdl-joystick-instance-id
+  (foreign-procedure "SDL_JoystickInstanceID"
+		     ((* sdl-c-joystick))
+		     integer-32))
+
+(define sdl-joystick-name
+  (foreign-procedure "SDL_JoystickName" ((* sdl-c-joystick)) string))
+
+(define sdl-joystick-name-for-index
+  (foreign-procedure "SDL_JoystickNameForIndex" (int) string))
+
+(define sdl-joystick-num-axes
+  (foreign-procedure "SDL_JoystickNumAxes" ((* sdl-c-joystick)) int))
+
+(define sdl-joystick-num-balls
+  (foreign-procedure "SDL_JoystickNumBalls" ((* sdl-c-joystick)) int))
+
+(define sdl-joystick-num-buttons
+  (foreign-procedure "SDL_JoystickNumButtons" ((* sdl-c-joystick)) int))
+
+(define sdl-joystick-num-hats
+  (foreign-procedure "SDL_JoystickNumHats" ((* sdl-c-joystick)) int))
 
 
-;; TODO: 
+;; TODO: GUID function
 
 ;;;
 ;;;

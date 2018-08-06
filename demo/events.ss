@@ -9,7 +9,9 @@
 
 (sdl-init (bitwise-ior
 	   SDL-INIT-VIDEO
-	   SDL-INIT-EVENTS))
+	   SDL-INIT-EVENTS
+	   SDL-INIT-JOYSTICK
+	   SDL-INIT-GAMECONTROLLER))
 
 (define win
   (sdl-create-window "chezscheme"
@@ -20,6 +22,7 @@
 		     (bitwise-ior
 		      SDL-WINDOW-SHOWN
 		      SDL-WINDOW-ALLOW-HIGHDPI)))
+
 
 (define (event-loop)
   ;; Put a new event in the library.

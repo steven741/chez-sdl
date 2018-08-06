@@ -10,7 +10,6 @@ This is a SDL 2 interface for Chez Scheme.
 * Surfaces
 
 ## Input
-* Joystick
 * Game Controller
 
 ## Force Feeback

@@ -182,6 +182,7 @@
    SDL-IGNORE
    SDL-DISABLE
    SDL-ENABLE
+
    SDL-SCANCODE-UNKNOWN            SDLK-UNKNOWN
    SDL-SCANCODE-A                  SDLK-A
    SDL-SCANCODE-B                  SDLK-B
@@ -707,13 +708,24 @@
    sdl-set-relative-mouse-mode!
    sdl-get-relative-mouse-mode
 
+   sdl-joystick-open
    sdl-joystick-close
+   sdl-joystick-num
    sdl-joystick-current-power-level
    sdl-joystick-event-state
    sdl-joystick-from-instance-id
    sdl-joystick-get-attached
    sdl-joystick-get-axis
    sdl-joystick-get-ball
+   sdl-joystick-get-button
+   sdl-joystick-get-hat
+   sdl-joystick-instance-id
+   sdl-joystick-name
+   sdl-joystick-name-for-index
+   sdl-joystick-num-axes
+   sdl-joystick-num-balls
+   sdl-joystick-num-buttons
+   sdl-joystick-num-hats
 
    sdl-get-num-touch-devices
    sdl-get-touch-device
