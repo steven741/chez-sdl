@@ -21,12 +21,27 @@
 		     480
 		     SDL-WINDOW-SHOWN))
 
+(define ren
+  (sdl-create-renderer win
+		       -1
+		       (bitwise-ior SDL-RENDERER-ACCELERATED
+				    SDL-RENDERER-PRESENTVSYNC)))
 
-;; Sleep for 2 seconds
-(sleep (make-time 'time-duration 0 2))
+
+(define bmp (sdl-load-bmp "lenna.bmp"))
+(define tex (sdl-create-texture-from-surface ren bmp))
+(sdl-free-surface bmp)
+
+
+(sdl-render-clear ren)
+(sdl-render-copy ren tex)
+(sdl-render-present ren)
+(sdl-delay 2000)
 
 
 ;; Exit
+(sdl-destroy-texture tex)
+(sdl-destroy-renderer ren)
 (sdl-destroy-window win)
 (sdl-quit)
 

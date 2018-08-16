@@ -140,7 +140,11 @@
    sdl-rect-w
    sdl-rect-h
 
-   sdl-surface?
+   make-sdl-point
+   sdl-point?
+   sdl-point-x
+   sdl-point-y
+
    sdl-surface-fmt
    sdl-surface-w
    sdl-surface-h
@@ -156,7 +160,7 @@
    sdl-create-renderer
    sdl-create-texture-from-surface
    sdl-render-clear
-   ;sdl-render-copy
+   sdl-render-copy
    sdl-render-present
    sdl-destroy-texture
    sdl-destroy-renderer
