@@ -6,7 +6,6 @@ This is a SDL 2 interface for Chez Scheme.
 * Window Getter & Setters
 * Renderer
 * Pixels
-* Rect
 * Surfaces
 
 ## Force Feeback

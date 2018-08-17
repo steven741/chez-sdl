@@ -21,13 +21,6 @@
 			 "demo/events")
   (make-boot-file "demo/events.boot" '("petite" "scheme") "demo/events"))
 
-(define (surfaces)
-  (compile-library "lib/sdl.sls")
-  (compile-program "demo/surfaces.ss")
-  (compile-whole-program "demo/surfaces.wpo"
-			 "demo/surfaces")
-  (make-boot-file "demo/surfaces.boot" '("petite" "scheme") "demo/surfaces"))
-
 (define (renderer)
   (compile-library "lib/sdl.sls")
   (compile-program "demo/renderer.ss")
@@ -39,7 +32,6 @@
 (define (all)
   (simple)
   (events)
-  (surfaces)
   (renderer))
 
 
@@ -54,7 +46,6 @@
   (delete-file "./lib/sdl.wpo")
   (from-demo "simple")
   (from-demo "events")
-  (from-demo "surfaces")
   (from-demo "renderer"))
 
 
@@ -65,8 +56,6 @@
    ((string=? (car args) "simple")   (simple)
                                      (make (cdr args)))
    ((string=? (car args) "events")   (events)
-                                     (make (cdr args)))
-   ((string=? (car args) "surfaces") (surfaces)
                                      (make (cdr args)))
    ((string=? (car args) "renderer") (renderer)
                                      (make (cdr args)))
