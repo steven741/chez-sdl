@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
     <url>
      <loc>/</loc>
-     <lastmod>2018-08-02</lastmod>
+     <lastmod>2018-12-10</lastmod>
      <changefreq>daily</changefreq>
     </url>
+    
+
+    
     <url>
      <loc>/sdl/</loc>
-     <lastmod>2018-08-02</lastmod>
+     <lastmod>2018-12-10</lastmod>
      <changefreq>daily</changefreq>
     </url>
+    
+
+    
+        
     <url>
      <loc>/tuts/events/</loc>
-     <lastmod>2018-08-02</lastmod>
+     <lastmod>2018-12-10</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
     <url>
      <loc>/tuts/renderer/</loc>
-     <lastmod>2018-08-02</lastmod>
+     <lastmod>2018-12-10</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
     <url>
      <loc>/tuts/advanced-renderer/</loc>
-     <lastmod>2018-08-02</lastmod>
+     <lastmod>2018-12-10</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
     <url>
      <loc>/tuts/tetris/</loc>
-     <lastmod>2018-08-02</lastmod>
+     <lastmod>2018-12-10</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
+    
+
+    
     <url>
      <loc>/ref/</loc>
-     <lastmod>2018-08-02</lastmod>
+     <lastmod>2018-12-10</lastmod>
      <changefreq>daily</changefreq>
     </url>
+    
+
 </urlset>

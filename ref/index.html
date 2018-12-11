@@ -109,7 +109,13 @@
     <li class="toctree-l2"><a href="#timers">Timers</a></li>
     
 
+    <li class="toctree-l2"><a href="#data">Data</a></li>
+    
+
     <li class="toctree-l2"><a href="#extra">Extra</a></li>
+    
+
+    <li class="toctree-l2"><a href="#unsupported">Unsupported</a></li>
     
 
     </ul>
@@ -151,14 +157,3154 @@
             <div class="section">
               
                 <h1 id="basics">Basics</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-INIT</strong> <em>flags</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><em>flags</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-INIT-TIMER</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-AUDIO</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-VIDEO</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-JOYSTICK</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-HAPTIC</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-GAMECONTROLLER</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-EVENTS</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-EVERYTHING</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#f</code> if there was a detectable error or <code>#t</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_Init</code></p>
+</blockquote>
+<p>Examples:</p>
+<pre><code class="scheme">(sdl-init
+  SDL-INIT-EVERYTHING)
+</code></pre>
+
+<pre><code class="scheme">(sdl-init
+  (bitwise-ior SDL-INIT-VIDEO
+               SDL-INIT-AUDIO))
+</code></pre>
+
+<p>Notes:</p>
+<blockquote>
+<p>Flags can be combined using the <code>BITWISE-IOR</code> procedure.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-QUIT</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_Quit</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CLEAR-HINTS!</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_ClearHints</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-HINT-BOOLEAN</strong> <em>name</em> <em>default</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the hint.</p>
+<p><strong><em>default</em></strong> : Return value if hint not found.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The setting of the hint or, <strong><em>default</em></strong> if the hint isn't applicable to the system.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetHintBoolean</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-SET-HINT!</strong> <em>name</em> <em>value</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="#data">hint</a>.</p>
+<p><strong><em>value</em></strong> : A string. Value to set hint.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if hint was set or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetHint</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-SET-HINT-W/-PRIORITY!</strong> <em>name</em> <em>value</em> <em>priority</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="#data">hint</a>.</p>
+<p><strong><em>value</em></strong> : A string. Value to set hint.</p>
+<table>
+<thead>
+<tr>
+<th align="left"><em>priority</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-HINT-DEFAULT</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-NORMAL</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-OVERRIDE</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if hint was set or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetHintWithPriority</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CLEAR-ERROR!</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_ClearError</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-ERROR</strong>) → string</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A message describing an error that has occured.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetError</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-VERSION</strong>) → list</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list of 3 numbers. (major minor patch)</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetVersion</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-REVISION</strong>) → string</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A string identifying the version of SDL being used.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRevision</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-REVISION-NUM</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A number identifying the version of SDL being used.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRevisionNumber</code></p>
+</blockquote>
 <h1 id="video">Video</h1>
 <h1 id="audio">Audio</h1>
 <h1 id="events">Events</h1>
+<hr />
+<p><strong><em>Application Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-POLL-EVENT</strong>) → '()</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_PollEvent</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Puts a new event into the library.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-NONE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if there are no events otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TIMESTAMP</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Get the timestamp of an event. All events have a timestamp.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-QUIT?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_QUIT</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CLIPBOARD?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_CLIPBOARDUPDATE</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TERMINATING?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_APP_TERMINATING</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-LOW-MEMORY?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_APP_LOWMEMORY</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WILL-ENTER-BACKGROUND?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_APP_WILLENTERBACKGROUND</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DID-ENTER-BACKGROUND?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_APP_DIDENTERBACKGROUND</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WILL-ENTER-FOREGROUND?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_APP_WILLENTERFOREGROUND</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DID-ENTER-FOREGROUND?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_APP_DIDENTERFOREGROUND</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-RENDER-TARGET-RESET?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_RENDER_TARGETS_RESET</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-RENDER-DEVICE-RESET?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_RENDER_DEVICE_RESET</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p><strong><em>Windowing Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WINDOW?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_WINDOWEVENT</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-SYSWM?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_SYSWMEVENT</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-SHOWN?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is shown otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_SHOWN</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-HIDDEN?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is hidden otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_HIDDEN</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-EXPOSED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is exposed otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_EXPOSED</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-MOVED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is moved otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_MOVED</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-RESIZED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is resized otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_RESIZED</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-SIZE-CHANGED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window's size changed otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_SIZE_CHANGED</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-MINIMIZED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is minimized otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_MINIMIZED</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-MAXIMIZED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is maximized otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_MAXIMIZED</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-RESTORED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is restored otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_RESTORED</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-ENTER?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if mouse entered window otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_ENTER</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-LEAVE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if mouse left window otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_LEAVE</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-FOCUS-GAINED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if keyboard has gained window's focus otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_FOCUS_GAINED</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-FOCUS-LOST?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if keyboard has lost window's focus otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_FOCUS_LOST</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-CLOSE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is closed otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_CLOSE</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-TAKE-FOCUS?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window is offered focus otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_TAKE_FOCUS</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-HIT-TEST?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if window has a special hit test otherwise <code>#f</code>.</p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p>Window Event Type: <code>SDL_WINDOWEVENT_HIT_TEST</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-ID</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The window's id.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-X</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The window event's x value.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-Y</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The window event's y value.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-W</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The window event's width value.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WIN-H</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The window event's height value.</p>
+</blockquote>
+<hr />
+<p><strong><em>Keyboard Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-KEYUP?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_KEYUP</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-KEYDOWN?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_KEYDOWN</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-KEYMAP-CHANGED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_KEYMAPCHANGED</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-KEY-REPEAT?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if key press was repeated otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-KEY-UP?</strong> <em>key</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>key</em></strong> : <a href="#data">A SDL key code.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if key was released otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-KEY-DOWN?</strong> <em>key</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>key</em></strong> : <a href="#data">A SDL key code.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if key was pressed otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOD-UP?</strong> <em>key</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>key</em></strong> : <a href="#data">A SDL modifier code.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if key was released otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOD-DOWN?</strong> <em>key</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>key</em></strong> : <a href="#data">A SDL modifier code.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if key was pressed otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CODE-UP?</strong> <em>key</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>key</em></strong> : <a href="#data">A SDL scancode.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if key was released otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CODE-DOWN?</strong> <em>key</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>key</em></strong> : <a href="#data">A SDL scancode.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if key was pressed otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p><strong><em>Text Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TEXT-EDITING?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_TEXTEDITING</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TEXT-INPUT?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_TEXTINPUT</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TEXT-EDITING-TEXT</strong>) → string</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The text being edited.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TEXT-INPUT-TEXT</strong>) → string</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The text being input.</p>
+</blockquote>
+<hr />
+<p><strong><em>Mouse Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_MOUSEMOTION</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-DOWN?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_MOUSEBUTTONDOWN</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-UP?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_MOUSEBUTTONUP</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-WHEEL?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_MOUSEWHEEL</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-WHICH</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the mouse for the motion event.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-X</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The x value of the mouse motion event.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-Y</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The y value of the mouse motion event.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-X-REL</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The relative x value of the mouse motion event.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-Y-REL</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The relative y value of the mouse motion event.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-B-LEFT?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if the left mouse button is down otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-B-MIDDLE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if the middle mouse button is down otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-B-RIGHT?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if the right mouse button is down otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-B-X1?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if the x1 mouse button is down otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-MOTION-B-X2?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if the x2 mouse button is down otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-WHICH</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the mouse for the button event.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-STATE</strong>) → symbol</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>'SDL-RELEASED</code> or <code>'SDL-PRESSED</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-BUTTON</strong>) → symbol</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-BUTTON-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-BUTTON-MIDDLE</td>
+</tr>
+<tr>
+<td align="left">SDL-BUTTON-RIGHT</td>
+</tr>
+<tr>
+<td align="left">SDL-BUTTON-X1</td>
+</tr>
+<tr>
+<td align="left">SDL-BUTTON-X2</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-CLICKS</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The number of time there the mouse button has been clicked.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-X</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The x value of the mouse.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-BUTTON-Y</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The y value of the mouse.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-WHEEL-WHICH</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the mouse for the wheel event.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MOUSE-WHEEL-WHICH</strong>) → symbol</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>'SDL-MOUSE-WHEEL-NORMAL</code>, <code>'SDL-MOUSE-WHEEL-FLIPPED</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WHEEL-BUTTON-X</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The x value of the mouse.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-WHEEL-BUTTON-Y</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The y value of the mouse.</p>
+</blockquote>
+<hr />
+<p><strong><em>Joystick Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-DEV-ADDED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_JOYDEVICEADDED</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-DEV-REMOVED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_JOYDEVICEREMOVED</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-DEVICE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the joystick device.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BUTTON-UP?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_JOYBUTTONUP</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BUTTON-DOWN?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_JOYBUTTONDOWN</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BUTTON?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_JOYBUTTONUP</code> or <code>SDL_JOYBUTTONDOWN</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BUTTON-PRESSED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if button was pressed down otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BUTTON-DEVICE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the joystick device.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BUTTON</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the button.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-HAT?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_JOYHATMOTION</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-HAT</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the hat.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-HAT-POS</strong>) → symbol</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-HAT-CENTERED</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-RIGHT</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-RIGHT-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-RIGHT-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-LEFT-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-LEFT-DOWN</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-HAT-DEVICE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the joystick device.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BALL?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_JOYBALLMOTION</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BALL</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the ball.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BALL-X-REL</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The motion in the relative x-direction.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BALL-Y-REL</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The motion in the relative y-direction.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-BALL-DEVICE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the joystick device.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-AXIS?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_JOYAXISMOTION</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-AXIS</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the axis.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-AXIS-MOTION</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The current position of the axis.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-JOY-AXIS-DEVICE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the joystick device.</p>
+</blockquote>
+<hr />
+<p><strong><em>Controller Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-DEV-ADDED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_CONTROLLERDEVICEADDED</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-DEV-REMOVED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_CONTROLLERDEVICEREMOVED</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-DEV-REMAPPED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_CONTROLLERDEVICEREMAPPED</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-DEVICE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the game controller.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-AXIS?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_CONTROLLERAXISMOTION</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-AXIS-DEVICE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the game controller.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-AXIS</strong>) → symbol</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-LEFT-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-LEFT-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-RIGHT-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-RIGHT-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-TRIGGER-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-TRIGGER-RIGHT</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-MOTION</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The current position of the axis.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-BUTTON-UP?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_CONTROLLERBUTTONUP</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-BUTTON-DOWN?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_CONTROLLERBUTTONDOWN</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-BUTTON?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_CONTROLLERBUTTONUP</code> or <code>SDL_CONTROLLERBUTTONDOWN</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-BUTTON-PRESSED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if the button is pressed down otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-BUTTON</strong>) → symbol</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-A</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-B</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-BACK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-GUIDE</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-START</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT-STICK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT-STICK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT-SHOULDER</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT-SHOULDER</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-CON-BUTTON-DEVICE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the game controller.</p>
+</blockquote>
+<hr />
+<p><strong><em>Audio Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-AUDIO-DEVICE-ADDED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_AUDIODEVICEADDED</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-AUDIO-DEVICE-REMOVED?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_AUDIODEVICEREMOVED</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-AUDIO-DEVICE-WHICH</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the audio device.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-AUDIO-DEVICE-ISCAPTURE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if the device is a capture device otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p><strong><em>Touch Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-FINGER-DOWN?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_FINGERDOWN</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-FINGER-UP?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_FINGERUP</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-FINGER-MOTION?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_FINGERMOTION</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DOLLAR-GESTURE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_DOLLARGESTURE</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DOLLAR-RECORD?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_DOLLARRECORD</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MULTI-GESTURE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_MULTIGESTURE</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TOUCH-ID</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the touch device.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TOUCH-X</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The x-axis location of the touch event, normalized (0...1)</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TOUCH-Y</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The y-axis location of the touch event, normalized (0...1)</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TOUCH-DX</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The distance moved in the x-axis, normalized (0...1)</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TOUCH-DY</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The distance moved in the y-axis, normalized (0...1)</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-TOUCH-PRESSURE</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The quantity of pressure applied, normalized (0...1)</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-FINGER-ID</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the finger.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-GESTURE-ID</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The id of the gesture.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-GESTURE-NUM-FINGERS</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The number of fingers used to draw the stroke.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-GESTURE-ERROR</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The difference between the gesture template and the actual performed gesture.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MULTI-GESTURE-DTHETA</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The amount that the fingers rotated during this motion.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-MULTI-GESTURE-DDIST</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The amount that the fingers pinched during this motion.</p>
+</blockquote>
+<hr />
+<p><strong><em>Drag &amp; Drop Events</em></strong></p>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DROP-FILE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_DROPFILE</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DROP-TEXT?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_DROPTEXT</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DROP-BEGIN?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_DROPBEGIN</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DROP-COMPLETE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if event is of type <code>SDL_DROPCOMPLETE</code> otherwise <code>#f</code>.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-EVENT-DROP-FILE</strong>) → string</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The file name.</p>
+</blockquote>
 <h1 id="inputs">Inputs</h1>
 <h1 id="force-feedback">Force Feedback</h1>
 <h1 id="power-management">Power Management</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-POWER-INFO</strong>) → list</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list of 3 elements. (seconds percentage state)</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetPowerInfo</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>seconds</em></strong> : Seconds of battery life left. Will return -1 if we can't determine a value, or we're not running on a battery.</p>
+<p><strong><em>percentage</em></strong> : Percentage of battery life left, between 0 and 100. Will return -1 if we can't determine a value, or we're not running on a battery.</p>
+<table>
+<thead>
+<tr>
+<th align="left"><em>state</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-POWERSTATE-UNKNOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-POWERSTATE-ON-BATTERY</td>
+</tr>
+<tr>
+<td align="left">SDL-POWERSTATE-NO-BATTERY</td>
+</tr>
+<tr>
+<td align="left">SDL-POWERSTATE-CHARGING</td>
+</tr>
+<tr>
+<td align="left">SDL-POWERSTATE-CHARGED</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <h1 id="timers">Timers</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-DELAY</strong> <em>ms</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>ms</em></strong> : A number. The number of milliseconds to delay.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_Delay</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-TICKS</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of milliseconds since the SDL library initialized.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetTicks</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-PERFORMANCE-COUNTER</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The current counter value.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetPerformanceCounter</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-PERFORMANCE-FREQUENCY</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A platform-specific count per second.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetPerformanceFrequency</code></p>
+</blockquote>
+<h1 id="data">Data</h1>
+<table>
+<thead>
+<tr>
+<th align="left"><em>hints</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-HINT-FRAMEBUFFER-ACCELERATION</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RENDER-DRIVER</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RENDER-OPENGL-SHADERS</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RENDER-DIRECT3D-THREADSAFE</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RENDER-DIRECT3D11-DEBUG</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RENDER-LOGICAL-SIZE-MODE</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RENDER-SCALE-QUALITY</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RENDER-VSYNC</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-ALLOW-SCREENSAVER</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-X11-XVIDMODE</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-X11-XINERAMA</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-X11-XRANDR</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-X11-NET-WM-PING</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-X11-NET-WM-BYPASS-COMPOSITOR</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINDOW-FRAME-USABLE-WHILE-CURSOR-HIDDEN</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINDOWS-INTRESOURCE-ICON</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINDOWS-INTRESOURCE-ICON-SMALL</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINDOWS-ENABLE-MESSAGELOOP</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-GRAB-KEYBOARD</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-MOUSE-NORMAL-SPEED-SCALE</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-MOUSE-RELATIVE-SPEED-SCALE</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-MOUSE-RELATIVE-MODE-WARP</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-MOUSE-FOCUS-CLICKTHROUGH</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-TOUCH-MOUSE-EVENTS</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-MINIMIZE-ON-FOCUS-LOSS</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-IDLE-TIMER-DISABLED</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-ORIENTATIONS</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-APPLE-TV-CONTROLLER-UI-EVENTS</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-APPLE-TV-REMOTE-ALLOW-ROTATION</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-IOS-HIDE-HOME-INDICATOR</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-ACCELEROMETER-AS-JOYSTICK</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-TV-REMOTE-AS-JOYSTICK</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-XINPUT-ENABLED</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-XINPUT-USE-OLD-JOYSTICK-MAPPING</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-GAMECONTROLLERCONFIG</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-GAMECONTROLLER-IGNORE-DEVICES</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-GAMECONTROLLER-IGNORE-DEVICES-EXCEPT</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-JOYSTICK-ALLOW-BACKGROUND-EVENTS</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-ALLOW-TOPMOST</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-TIMER-RESOLUTION</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-QTWAYLAND-CONTENT-ORIENTATION</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-QTWAYLAND-WINDOW-FLAGS</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-THREAD-STACK-SIZE</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-HIGHDPI-DISABLED</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-MAC-CTRL-CLICK-EMULATE-RIGHT-CLICK</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-WIN-D3DCOMPILER</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-WINDOW-SHARE-PIXEL-FORMAT</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINRT-PRIVACY-POLICY-URL</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINRT-PRIVACY-POLICY-LABEL</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINRT-HANDLE-BACK-BUTTON</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-MAC-FULLSCREEN-SPACES</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-MAC-BACKGROUND-APP</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-ANDROID-APK-EXPANSION-MAIN-FILE-VERSION</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-ANDROID-APK-EXPANSION-PATCH-FILE-VERSION</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-IME-INTERNAL-EDITING</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-ANDROID-SEPARATE-MOUSE-AND-TOUCH</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-ANDROID-TRAP-BACK-BUTTON</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RETURN-KEY-HIDES-IME</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-EMSCRIPTEN-KEYBOARD-ELEMENT</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-NO-SIGNAL-HANDLERS</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINDOWS-NO-CLOSE-ON-ALT-F4</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-BMP-SAVE-LEGACY-FORMAT</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-WINDOWS-DISABLE-THREAD-NAMING</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-RPI-VIDEO-LAYER</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-VIDEO-DOUBLE-BUFFER</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-OPENGL-ES-DRIVER</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-AUDIO-RESAMPLING-MODE</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-AUDIO-CATEGORY</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th align="left">Scancodes</th>
+<th align="left">Keycodes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-SCANCODE-UNKNOWN</td>
+<td align="left">SDLK-UNKNOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-A</td>
+<td align="left">SDLK-A</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-B</td>
+<td align="left">SDLK-B</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-C</td>
+<td align="left">SDLK-C</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-D</td>
+<td align="left">SDLK-D</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-E</td>
+<td align="left">SDLK-E</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F</td>
+<td align="left">SDLK-F</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-G</td>
+<td align="left">SDLK-G</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-H</td>
+<td align="left">SDLK-H</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-I</td>
+<td align="left">SDLK-I</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-J</td>
+<td align="left">SDLK-J</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-K</td>
+<td align="left">SDLK-K</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-L</td>
+<td align="left">SDLK-L</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-M</td>
+<td align="left">SDLK-M</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-N</td>
+<td align="left">SDLK-N</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-O</td>
+<td align="left">SDLK-O</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-P</td>
+<td align="left">SDLK-P</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-Q</td>
+<td align="left">SDLK-Q</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-R</td>
+<td align="left">SDLK-R</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-S</td>
+<td align="left">SDLK-S</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-T</td>
+<td align="left">SDLK-T</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-U</td>
+<td align="left">SDLK-U</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-V</td>
+<td align="left">SDLK-V</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-W</td>
+<td align="left">SDLK-W</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-X</td>
+<td align="left">SDLK-X</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-Y</td>
+<td align="left">SDLK-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-Z</td>
+<td align="left">SDLK-Z</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-1</td>
+<td align="left">SDLK-1</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-2</td>
+<td align="left">SDLK-2</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-3</td>
+<td align="left">SDLK-3</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-4</td>
+<td align="left">SDLK-4</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-5</td>
+<td align="left">SDLK-5</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-6</td>
+<td align="left">SDLK-6</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-7</td>
+<td align="left">SDLK-7</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-8</td>
+<td align="left">SDLK-8</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-9</td>
+<td align="left">SDLK-9</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-0</td>
+<td align="left">SDLK-0</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-RETURN</td>
+<td align="left">SDLK-RETURN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-ESCAPE</td>
+<td align="left">SDLK-ESCAPE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-BACKSPACE</td>
+<td align="left">SDLK-BACKSPACE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-TAB</td>
+<td align="left">SDLK-TAB</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-SPACE</td>
+<td align="left">SDLK-SPACE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-MINUS</td>
+<td align="left">SDLK-MINUS</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-EQUALS</td>
+<td align="left">SDLK-EQUALS</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LEFTBRACKET</td>
+<td align="left">SDLK-LEFTBRACKET</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-RIGHTBRACKET</td>
+<td align="left">SDLK-RIGHTBRACKET</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-BACKSLASH</td>
+<td align="left">SDLK-BACKSLASH</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-NONUSHASH</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-SEMICOLON</td>
+<td align="left">SDLK-SEMICOLON</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-APOSTROPHE</td>
+<td align="left">SDLK-QUOTE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-GRAVE</td>
+<td align="left">SDLK-BACKQUOTE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-COMMA</td>
+<td align="left">SDLK-COMMA</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-PERIOD</td>
+<td align="left">SDLK-PERIOD</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-SLASH</td>
+<td align="left">SDLK-SLASH</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CAPSLOCK</td>
+<td align="left">SDLK-CAPSLOCK</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F1</td>
+<td align="left">SDLK-F1</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F2</td>
+<td align="left">SDLK-F2</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F3</td>
+<td align="left">SDLK-F3</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F4</td>
+<td align="left">SDLK-F4</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F5</td>
+<td align="left">SDLK-F5</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F6</td>
+<td align="left">SDLK-F6</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F7</td>
+<td align="left">SDLK-F7</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F8</td>
+<td align="left">SDLK-F8</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F9</td>
+<td align="left">SDLK-F9</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F10</td>
+<td align="left">SDLK-F10</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F11</td>
+<td align="left">SDLK-F11</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F12</td>
+<td align="left">SDLK-F12</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-PRINTSCREEN</td>
+<td align="left">SDLK-PRINTSCREEN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-SCROLLLOCK</td>
+<td align="left">SDLK-SCROLLLOCK</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-PAUSE</td>
+<td align="left">SDLK-PAUSE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INSERT</td>
+<td align="left">SDLK-INSERT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-HOME</td>
+<td align="left">SDLK-HOME</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-PAGEUP</td>
+<td align="left">SDLK-PAGEUP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-DELETE</td>
+<td align="left">SDLK-DELETE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-END</td>
+<td align="left">SDLK-END</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-PAGEDOWN</td>
+<td align="left">SDLK-PAGEDOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-RIGHT</td>
+<td align="left">SDLK-RIGHT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LEFT</td>
+<td align="left">SDLK-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-DOWN</td>
+<td align="left">SDLK-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-UP</td>
+<td align="left">SDLK-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-NUMLOCKCLEAR</td>
+<td align="left">SDLK-NUMLOCKCLEAR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-DIVIDE</td>
+<td align="left">SDLK-KP-DIVIDE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MULTIPLY</td>
+<td align="left">SDLK-KP-MULTIPLY</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MINUS</td>
+<td align="left">SDLK-KP-MINUS</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-PLUS</td>
+<td align="left">SDLK-KP-PLUS</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-ENTER</td>
+<td align="left">SDLK-KP-ENTER</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-1</td>
+<td align="left">SDLK-KP-1</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-2</td>
+<td align="left">SDLK-KP-2</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-3</td>
+<td align="left">SDLK-KP-3</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-4</td>
+<td align="left">SDLK-KP-4</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-5</td>
+<td align="left">SDLK-KP-5</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-6</td>
+<td align="left">SDLK-KP-6</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-7</td>
+<td align="left">SDLK-KP-7</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-8</td>
+<td align="left">SDLK-KP-8</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-9</td>
+<td align="left">SDLK-KP-9</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-0</td>
+<td align="left">SDLK-KP-0</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-PERIOD</td>
+<td align="left">SDLK-KP-PERIOD</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-NONUSBACKSLASH</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-APPLICATION</td>
+<td align="left">SDLK-APPLICATION</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-POWER</td>
+<td align="left">SDLK-POWER</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-EQUALS</td>
+<td align="left">SDLK-KP-EQUALS</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F13</td>
+<td align="left">SDLK-F13</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F14</td>
+<td align="left">SDLK-F14</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F15</td>
+<td align="left">SDLK-F15</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F16</td>
+<td align="left">SDLK-F16</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F17</td>
+<td align="left">SDLK-F17</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F18</td>
+<td align="left">SDLK-F18</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F19</td>
+<td align="left">SDLK-F19</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F20</td>
+<td align="left">SDLK-F20</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F21</td>
+<td align="left">SDLK-F21</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F22</td>
+<td align="left">SDLK-F22</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F23</td>
+<td align="left">SDLK-F23</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-F24</td>
+<td align="left">SDLK-F24</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-EXECUTE</td>
+<td align="left">SDLK-EXECUTE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-HELP</td>
+<td align="left">SDLK-HELP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-MENU</td>
+<td align="left">SDLK-MENU</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-SELECT</td>
+<td align="left">SDLK-SELECT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-STOP</td>
+<td align="left">SDLK-STOP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AGAIN</td>
+<td align="left">SDLK-AGAIN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-UNDO</td>
+<td align="left">SDLK-UNDO</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CUT</td>
+<td align="left">SDLK-CUT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-COPY</td>
+<td align="left">SDLK-COPY</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-PASTE</td>
+<td align="left">SDLK-PASTE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-FIND</td>
+<td align="left">SDLK-FIND</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-MUTE</td>
+<td align="left">SDLK-MUTE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-VOLUMEUP</td>
+<td align="left">SDLK-VOLUMEUP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-VOLUMEDOWN</td>
+<td align="left">SDLK-VOLUMEDOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-COMMA</td>
+<td align="left">SDLK-KP-COMMA</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-EQUALSAS400</td>
+<td align="left">SDLK-KP-EQUALSAS400</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL1</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL2</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL3</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL4</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL5</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL6</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL7</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL8</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-INTERNATIONAL9</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG1</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG2</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG3</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG4</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG5</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG6</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG7</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG8</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LANG9</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-ALTERASE</td>
+<td align="left">SDLK-ALTERASE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-SYSREQ</td>
+<td align="left">SDLK-SYSREQ</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CANCEL</td>
+<td align="left">SDLK-CANCEL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CLEAR</td>
+<td align="left">SDLK-CLEAR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-PRIOR</td>
+<td align="left">SDLK-PRIOR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-RETURN2</td>
+<td align="left">SDLK-RETURN2</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-SEPARATOR</td>
+<td align="left">SDLK-SEPARATOR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-OUT</td>
+<td align="left">SDLK-OUT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-OPER</td>
+<td align="left">SDLK-OPER</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CLEARAGAIN</td>
+<td align="left">SDLK-CLEARAGAIN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CRSEL</td>
+<td align="left">SDLK-CRSEL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-EXSEL</td>
+<td align="left">SDLK-EXSEL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-00</td>
+<td align="left">SDLK-KP-00</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-000</td>
+<td align="left">SDLK-KP-000</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-THOUSANDSSEPARATOR</td>
+<td align="left">SDLK-THOUSANDSSEPARATOR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-DECIMALSEPARATOR</td>
+<td align="left">SDLK-DECIMALSEPARATOR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CURRENCYUNIT</td>
+<td align="left">SDLK-CURRENCYUNIT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CURRENCYSUBUNIT</td>
+<td align="left">SDLK-CURRENCYSUBUNIT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-LEFTPAREN</td>
+<td align="left">SDLK-KP-LEFTPAREN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-RIGHTPAREN</td>
+<td align="left">SDLK-KP-RIGHTPAREN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-LEFTBRACE</td>
+<td align="left">SDLK-KP-LEFTBRACE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-RIGHTBRACE</td>
+<td align="left">SDLK-KP-RIGHTBRACE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-TAB</td>
+<td align="left">SDLK-KP-TAB</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-BACKSPACE</td>
+<td align="left">SDLK-KP-BACKSPACE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-A</td>
+<td align="left">SDLK-KP-A</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-B</td>
+<td align="left">SDLK-KP-B</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-C</td>
+<td align="left">SDLK-KP-C</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-D</td>
+<td align="left">SDLK-KP-D</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-E</td>
+<td align="left">SDLK-KP-E</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-F</td>
+<td align="left">SDLK-KP-F</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-XOR</td>
+<td align="left">SDLK-KP-XOR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-POWER</td>
+<td align="left">SDLK-KP-POWER</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-PERCENT</td>
+<td align="left">SDLK-KP-PERCENT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-LESS</td>
+<td align="left">SDLK-KP-LESS</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-GREATER</td>
+<td align="left">SDLK-KP-GREATER</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-AMPERSAND</td>
+<td align="left">SDLK-KP-AMPERSAND</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-DBLAMPERSAND</td>
+<td align="left">SDLK-KP-DBLAMPERSAND</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-VERTICALBAR</td>
+<td align="left">SDLK-KP-VERTICALBAR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-DBLVERTICALBAR</td>
+<td align="left">SDLK-KP-DBLVERTICALBAR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-COLON</td>
+<td align="left">SDLK-KP-COLON</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-HASH</td>
+<td align="left">SDLK-KP-HASH</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-SPACE</td>
+<td align="left">SDLK-KP-SPACE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-AT</td>
+<td align="left">SDLK-KP-AT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-EXCLAM</td>
+<td align="left">SDLK-KP-EXCLAM</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MEMSTORE</td>
+<td align="left">SDLK-KP-MEMSTORE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MEMRECALL</td>
+<td align="left">SDLK-KP-MEMRECALL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MEMCLEAR</td>
+<td align="left">SDLK-KP-MEMCLEAR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MEMADD</td>
+<td align="left">SDLK-KP-MEMADD</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MEMSUBTRACT</td>
+<td align="left">SDLK-KP-MEMSUBTRACT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MEMMULTIPLY</td>
+<td align="left">SDLK-KP-MEMMULTIPLY</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-MEMDIVIDE</td>
+<td align="left">SDLK-KP-MEMDIVIDE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-PLUSMINUS</td>
+<td align="left">SDLK-KP-PLUSMINUS</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-CLEAR</td>
+<td align="left">SDLK-KP-CLEAR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-CLEARENTRY</td>
+<td align="left">SDLK-KP-CLEARENTRY</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-BINARY</td>
+<td align="left">SDLK-KP-BINARY</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-OCTAL</td>
+<td align="left">SDLK-KP-OCTAL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-DECIMAL</td>
+<td align="left">SDLK-KP-DECIMAL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KP-HEXADECIMAL</td>
+<td align="left">SDLK-KP-HEXADECIMAL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LCTRL</td>
+<td align="left">SDLK-LCTRL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LSHIFT</td>
+<td align="left">SDLK-LSHIFT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LALT</td>
+<td align="left">SDLK-LALT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-LGUI</td>
+<td align="left">SDLK-LGUI</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-RCTRL</td>
+<td align="left">SDLK-RCTRL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-RSHIFT</td>
+<td align="left">SDLK-RSHIFT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-RALT</td>
+<td align="left">SDLK-RALT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-RGUI</td>
+<td align="left">SDLK-RGUI</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-MODE</td>
+<td align="left">SDLK-MODE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AUDIONEXT</td>
+<td align="left">SDLK-AUDIONEXT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AUDIOPREV</td>
+<td align="left">SDLK-AUDIOPREV</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AUDIOSTOP</td>
+<td align="left">SDLK-AUDIOSTOP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AUDIOPLAY</td>
+<td align="left">SDLK-AUDIOPLAY</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AUDIOMUTE</td>
+<td align="left">SDLK-AUDIOMUTE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-MEDIASELECT</td>
+<td align="left">SDLK-MEDIASELECT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-WWW</td>
+<td align="left">SDLK-WWW</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-MAIL</td>
+<td align="left">SDLK-MAIL</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-CALCULATOR</td>
+<td align="left">SDLK-CALCULATOR</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-COMPUTER</td>
+<td align="left">SDLK-COMPUTER</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AC-SEARCH</td>
+<td align="left">SDLK-AC-SEARCH</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AC-HOME</td>
+<td align="left">SDLK-AC-HOME</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AC-BACK</td>
+<td align="left">SDLK-AC-BACK</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AC-FORWARD</td>
+<td align="left">SDLK-AC-FORWARD</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AC-STOP</td>
+<td align="left">SDLK-AC-STOP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AC-REFRESH</td>
+<td align="left">SDLK-AC-REFRESH</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AC-BOOKMARKS</td>
+<td align="left">SDLK-AC-BOOKMARKS</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-BRIGHTNESSDOWN</td>
+<td align="left">SDLK-BRIGHTNESSDOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-BRIGHTNESSUP</td>
+<td align="left">SDLK-BRIGHTNESSUP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-DISPLAYSWITCH</td>
+<td align="left">SDLK-DISPLAYSWITCH</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KBDILLUMTOGGLE</td>
+<td align="left">SDLK-KBDILLUMTOGGLE</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KBDILLUMDOWN</td>
+<td align="left">SDLK-KBDILLUMDOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-KBDILLUMUP</td>
+<td align="left">SDLK-KBDILLUMUP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-EJECT</td>
+<td align="left">SDLK-EJECT</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-SLEEP</td>
+<td align="left">SDLK-SLEEP</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-APP1</td>
+<td align="left">SDLK-APP1</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-APP2</td>
+<td align="left">SDLK-APP2</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AUDIOREWIND</td>
+<td align="left">SDLK-AUDIOREWIND</td>
+</tr>
+<tr>
+<td align="left">SDL-SCANCODE-AUDIOFASTFORWARD</td>
+<td align="left">SDLK-AUDIOFASTFORWARD</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-EXCLAIM</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-QUOTEDBL</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-HASH</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-PERCENT</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-DOLLAR</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-AMPERSAND</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-LEFTPAREN</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-RIGHTPAREN</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-ASTERISK</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-PLUS</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-COLON</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-LESS</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-GREATER</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-QUESTION</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-AT</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-CARET</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">SDLK-UNDERSCORE</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th align="left"><em>Key Modifer</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">KMOD-NONE</td>
+</tr>
+<tr>
+<td align="left">KMOD-LSHIFT</td>
+</tr>
+<tr>
+<td align="left">KMOD-RSHIFT</td>
+</tr>
+<tr>
+<td align="left">KMOD-LCTRL</td>
+</tr>
+<tr>
+<td align="left">KMOD-RCTRL</td>
+</tr>
+<tr>
+<td align="left">KMOD-LALT</td>
+</tr>
+<tr>
+<td align="left">KMOD-RALT</td>
+</tr>
+<tr>
+<td align="left">KMOD-LGUI</td>
+</tr>
+<tr>
+<td align="left">KMOD-RGUI</td>
+</tr>
+<tr>
+<td align="left">KMOD-NUM</td>
+</tr>
+<tr>
+<td align="left">KMOD-CAPS</td>
+</tr>
+<tr>
+<td align="left">KMOD-MODE</td>
+</tr>
+<tr>
+<td align="left">KMOD-RESERVED</td>
+</tr>
+<tr>
+<td align="left">KMOD-CTRL</td>
+</tr>
+<tr>
+<td align="left">KMOD-SHIFT</td>
+</tr>
+<tr>
+<td align="left">KMOD-ALT</td>
+</tr>
+<tr>
+<td align="left">KMOD-GUI</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th align="left"><em>Device Query</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-QUERY</td>
+</tr>
+<tr>
+<td align="left">SDL-IGNORE</td>
+</tr>
+<tr>
+<td align="left">SDL-DISABLE</td>
+</tr>
+<tr>
+<td align="left">SDL-ENABLE</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
 <h1 id="extra">Extra</h1>
+<h1 id="unsupported">Unsupported</h1>
               
             </div>
           </div>
@@ -183,18 +3329,18 @@
 
   Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+	  
         </div>
       </div>
 
     </section>
-
+    
   </div>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/steven741/chez-sdl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/steven741/chez-sdl" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../tuts/tetris/" style="color: #fcfcfc;">&laquo; Previous</a></span>
@@ -202,10 +3348,7 @@
       
     </span>
 </div>
-    <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
-      <script src="../search/require.js"></script>
-      <script src="../search/search.js"></script>
 
 </body>
 </html>
