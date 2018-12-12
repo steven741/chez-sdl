@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Steven Watson">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Basics - Chez-SDL</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Basics";
+    var mkdocs_page_input_path = "ref/basics.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Chez-SDL</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Getting Strated</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../sdl/">Overview of SDL 2</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Tutorials</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../tuts/events/">Handling Events</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../tuts/renderer/">Renderer Basics</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../tuts/advanced-renderer/">Renderer Techniques</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../tuts/tetris/">Complete Example: Tetris</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Reference</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Basics</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#initialization-and-shutdown">Initialization and Shutdown</a></li>
+    
+
+    <li class="toctree-l3"><a href="#configuration-variables">Configuration Variables</a></li>
+    
+
+    <li class="toctree-l3"><a href="#error-handling">Error Handling</a></li>
+    
+
+    <li class="toctree-l3"><a href="#querying-sdl-version">Querying SDL Version</a></li>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../video/">Video</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../audio/">Audio</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../events/">Events</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../inputs/">Inputs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../force/">Force Feedback</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../power/">Power Management</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../timers/">Timers</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../data/">Data</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Chez-SDL</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Reference &raquo;</li>
+        
+      
+    
+    <li>Basics</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/steven741/chez-sdl/edit/master/docs/ref/basics.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="initialization-and-shutdown">Initialization and Shutdown</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-INIT</strong> <em>flags</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><em>flags</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-INIT-TIMER</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-AUDIO</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-VIDEO</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-JOYSTICK</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-HAPTIC</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-GAMECONTROLLER</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-EVENTS</td>
+</tr>
+<tr>
+<td align="left">SDL-INIT-EVERYTHING</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#f</code> if there was a detectable error or <code>#t</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_Init</code></p>
+</blockquote>
+<p>Examples:</p>
+<pre><code class="scheme">(sdl-init
+  SDL-INIT-EVERYTHING)
+</code></pre>
+
+<pre><code class="scheme">(sdl-init
+  (bitwise-ior SDL-INIT-VIDEO
+               SDL-INIT-AUDIO))
+</code></pre>
+
+<p>Notes:</p>
+<blockquote>
+<p>Flags can be combined using the <code>BITWISE-IOR</code> procedure.</p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-QUIT</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_Quit</code></p>
+</blockquote>
+<h1 id="configuration-variables">Configuration Variables</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CLEAR-HINTS!</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_ClearHints</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-HINT-BOOLEAN</strong> <em>name</em> <em>default</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the hint.</p>
+<p><strong><em>default</em></strong> : Return value if hint not found.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The setting of the hint or, <strong><em>default</em></strong> if the hint isn't applicable to the system.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetHintBoolean</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-SET-HINT!</strong> <em>name</em> <em>value</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="#data">hint</a>.</p>
+<p><strong><em>value</em></strong> : A string. Value to set hint.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if hint was set or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetHint</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-SET-HINT-W/-PRIORITY!</strong> <em>name</em> <em>value</em> <em>priority</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="#data">hint</a>.</p>
+<p><strong><em>value</em></strong> : A string. Value to set hint.</p>
+<table>
+<thead>
+<tr>
+<th align="left"><em>priority</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-HINT-DEFAULT</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-NORMAL</td>
+</tr>
+<tr>
+<td align="left">SDL-HINT-OVERRIDE</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if hint was set or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetHintWithPriority</code></p>
+</blockquote>
+<h1 id="error-handling">Error Handling</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CLEAR-ERROR!</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_ClearError</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-ERROR</strong>) → string</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A message describing an error that has occured.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetError</code></p>
+</blockquote>
+<h1 id="querying-sdl-version">Querying SDL Version</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-VERSION</strong>) → list</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list of 3 numbers. (major minor patch)</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetVersion</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-REVISION</strong>) → string</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A string identifying the version of SDL being used.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRevision</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-REVISION-NUM</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A number identifying the version of SDL being used.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRevisionNumber</code></p>
+</blockquote>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../video/" class="btn btn-neutral float-right" title="Video">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../tuts/tetris/" class="btn btn-neutral" title="Complete Example: Tetris"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/steven741/chez-sdl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../../tuts/tetris/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../video/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

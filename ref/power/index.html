@@ -8,7 +8,7 @@
   
   <meta name="author" content="Steven Watson">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Complete Example: Tetris - Chez-SDL</title>
+  <title>Power Management - Chez-SDL</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Complete Example: Tetris";
-    var mkdocs_page_input_path = "tuts/tetris.md";
+    var mkdocs_page_name = "Power Management";
+    var mkdocs_page_input_path = "ref/power.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -64,25 +64,19 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../events/">Handling Events</a>
+    <a class="" href="../../tuts/events/">Handling Events</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../renderer/">Renderer Basics</a>
+    <a class="" href="../../tuts/renderer/">Renderer Basics</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../advanced-renderer/">Renderer Techniques</a>
+    <a class="" href="../../tuts/advanced-renderer/">Renderer Techniques</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">Complete Example: Tetris</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#todo">TODO</a></li>
-    
-
-    </ul>
+    <a class="" href="../../tuts/tetris/">Complete Example: Tetris</a>
                 </li>
     </ul>
 	    </li>
@@ -93,39 +87,45 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../ref/basics/">Basics</a>
+    <a class="" href="../basics/">Basics</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../ref/video/">Video</a>
+    <a class="" href="../video/">Video</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../ref/audio/">Audio</a>
+    <a class="" href="../audio/">Audio</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../ref/events/">Events</a>
+    <a class="" href="../events/">Events</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../ref/inputs/">Inputs</a>
+    <a class="" href="../inputs/">Inputs</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../ref/force/">Force Feedback</a>
+    <a class="" href="../force/">Force Feedback</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Power Management</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#power-management-status">Power Management Status</a></li>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../ref/power/">Power Management</a>
+    <a class="" href="../timers/">Timers</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../ref/timers/">Timers</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../ref/data/">Data</a>
+    <a class="" href="../data/">Data</a>
                 </li>
     </ul>
 	    </li>
@@ -152,14 +152,14 @@
     
       
         
-          <li>Tutorials &raquo;</li>
+          <li>Reference &raquo;</li>
         
       
     
-    <li>Complete Example: Tetris</li>
+    <li>Power Management</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/steven741/chez-sdl/edit/master/docs/tuts/tetris.md"
+        <a href="https://github.com/steven741/chez-sdl/edit/master/docs/ref/power.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -169,7 +169,49 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="todo">TODO</h1>
+                <h1 id="power-management-status">Power Management Status</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-POWER-INFO</strong>) → list</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list of 3 elements. (seconds percentage state)</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetPowerInfo</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>seconds</em></strong> : Seconds of battery life left. Will return -1 if we can't determine a value, or we're not running on a battery.</p>
+<p><strong><em>percentage</em></strong> : Percentage of battery life left, between 0 and 100. Will return -1 if we can't determine a value, or we're not running on a battery.</p>
+<table>
+<thead>
+<tr>
+<th align="left"><em>state</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-POWERSTATE-UNKNOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-POWERSTATE-ON-BATTERY</td>
+</tr>
+<tr>
+<td align="left">SDL-POWERSTATE-NO-BATTERY</td>
+</tr>
+<tr>
+<td align="left">SDL-POWERSTATE-CHARGING</td>
+</tr>
+<tr>
+<td align="left">SDL-POWERSTATE-CHARGED</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
               
             </div>
           </div>
@@ -177,10 +219,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../ref/basics/" class="btn btn-neutral float-right" title="Basics">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../timers/" class="btn btn-neutral float-right" title="Timers">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../advanced-renderer/" class="btn btn-neutral" title="Renderer Techniques"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../force/" class="btn btn-neutral" title="Force Feedback"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -210,10 +252,10 @@
           <a href="https://github.com/steven741/chez-sdl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../advanced-renderer/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../force/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../../ref/basics/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../timers/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

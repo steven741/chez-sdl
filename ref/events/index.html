@@ -7,23 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <meta name="author" content="Steven Watson">
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Reference - Chez-SDL</title>
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Events - Chez-SDL</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Reference";
-    var mkdocs_page_input_path = "ref.md";
+    var mkdocs_page_name = "Events";
+    var mkdocs_page_input_path = "ref/events.md";
     var mkdocs_page_url = null;
   </script>
   
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -36,9 +36,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Chez-SDL</a>
+        <a href="../.." class="icon icon-home"> Chez-SDL</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -50,12 +50,12 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="..">Getting Strated</a>
+    <a class="" href="../..">Getting Strated</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../sdl/">Overview of SDL 2</a>
+    <a class="" href="../../sdl/">Overview of SDL 2</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -64,61 +64,96 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../tuts/events/">Handling Events</a>
+    <a class="" href="../../tuts/events/">Handling Events</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../tuts/renderer/">Renderer Basics</a>
+    <a class="" href="../../tuts/renderer/">Renderer Basics</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../tuts/advanced-renderer/">Renderer Techniques</a>
+    <a class="" href="../../tuts/advanced-renderer/">Renderer Techniques</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../tuts/tetris/">Complete Example: Tetris</a>
+    <a class="" href="../../tuts/tetris/">Complete Example: Tetris</a>
                 </li>
     </ul>
 	    </li>
           
-            <li class="toctree-l1 current">
+            <li class="toctree-l1">
 		
-    <a class="current" href="./">Reference</a>
+    <span class="caption-text">Reference</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../basics/">Basics</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../video/">Video</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../audio/">Audio</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Events</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#basics">Basics</a></li>
+    <li class="toctree-l3"><a href="#application-events">Application Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#video">Video</a></li>
+    <li class="toctree-l3"><a href="#windowing-events">Windowing Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#audio">Audio</a></li>
+    <li class="toctree-l3"><a href="#keyboard-events">Keyboard Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#events">Events</a></li>
+    <li class="toctree-l3"><a href="#text-events">Text Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#inputs">Inputs</a></li>
+    <li class="toctree-l3"><a href="#mouse-events">Mouse Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#force-feedback">Force Feedback</a></li>
+    <li class="toctree-l3"><a href="#joystick-events">Joystick Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#power-management">Power Management</a></li>
+    <li class="toctree-l3"><a href="#controller-events">Controller Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#timers">Timers</a></li>
+    <li class="toctree-l3"><a href="#audio-events">Audio Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#data">Data</a></li>
+    <li class="toctree-l3"><a href="#touch-events">Touch Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#extra">Extra</a></li>
+    <li class="toctree-l3"><a href="#drag-drop-events">Drag &amp; Drop Events</a></li>
     
 
-    <li class="toctree-l2"><a href="#unsupported">Unsupported</a></li>
-    
-
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../inputs/">Inputs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../force/">Force Feedback</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../power/">Power Management</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../timers/">Timers</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../data/">Data</a>
+                </li>
     </ul>
 	    </li>
           
@@ -132,7 +167,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Chez-SDL</a>
+        <a href="../..">Chez-SDL</a>
       </nav>
 
       
@@ -140,14 +175,18 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
+    <li><a href="../..">Docs</a> &raquo;</li>
     
       
+        
+          <li>Reference &raquo;</li>
+        
+      
     
-    <li>Reference</li>
+    <li>Events</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/steven741/chez-sdl/edit/master/docs/ref.md"
+        <a href="https://github.com/steven741/chez-sdl/edit/master/docs/ref/events.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -157,226 +196,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="basics">Basics</h1>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-INIT</strong> <em>flags</em>) → boolean</p>
-</blockquote>
-<p>Parameters:</p>
-<blockquote>
-<table>
-<thead>
-<tr>
-<th align="left"><em>flags</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">SDL-INIT-TIMER</td>
-</tr>
-<tr>
-<td align="left">SDL-INIT-AUDIO</td>
-</tr>
-<tr>
-<td align="left">SDL-INIT-VIDEO</td>
-</tr>
-<tr>
-<td align="left">SDL-INIT-JOYSTICK</td>
-</tr>
-<tr>
-<td align="left">SDL-INIT-HAPTIC</td>
-</tr>
-<tr>
-<td align="left">SDL-INIT-GAMECONTROLLER</td>
-</tr>
-<tr>
-<td align="left">SDL-INIT-EVENTS</td>
-</tr>
-<tr>
-<td align="left">SDL-INIT-EVERYTHING</td>
-</tr>
-</tbody>
-</table>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p><code>#f</code> if there was a detectable error or <code>#t</code> otherwise.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_Init</code></p>
-</blockquote>
-<p>Examples:</p>
-<pre><code class="scheme">(sdl-init
-  SDL-INIT-EVERYTHING)
-</code></pre>
-
-<pre><code class="scheme">(sdl-init
-  (bitwise-ior SDL-INIT-VIDEO
-               SDL-INIT-AUDIO))
-</code></pre>
-
-<p>Notes:</p>
-<blockquote>
-<p>Flags can be combined using the <code>BITWISE-IOR</code> procedure.</p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-QUIT</strong>) → void</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_Quit</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-CLEAR-HINTS!</strong>) → void</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_ClearHints</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-HINT-BOOLEAN</strong> <em>name</em> <em>default</em>) → boolean</p>
-</blockquote>
-<p>Parameters:</p>
-<blockquote>
-<p><strong><em>name</em></strong> : A string. Name of the hint.</p>
-<p><strong><em>default</em></strong> : Return value if hint not found.</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>The setting of the hint or, <strong><em>default</em></strong> if the hint isn't applicable to the system.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetHintBoolean</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-SET-HINT!</strong> <em>name</em> <em>value</em>) → boolean</p>
-</blockquote>
-<p>Parameters:</p>
-<blockquote>
-<p><strong><em>name</em></strong> : A string. Name of the <a href="#data">hint</a>.</p>
-<p><strong><em>value</em></strong> : A string. Value to set hint.</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p><code>#t</code> if hint was set or <code>#f</code> otherwise.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_SetHint</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-SET-HINT-W/-PRIORITY!</strong> <em>name</em> <em>value</em> <em>priority</em>) → boolean</p>
-</blockquote>
-<p>Parameters:</p>
-<blockquote>
-<p><strong><em>name</em></strong> : A string. Name of the <a href="#data">hint</a>.</p>
-<p><strong><em>value</em></strong> : A string. Value to set hint.</p>
-<table>
-<thead>
-<tr>
-<th align="left"><em>priority</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">SDL-HINT-DEFAULT</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-NORMAL</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-OVERRIDE</td>
-</tr>
-</tbody>
-</table>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p><code>#t</code> if hint was set or <code>#f</code> otherwise.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_SetHintWithPriority</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-CLEAR-ERROR!</strong>) → void</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_ClearError</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-ERROR</strong>) → string</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>A message describing an error that has occured.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetError</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-VERSION</strong>) → list</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>A list of 3 numbers. (major minor patch)</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetVersion</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-REVISION</strong>) → string</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>A string identifying the version of SDL being used.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetRevision</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-REVISION-NUM</strong>) → number</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>A number identifying the version of SDL being used.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetRevisionNumber</code></p>
-</blockquote>
-<h1 id="video">Video</h1>
-<h1 id="audio">Audio</h1>
-<h1 id="events">Events</h1>
-<hr />
-<p><strong><em>Application Events</em></strong></p>
+                <h1 id="application-events">Application Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -498,8 +318,7 @@
 <blockquote>
 <p><code>#t</code> if event is of type <code>SDL_RENDER_DEVICE_RESET</code> otherwise <code>#f</code>.</p>
 </blockquote>
-<hr />
-<p><strong><em>Windowing Events</em></strong></p>
+<h1 id="windowing-events">Windowing Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -771,8 +590,7 @@
 <blockquote>
 <p>The window event's height value.</p>
 </blockquote>
-<hr />
-<p><strong><em>Keyboard Events</em></strong></p>
+<h1 id="keyboard-events">Keyboard Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -816,7 +634,7 @@
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>key</em></strong> : <a href="#data">A SDL key code.</a></p>
+<p><strong><em>key</em></strong> : <a href="../data/#scancodes-keycodes">A SDL key code.</a></p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -829,7 +647,7 @@
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>key</em></strong> : <a href="#data">A SDL key code.</a></p>
+<p><strong><em>key</em></strong> : <a href="../data/#scancodes-keycodes">A SDL key code.</a></p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -842,7 +660,7 @@
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>key</em></strong> : <a href="#data">A SDL modifier code.</a></p>
+<p><strong><em>key</em></strong> : <a href="../data/#key-modifers">A SDL modifier code.</a></p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -855,7 +673,7 @@
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>key</em></strong> : <a href="#data">A SDL modifier code.</a></p>
+<p><strong><em>key</em></strong> : <a href="../data/#key-modifers">A SDL modifier code.</a></p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -868,7 +686,7 @@
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>key</em></strong> : <a href="#data">A SDL scancode.</a></p>
+<p><strong><em>key</em></strong> : <a href="../data/#scancodes-keycodes">A SDL scancode.</a></p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -881,14 +699,13 @@
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>key</em></strong> : <a href="#data">A SDL scancode.</a></p>
+<p><strong><em>key</em></strong> : <a href="../data/#scancodes-keycodes">A SDL scancode.</a></p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
 <p><code>#t</code> if key was pressed otherwise <code>#f</code>.</p>
 </blockquote>
-<hr />
-<p><strong><em>Text Events</em></strong></p>
+<h1 id="text-events">Text Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -925,8 +742,7 @@
 <blockquote>
 <p>The text being input.</p>
 </blockquote>
-<hr />
-<p><strong><em>Mouse Events</em></strong></p>
+<h1 id="mouse-events">Mouse Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -1166,8 +982,7 @@
 <blockquote>
 <p>The y value of the mouse.</p>
 </blockquote>
-<hr />
-<p><strong><em>Joystick Events</em></strong></p>
+<h1 id="joystick-events">Joystick Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -1401,8 +1216,7 @@
 <blockquote>
 <p>The id of the joystick device.</p>
 </blockquote>
-<hr />
-<p><strong><em>Controller Events</em></strong></p>
+<h1 id="controller-events">Controller Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -1608,8 +1422,7 @@
 <blockquote>
 <p>The id of the game controller.</p>
 </blockquote>
-<hr />
-<p><strong><em>Audio Events</em></strong></p>
+<h1 id="audio-events">Audio Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -1646,8 +1459,7 @@
 <blockquote>
 <p><code>#t</code> if the device is a capture device otherwise <code>#f</code>.</p>
 </blockquote>
-<hr />
-<p><strong><em>Touch Events</em></strong></p>
+<h1 id="touch-events">Touch Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -1810,8 +1622,7 @@
 <blockquote>
 <p>The amount that the fingers pinched during this motion.</p>
 </blockquote>
-<hr />
-<p><strong><em>Drag &amp; Drop Events</em></strong></p>
+<h1 id="drag-drop-events">Drag &amp; Drop Events</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
@@ -1857,1455 +1668,6 @@
 <blockquote>
 <p>The file name.</p>
 </blockquote>
-<h1 id="inputs">Inputs</h1>
-<h1 id="force-feedback">Force Feedback</h1>
-<h1 id="power-management">Power Management</h1>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-POWER-INFO</strong>) → list</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>A list of 3 elements. (seconds percentage state)</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetPowerInfo</code></p>
-</blockquote>
-<p>Notes:</p>
-<blockquote>
-<p><strong><em>seconds</em></strong> : Seconds of battery life left. Will return -1 if we can't determine a value, or we're not running on a battery.</p>
-<p><strong><em>percentage</em></strong> : Percentage of battery life left, between 0 and 100. Will return -1 if we can't determine a value, or we're not running on a battery.</p>
-<table>
-<thead>
-<tr>
-<th align="left"><em>state</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">SDL-POWERSTATE-UNKNOWN</td>
-</tr>
-<tr>
-<td align="left">SDL-POWERSTATE-ON-BATTERY</td>
-</tr>
-<tr>
-<td align="left">SDL-POWERSTATE-NO-BATTERY</td>
-</tr>
-<tr>
-<td align="left">SDL-POWERSTATE-CHARGING</td>
-</tr>
-<tr>
-<td align="left">SDL-POWERSTATE-CHARGED</td>
-</tr>
-</tbody>
-</table>
-</blockquote>
-<h1 id="timers">Timers</h1>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-DELAY</strong> <em>ms</em>) → void</p>
-</blockquote>
-<p>Parameters:</p>
-<blockquote>
-<p><strong><em>ms</em></strong> : A number. The number of milliseconds to delay.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_Delay</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-TICKS</strong>) → number</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>Number of milliseconds since the SDL library initialized.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetTicks</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-PERFORMANCE-COUNTER</strong>) → number</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>The current counter value.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetPerformanceCounter</code></p>
-</blockquote>
-<hr />
-<p>Procedure:</p>
-<blockquote>
-<p>(<strong>SDL-GET-PERFORMANCE-FREQUENCY</strong>) → number</p>
-</blockquote>
-<p>Returns:</p>
-<blockquote>
-<p>A platform-specific count per second.</p>
-</blockquote>
-<p>C Function Name:</p>
-<blockquote>
-<p><code>SDL_GetPerformanceFrequency</code></p>
-</blockquote>
-<h1 id="data">Data</h1>
-<table>
-<thead>
-<tr>
-<th align="left"><em>hints</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">SDL-HINT-FRAMEBUFFER-ACCELERATION</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RENDER-DRIVER</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RENDER-OPENGL-SHADERS</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RENDER-DIRECT3D-THREADSAFE</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RENDER-DIRECT3D11-DEBUG</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RENDER-LOGICAL-SIZE-MODE</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RENDER-SCALE-QUALITY</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RENDER-VSYNC</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-ALLOW-SCREENSAVER</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-X11-XVIDMODE</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-X11-XINERAMA</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-X11-XRANDR</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-X11-NET-WM-PING</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-X11-NET-WM-BYPASS-COMPOSITOR</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINDOW-FRAME-USABLE-WHILE-CURSOR-HIDDEN</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINDOWS-INTRESOURCE-ICON</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINDOWS-INTRESOURCE-ICON-SMALL</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINDOWS-ENABLE-MESSAGELOOP</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-GRAB-KEYBOARD</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-MOUSE-NORMAL-SPEED-SCALE</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-MOUSE-RELATIVE-SPEED-SCALE</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-MOUSE-RELATIVE-MODE-WARP</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-MOUSE-FOCUS-CLICKTHROUGH</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-TOUCH-MOUSE-EVENTS</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-MINIMIZE-ON-FOCUS-LOSS</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-IDLE-TIMER-DISABLED</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-ORIENTATIONS</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-APPLE-TV-CONTROLLER-UI-EVENTS</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-APPLE-TV-REMOTE-ALLOW-ROTATION</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-IOS-HIDE-HOME-INDICATOR</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-ACCELEROMETER-AS-JOYSTICK</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-TV-REMOTE-AS-JOYSTICK</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-XINPUT-ENABLED</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-XINPUT-USE-OLD-JOYSTICK-MAPPING</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-GAMECONTROLLERCONFIG</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-GAMECONTROLLER-IGNORE-DEVICES</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-GAMECONTROLLER-IGNORE-DEVICES-EXCEPT</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-JOYSTICK-ALLOW-BACKGROUND-EVENTS</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-ALLOW-TOPMOST</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-TIMER-RESOLUTION</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-QTWAYLAND-CONTENT-ORIENTATION</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-QTWAYLAND-WINDOW-FLAGS</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-THREAD-STACK-SIZE</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-HIGHDPI-DISABLED</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-MAC-CTRL-CLICK-EMULATE-RIGHT-CLICK</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-WIN-D3DCOMPILER</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-WINDOW-SHARE-PIXEL-FORMAT</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINRT-PRIVACY-POLICY-URL</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINRT-PRIVACY-POLICY-LABEL</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINRT-HANDLE-BACK-BUTTON</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-MAC-FULLSCREEN-SPACES</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-MAC-BACKGROUND-APP</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-ANDROID-APK-EXPANSION-MAIN-FILE-VERSION</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-ANDROID-APK-EXPANSION-PATCH-FILE-VERSION</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-IME-INTERNAL-EDITING</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-ANDROID-SEPARATE-MOUSE-AND-TOUCH</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-ANDROID-TRAP-BACK-BUTTON</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RETURN-KEY-HIDES-IME</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-EMSCRIPTEN-KEYBOARD-ELEMENT</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-NO-SIGNAL-HANDLERS</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINDOWS-NO-CLOSE-ON-ALT-F4</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-BMP-SAVE-LEGACY-FORMAT</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-WINDOWS-DISABLE-THREAD-NAMING</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-RPI-VIDEO-LAYER</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-VIDEO-DOUBLE-BUFFER</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-OPENGL-ES-DRIVER</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-AUDIO-RESAMPLING-MODE</td>
-</tr>
-<tr>
-<td align="left">SDL-HINT-AUDIO-CATEGORY</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table>
-<thead>
-<tr>
-<th align="left">Scancodes</th>
-<th align="left">Keycodes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">SDL-SCANCODE-UNKNOWN</td>
-<td align="left">SDLK-UNKNOWN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-A</td>
-<td align="left">SDLK-A</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-B</td>
-<td align="left">SDLK-B</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-C</td>
-<td align="left">SDLK-C</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-D</td>
-<td align="left">SDLK-D</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-E</td>
-<td align="left">SDLK-E</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F</td>
-<td align="left">SDLK-F</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-G</td>
-<td align="left">SDLK-G</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-H</td>
-<td align="left">SDLK-H</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-I</td>
-<td align="left">SDLK-I</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-J</td>
-<td align="left">SDLK-J</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-K</td>
-<td align="left">SDLK-K</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-L</td>
-<td align="left">SDLK-L</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-M</td>
-<td align="left">SDLK-M</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-N</td>
-<td align="left">SDLK-N</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-O</td>
-<td align="left">SDLK-O</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-P</td>
-<td align="left">SDLK-P</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-Q</td>
-<td align="left">SDLK-Q</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-R</td>
-<td align="left">SDLK-R</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-S</td>
-<td align="left">SDLK-S</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-T</td>
-<td align="left">SDLK-T</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-U</td>
-<td align="left">SDLK-U</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-V</td>
-<td align="left">SDLK-V</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-W</td>
-<td align="left">SDLK-W</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-X</td>
-<td align="left">SDLK-X</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-Y</td>
-<td align="left">SDLK-Y</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-Z</td>
-<td align="left">SDLK-Z</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-1</td>
-<td align="left">SDLK-1</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-2</td>
-<td align="left">SDLK-2</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-3</td>
-<td align="left">SDLK-3</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-4</td>
-<td align="left">SDLK-4</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-5</td>
-<td align="left">SDLK-5</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-6</td>
-<td align="left">SDLK-6</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-7</td>
-<td align="left">SDLK-7</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-8</td>
-<td align="left">SDLK-8</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-9</td>
-<td align="left">SDLK-9</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-0</td>
-<td align="left">SDLK-0</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-RETURN</td>
-<td align="left">SDLK-RETURN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-ESCAPE</td>
-<td align="left">SDLK-ESCAPE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-BACKSPACE</td>
-<td align="left">SDLK-BACKSPACE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-TAB</td>
-<td align="left">SDLK-TAB</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-SPACE</td>
-<td align="left">SDLK-SPACE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-MINUS</td>
-<td align="left">SDLK-MINUS</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-EQUALS</td>
-<td align="left">SDLK-EQUALS</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LEFTBRACKET</td>
-<td align="left">SDLK-LEFTBRACKET</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-RIGHTBRACKET</td>
-<td align="left">SDLK-RIGHTBRACKET</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-BACKSLASH</td>
-<td align="left">SDLK-BACKSLASH</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-NONUSHASH</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-SEMICOLON</td>
-<td align="left">SDLK-SEMICOLON</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-APOSTROPHE</td>
-<td align="left">SDLK-QUOTE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-GRAVE</td>
-<td align="left">SDLK-BACKQUOTE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-COMMA</td>
-<td align="left">SDLK-COMMA</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-PERIOD</td>
-<td align="left">SDLK-PERIOD</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-SLASH</td>
-<td align="left">SDLK-SLASH</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CAPSLOCK</td>
-<td align="left">SDLK-CAPSLOCK</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F1</td>
-<td align="left">SDLK-F1</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F2</td>
-<td align="left">SDLK-F2</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F3</td>
-<td align="left">SDLK-F3</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F4</td>
-<td align="left">SDLK-F4</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F5</td>
-<td align="left">SDLK-F5</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F6</td>
-<td align="left">SDLK-F6</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F7</td>
-<td align="left">SDLK-F7</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F8</td>
-<td align="left">SDLK-F8</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F9</td>
-<td align="left">SDLK-F9</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F10</td>
-<td align="left">SDLK-F10</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F11</td>
-<td align="left">SDLK-F11</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F12</td>
-<td align="left">SDLK-F12</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-PRINTSCREEN</td>
-<td align="left">SDLK-PRINTSCREEN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-SCROLLLOCK</td>
-<td align="left">SDLK-SCROLLLOCK</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-PAUSE</td>
-<td align="left">SDLK-PAUSE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INSERT</td>
-<td align="left">SDLK-INSERT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-HOME</td>
-<td align="left">SDLK-HOME</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-PAGEUP</td>
-<td align="left">SDLK-PAGEUP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-DELETE</td>
-<td align="left">SDLK-DELETE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-END</td>
-<td align="left">SDLK-END</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-PAGEDOWN</td>
-<td align="left">SDLK-PAGEDOWN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-RIGHT</td>
-<td align="left">SDLK-RIGHT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LEFT</td>
-<td align="left">SDLK-LEFT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-DOWN</td>
-<td align="left">SDLK-DOWN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-UP</td>
-<td align="left">SDLK-UP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-NUMLOCKCLEAR</td>
-<td align="left">SDLK-NUMLOCKCLEAR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-DIVIDE</td>
-<td align="left">SDLK-KP-DIVIDE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MULTIPLY</td>
-<td align="left">SDLK-KP-MULTIPLY</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MINUS</td>
-<td align="left">SDLK-KP-MINUS</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-PLUS</td>
-<td align="left">SDLK-KP-PLUS</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-ENTER</td>
-<td align="left">SDLK-KP-ENTER</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-1</td>
-<td align="left">SDLK-KP-1</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-2</td>
-<td align="left">SDLK-KP-2</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-3</td>
-<td align="left">SDLK-KP-3</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-4</td>
-<td align="left">SDLK-KP-4</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-5</td>
-<td align="left">SDLK-KP-5</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-6</td>
-<td align="left">SDLK-KP-6</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-7</td>
-<td align="left">SDLK-KP-7</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-8</td>
-<td align="left">SDLK-KP-8</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-9</td>
-<td align="left">SDLK-KP-9</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-0</td>
-<td align="left">SDLK-KP-0</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-PERIOD</td>
-<td align="left">SDLK-KP-PERIOD</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-NONUSBACKSLASH</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-APPLICATION</td>
-<td align="left">SDLK-APPLICATION</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-POWER</td>
-<td align="left">SDLK-POWER</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-EQUALS</td>
-<td align="left">SDLK-KP-EQUALS</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F13</td>
-<td align="left">SDLK-F13</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F14</td>
-<td align="left">SDLK-F14</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F15</td>
-<td align="left">SDLK-F15</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F16</td>
-<td align="left">SDLK-F16</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F17</td>
-<td align="left">SDLK-F17</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F18</td>
-<td align="left">SDLK-F18</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F19</td>
-<td align="left">SDLK-F19</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F20</td>
-<td align="left">SDLK-F20</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F21</td>
-<td align="left">SDLK-F21</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F22</td>
-<td align="left">SDLK-F22</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F23</td>
-<td align="left">SDLK-F23</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-F24</td>
-<td align="left">SDLK-F24</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-EXECUTE</td>
-<td align="left">SDLK-EXECUTE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-HELP</td>
-<td align="left">SDLK-HELP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-MENU</td>
-<td align="left">SDLK-MENU</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-SELECT</td>
-<td align="left">SDLK-SELECT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-STOP</td>
-<td align="left">SDLK-STOP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AGAIN</td>
-<td align="left">SDLK-AGAIN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-UNDO</td>
-<td align="left">SDLK-UNDO</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CUT</td>
-<td align="left">SDLK-CUT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-COPY</td>
-<td align="left">SDLK-COPY</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-PASTE</td>
-<td align="left">SDLK-PASTE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-FIND</td>
-<td align="left">SDLK-FIND</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-MUTE</td>
-<td align="left">SDLK-MUTE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-VOLUMEUP</td>
-<td align="left">SDLK-VOLUMEUP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-VOLUMEDOWN</td>
-<td align="left">SDLK-VOLUMEDOWN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-COMMA</td>
-<td align="left">SDLK-KP-COMMA</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-EQUALSAS400</td>
-<td align="left">SDLK-KP-EQUALSAS400</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL1</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL2</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL3</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL4</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL5</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL6</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL7</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL8</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-INTERNATIONAL9</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG1</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG2</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG3</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG4</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG5</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG6</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG7</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG8</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LANG9</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-ALTERASE</td>
-<td align="left">SDLK-ALTERASE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-SYSREQ</td>
-<td align="left">SDLK-SYSREQ</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CANCEL</td>
-<td align="left">SDLK-CANCEL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CLEAR</td>
-<td align="left">SDLK-CLEAR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-PRIOR</td>
-<td align="left">SDLK-PRIOR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-RETURN2</td>
-<td align="left">SDLK-RETURN2</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-SEPARATOR</td>
-<td align="left">SDLK-SEPARATOR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-OUT</td>
-<td align="left">SDLK-OUT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-OPER</td>
-<td align="left">SDLK-OPER</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CLEARAGAIN</td>
-<td align="left">SDLK-CLEARAGAIN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CRSEL</td>
-<td align="left">SDLK-CRSEL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-EXSEL</td>
-<td align="left">SDLK-EXSEL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-00</td>
-<td align="left">SDLK-KP-00</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-000</td>
-<td align="left">SDLK-KP-000</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-THOUSANDSSEPARATOR</td>
-<td align="left">SDLK-THOUSANDSSEPARATOR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-DECIMALSEPARATOR</td>
-<td align="left">SDLK-DECIMALSEPARATOR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CURRENCYUNIT</td>
-<td align="left">SDLK-CURRENCYUNIT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CURRENCYSUBUNIT</td>
-<td align="left">SDLK-CURRENCYSUBUNIT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-LEFTPAREN</td>
-<td align="left">SDLK-KP-LEFTPAREN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-RIGHTPAREN</td>
-<td align="left">SDLK-KP-RIGHTPAREN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-LEFTBRACE</td>
-<td align="left">SDLK-KP-LEFTBRACE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-RIGHTBRACE</td>
-<td align="left">SDLK-KP-RIGHTBRACE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-TAB</td>
-<td align="left">SDLK-KP-TAB</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-BACKSPACE</td>
-<td align="left">SDLK-KP-BACKSPACE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-A</td>
-<td align="left">SDLK-KP-A</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-B</td>
-<td align="left">SDLK-KP-B</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-C</td>
-<td align="left">SDLK-KP-C</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-D</td>
-<td align="left">SDLK-KP-D</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-E</td>
-<td align="left">SDLK-KP-E</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-F</td>
-<td align="left">SDLK-KP-F</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-XOR</td>
-<td align="left">SDLK-KP-XOR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-POWER</td>
-<td align="left">SDLK-KP-POWER</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-PERCENT</td>
-<td align="left">SDLK-KP-PERCENT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-LESS</td>
-<td align="left">SDLK-KP-LESS</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-GREATER</td>
-<td align="left">SDLK-KP-GREATER</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-AMPERSAND</td>
-<td align="left">SDLK-KP-AMPERSAND</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-DBLAMPERSAND</td>
-<td align="left">SDLK-KP-DBLAMPERSAND</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-VERTICALBAR</td>
-<td align="left">SDLK-KP-VERTICALBAR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-DBLVERTICALBAR</td>
-<td align="left">SDLK-KP-DBLVERTICALBAR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-COLON</td>
-<td align="left">SDLK-KP-COLON</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-HASH</td>
-<td align="left">SDLK-KP-HASH</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-SPACE</td>
-<td align="left">SDLK-KP-SPACE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-AT</td>
-<td align="left">SDLK-KP-AT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-EXCLAM</td>
-<td align="left">SDLK-KP-EXCLAM</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MEMSTORE</td>
-<td align="left">SDLK-KP-MEMSTORE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MEMRECALL</td>
-<td align="left">SDLK-KP-MEMRECALL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MEMCLEAR</td>
-<td align="left">SDLK-KP-MEMCLEAR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MEMADD</td>
-<td align="left">SDLK-KP-MEMADD</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MEMSUBTRACT</td>
-<td align="left">SDLK-KP-MEMSUBTRACT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MEMMULTIPLY</td>
-<td align="left">SDLK-KP-MEMMULTIPLY</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-MEMDIVIDE</td>
-<td align="left">SDLK-KP-MEMDIVIDE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-PLUSMINUS</td>
-<td align="left">SDLK-KP-PLUSMINUS</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-CLEAR</td>
-<td align="left">SDLK-KP-CLEAR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-CLEARENTRY</td>
-<td align="left">SDLK-KP-CLEARENTRY</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-BINARY</td>
-<td align="left">SDLK-KP-BINARY</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-OCTAL</td>
-<td align="left">SDLK-KP-OCTAL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-DECIMAL</td>
-<td align="left">SDLK-KP-DECIMAL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KP-HEXADECIMAL</td>
-<td align="left">SDLK-KP-HEXADECIMAL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LCTRL</td>
-<td align="left">SDLK-LCTRL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LSHIFT</td>
-<td align="left">SDLK-LSHIFT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LALT</td>
-<td align="left">SDLK-LALT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-LGUI</td>
-<td align="left">SDLK-LGUI</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-RCTRL</td>
-<td align="left">SDLK-RCTRL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-RSHIFT</td>
-<td align="left">SDLK-RSHIFT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-RALT</td>
-<td align="left">SDLK-RALT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-RGUI</td>
-<td align="left">SDLK-RGUI</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-MODE</td>
-<td align="left">SDLK-MODE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AUDIONEXT</td>
-<td align="left">SDLK-AUDIONEXT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AUDIOPREV</td>
-<td align="left">SDLK-AUDIOPREV</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AUDIOSTOP</td>
-<td align="left">SDLK-AUDIOSTOP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AUDIOPLAY</td>
-<td align="left">SDLK-AUDIOPLAY</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AUDIOMUTE</td>
-<td align="left">SDLK-AUDIOMUTE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-MEDIASELECT</td>
-<td align="left">SDLK-MEDIASELECT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-WWW</td>
-<td align="left">SDLK-WWW</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-MAIL</td>
-<td align="left">SDLK-MAIL</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-CALCULATOR</td>
-<td align="left">SDLK-CALCULATOR</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-COMPUTER</td>
-<td align="left">SDLK-COMPUTER</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AC-SEARCH</td>
-<td align="left">SDLK-AC-SEARCH</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AC-HOME</td>
-<td align="left">SDLK-AC-HOME</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AC-BACK</td>
-<td align="left">SDLK-AC-BACK</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AC-FORWARD</td>
-<td align="left">SDLK-AC-FORWARD</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AC-STOP</td>
-<td align="left">SDLK-AC-STOP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AC-REFRESH</td>
-<td align="left">SDLK-AC-REFRESH</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AC-BOOKMARKS</td>
-<td align="left">SDLK-AC-BOOKMARKS</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-BRIGHTNESSDOWN</td>
-<td align="left">SDLK-BRIGHTNESSDOWN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-BRIGHTNESSUP</td>
-<td align="left">SDLK-BRIGHTNESSUP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-DISPLAYSWITCH</td>
-<td align="left">SDLK-DISPLAYSWITCH</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KBDILLUMTOGGLE</td>
-<td align="left">SDLK-KBDILLUMTOGGLE</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KBDILLUMDOWN</td>
-<td align="left">SDLK-KBDILLUMDOWN</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-KBDILLUMUP</td>
-<td align="left">SDLK-KBDILLUMUP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-EJECT</td>
-<td align="left">SDLK-EJECT</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-SLEEP</td>
-<td align="left">SDLK-SLEEP</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-APP1</td>
-<td align="left">SDLK-APP1</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-APP2</td>
-<td align="left">SDLK-APP2</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AUDIOREWIND</td>
-<td align="left">SDLK-AUDIOREWIND</td>
-</tr>
-<tr>
-<td align="left">SDL-SCANCODE-AUDIOFASTFORWARD</td>
-<td align="left">SDLK-AUDIOFASTFORWARD</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-EXCLAIM</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-QUOTEDBL</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-HASH</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-PERCENT</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-DOLLAR</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-AMPERSAND</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-LEFTPAREN</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-RIGHTPAREN</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-ASTERISK</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-PLUS</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-COLON</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-LESS</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-GREATER</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-QUESTION</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-AT</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-CARET</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">SDLK-UNDERSCORE</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table>
-<thead>
-<tr>
-<th align="left"><em>Key Modifer</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">KMOD-NONE</td>
-</tr>
-<tr>
-<td align="left">KMOD-LSHIFT</td>
-</tr>
-<tr>
-<td align="left">KMOD-RSHIFT</td>
-</tr>
-<tr>
-<td align="left">KMOD-LCTRL</td>
-</tr>
-<tr>
-<td align="left">KMOD-RCTRL</td>
-</tr>
-<tr>
-<td align="left">KMOD-LALT</td>
-</tr>
-<tr>
-<td align="left">KMOD-RALT</td>
-</tr>
-<tr>
-<td align="left">KMOD-LGUI</td>
-</tr>
-<tr>
-<td align="left">KMOD-RGUI</td>
-</tr>
-<tr>
-<td align="left">KMOD-NUM</td>
-</tr>
-<tr>
-<td align="left">KMOD-CAPS</td>
-</tr>
-<tr>
-<td align="left">KMOD-MODE</td>
-</tr>
-<tr>
-<td align="left">KMOD-RESERVED</td>
-</tr>
-<tr>
-<td align="left">KMOD-CTRL</td>
-</tr>
-<tr>
-<td align="left">KMOD-SHIFT</td>
-</tr>
-<tr>
-<td align="left">KMOD-ALT</td>
-</tr>
-<tr>
-<td align="left">KMOD-GUI</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table>
-<thead>
-<tr>
-<th align="left"><em>Device Query</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">SDL-QUERY</td>
-</tr>
-<tr>
-<td align="left">SDL-IGNORE</td>
-</tr>
-<tr>
-<td align="left">SDL-DISABLE</td>
-</tr>
-<tr>
-<td align="left">SDL-ENABLE</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h1 id="extra">Extra</h1>
-<h1 id="unsupported">Unsupported</h1>
               
             </div>
           </div>
@@ -3313,8 +1675,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../inputs/" class="btn btn-neutral float-right" title="Inputs">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../tuts/tetris/" class="btn btn-neutral" title="Complete Example: Tetris"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href="../audio/" class="btn btn-neutral" title="Audio"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -3344,14 +1708,16 @@
           <a href="https://github.com/steven741/chez-sdl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../tuts/tetris/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../audio/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="../inputs/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
 
 </body>
 </html>
