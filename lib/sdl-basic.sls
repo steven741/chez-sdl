@@ -101,20 +101,28 @@
 
 ;;;; Init ;;;;
 
-(define (sdl-init flags)
-  ; Allocate some memory for the event system
+(define (sdl-init . flags)
+  ;; Allocate some memory for the event system
   (set! event-mem
 	(make-ftype-pointer sdl-c-event
 			    (foreign-alloc (ftype-sizeof sdl-c-event))))
 
-  (= 0 ((foreign-procedure "SDL_Init" (unsigned-32) int) flags)))
+  (= 0 ((foreign-procedure "SDL_Init" (unsigned-32) int)
+	(fold-left bitwise-ior SDL-INIT-VIDEO flags))))
 
 
 (define (sdl-quit)
-  ; Release event system memory
+  ;; Call the C-function
+  (foreign-procedure "SDL_Quit" () void)
+
+  ;; Release event system's memory
   (foreign-free (ftype-pointer-address event-mem))
 
-  (foreign-procedure "SDL_Quit" () void))
+  ;; Set this back to 0
+  (set! event-mem 0)
+
+  ;; Eval to nil
+  '())
 
 
 

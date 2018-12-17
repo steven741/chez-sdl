@@ -1,11 +1,13 @@
+#! /usr/bin/scheme --script
+
 ;;;; -*- mode: Scheme; -*-
 
 ;;;;
 ;;;;
 ;;;;
+;;;; export CHEZSCHEMELIBDIRS=/home/swatson/Desktop/chez-sdl/lib
 
-(import (chezscheme)
-	(sdl (2)))
+(import (sdl (2)))
 
 ;; Initialize SDL 2
 (sdl-init SDL-INIT-VIDEO)
@@ -25,6 +27,3 @@
 ;; Exit
 (sdl-destroy-window win)
 (sdl-quit)
-
-;; Scheme Start
-(scheme-start (lambda fns '()))

@@ -12,9 +12,9 @@
 
 
 
-;;;
-;;;
-;;;
+;;;                   ;;;
+;;; Helper Procedures ;;;
+;;;                   ;;;
 
 (define (c-point->point c-point)
   (make-sdl-point (ftype-ref sdl-c-point (x) c-point)
@@ -110,6 +110,14 @@
 (define SDL-WINDOW-FOREIGN            #x00000800)
 (define SDL-WINDOW-ALLOW-HIGHDPI      #x00002000)
 
+(define SDL-WINDOW-MOUSE-CAPTURE      #x00004000)
+(define SDL-WINDOW-ALWAYS-ON-TOP      #x00008000)
+(define SDL-WINDOW-SKIP-TASKBAR       #x00010000)
+(define SDL-WINDOW-UTILITY            #x00020000)
+(define SDL-WINDOW-TOOLTIP            #x00040000)
+(define SDL-WINDOW-POPUP-MENU         #x00080000)
+(define SDL-WINDOW-VULKAN             #x10000000)
+
 
 (define SDL-WINDOWPOS-UNDEFINED-MASK #x1FFF0000)
 
@@ -119,7 +127,7 @@
 (define SDL-WINDOWPOS-UNDEFINED
   (SDL-WINDOWPOS-UNDEFINED-DISPLAY 0))
 
-(define (SDL-WINDOWPOS-ISUNDEFINED X)
+(define (SDL-WINDOWPOS-IS-UNDEFINED? X)
   (= (bitwise-and X #xFFFF0000) SDL-WINDOWPOS-UNDEFINED-MASK))
 
 
@@ -131,14 +139,14 @@
 (define SDL-WINDOWPOS-CENTERED
   (SDL-WINDOWPOS-CENTERED-DISPLAY 0))
 
-(define (SDL-WINDOWPOS-ISCENTERED X)
+(define (SDL-WINDOWPOS-IS-CENTERED? X)
   (= (bitwise-and X #xFFFF0000) SDL-WINDOWPOS-CENTERED-MASK))
 
 
-(define SDL-RENDERER-SOFTWARE      #x00000001)
-(define SDL-RENDERER-ACCELERATED   #x00000002)
-(define SDL-RENDERER-PRESENTVSYNC  #x00000004)
-(define SDL-RENDERER-TARGETTEXTURE #x00000008)
+(define SDL-RENDERER-SOFTWARE       #x00000001)
+(define SDL-RENDERER-ACCELERATED    #x00000002)
+(define SDL-RENDERER-PRESENT-VSYNC  #x00000004)
+(define SDL-RENDERER-TARGET-TEXTURE #x00000008)
 
 (define SDL-BLEND-MODE-NONE    #x00000000)
 (define SDL-BLEND-MODE-BLEND   #x00000001)
@@ -246,9 +254,14 @@
 ;;; Windows ;;;
 ;;;         ;;;
 
-(define sdl-create-window
-  (foreign-procedure "SDL_CreateWindow"
-		     (string int int int int unsigned-32) (* sdl-c-window)))
+(define (sdl-create-window title x y w h . flags)
+  (let
+      ([func (foreign-procedure "SDL_CreateWindow"
+				(string int int int int unsigned-32)
+				(* sdl-c-window))])
+    (if (null? flags)
+	(error 'SDL-CREATE-WINDOW "No flags set.")
+	(func title x y w h (fold-left bitwise-ior 0 flags)))))
 
 (define sdl-destroy-window
   (foreign-procedure "SDL_DestroyWindow" ((* sdl-c-window)) void))
@@ -271,10 +284,13 @@
 ;;; Renderer ;;;
 ;;;          ;;;
 
-(define sdl-create-renderer
-  (foreign-procedure "SDL_CreateRenderer"
-		     ((* sdl-c-window) int unsigned-32)
-		     (* sdl-c-renderer)))
+(define (sdl-create-renderer window index . flags)
+  (let ([func (foreign-procedure "SDL_CreateRenderer"
+				 ((* sdl-c-window) int unsigned-32)
+				 (* sdl-c-renderer))])
+    (if (null? flags)
+	(error 'SDL-CREATE-RENDERER "No flags set.")
+	(func window index (fold-left bitwise-ior 0 flags)))))
 
 
 (define sdl-create-software-renderer
@@ -361,11 +377,6 @@
   (foreign-procedure "SDL_GetRenderer"
 		     ((* sdl-c-window))
 		     (* sdl-c-renderer)))
-
-
-;;; TODO: SDL_GetRenderDriverInfo, SDL_GetRendererInfo,
-;;; SDL_GetRendererOutputSize, SDL_GetTextureAlphaMod,
-;;; SDL_GetTextureBlendMode, SDL_GetTextureColorMod
 
 
 (define _sdl-render-clear

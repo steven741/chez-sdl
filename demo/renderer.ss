@@ -1,11 +1,13 @@
+#! /usr/bin/scheme --script
+
 ;;;; -*- mode: Scheme; -*-
 
 ;;;;
 ;;;;
 ;;;;
+;;;; export CHEZSCHEMELIBDIRS=/home/swatson/Desktop/chez-sdl/lib
 
-(import (chezscheme)
-	(sdl (2)))
+(import (sdl (2)))
 
 
 ;; Initialize SDL 2
@@ -24,8 +26,8 @@
 (define ren
   (sdl-create-renderer win
 		       -1
-		       (bitwise-ior SDL-RENDERER-ACCELERATED
-				    SDL-RENDERER-PRESENTVSYNC)))
+		       SDL-RENDERER-ACCELERATED
+		       SDL-RENDERER-PRESENT-VSYNC))
 
 
 (define bmp (sdl-load-bmp "lenna.bmp"))
@@ -44,7 +46,3 @@
 (sdl-destroy-renderer ren)
 (sdl-destroy-window win)
 (sdl-quit)
-
-
-;; Scheme Start
-(scheme-start (lambda fns '()))

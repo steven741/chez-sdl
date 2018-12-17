@@ -1,17 +1,18 @@
+#! /usr/bin/scheme --script
+
 ;;;; -*- mode: Scheme; -*-
 
 ;;;;
 ;;;;
 ;;;;
+;;;; export CHEZSCHEMELIBDIRS=/home/swatson/Desktop/chez-sdl/lib
 
-(import (chezscheme)
-	(sdl (2)))
+(import (sdl (2)))
 
-(sdl-init (bitwise-ior
-	   SDL-INIT-VIDEO
-	   SDL-INIT-EVENTS
-	   SDL-INIT-JOYSTICK
-	   SDL-INIT-GAMECONTROLLER))
+(sdl-init SDL-INIT-VIDEO
+	  SDL-INIT-EVENTS
+	  SDL-INIT-JOYSTICK
+	  SDL-INIT-GAMECONTROLLER)
 
 (define win
   (sdl-create-window "chezscheme"
@@ -19,9 +20,8 @@
 		     SDL-WINDOWPOS-UNDEFINED
 		     640
 		     480
-		     (bitwise-ior
-		      SDL-WINDOW-SHOWN
-		      SDL-WINDOW-ALLOW-HIGHDPI)))
+		     SDL-WINDOW-SHOWN
+		     SDL-WINDOW-ALLOW-HIGHDPI))
 
 
 (define (event-loop)
@@ -64,5 +64,3 @@
 
 (sdl-destroy-window win)
 (sdl-quit)
-
-(scheme-start (lambda fns '()))

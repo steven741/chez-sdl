@@ -118,20 +118,28 @@
    SDL-WINDOW-FOREIGN
    SDL-WINDOW-ALLOW-HIGHDPI
 
+   SDL-WINDOW-MOUSE-CAPTURE
+   SDL-WINDOW-ALWAYS-ON-TOP
+   SDL-WINDOW-SKIP-TASKBAR
+   SDL-WINDOW-UTILITY
+   SDL-WINDOW-TOOLTIP
+   SDL-WINDOW-POPUP-MENU
+   SDL-WINDOW-VULKAN
+
    SDL-WINDOWPOS-UNDEFINED-MASK
    SDL-WINDOWPOS-UNDEFINED-DISPLAY
    SDL-WINDOWPOS-UNDEFINED
-   SDL-WINDOWPOS-ISUNDEFINED
+   SDL-WINDOWPOS-IS-UNDEFINED?
 
    SDL-WINDOWPOS-CENTERED-MASK
    SDL-WINDOWPOS-CENTERED-DISPLAY
    SDL-WINDOWPOS-CENTERED
-   SDL-WINDOWPOS-ISCENTERED
+   SDL-WINDOWPOS-IS-CENTERED?
 
    SDL-RENDERER-SOFTWARE
    SDL-RENDERER-ACCELERATED
-   SDL-RENDERER-PRESENTVSYNC
-   SDL-RENDERER-TARGETTEXTURE
+   SDL-RENDERER-PRESENT-VSYNC
+   SDL-RENDERER-TARGET-TEXTURE
 
    SDL-BLEND-MODE-NONE
    SDL-BLEND-MODE-BLEND
@@ -668,19 +676,6 @@
    ;;;;;;;;;;;;;
    ;;; Input ;;;
    ;;;;;;;;;;;;;
-   SDL-SYSTEM-CURSOR-ARROW
-   SDL-SYSTEM-CURSOR-IBEAM
-   SDL-SYSTEM-CURSOR-WAIT
-   SDL-SYSTEM-CURSOR-CROSSHAIR
-   SDL-SYSTEM-CURSOR-WAITARROW
-   SDL-SYSTEM-CURSOR-SIZENWSE
-   SDL-SYSTEM-CURSOR-SIZENESW
-   SDL-SYSTEM-CURSOR-SIZEWE
-   SDL-SYSTEM-CURSOR-SIZENS
-   SDL-SYSTEM-CURSOR-SIZEALL
-   SDL-SYSTEM-CURSOR-NO
-   SDL-SYSTEM-CURSOR-HAND
-
    sdl-finger?
    sdl-finger-id
    sdl-finger-x
@@ -788,12 +783,12 @@
   (define SDL-DISABLE 0)
   (define SDL-ENABLE  1)
 
-  (include "lib/sdl-basic.sls")
-  (include "lib/sdl-video.sls")
-  (include "lib/sdl-audio.sls")
-  (include "lib/sdl-event.sls")
-  (include "lib/sdl-force.sls")
-  (include "lib/sdl-power.sls")
-  (include "lib/sdl-timer.sls")
-  (include "lib/sdl-input.sls")
-  (include "lib/sdl-extra.sls"))
+  (include "sdl-basic.sls")
+  (include "sdl-video.sls")
+  (include "sdl-audio.sls")
+  (include "sdl-event.sls")
+  (include "sdl-force.sls")
+  (include "sdl-power.sls")
+  (include "sdl-timer.sls")
+  (include "sdl-input.sls")
+  (include "sdl-extra.sls"))

@@ -4,19 +4,6 @@
 ;;;;
 ;;;;
 
-(define SDL-SYSTEM-CURSOR-ARROW     0)
-(define SDL-SYSTEM-CURSOR-IBEAM     1)
-(define SDL-SYSTEM-CURSOR-WAIT      2)
-(define SDL-SYSTEM-CURSOR-CROSSHAIR 3)
-(define SDL-SYSTEM-CURSOR-WAITARROW 4)
-(define SDL-SYSTEM-CURSOR-SIZENWSE  5)
-(define SDL-SYSTEM-CURSOR-SIZENESW  6)
-(define SDL-SYSTEM-CURSOR-SIZEWE    7)
-(define SDL-SYSTEM-CURSOR-SIZENS    8)
-(define SDL-SYSTEM-CURSOR-SIZEALL   9)
-(define SDL-SYSTEM-CURSOR-NO       10)
-(define SDL-SYSTEM-CURSOR-HAND     11)
-
 (define-ftype sdl-c-cursor
   (struct
    [type unsigned-32]))
@@ -60,8 +47,9 @@
 
 (define (sdl-get-keyboard-state)
   (let
-      ([keys
-	((foreign-procedure "SDL_GetKeyboardState" (void*) (* unsigned-8)) 0)])
+      ([keys ((foreign-procedure "SDL_GetKeyboardState"
+				 (void*)
+				 (* unsigned-8)) 0)])
     (lambda (key)
       (= 1 (ftype-ref unsigned-8 () keys key)))))
 
@@ -96,7 +84,12 @@
   (= 1 _sdl-is-text-input-active?))
 
 (define sdl-set-mod-state!
-  (foreign-procedure "SDL_SetModState" (int) void))
+  (lambda mods
+    (let ([func (foreign-procedure "SDL_SetModState" (int) void)])
+      (if (null? mods)
+	  (error 'SDL-SET-MOD-STATE! "No modifiers in procedure call.")
+	  (func (fold-left bitwise-ior 0 mods))))
+    '()))
 
 (define _sdl-set-text-input-rect!
   (foreign-procedure "SDL_SetTextInputRect" ((* sdl-c-rect)) void))
@@ -119,17 +112,36 @@
 ;;;
 
 
-(define _sdl-capture-mouse
-  (foreign-procedure "SDL_CaptureMouse" (int) int))
-
-(define (sdl-capture-mouse enable)
-  (= 0 (_sdl-capture-mouse (if enable 1 0))))
+(define sdl-capture-mouse
+  (lambda (enable)
+    (let ([func (foreign-procedure "SDL_CaptureMouse" (int) int)])
+      (= 0 (func (if enable 1 0))))))
 
 (define sdl-create-color-cursor
-  (foreign-procedure "SDL_CreateColorCursor" ((* sdl-c-surface) int int) (* sdl-c-cursor)))
+  (foreign-procedure "SDL_CreateColorCursor"
+		     ((* sdl-c-surface) int int)
+		     (* sdl-c-cursor)))
 
 (define sdl-create-system-cursor
-  (foreign-procedure "SDL_CreateSystemCursor" (int) (* sdl-c-cursor)))
+  (lambda (id)
+    (let ([func (foreign-procedure "SDL_CreateSystemCursor"
+				   (int)
+				   (* sdl-c-cursor))])
+      (cond
+       ((eq? id 'SDL-SYSTEM-CURSOR-ARROW)      (func 0))
+       ((eq? id 'SDL-SYSTEM-CURSOR-IBEAM)      (func 1))
+       ((eq? id 'SDL-SYSTEM-CURSOR-WAIT)       (func 2))
+       ((eq? id 'SDL-SYSTEM-CURSOR-CROSSHAIR)  (func 3))
+       ((eq? id 'SDL-SYSTEM-CURSOR-WAIT-ARROW) (func 4))
+       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-NWSE)  (func 5))
+       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-NESW)  (func 6))
+       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-WE)    (func 7))
+       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-NS)    (func 8))
+       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-ALL)   (func 9))
+       ((eq? id 'SDL-SYSTEM-CURSOR-NO)         (func 10))
+       ((eq? id 'SDL-SYSTEM-CURSOR-HAND)       (func 11))
+       (else
+	(error 'SDL-CREATE-SYSTEM-CURSOR "Unknown symbol."))))))
 
 (define sdl-free-cursor
   (foreign-procedure "SDL_FreeCursor" ((* sdl-c-cursor)) void))

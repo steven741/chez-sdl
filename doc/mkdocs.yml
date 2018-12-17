@@ -2,17 +2,25 @@ site_name: Chez-SDL
 site_author: Steven Watson
 repo_url: https://github.com/steven741/chez-sdl
 
-
-pages:
+nav:
     - 'Getting Strated': index.md
-    - 'Overview of SDL 2': 'sdl.md'
+    - 'Overview of SDL 2': sdl.md
     - Tutorials:
-      - 'Handling Events': 'tuts/events.md'
-      - 'Renderer Basics': 'tuts/renderer.md'
-      - 'Renderer Techniques': 'tuts/advanced-renderer.md'
+      - 'Handling Events':          'tuts/events.md'
+      - 'Renderer Basics':          'tuts/renderer.md'
+      - 'Renderer Techniques':      'tuts/advanced-renderer.md'
       - 'Complete Example: Tetris': 'tuts/tetris.md'
 
-    - Reference: ref.md
+    - Reference:
+      - 'Basics':           'ref/basics.md'
+      - 'Video':            'ref/video.md'
+      - 'Audio':            'ref/audio.md'
+      - 'Events':           'ref/events.md'
+      - 'Inputs':           'ref/inputs.md'
+      - 'Force Feedback':   'ref/force.md'
+      - 'Power Management': 'ref/power.md'
+      - 'Timers':           'ref/timers.md'
+      - 'Data':             'ref/data.md'
 
 
 theme: readthedocs
