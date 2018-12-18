@@ -1,5 +1,5 @@
 # Chez-SDL
-This is an interface to SDL 2 for the Chez Scheme system. (not stable)
+This is an interface to SDL 2 for the Chez Scheme system. (in development)
 
 ```scheme
 (import (sdl (2)))
@@ -39,18 +39,16 @@ This is an interface to SDL 2 for the Chez Scheme system. (not stable)
 
 # Quickstart Guide
 
-todo
+0. Install the [Chez Scheme system](https://github.com/cisco/ChezScheme) and the [SDL2 development library](https://www.libsdl.org/).
 
+1. Install Chez-SDL where the Chez Scheme system can find it.
+```bash
+export CHEZSCHEMELIBDIRS="/path/to/chez-sdl/lib:$CHEZSCHEMELIBDIRS"
+```
 
-# TODO
-## Video
-* Window Getter & Setters
-* Renderer
-* Pixels
-* Surfaces
+2. Start running the demos.
+```bash
+scheme --script ./events.ss
+```
 
-## Force Feeback
-* Haptics
-
-## Audio
-* Basic audio system
+3. Read the [documentation](https://steven741.github.io/chez-sdl/).

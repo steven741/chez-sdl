@@ -1,7 +1,27 @@
 ;;;; -*- mode: Scheme; -*-
 
-(library
-    (sdl (2 0 7))
+;;;;
+;;;;
+;;;;
+
+;;;
+;;; Link to library at top-level.
+;;;
+
+(case (machine-type)
+  ((ti3nt i3nt ta6nt a6nt)     (load-shared-object "SDL2.dll"))
+  ((i3le ti3le a6le ta6le)     (load-shared-object "libSDL2.so"))
+  ((i3osx ti3osx a6osx ta6osx) (load-shared-object "libSDL2.dylib"))
+  (else
+   (error 'SDL "unknown machine type" (machine-type))))
+
+
+
+;;;;
+;;;; Library definition
+;;;;
+
+(library (sdl (2 0 6))
   (export
    ;;;;;;;;;;;;;
    ;;; Basic ;;;
@@ -763,22 +783,6 @@
 
   (import (chezscheme))
 
-
-  (define sdl
-    (begin
-      (case (machine-type)
-        ((ti3nt i3nt ta6nt a6nt)
-	 (load-shared-object "SDL2.dll"))
-
-        ((i3le ti3le a6le ta6le)
-	 (load-shared-object "libSDL2.so"))
-
-        ((i3osx ti3osx a6osx ta6osx)
-	 (load-shared-object "libSDL2.dylib"))
-
-	(else
-         (error 'sdl "unknown machine type" (machine-type))))))
-
   (define SDL-QUERY  -1)
   (define SDL-IGNORE  0)
   (define SDL-DISABLE 0)
@@ -791,5 +795,4 @@
   (include "sdl-force.sls")
   (include "sdl-power.sls")
   (include "sdl-timer.sls")
-  (include "sdl-input.sls")
-  (include "sdl-extra.sls"))
+  (include "sdl-input.sls"))
