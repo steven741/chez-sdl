@@ -1,11 +1,8 @@
-#! /usr/bin/scheme --script
-
 ;;;; -*- mode: Scheme; -*-
 
 ;;;;
 ;;;;
 ;;;;
-;;;; export CHEZSCHEMELIBDIRS=/home/swatson/Desktop/chez-sdl/lib
 
 (import (sdl (2)))
 

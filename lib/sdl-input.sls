@@ -159,13 +159,25 @@
   (foreign-procedure "SDL_GetDefaultCursor" () (* sdl-c-cursor)))
 
 (define sdl-warp-mouse-in-window
-  (foreign-procedure "SDL_WarpMouseInWindow" ((* sdl-c-window) int int) void))
+  (lambda (window x y)
+    (let
+	([ func (foreign-procedure "SDL_WarpMouseInWindow"
+				   ((* sdl-c-window) int int)
+				   void)])
+      (func window x y)
+      '())))
 
 (define sdl-warp-mouse-global
   (foreign-procedure "SDL_WarpMouseGlobal" (int int) int))
 
 (define sdl-set-cursor!
-  (foreign-procedure "SDL_SetCursor" ((* sdl-c-cursor)) void))
+  (lambda (cursor)
+    (let
+	([func (foreign-procedure "SDL_SetCursor"
+				  ((* sdl-c-cursor))
+				  void)])
+      (func cursor)
+      '())))
 
 (define _sdl-set-relative-mouse-mode!
   (foreign-procedure "SDL_SetRelativeMouseMode" (int) int))
@@ -207,7 +219,8 @@
      ((= level  3) 'SDL-JOYSTICK-POWER-FULL)
      ((= level  4) 'SDL-JOYSTICK-POWER-WIRED)
      ((= level  5) 'SDL-JOYSTICK-POWER-MAX)
-     (else '()))))
+     (else
+      (error 'SDL-JOYSTICK-CURRENT-POWER-LEVEL "Unknown level" level)))))
 
 (define sdl-joystick-event-state
   (foreign-procedure "SDL_JoystickEventState" (int) int))
@@ -217,11 +230,11 @@
 		     (integer-32)
 		     (* sdl-c-joystick)))
 
-(define _sdl-joystick-get-attached
+(define _sdl-joystick-is-attached?
   (foreign-procedure "SDL_JoystickGetAttached" ((* sdl-c-joystick)) int))
 
-(define (sdl-joystick-get-attached joystick)
-  (= 1 (_sdl-joystick-get-attached joystick)))
+(define (sdl-joystick-is-attached? joystick)
+  (= 1 (_sdl-joystick-is-attached? joystick)))
 
 (define sdl-joystick-get-axis
   (foreign-procedure "SDL_JoystickGetAxis" ((* sdl-c-joystick) int) integer-16))
@@ -243,10 +256,13 @@
 	dpos
 	'())))
 
-(define sdl-joystick-get-button
-  (foreign-procedure "SDL_JoystickGetButton"
-		     ((* sdl-c-joystick) int)
-		     unsigned-8))
+(define sdl-joystick-is-button-pressed?
+  (lambda (joystick button)
+    (let
+	([func (foreign-procedure "SDL_JoystickGetButton"
+				  ((* sdl-c-joystick) int)
+				  unsigned-8)])
+      (= 1 (func joystick button)))))
 
 (define _sdl-joystick-get-hat
   (foreign-procedure "SDL_JoystickGetHat" ((* sdl-c-joystick) int) unsigned-8))
@@ -305,26 +321,29 @@
 ;;;
 
 (define sdl-joystick-id->sdl-controller
-  (foreign-procedure "SDL_IsGameController"
+  (foreign-procedure "SDL_GameControllerFromInstanceID"
 		     (integer-32)
 		     (* sdl-c-game-controller)))
 
-(define _sdl-is-game-controller?
-  (foreign-procedure "SDL_IsGameController" (int) int))
-
-(define _sdl-game-controller-get-attached?
-  (foreign-procedure "SDL_GameControllerGetAttached"
-		     ((* sdl-c-game-controller))
-		     int))
-
 (define (sdl-game-controller-attached? controller)
-  (= 1 (_sdl-game-controller-get-attached? controller)))
+  (let
+      ([func (foreign-procedure "SDL_GameControllerGetAttached"
+				((* sdl-c-game-controller))
+				int)])
+    (= 1 (func controller))))
 
 (define (sdl-game-controller? index)
-  (= 1 (_sdl-is-game-controller? index)))
+  (let
+      ([func (foreign-procedure "SDL_IsGameController" (int) int)])
+    (= 1 (func index))))
 
 (define sdl-game-controller-open
   (foreign-procedure "SDL_GameControllerOpen" (int) (* sdl-c-game-controller)))
+
+(define sdl-game-controller-update
+  (lambda ()
+    ((foreign-procedure "SDL_GameControllerUpdate" () void))
+    '()))
 
 (define sdl-game-controller-close
   (foreign-procedure "SDL_GameControllerClose"
@@ -403,13 +422,14 @@
 
 (define (string->sdl-axis pch)
   (let ((axis (_sdl-game-controller-get-axis-from-string pch)))
-    (cond ((=  0 axis) 'SDL-CONTROLLER-AXIS-LEFT-X)
-	  ((=  1 axis) 'SDL-CONTROLLER-AXIS-LEFT-Y)
-	  ((=  2 axis) 'SDL-CONTROLLER-AXIS-RIGHT-X)
-	  ((=  3 axis) 'SDL-CONTROLLER-AXIS-RIGHT-Y)
-	  ((=  4 axis) 'SDL-CONTROLLER-AXIS-TRIGGER-LEFT)
-	  ((=  5 axis) 'SDL-CONTROLLER-AXIS-TRIGGER-RIGHT)
-	  (else '()))))
+    (cond ((= 0 axis) 'SDL-CONTROLLER-AXIS-LEFT-X)
+	  ((= 1 axis) 'SDL-CONTROLLER-AXIS-LEFT-Y)
+	  ((= 2 axis) 'SDL-CONTROLLER-AXIS-RIGHT-X)
+	  ((= 3 axis) 'SDL-CONTROLLER-AXIS-RIGHT-Y)
+	  ((= 4 axis) 'SDL-CONTROLLER-AXIS-TRIGGER-LEFT)
+	  ((= 5 axis) 'SDL-CONTROLLER-AXIS-TRIGGER-RIGHT)
+	  (else
+	   'SDL-CONTROLLER-AXIS-INVALID))))
 
 (define _sdl-game-controller-get-axis
   (foreign-procedure "SDL_GameControllerGetAxis"
@@ -429,7 +449,10 @@
 	 (_sdl-game-controller-get-axis controller 4))
 	((eq? axis 'SDL-CONTROLLER-AXIS-TRIGGER-RIGHT)
 	 (_sdl-game-controller-get-axis controller 5))
-	(else '())))
+	(else
+	 (error 'SDL-GAME-CONTROLLER-BUTTON-AXIS
+		"Invalid symbol"
+		axis))))
 
 (define sdl-controller->sdl-joystick
   (foreign-procedure "SDL_GameControllerGetJoystick"
@@ -456,7 +479,8 @@
 	  ((= 12 button) 'SDL-CONTROLLER-BUTTON-DOWN)
 	  ((= 13 button) 'SDL-CONTROLLER-BUTTON-LEFT)
 	  ((= 14 button) 'SDL-CONTROLLER-BUTTON-RIGHT)
-	  (else '()))))
+	  (else
+	   'SDL-CONTROLLER-BUTTON-INVALID))))
 
 (define _sdl-game-controller-get-button?
   (foreign-procedure "SDL_GameControllerGetButton"
@@ -494,7 +518,10 @@
 	 (= 1 (_sdl-game-controller-get-button? controller 13)))
 	((eq? button 'SDL-CONTROLLER-BUTTON-RIGHT)
 	 (= 1 (_sdl-game-controller-get-button? controller 14)))
-	(else '())))
+	(else
+	 (error 'SDL-GAME-CONTROLLER-BUTTON-PRESSED?
+		"Invalid symbol"
+		button))))
 
 
 ;;; TODO mappingForGUID, getBind

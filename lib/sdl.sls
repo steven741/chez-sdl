@@ -719,10 +719,10 @@
    sdl-joystick-current-power-level
    sdl-joystick-event-state
    sdl-joystick-from-instance-id
-   sdl-joystick-get-attached
+   sdl-joystick-is-attached?
    sdl-joystick-get-axis
    sdl-joystick-get-ball
-   sdl-joystick-get-button
+   sdl-joystick-is-button-pressed?
    sdl-joystick-get-hat
    sdl-joystick-instance-id
    sdl-joystick-name
@@ -738,6 +738,7 @@
    sdl-game-controller-axis
    sdl-game-controller-open
    sdl-game-controller-close
+   sdl-game-controller-update
    sdl-game-controller-name
    sdl-game-controller-name-for-index
    sdl-game-controller-mapping
