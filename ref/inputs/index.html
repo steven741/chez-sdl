@@ -106,7 +106,22 @@
     <a class="current" href="./">Inputs</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#inputs">Inputs</a></li>
+    <li class="toctree-l3"><a href="#data">Data</a></li>
+    
+
+    <li class="toctree-l3"><a href="#keyboard-support">Keyboard Support</a></li>
+    
+
+    <li class="toctree-l3"><a href="#mouse-support">Mouse Support</a></li>
+    
+
+    <li class="toctree-l3"><a href="#joystick-support">Joystick Support</a></li>
+    
+
+    <li class="toctree-l3"><a href="#game-controller-support">Game Controller Support</a></li>
+    
+
+    <li class="toctree-l3"><a href="#touch">Touch</a></li>
     
 
     </ul>
@@ -169,8 +184,1675 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="inputs">Inputs</h1>
-<p>todo</p>
+                <h1 id="data">Data</h1>
+<hr />
+<p>Record:</p>
+<blockquote>
+<p>(<strong>SDL-FINGER</strong>)</p>
+</blockquote>
+<p>Fields:</p>
+<blockquote>
+<p><strong><em>id</em></strong> : ID of a finger.</p>
+<p><strong><em>x</em></strong> : X-pos of a finger input.</p>
+<p><strong><em>y</em></strong> : Y-pos of a finger input.</p>
+<p><strong><em>p</em></strong> : Pressure of a finger input.</p>
+</blockquote>
+<h1 id="keyboard-support">Keyboard Support</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-KEY-FROM-NAME</strong> <em>name</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="../data/#scancodes-keycodes">keycode.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A number corresponding to it's keycode.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetKeyFromName</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-KEY-FROM-SCANCODE</strong> <em>scancode</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>scancode</em></strong> : Value of a <a href="../data/#scancodes-keycodes">scancode.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A number corresponding to it's keycode.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetKeyFromScancode</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-KEY-NAME</strong> <em>key</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>key</em></strong> : Value of a <a href="../data/#scancodes-keycodes">keycode.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A string containing the name of a keycode.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetKeyName</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-KEYBOARD-FOCUS</strong>) → SDL-WINDOW</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A window object that has the keyboard focus.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetKeyboardFocus</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-KEYBOARD-STATE</strong>) → (LAMBDA SCANCODE) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A procedure that when passed a <a href="../data/#scancodes-keycodes">scancode</a> returns <code>#t</code> if the key is pressed otherwise <code>#f</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetKeyboardState</code></p>
+</blockquote>
+<p>Examples:</p>
+<pre><code class="scheme">(define key-state
+  (sdl-get-keyboard-state))
+
+(if (key-state SDL-SCANCODE-RETURN)
+    (printf &quot;&lt;RETURN&gt; key pressed.~n&quot;))
+
+(if (and (key-state SDL-SCANCODE-RIGHT)
+         (key-state SDL-SCANCODE-UP))
+    (printf &quot;Right and Up Keys Pressed.~n&quot;))
+</code></pre>
+
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-MOD-STATE</strong>) → int</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A number that's bits have been set with <a href="../data/#key-modifers">key modifer values.</a></p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetModState</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-SCANCODE-FROM-KEY</strong> <em>key</em>) → int</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>key</em></strong> : Value of a <a href="../data/#scancodes-keycodes">keycode.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Scancode equivalent of keycode.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetScancodeFromKey</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-SCANCODE-FROM-NAME</strong> <em>name</em>) → int</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : The name of a scancode as a string.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Scancode value of the string.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetScancodeFromName</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-SCANCODE-NAME</strong> <em>code</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>code</em></strong> : Value of a <a href="../data/#scancodes-keycodes">scancode.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>String value of a scancode.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetScancodeName</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-HAS-SCREEN-KEYBOARD-SUPPORT?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if screen has keyboard support or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_HasScreenKeyboardSupport</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-IS-SCREEN-KEYBOARD-SHOWN?</strong> <em>window</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A SDL-WINDOW object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if screen's keyboard is shown or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_IsScreenKeyboardShown</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-IS-TEXT-INPUT-ACTIVE?</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if the text input is active or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_IsTextInputActive</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-SET-MOD-STATE!</strong> <em>mods</em>) → '()</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>mods</em></strong> : A series of <a href="../data/#key-modifers">key modifer values.</a></p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetModState</code></p>
+</blockquote>
+<p>Examples:</p>
+<pre><code class="scheme">(sdl-set-mod-state! KMOD-LSHIFT
+                    KMOD-CAPS
+            KMOD-RCTRL)
+</code></pre>
+
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-SET-TEXT-INPUT-RECT!</strong> <em>rect</em>) → '()</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>rect</em></strong> : A SDL-RECT record. (Optional)</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetTextInputRect</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Not implemented.</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-START-TEXT-INPUT</strong>) → '()</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_StartTextInput</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-STOP-TEXT-INPUT</strong>) → '()</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_StopTextInput</code></p>
+</blockquote>
+<h1 id="mouse-support">Mouse Support</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CAPTURE-MOUSE</strong> <em>enable</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>enable</em></strong> : Sets whether mouse should be captured or ignored.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if set succeeded <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CaptureMouse</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CREATE-COLOR-CURSOR</strong> <em>image</em> <em>hot-x</em> <em>hot-y</em>) → SDL-CURSOR</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>image</em></strong> : A SDL-SURFACT object.</p>
+<p><strong><em>hot-x</em></strong> : The x-position of the cursor hot spot.</p>
+<p><strong><em>hot-y</em></strong> : The y-position of the cursor hot spot.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A SDL-CURSOR object or <code>'()</code> on failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CreateColorCursor</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Not up to specifications.</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CREATE-SYSTEM-CURSOR</strong> <em>id</em>) → SDL-CURSOR</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><em>id</em> : symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-ARROW</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-IBEAM</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-WAIT</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-CROSSHAIR</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-WAIT-ARROW</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-SIZE-NWSE</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-SIZE-NESW</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-SIZE-WE</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-SIZE-NS</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-SIZE-ALL</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-NO</td>
+</tr>
+<tr>
+<td align="left">SDL-SYSTEM-CURSOR-HAND</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A SDL-CURSOR object or <code>'()</code> on failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CreateSystemCursor</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Not up to specifications.</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-FREE-CURSOR</strong> <em>cursor</em>) → '()</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>cursor</em></strong> : A SDL-CURSOR object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_FreeCursor</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Not up to specifications.</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-CURSOR</strong>) → SDL-CURSOR</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The current cursor as a SDL-CURSOR object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetCursor</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-FREE-CURSOR</strong> <em>toggle</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>toggle</em></strong> : A <a href="../data/#device-queries">device query value.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The value of SDL-ENABLE if cursor is shown, SDL-DISABLE if cursor is hidden, or a negative value indicating error.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_ShowCursor</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-MOUSE-FOCUS</strong>) → SDL-WINDOW</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The SDL-WINDOW object that has the mouse focus.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetMouseFocus</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-DEFAULT-CURSOR</strong>) → SDL-CURSOR</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A SDL-CURSOR object that is the system's default cursor.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetDefaultCursor</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-WARP-MOUSE-IN-WINDOW</strong> <em>window</em> <em>x</em> <em>y</em>) → '()</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A SDL-WINDOW object.</p>
+<p><strong><em>x</em></strong> : The x-coordinate within the window.</p>
+<p><strong><em>y</em></strong> : The y-coordinate within the window.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_WarpMouseInWindow</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-WARP-MOUSE-GLOBAL</strong> <em>x</em> <em>y</em>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>0 on success or a negative number on failure.</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>x</em></strong> : The x-coordinate.</p>
+<p><strong><em>y</em></strong> : The y-coordinate.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_WarpMouseInWindow</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-SET-CURSOR!</strong> <em>cursor</em>) → '()</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>cursor</em></strong> : A SDL-CURSOR object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetCursor</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-SET-RELATIVE-MOUSE-MODE!</strong> <em>enable</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>enable</em></strong> : A boolean. Value to set mouse relative mode.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>0 on success or a negative number on failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetRelativeMouseMode</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-RELATIVE-MOUSE-MODE!</strong>) → boolean</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if mouse is in relative mode or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRelativeMouseMode</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CREATE-CURSOR</strong>) → SDL-CURSOR</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CreateCursor</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-RELATIVE-MOUSE-STATE</strong>) → number</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRelativeMouseState</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-GLOBAL-MOUSE-STATE</strong>) → number</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetGlobalMouseState</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-MOUSE-STATE</strong>) → number</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetMouseState</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<h1 id="joystick-support">Joystick Support</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-OPEN</strong> <em>index</em>) → SDL-JOYSTICK</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>index</em></strong> : The index of the joystick.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The SDL-JOYSTICK object or <code>'()</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickOpen</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Not up to specifications.</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-CLOSE</strong> <em>joystick</em>) → '()</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickClose</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Not up to specifications.</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-NUM</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The amount of joysticks that can be accessed.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_NumJoystick</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-CURRENT-POWER-LEVEL</strong> <em>joystick</em>) → symbol</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><em>levels</em> : sybmol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-JOYSTICK-POWER-UNKNOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-JOYSTICK-POWER-EMPTY</td>
+</tr>
+<tr>
+<td align="left">SDL-JOYSTICK-POWER-LOW</td>
+</tr>
+<tr>
+<td align="left">SDL-JOYSTICK-POWER-MEDIUM</td>
+</tr>
+<tr>
+<td align="left">SDL-JOYSTICK-POWER-FULL</td>
+</tr>
+<tr>
+<td align="left">SDL-JOYSTICK-POWER-WIRED</td>
+</tr>
+<tr>
+<td align="left">SDL-JOYSTICK-POWER-MAX</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickCurrentPowerLevel</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-EVENT-STATE</strong> <em>state</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>state</em></strong> : Can be <code>SDL-QUERY</code>, <code>SDL-IGNORE</code>, or <code>SDL-ENABLE</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>1</code> if enabled, <code>0</code> if disabled, or a negative error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickEventState</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-FROM-INSTANCE-ID</strong> <em>instance-id</em>) → SDL-JOYSTICK</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>instance-id</em></strong> : Instance ID from the event system.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The SDL-JOYSTICK object or <code>'()</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickFromInstanceID</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-IS-ATTACHED?</strong> <em>joystick</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if joystick is attached or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetAttached</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-GET-AXIS</strong> <em>joystick</em> <em>axis</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+<p><strong><em>axis</em></strong> : A number. The index of the axis.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The value of the axis or 0 on failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetAxis</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-GET-BALL</strong> <em>joystick</em> <em>ball</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+<p><strong><em>ball</em></strong> : A number. The index of the ball.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list <code>(dx dy)</code> or <code>'()</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetBall</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-IS-BUTTON-PRESSED?</strong> <em>joystick</em> <em>button</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+<p><strong><em>button</em></strong> : A number. The index of the button.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if button was pressed or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetButton</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-GET-HAT</strong> <em>joystick</em> <em>hat</em>) → symbol</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+<p><strong><em>hat</em></strong> : A number. The index of the hat.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><em>positions</em> : symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-HAT-CENTERED</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-RIGHT</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-RIGHT-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-RIGHT-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-LEFT-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-HAT-LEFT-DOWN</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetHat</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-INSTANCE-ID</strong> <em>joystick</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Instance ID of the SDL-JOYSTICK object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickInstanceID</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-INSTANCE-ID</strong> <em>joystick</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Name of the SDL-JOYSTICK object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickName</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-NAME-FOR-INDEX</strong> <em>index</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>index</em></strong> : A number. Index of the joystick.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Name of the joystick at index.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickNameForIndex</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-NUM-AXES</strong> <em>joystick</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of axes the joystick has.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickNumAxes</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-NUM-BALLS</strong> <em>joystick</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of balls the joystick has.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickNumBalls</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-NUM-BALLS</strong> <em>joystick</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of buttons the joystick has.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickNumButtons</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-NUM-HATS</strong> <em>joystick</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>joystick</em></strong> : A SDL-JOYSTICK object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of hats the joystick has.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickNumHats</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-GET-DEVICE-GUID</strong>) → SDL-JOYSTICK-GUID</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetDeviceGUID</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-GET-GUID</strong>) → SDL-JOYSTICK-GUID</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetGUID</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-GUID-FROM-STRING</strong>) → SDL-JOYSTICK-GUID</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetGUIDFromString</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-GET-GUID-STRING</strong>) → SDL-JOYSTICK-GUID</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_JoystickGetGUIDString</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<h1 id="game-controller-support">Game Controller Support</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER?</strong> <em>index</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>index</em></strong> : A number. Index of the game controller/joystick.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if joystick is a game controller or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_IsGameController</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-ATTACHED?</strong> <em>controller</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>controller</em></strong> : A SDL-GAME-CONTROLLER object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if game controller is attached or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetAttached</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-BUTTON-PRESSED?</strong> <em>controller</em> <em>button</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>controller</em></strong> : A SDL-GAME-CONTROLLER object.</p>
+<table>
+<thead>
+<tr>
+<th align="left"><em>button</em> : symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-A</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-B</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-BACK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-GUIDE</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-START</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT-STICK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT-STICK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT-SHOULDER</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT-SHOULDER</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if button is pressed or <code>#f</code> otherwise.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetButton</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-AXIS</strong> <em>controller</em> <em>axis</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>controller</em></strong> : A SDL-GAME-CONTROLLER object.</p>
+<table>
+<thead>
+<tr>
+<th align="left"><em>axis</em> : symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-LEFT-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-LEFT-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-RIGHT-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-RIGHT-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-TRIGGER-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-TRIGGER-RIGHT</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The value of the axis.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetAxis</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-OPEN</strong> <em>index</em>) → SDL-GAME-CONTROLLER</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>index</em></strong> : The joystick to open as a game controller.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A SDL-GAME-CONTROLLER object or <code>'()</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerOpen</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-CLOSE</strong> <em>controller</em>) → '()</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>controller</em></strong> : A SDL-GAME-CONTROLLER object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerClose</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-UPDATE</strong>) → '()</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerUpdate</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-NAME</strong> <em>controller</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>controller</em></strong> : A SDL-GAME-CONTROLLER object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A string containing the name of the device.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerName</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-FOR-INDEX</strong> <em>index</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>index</em></strong> : A number. The index of the game controller.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A string containing the name of the device.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerNameForIndex</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-MAPPING</strong> <em>controller</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>controller</em></strong> : A SDL-GAME-CONTROLLER object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A string containing the button mapping of the device.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerMapping</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-BUTTON-&gt;STRING</strong> <em>button</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><em>button</em> : symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-A</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-B</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-BACK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-GUIDE</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-START</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT-STICK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT-STICK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT-SHOULDER</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT-SHOULDER</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A string containing name of a button.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetStringForButton</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-AXIS-&gt;STRING</strong> <em>axis</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><em>axis</em> : symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-LEFT-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-LEFT-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-RIGHT-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-RIGHT-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-TRIGGER-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-TRIGGER-RIGHT</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A string containing the name of the axis.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetStringForAxis</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-MAPPING</strong> <em>name</em>) → symbol</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the button.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-A</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-B</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-BACK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-GUIDE</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-START</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT-STICK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT-STICK</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT-SHOULDER</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT-SHOULDER</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-UP</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-DOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-RIGHT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-BUTTON-INVALID</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetButtonFromString</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>STRING-&gt;SDL-AXIS</strong> <em>name</em>) → symbol</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the axis.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-LEFT-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-LEFT-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-RIGHT-X</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-RIGHT-Y</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-TRIGGER-LEFT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-TRIGGER-RIGHT</td>
+</tr>
+<tr>
+<td align="left">SDL-CONTROLLER-AXIS-INVALID</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetAxisFromString</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-CONTROLLER-&gt;SDL-JOYSTICK</strong> <em>controller</em>) → SDL-JOYSTICK</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>controller</em></strong> : A SDL-GAME-CONTROLLER object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The SDL-JOYSTICK object corresponding to the SDL-GAME-CONTROLLER object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetJoystick</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-JOYSTICK-ID-&gt;SDL-CONTROLLER</strong> <em>id</em>) → SDL-GAME-CONTROLLER</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>id</em></strong> : Joystick's instance ID.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The SDL-GAME-CONTROLLER object or <code>'()</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerFromInstanceID</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Not up to specifications.</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-EVENT-STATE</strong>) → number</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerEventState</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-GET-BIND-FOR-BUTTON</strong>) → ???</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetBindForButton</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-GET-BIND-FOR-AXIS</strong>) → ???</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerGetBindForAxis</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-MAPPING-FOR-GUID</strong>) → string</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerMappingForGUID</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-ADD-MAPPING-FROM-RW</strong>) → number</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerAddMappingsFromRW</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-ADD-MAPPING-FROM-FILE</strong>) → number</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerAddMappingsFromFile</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GAME-CONTROLLER-ADD-MAPPING</strong>) → number</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GameControllerAddMapping</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Unimplemented</em></strong></p>
+</blockquote>
+<h1 id="touch">Touch</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-NUM-TOUCH-DEVICES</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of touch devices available.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetNumTouchDevices</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-TOUCH-DEVICE</strong> <em>index</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>index</em></strong> : A number. Index of the touch device.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The ID of the touch device.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetTouchDevice</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-NUM-TOUCH-FINGERS</strong> <em>touch-id</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>touch-id</em></strong> : The ID of the touch device.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The number of active fingers.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetNumTouchFingers</code></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>SDL-GET-TOUCH-FINGER</strong> <em>touch-id</em> <em>index</em>) → SDL-FINGER</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>touch-id</em></strong> : The ID of the touch device.</p>
+<p><strong><em>index</em></strong> : The index of a finger.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A SDL-FINGER record or <code>'()</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetTouchFinger</code></p>
+</blockquote>
+<p>Notes:</p>
+<blockquote>
+<p><strong><em>Not up to specifications.</em></strong></p>
+</blockquote>
               
             </div>
           </div>

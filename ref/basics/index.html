@@ -189,7 +189,7 @@
 <table>
 <thead>
 <tr>
-<th align="left"><em>flags</em></th>
+<th align="left"><em>flags</em> : number</th>
 </tr>
 </thead>
 <tbody>
@@ -229,18 +229,20 @@
 <p><code>SDL_Init</code></p>
 </blockquote>
 <p>Examples:</p>
+<pre><code class="scheme">(sdl-init) ;Equivalent to (sdl-init SDL-INIT-VIDEO)
+</code></pre>
+
 <pre><code class="scheme">(sdl-init
   SDL-INIT-EVERYTHING)
 </code></pre>
 
-<pre><code class="scheme">(sdl-init
-  (bitwise-ior SDL-INIT-VIDEO
-               SDL-INIT-AUDIO))
+<pre><code class="scheme">(sdl-init SDL-INIT-VIDEO
+          SDL-INIT-AUDIO)
 </code></pre>
 
 <p>Notes:</p>
 <blockquote>
-<p>Flags can be combined using the <code>BITWISE-IOR</code> procedure.</p>
+<p>Initializes the video subsystem by default.</p>
 </blockquote>
 <hr />
 <p>Procedure:</p>
