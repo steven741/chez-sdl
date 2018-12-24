@@ -324,7 +324,7 @@
 		     (* sdl-gl-context)))
 
 (define sdl-gl-delete-context
-  (foreign-procedure "SDL_GL_CreateContext"
+  (foreign-procedure "SDL_GL_DeleteContext"
 		     ((* sdl-gl-context)) void))
 
 (define *sdl-gl-extension-supported?*
