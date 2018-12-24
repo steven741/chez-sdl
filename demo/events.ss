@@ -4,7 +4,7 @@
 ;;;;
 ;;;;
 
-(import (sdl (2)))
+(import (sdl))
 
 (sdl-init SDL-INIT-VIDEO
 	  SDL-INIT-EVENTS

@@ -4,7 +4,7 @@
 ;;;;
 ;;;;
 
-(import (sdl (2)))
+(import (sdl))
 
 
 ;; Initialize SDL 2

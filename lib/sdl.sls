@@ -1,27 +1,25 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;
-;;;;
-;;;;
+;;;; ; ; ; ; ; ; ; ; ; ; ; ;;;;;
+;;;; Principle Library File ;;;;
+;;;; ; ; ; ; ; ; ; ; ; ; ; ;;;;;
 
-;;;
-;;; Link to library at top-level.
-;;;
+
+;;;                               ;;;
+;;; Link to library at top-level. ;;;
+;;;                               ;;;
 
 (case (machine-type)
   ((ti3nt i3nt ta6nt a6nt)     (load-shared-object "SDL2.dll"))
   ((i3le ti3le a6le ta6le)     (load-shared-object "libSDL2.so"))
-  ((i3osx ti3osx a6osx ta6osx) (load-shared-object "libSDL2.dylib"))
-  (else
-   (error 'SDL "unknown machine type" (machine-type))))
+  ((i3osx ti3osx a6osx ta6osx) (load-shared-object "libSDL2.dylib")))
 
 
+;;;;                    ;;;
+;;;; Library definition ;;;
+;;;;                    ;;;
 
-;;;;
-;;;; Library definition
-;;;;
-
-(library (sdl (2 0 6))
+(library (sdl)
   (export
    ;;;;;;;;;;;;;
    ;;; Basic ;;;
@@ -167,6 +165,12 @@
    SDL-BLEND-MODE-MOD
    SDL-BLEND-MODE-INVALID
 
+   SDL-GL-RED-SIZE SDL-GL-GREEN-SIZE SDL-GL-BLUE-SIZE SDL-GL-ALPHA-SIZE SDL-GL-BUFFER-SIZE SDL-GL-DOUBLEBUFFER SDL-GL-DEPTH-SIZE SDL-GL-STENCIL-SIZE SDL-GL-ACCUM-RED-SIZE SDL-GL-ACCUM-GREEN-SIZE SDL-GL-ACCUM-BLUE-SIZE SDL-GL-ACCUM-ALPHA-SIZE SDL-GL-STEREO SDL-GL-MULTISAMPLEBUFFERS SDL-GL-MULTISAMPLESAMPLES SDL-GL-ACCELERATED-VISUAL SDL-GL-RETAINED-BACKING SDL-GL-CONTEXT-MAJOR-VERSION SDL-GL-CONTEXT-MINOR-VERSION SDL-GL-CONTEXT-EGL SDL-GL-CONTEXT-FLAGS SDL-GL-CONTEXT-PROFILE-MASK SDL-GL-SHARE-WITH-CURRENT-CONTEXT SDL-GL-FRAMEBUFFER-SRGB-CAPABLE SDL-GL-CONTEXT-RELEASE-BEHAVIOR SDL-GL-CONTEXT-RESET-NOTIFICATION SDL-GL-CONTEXT-NO-ERROR
+
+   SDL-GL-CONTEXT-PROFILE-CORE SDL-GL-CONTEXT-PROFILE-COMPATIBILITY SDL-GL-CONTEXT-PROFILE-ES
+
+   SDL-GL-CONTEXT-DEBUG-FLAG SDL-GL-CONTEXT-FORWARD-COMPATIBLE-FLAG SDL-GL-CONTEXT-ROBUST-ACCESS-FLAG SDL-GL-CONTEXT-RESET-ISOLATION-FLAG
+
    make-sdl-rect
    sdl-rect?
    sdl-rect-x
@@ -190,6 +194,20 @@
    sdl-enable-screen-saver
    sdl-get-window-surface
    sdl-update-window-surface
+
+   sdl-gl-create-context
+   sdl-gl-delete-context
+   sdl-gl-extension-supported?
+   sdl-gl-get-attribute
+   sdl-gl-get-current-context
+   sdl-gl-get-current-window
+   sdl-gl-get-drawable-size
+   sdl-gl-get-swap-interval
+   sdl-gl-make-current
+   sdl-gl-reset-attributes!
+   sdl-gl-set-attribute!
+   sdl-gl-set-swap-interval!
+   sdl-gl-swap-window
 
    sdl-create-renderer
    sdl-create-texture-from-surface
@@ -772,14 +790,7 @@
    sdl-get-num-touch-devices
    sdl-get-touch-device
    sdl-get-num-touch-fingers
-   sdl-get-touch-finger
-
-   ;;;;;;;;;;;;;
-   ;;; Extra ;;;
-   ;;;;;;;;;;;;;
-   sdl-init-with
-   sdl-win-with)
-
+   sdl-get-touch-finger)
 
   (import (chezscheme))
 
@@ -787,6 +798,9 @@
   (define SDL-IGNORE  0)
   (define SDL-DISABLE 0)
   (define SDL-ENABLE  1)
+
+  (define SDL-TRUE    1)
+  (define SDL-FALSE   0)
 
   (include "sdl-basic.sls")
   (include "sdl-video.sls")

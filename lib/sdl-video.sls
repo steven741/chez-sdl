@@ -1,20 +1,19 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;
-;;;;
-;;;;
+;;;; ; ; ; ; ; ; ; ; ;;;;
+;;;; Video Subsystem ;;;;
+;;;; ; ; ; ; ; ; ; ; ;;;;
+
+
+;;;                   ;;;
+;;; Helper Procedures ;;;
+;;;                   ;;;
 
 (define sdl-rw-from-file!
   (foreign-procedure "SDL_RWFromFile" (string string) void*))
 
 (define sdl-load-bmp-rw!
   (foreign-procedure "SDL_LoadBMP_RW" (void* int) (* sdl-c-surface)))
-
-
-
-;;;                   ;;;
-;;; Helper Procedures ;;;
-;;;                   ;;;
 
 (define (c-point->point c-point)
   (make-sdl-point (ftype-ref sdl-c-point (x) c-point)
@@ -109,7 +108,6 @@
 						   #x00001000))
 (define SDL-WINDOW-FOREIGN            #x00000800)
 (define SDL-WINDOW-ALLOW-HIGHDPI      #x00002000)
-
 (define SDL-WINDOW-MOUSE-CAPTURE      #x00004000)
 (define SDL-WINDOW-ALWAYS-ON-TOP      #x00008000)
 (define SDL-WINDOW-SKIP-TASKBAR       #x00010000)
@@ -230,6 +228,8 @@
   (struct
    [flags unsigned-32]))
 
+(define-ftype sdl-gl-context int)
+
 
 
 (define-record-type sdl-rect
@@ -277,6 +277,121 @@
 
 (define sdl-update-window-surface
   (foreign-procedure "SDL_UpdateWindowSurface" (void*) int))
+
+
+;;; OpenGL
+
+(define SDL-GL-RED-SIZE                    0)
+(define SDL-GL-GREEN-SIZE                  1)
+(define SDL-GL-BLUE-SIZE                   2)
+(define SDL-GL-ALPHA-SIZE                  3)
+(define SDL-GL-BUFFER-SIZE                 4)
+(define SDL-GL-DOUBLEBUFFER                5)
+(define SDL-GL-DEPTH-SIZE                  6)
+(define SDL-GL-STENCIL-SIZE                7)
+(define SDL-GL-ACCUM-RED-SIZE              8)
+(define SDL-GL-ACCUM-GREEN-SIZE            9)
+(define SDL-GL-ACCUM-BLUE-SIZE            10)
+(define SDL-GL-ACCUM-ALPHA-SIZE           11)
+(define SDL-GL-STEREO                     12)
+(define SDL-GL-MULTISAMPLEBUFFERS         12)
+(define SDL-GL-MULTISAMPLESAMPLES         13)
+(define SDL-GL-ACCELERATED-VISUAL         14)
+(define SDL-GL-RETAINED-BACKING           15)
+(define SDL-GL-CONTEXT-MAJOR-VERSION      16)
+(define SDL-GL-CONTEXT-MINOR-VERSION      17)
+(define SDL-GL-CONTEXT-EGL                18)
+(define SDL-GL-CONTEXT-FLAGS              19)
+(define SDL-GL-CONTEXT-PROFILE-MASK       20)
+(define SDL-GL-SHARE-WITH-CURRENT-CONTEXT 21)
+(define SDL-GL-FRAMEBUFFER-SRGB-CAPABLE   22)
+(define SDL-GL-CONTEXT-RELEASE-BEHAVIOR   23)
+(define SDL-GL-CONTEXT-RESET-NOTIFICATION 24)
+(define SDL-GL-CONTEXT-NO-ERROR           25)
+
+(define SDL-GL-CONTEXT-PROFILE-CORE          #x0001)
+(define SDL-GL-CONTEXT-PROFILE-COMPATIBILITY #x0002)
+(define SDL-GL-CONTEXT-PROFILE-ES            #x0004)
+
+(define SDL-GL-CONTEXT-DEBUG-FLAG              #x0001)
+(define SDL-GL-CONTEXT-FORWARD-COMPATIBLE-FLAG #x0002)
+(define SDL-GL-CONTEXT-ROBUST-ACCESS-FLAG      #x0004)
+(define SDL-GL-CONTEXT-RESET-ISOLATION-FLAG    #x0008)
+
+(define sdl-gl-create-context
+  (foreign-procedure "SDL_GL_CreateContext"
+		     ((* sdl-c-window))
+		     (* sdl-gl-context)))
+
+(define sdl-gl-delete-context
+  (foreign-procedure "SDL_GL_CreateContext"
+		     ((* sdl-gl-context)) void))
+
+(define *sdl-gl-extension-supported?*
+  (foreign-procedure "SDL_GL_ExtensionSupported"
+		     (string) int))
+
+(define (sdl-gl-extension-supported? extension)
+  (= SDL-TRUE (*sdl-gl-extension-supported?* extension)))
+
+(define *sdl-gl-get-attribute*
+  (foreign-procedure "SDL_GL_GetAttribute"
+		     (int (* int)) int))
+
+(define (sdl-gl-get-attribute attribute)
+  (let*
+      ([valuep (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
+       [result (*sdl-gl-get-attribute* attribute valuep)]
+       [value  (ftype-ref int () valuep)])
+    (foreign-free (ftype-pointer-address valuep))
+    (if (= result 0)
+	value
+	result)))
+
+(define sdl-gl-get-current-context
+  (foreign-procedure "SDL_GL_GetCurrentContext"
+		     () (* sdl-gl-context)))
+
+(define sdl-gl-get-current-window
+  (foreign-procedure "SDL_GL_GetCurrentWindow"
+		     () (* sdl-c-window)))
+
+(define *sdl-gl-get-drawable-size*
+  (foreign-procedure "SDL_GL_GetDrawableSize"
+		     ((* sdl-c-window) (* int) (* int)) void))
+
+(define (sdl-gl-get-drawable-size window)
+  (let
+      ([w (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
+       [h (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))])
+    (*sdl-gl-get-drawable-size* window w h)
+    (let
+	([ret-w (ftype-ref int () w)]
+	 [ret-h (ftype-ref int () h)])
+      (foreign-free (ftype-pointer-address w))
+      (foreign-free (ftype-pointer-address h))
+      (list ret-w ret-h))))
+
+(define sdl-gl-get-swap-interval
+  (foreign-procedure "SDL_GL_GetSwapInterval"
+		     () int))
+
+(define sdl-gl-make-current
+  (foreign-procedure "SDL_GL_MakeCurrent"
+		     ((* sdl-c-window) (* sdl-gl-context))
+		     int))
+
+(define sdl-gl-reset-attributes!
+  (foreign-procedure "SDL_GL_ResetAttributes" () void))
+
+(define sdl-gl-set-attribute!
+  (foreign-procedure "SDL_GL_SetAttribute" (int int) int))
+
+(define sdl-gl-set-swap-interval!
+  (foreign-procedure "SDL_GL_SetSwapInterval" (int) int))
+
+(define sdl-gl-swap-window
+  (foreign-procedure "SDL_GL_SwapWindow" ((* sdl-c-window)) void))
 
 
 

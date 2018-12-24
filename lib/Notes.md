@@ -14,3 +14,5 @@
 ---
 
 * Rewrite SDL's rect function to be in scheme.
+
+refactor into data, forigen procs, and marshalling.
