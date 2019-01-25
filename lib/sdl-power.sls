@@ -1,33 +1,30 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;
-;;;;
-;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; C Function Bindings ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define *sdl-get-power-info* (sdl-procedure "SDL_GetPowerInfo" ((* int) (* int)) int))
 
 
-(define _sdl-get-power-info
-  (foreign-procedure "SDL_GetPowerInfo" ((* int) (* int)) int))
-
+;;;;;;;;;;;;;;;;;;;
+;;; Marshalling ;;;
+;;;;;;;;;;;;;;;;;;;
 
 (define (sdl-get-power-info)
   (let*
-      (;; Allocate Memory
+      ([t (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
        [% (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
-       [t (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
 
-       ;; Call the function and build a list
-       [_info (_sdl-get-power-info t %)]
-       [info (list (ftype-ref int () t)
-		   (ftype-ref int () %)
-		   (cond
-		    ((= _info 0) 'SDL-POWERSTATE-UNKNOWN)
-		    ((= _info 1) 'SDL-POWERSTATE-ON-BATTERY)
-		    ((= _info 2) 'SDL-POWERSTATE-NO-BATTERY)
-		    ((= _info 3) 'SDL-POWERSTATE-CHARGING)
-		    ((= _info 4) 'SDL-POWERSTATE-CHARGED)))])
-    ;; Release Allocated Memory
-    (foreign-free (ftype-pointer-address %))
+       [state (*sdl-get-power-info* t %)]
+       [data  (list (ftype-ref int () t)
+		    (ftype-ref int () %)
+		    (cond
+		     ((= state 0) 'SDL-POWERSTATE-UNKNOWN)
+		     ((= state 1) 'SDL-POWERSTATE-ON-BATTERY)
+		     ((= state 2) 'SDL-POWERSTATE-NO-BATTERY)
+		     ((= state 3) 'SDL-POWERSTATE-CHARGING)
+		     ((= state 4) 'SDL-POWERSTATE-CHARGED)))])
     (foreign-free (ftype-pointer-address t))
-
-    ;; Eval to the list of data
-    info))
+    (foreign-free (ftype-pointer-address %))
+    data))

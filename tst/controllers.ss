@@ -6,6 +6,7 @@
 
 (import (sdl))
 
+(sdl-set-main-ready)
 (sdl-init SDL-INIT-VIDEO
 	  SDL-INIT-EVENTS)
 
@@ -15,7 +16,6 @@
 		     SDL-WINDOWPOS-UNDEFINED
 		     640
 		     480
-		     SDL-WINDOW-SHOWN
 		     SDL-WINDOW-ALLOW-HIGHDPI))
 
 (define (event-loop)
