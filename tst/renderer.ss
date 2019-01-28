@@ -8,7 +8,7 @@
 
 
 ;; Initialize SDL 2
-(sdl-set-main-ready)
+(sdl-set-main-ready!)
 
 (sdl-init SDL-INIT-VIDEO)
 

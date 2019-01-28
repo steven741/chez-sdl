@@ -7,7 +7,7 @@
 (import (sdl))
 
 
-(sdl-set-main-ready)
+(sdl-set-main-ready!)
 
 (sdl-init SDL-INIT-VIDEO
 	  SDL-INIT-EVENTS

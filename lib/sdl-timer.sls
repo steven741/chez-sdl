@@ -1,19 +1,5 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Local Procedures ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define (make-sdl-timer-callback procedure)
-  (let
-      ((proc (foreign-callable __collect_safe
-			       procedure
-			       (unsigned-32 void*)
-			       unsigned-32)))
-    (lock-object proc)
-    (foreign-callable-entry-point proc)))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; C Function Bindings ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -30,13 +16,23 @@
 ;;; Marshalling ;;;
 ;;;;;;;;;;;;;;;;;;;
 
+(define (sdl-make-timer-callback procedure)
+  (let
+      ((proc (foreign-callable __collect_safe
+			       (lambda (interval param)
+				 (procedure interval))
+			       (unsigned-32 void*)
+			       unsigned-32)))
+    (lock-object proc)
+    (foreign-callable-entry-point proc)))
+
+(define (sdl-add-timer! interval procedure)
+  (*sdl-add-timer* interval
+		   (sdl-make-timer-callback procedure)
+		   0))
+
 (define sdl-delay                     *sdl-delay*)
 (define sdl-get-performance-counter   *sdl-get-performance-counter*)
 (define sdl-get-performance-frequency *sdl-get-performance-frequency*)
 (define sdl-get-ticks                 *sdl-get-ticks*)
-(define sdl-remove-timer              *sdl-remove-timer*)
-
-(define (sdl-add-timer interval procedure)
-  (*sdl-add-timer* interval
-		   (make-sdl-timer-callback (lambda (interval param) (procedure interval)))
-		   0))
+(define sdl-remove-timer!             *sdl-remove-timer*)

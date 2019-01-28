@@ -21,22 +21,28 @@
 	  sdl-finger-p
 
 	  sdl-init
+	  sdl-init-sub-system
 	  sdl-quit
-	  sdl-set-main-ready
+	  sdl-quit-sub-system
+	  sdl-set-main-ready!
+	  sdl-init?
 
+	  sdl-make-hint-callback
+	  sdl-add-hint-callback!
 	  sdl-clear-hints!
+	  sdl-del-hint-callback!
+	  sdl-get-hint
 	  sdl-get-hint-boolean
 	  sdl-set-hint!
 	  sdl-set-hint-w/-priority!
 
+	  sdl-clear-error!
+	  sdl-get-error
+	  sdl-set-error!
+
 	  sdl-get-version
 	  sdl-get-revision
 	  sdl-get-revision-num
-
-	  sdl-clear-error!
-	  sdl-get-error
-
-	  sdl-free-rw
 
 	  sdl-show-window
 	  sdl-create-window
@@ -78,12 +84,12 @@
 	  sdl-set-clipboard-text!
 	  sdl-get-power-info
 
-	  sdl-add-timer
+	  sdl-add-timer!
 	  sdl-delay
 	  sdl-get-performance-counter
 	  sdl-get-performance-frequency
 	  sdl-get-ticks
-	  sdl-remove-timer
+	  sdl-remove-timer!
 
 	  sdl-get-key-from-name
 	  sdl-get-key-from-scancode
@@ -317,6 +323,8 @@
 	  sdl-event-drop-begin?
 	  sdl-event-drop-complete?
 	  sdl-event-drop-file
+
+	  sdl-free-rw
 
 	  SDL-TRUE
 	  SDL-FALSE
