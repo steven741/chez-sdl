@@ -1,14 +1,5 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;; ; ; ; ; ; ; ; ; ; ; ; ;;;;;
-;;;; Principle Library File ;;;;
-;;;; ; ; ; ; ; ; ; ; ; ; ; ;;;;;
-
-
-;;;;                    ;;;
-;;;; Library definition ;;;
-;;;;                    ;;;
-
 (library (sdl)
   (export make-sdl-rect
 	  sdl-rect?
@@ -22,6 +13,7 @@
 	  sdl-point-x
 	  sdl-point-y
 
+	  make-sdl-finger
 	  sdl-finger?
 	  sdl-finger-id
 	  sdl-finger-x
@@ -86,10 +78,12 @@
 	  sdl-set-clipboard-text!
 	  sdl-get-power-info
 
+	  sdl-add-timer
 	  sdl-delay
-	  sdl-get-ticks
 	  sdl-get-performance-counter
 	  sdl-get-performance-frequency
+	  sdl-get-ticks
+	  sdl-remove-timer
 
 	  sdl-get-key-from-name
 	  sdl-get-key-from-scancode

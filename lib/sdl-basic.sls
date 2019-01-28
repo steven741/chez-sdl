@@ -8,9 +8,9 @@
   (function (void* string string string) void))
 
 (define-ftype sdl-c-version
-  (struct [major unsigned-8]
-	  [minor unsigned-8]
-	  [patch unsigned-8]))
+  (struct (major unsigned-8)
+	  (minor unsigned-8)
+	  (patch unsigned-8)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;

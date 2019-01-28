@@ -1,10 +1,5 @@
 ;;;; -*- mode: Scheme; -*-
 
-(define SDL-SWSURFACE #x00000000)
-(define SDL-PREALLOC  #x00000001)
-(define SDL-RLEACCEL  #x00000002)
-(define SDL-DONTFREE  #x00000004)
-
 (define SDL-HAPTIC-CONSTANT     (bitwise-arithmetic-shift-left 1 0))
 (define SDL-HAPTIC-SINE         (bitwise-arithmetic-shift-left 1 1))
 (define SDL-HAPTIC-LEFTRIGHT    (bitwise-arithmetic-shift-left 1 2))
@@ -169,6 +164,11 @@
 
 (define (SDL-WINDOWPOS-IS-CENTERED? X)
   (= (bitwise-and X #xFFFF0000) SDL-WINDOWPOS-CENTERED-MASK))
+
+(define SDL-SWSURFACE #x00000000)
+(define SDL-PREALLOC  #x00000001)
+(define SDL-RLEACCEL  #x00000002)
+(define SDL-DONTFREE  #x00000004)
 
 (define SDL-RENDERER-SOFTWARE       #x00000001)
 (define SDL-RENDERER-ACCELERATED    #x00000002)

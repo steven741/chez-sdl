@@ -31,7 +31,7 @@
 (define *sdl-get-num-audio-devices*    (sdl-procedure "SDL_GetNumAudioDevices" () void))
 (define *sdl-get-num-audio-drivers*    (sdl-procedure "SDL_GetNumAudioDrivers" () void))
 (define *sdl-get-queued-audio-size*    (sdl-procedure "SDL_GetQueuedAudioSize" () void))
-;(define *sdl-load-wav*                 (sdl-procedure "SDL_LoadWAV" () void))
+(define *sdl-load-wav*                 (lambda (path spec buff length) (*sdl-load-wav-rw* (sdl-rw-from-file path "rb") 1 spec buff length)))
 (define *sdl-load-wav-rw*              (sdl-procedure "SDL_LoadWAV_RW" () void))
 (define *sdl-lock-audio*               (sdl-procedure "SDL_LockAudio" () void))
 (define *sdl-lock-audio-device*        (sdl-procedure "SDL_LockAudioDevice" () void))

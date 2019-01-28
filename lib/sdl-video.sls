@@ -5,83 +5,73 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-ftype sdl-c-rect
-  (struct
-    [x int]
-    [y int]
-    [w int]
-    [h int]))
+  (struct (x int)
+	  (y int)
+	  (w int)
+	  (h int)))
 
 (define-ftype sdl-c-point
-  (struct
-    [x int]
-    [y int]))
+  (struct (x int)
+	  (y int)))
 
 (define-ftype sdl-c-color
-  (struct
-    [r unsigned-8]
-    [g unsigned-8]
-    [b unsigned-8]
-    [a unsigned-8]))
+  (struct (r unsigned-8)
+	  (g unsigned-8)
+	  (b unsigned-8)
+	  (a unsigned-8)))
 
 (define-ftype sdl-c-palette
-  (struct
-    [ncolors  int]
-    [colors   (* sdl-c-color)]
-    [version  unsigned-32]
-    [refcount int]))
+  (struct (ncolors  int)
+	  (colors   (* sdl-c-color))
+	  (version  unsigned-32)
+	  (refcount int)))
 
 (define-ftype sdl-c-pixel-format
-  (struct
-    [format          unsigned-32]
-    [palette         (* sdl-c-palette)]
-    [bits-per-pixel  unsigned-8]
-    [bytes-per-pixel unsigned-8]
-    [padding         (array 2 unsigned-8)]
-    [r-mask          unsigned-32]
-    [g-mask          unsigned-32]
-    [b-mask          unsigned-32]
-    [a-mask          unsigned-32]
-    [r-loss          unsigned-8]
-    [g-loss          unsigned-8]
-    [b-loss          unsigned-8]
-    [a-loss          unsigned-8]
-    [r-shift         unsigned-8]
-    [g-shift         unsigned-8]
-    [b-shift         unsigned-8]
-    [a-shift         unsigned-8]
-    [refcount        int]
-    [next            (* sdl-c-pixel-format)]))
+  (struct (format          unsigned-32)
+	  (palette         (* sdl-c-palette))
+	  (bits-per-pixel  unsigned-8)
+	  (bytes-per-pixel unsigned-8)
+	  (padding         (array 2 unsigned-8))
+	  (r-mask          unsigned-32)
+	  (g-mask          unsigned-32)
+	  (b-mask          unsigned-32)
+	  (a-mask          unsigned-32)
+	  (r-loss          unsigned-8)
+	  (g-loss          unsigned-8)
+	  (b-loss          unsigned-8)
+	  (a-loss          unsigned-8)
+	  (r-shift         unsigned-8)
+	  (g-shift         unsigned-8)
+	  (b-shift         unsigned-8)
+	  (a-shift         unsigned-8)
+	  (refcount        int)
+	  (next            (* sdl-c-pixel-format))))
 
 (define-ftype sdl-c-surface
-  (struct
-    [flags     unsigned-32]
-    [format    (* sdl-c-pixel-format)]
-    [w         int]
-    [h         int]
-    [pitch     int]
-    [pixels    void*]
-    [userdata  void*]
-    [locked    int]
-    [lock-data void*]
-    [clip-rect sdl-c-rect]
-    [b-map     void*]
-    [refcount  int]))
+  (struct (flags     unsigned-32)
+	  (format    (* sdl-c-pixel-format))
+	  (w         int)
+	  (h         int)
+	  (pitch     int)
+	  (pixels    void*)
+	  (userdata  void*)
+	  (locked    int)
+	  (lock-data void*)
+	  (clip-rect sdl-c-rect)
+	  (b-map     void*)
+	  (refcount  int)))
 
 (define-ftype sdl-c-display-mode
-  (struct
-   [format unsigned-32]))
+  (struct (format unsigned-32)))
 
 (define-ftype sdl-c-renderer-info
-  (struct
-   [flags unsigned-32]))
+  (struct (flags unsigned-32)))
 
 (define-ftype sdl-c-sys-wm-info
-  (struct
-   [format unsigned-32]))
+  (struct (format unsigned-32)))
 
 (define-ftype sdl-c-message-box-data
-  (struct
-   [format unsigned-32]))
+  (struct (format unsigned-32)))
 
 (define-ftype sdl-c-window   void*)
 (define-ftype sdl-c-renderer void*)
@@ -346,21 +336,21 @@
 
 (define (sdl-gl-get-attribute attribute)
   (let*
-      ([c-val (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
-       [ret   (*sdl-gl-get-attribute* attribute c-val)]
-       [value (ftype-ref int () c-val)])
+      ((c-val (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+       (ret   (*sdl-gl-get-attribute* attribute c-val))
+       (value (ftype-ref int () c-val)))
     (foreign-free (ftype-pointer-address c-val))
     (if (= ret 0) value ret)))
 
 
 (define (sdl-gl-get-drawable-size window)
   (let
-      ([c-w (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
-       [c-h (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))])
+      ((c-w (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+       (c-h (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))))
     (*sdl-gl-get-drawable-size* window c-w c-h)
     (let
-	([w (ftype-ref int () c-w)]
-	 [h (ftype-ref int () c-h)])
+	((w (ftype-ref int () c-w))
+	 (h (ftype-ref int () c-h)))
       (foreign-free (ftype-pointer-address c-w))
       (foreign-free (ftype-pointer-address c-h))
       (list w h))))
@@ -368,30 +358,30 @@
 
 (define (sdl-get-display-bounds display-index)
   (let*
-      ([c-rect (make-ftype-pointer sdl-c-rect
-				   (foreign-alloc (ftype-sizeof sdl-c-rect)))]
-       [ret (*sdl-get-display-bounds* display-index c-rect)]
-       [val (if (= ret 0)
+      ((c-rect (make-ftype-pointer sdl-c-rect
+				   (foreign-alloc (ftype-sizeof sdl-c-rect))))
+       (ret (*sdl-get-display-bounds* display-index c-rect))
+       (val (if (= ret 0)
 		(make-sdl-rect (ftype-ref sdl-c-rect (x) c-rect)
 			       (ftype-ref sdl-c-rect (y) c-rect)
 			       (ftype-ref sdl-c-rect (w) c-rect)
 			       (ftype-ref sdl-c-rect (h) c-rect))
-		ret)])
+		ret)))
     (foreign-free (ftype-pointer-address c-rect))
     val))
 
 
 (define (sdl-get-display-dpi display-index)
   (let*
-      ([c-ddpi (make-ftype-pointer float (foreign-alloc (ftype-sizeof float)))]
-       [c-hdpi (make-ftype-pointer float (foreign-alloc (ftype-sizeof float)))]
-       [c-vdpi (make-ftype-pointer float (foreign-alloc (ftype-sizeof float)))]
-       [f-ret  (*sdl-get-display-dpi* display-index c-ddpi c-hdpi c-vdpi)]
-       [val (if (= f-ret 0)
+      ((c-ddpi (make-ftype-pointer float (foreign-alloc (ftype-sizeof float))))
+       (c-hdpi (make-ftype-pointer float (foreign-alloc (ftype-sizeof float))))
+       (c-vdpi (make-ftype-pointer float (foreign-alloc (ftype-sizeof float))))
+       (f-ret  (*sdl-get-display-dpi* display-index c-ddpi c-hdpi c-vdpi))
+       (val (if (= f-ret 0)
 		(list (ftype-ref float () c-ddpi)
 		      (ftype-ref float () c-hdpi)
 		      (ftype-ref float () c-vdpi))
-		f-ret)])
+		f-ret)))
     (foreign-free (ftype-pointer-address c-ddpi))
     (foreign-free (ftype-pointer-address c-hdpi))
     (foreign-free (ftype-pointer-address c-vdpi))
@@ -400,15 +390,15 @@
 
 (define (sdl-get-display-usable-bounds display-index)
   (let*
-      ([c-rect (make-ftype-pointer sdl-c-rect
-				   (foreign-alloc (ftype-sizeof sdl-c-rect)))]
-       [ret (*sdl-get-display-usable-bounds* display-index c-rect)]
-       [val (if (= ret 0)
+      ((c-rect (make-ftype-pointer sdl-c-rect
+				   (foreign-alloc (ftype-sizeof sdl-c-rect))))
+       (ret (*sdl-get-display-usable-bounds* display-index c-rect))
+       (val (if (= ret 0)
 		(make-sdl-rect (ftype-ref sdl-c-rect (x) c-rect)
 			       (ftype-ref sdl-c-rect (y) c-rect)
 			       (ftype-ref sdl-c-rect (w) c-rect)
 			       (ftype-ref sdl-c-rect (h) c-rect))
-		ret)])
+		ret)))
     (foreign-free (ftype-pointer-address c-rect))
     val))
 
@@ -561,15 +551,15 @@
   (define (load-all points mem index)
     (if (= index count)
 	mem
-	(let ([c-point (ftype-&ref sdl-c-point () mem index)]
-	      [point   (car points)])
+	(let ((c-point (ftype-&ref sdl-c-point () mem index))
+	      (point   (car points)))
 	  (load-point point c-point)
 	  (load-all (cdr points) mem (+ index 1)))))
 
-  (let ([c-points (make-ftype-pointer
+  (let ((c-points (make-ftype-pointer
 		   sdl-c-point
                    (foreign-alloc (* count
-                                     (ftype-sizeof sdl-c-point))))])
+                                     (ftype-sizeof sdl-c-point))))))
     (load-all points c-points 0)))
 
 
@@ -601,15 +591,15 @@
   (define (load-all rects mem index)
     (if (= index count)
 	mem
-	(let ([c-rect (ftype-&ref sdl-c-rect () mem index)]
-	      [rect   (car rects)])
+	(let ((c-rect (ftype-&ref sdl-c-rect () mem index))
+	      (rect   (car rects)))
 	  (load-rect rect c-rect)
 	  (load-all (cdr rects) mem (+ index 1)))))
 
-  (let ([c-rects (make-ftype-pointer
+  (let ((c-rects (make-ftype-pointer
 		  sdl-c-rect
                   (foreign-alloc (* count
-                                    (ftype-sizeof sdl-c-rect))))])
+                                    (ftype-sizeof sdl-c-rect))))))
     (load-all rects c-rects 0)))
 
 
@@ -618,9 +608,9 @@
 ;;;          ;;;
 
 (define (sdl-create-renderer window index . flags)
-  (let ([func (sdl-procedure "SDL_CreateRenderer"
+  (let ((func (sdl-procedure "SDL_CreateRenderer"
 				 ((* sdl-c-window) int unsigned-32)
-				 (* sdl-c-renderer))])
+				 (* sdl-c-renderer))))
     (if (null? flags)
 	(error 'SDL-CREATE-RENDERER "No flags set.")
 	(func window index (fold-left bitwise-ior 0 flags)))))
@@ -746,65 +736,65 @@
 
 
 (define (sdl-set-texture-color-mod! texture r g b)
-  (let ([func (sdl-procedure "SDL_SetTextureColorMod"
+  (let ((func (sdl-procedure "SDL_SetTextureColorMod"
 				 ((* sdl-c-texture)
 				  unsigned-8
 				  unsigned-8
 				  unsigned-8)
-				 int)])
+				 int)))
     (= 0 (func texture r g b))))
 
 
 (define (sdl-set-texture-blend-mode! texture mode)
-  (let ([func (sdl-procedure "SDL_SetTextureBlendMode"
+  (let ((func (sdl-procedure "SDL_SetTextureBlendMode"
 				 ((* sdl-c-texture)
 				  int)
-				 int)])
+				 int)))
     (= 0 (func texture mode))))
 
 
 (define (sdl-set-texture-alpha-mod! texture alpha)
-  (let ([func (sdl-procedure "SDL_SetTextureAlphaMod"
+  (let ((func (sdl-procedure "SDL_SetTextureAlphaMod"
 				 ((* sdl-c-texture)
 				  unsigned-8)
-				 int)])
+				 int)))
     (= 0 (func texture mod))))
 
 
 (define (sdl-set-render-target! renderer . texture)
-  (let ([func (sdl-procedure "SDL_SetRenderTarget"
+  (let ((func (sdl-procedure "SDL_SetRenderTarget"
 				 ((* sdl-c-renderer)
 				  (* sdl-c-texture))
-				 int)])
+				 int)))
     (= 0 (func renderer (if (null? texture)
 			    (make-ftype-pointer sdl-c-texture 0)
 			    (car texture))))))
 
 
 (define (sdl-set-render-draw-color! renderer r g b a)
-  (let ([func (sdl-procedure "SDL_SetRenderDrawColor"
+  (let ((func (sdl-procedure "SDL_SetRenderDrawColor"
 				 ((* sdl-c-renderer)
 				  unsigned-8
 				  unsigned-8
 				  unsigned-8
 				  unsigned-8)
-				 int)])
+				 int)))
     (= 0 (func renderer r g b a))))
 
 
 (define (sdl-set-render-draw-blend-mode! renderer mode)
-  (let ([func (sdl-procedure "SDL_SetRenderDrawBlendMode"
+  (let ((func (sdl-procedure "SDL_SetRenderDrawBlendMode"
 				 ((* sdl-c-renderer)
 				  int)
-				 int)])
+				 int)))
     (= 0 (func renderer mode))))
 
 
 (define (sdl-set-render-viewport! renderer . rect)
-  (let ([func (sdl-procedure "SDL_RenderSetViewport"
+  (let ((func (sdl-procedure "SDL_RenderSetViewport"
 				 ((* sdl-c-renderer)
 				  (* sdl-c-rect))
-				 int)])
+				 int)))
     (if (null? rect)
 	(= 0 (func renderer (make-ftype-pointer sdl-c-rect 0)))
 	(let* ((c-rect (rect->c-rect (car rect)))
@@ -814,36 +804,36 @@
 
 
 (define (sdl-set-render-scale! renderer x y)
-  (let ([func (sdl-procedure "SDL_RenderSetScale"
+  (let ((func (sdl-procedure "SDL_RenderSetScale"
 				 ((* sdl-c-renderer)
 				  float
 				  float)
-				 int)])
+				 int)))
     (= 0 (func renderer x y))))
 
 
 (define (sdl-set-render-logical-size! renderer w h)
-  (let ([func (sdl-procedure "SDL_RenderSetLogicalSize"
+  (let ((func (sdl-procedure "SDL_RenderSetLogicalSize"
 				 ((* sdl-c-renderer)
 				  int
 				  int)
-				 int)])
+				 int)))
     (= 0 (func renderer w h))))
 
 
 (define (sdl-set-render-integer-scale! renderer bool)
-  (let ([func (sdl-procedure "SDL_RenderSetIntegerScale"
+  (let ((func (sdl-procedure "SDL_RenderSetIntegerScale"
 				 ((* sdl-c-renderer)
 				  int)
-				 int)])
+				 int)))
     (= 0 (func renderer (if (bool) 1 0)))))
 
 
 (define (sdl-set-render-clip! renderer . rect)
-  (let ([func (sdl-procedure "SDL_RenderSetClipRect"
+  (let ((func (sdl-procedure "SDL_RenderSetClipRect"
 				 ((* sdl-c-renderer)
 				  (* sdl-c-rect))
-				 int)])
+				 int)))
     (if (null? rect)
 	(= 0 (func renderer (make-ftype-pointer sdl-c-rect 0)))
 	(let* ((c-rect (rect->c-rect (car rect)))
@@ -853,9 +843,9 @@
 
 
 (define (sdl-render-target-supported? renderer)
-  (let ([func (sdl-procedure "SDL_RenderTargetSupported"
+  (let ((func (sdl-procedure "SDL_RenderTargetSupported"
 				 ((* sdl-c-renderer))
-				 int)])
+				 int)))
     (= 1 (func renderer))))
 
 
@@ -878,32 +868,32 @@
 ;;;      ;;;
 
 (define (sdl-enclude-points points . clip)
-  (let* ([func (sdl-procedure "SDL_EnclosePoints"
+  (let* ((func (sdl-procedure "SDL_EnclosePoints"
 				  ((* sdl-c-point)
 				   int
 				   (* sdl-c-rect)
 				   (* sdl-c-rect))
-				  int)]
-	 [c-result (make-ftype-pointer
+				  int))
+	 (c-result (make-ftype-pointer
 		    sdl-c-rect
-		    (foreign-alloc (ftype-sizeof sdl-c-rect)))]
-	 [count    (length points)]
-	 [c-points (points->c-points points count)])
+		    (foreign-alloc (ftype-sizeof sdl-c-rect))))
+	 (count    (length points))
+	 (c-points (points->c-points points count)))
     (if (null? clip)
-	(let* ([error (func c-points
+	(let* ((error (func c-points
 			    count
 			    (make-ftype-pointer sdl-c-rect 0)
-			    c-result)]
-	       [result (if (= 1 error) (c-rect->rect c-result) '())])
+			    c-result))
+	       (result (if (= 1 error) (c-rect->rect c-result) '())))
 	  (foreign-free (ftype-pointer-address c-result))
 	  (foreign-free (ftype-pointer-address c-points))
 	  result)
-	(let* ([c-clip (rect->c-rect (car clip))]
-	       [error  (func c-points
+	(let* ((c-clip (rect->c-rect (car clip)))
+	       (error  (func c-points
 			     count
 			     clip
-			     c-result)]
-	       [result (if (= 1 error) (c-rect->rect c-result) '())])
+			     c-result))
+	       (result (if (= 1 error) (c-rect->rect c-result) '())))
 	  (foreign-free (ftype-pointer-address c-clip))
 	  (foreign-free (ftype-pointer-address c-result))
 	  (foreign-free (ftype-pointer-address c-points))
@@ -911,29 +901,29 @@
 
 
 (define (sdl-has-intersection? a b)
-  (let* ([func (sdl-procedure "SDL_HasIntersection"
+  (let* ((func (sdl-procedure "SDL_HasIntersection"
 				  ((* sdl-c-rect) (* sdl-c-rect))
-				  int)]
-	 [c-a (rect->c-rect a)]
-	 [c-b (rect->c-rect b)]
-	 [res (func c-a c-b)])
+				  int))
+	 (c-a (rect->c-rect a))
+	 (c-b (rect->c-rect b))
+	 (res (func c-a c-b)))
     (foreign-free (ftype-pointer-address c-a))
     (foreign-free (ftype-pointer-address c-b))
     (= 1 res)))
 
 
 (define (sdl-intersect-rect a b)
-  (let* ([func (sdl-procedure "SDL_IntersectRect"
+  (let* ((func (sdl-procedure "SDL_IntersectRect"
 				  ((* sdl-c-rect)
 				   (* sdl-c-rect)
 				   (* sdl-c-rect))
-				  int)]
-	 [c-a   (rect->c-rect a)]
-	 [c-b   (rect->c-rect b)]
-	 [c-res (make-ftype-pointer
+				  int))
+	 (c-a   (rect->c-rect a))
+	 (c-b   (rect->c-rect b))
+	 (c-res (make-ftype-pointer
 		 sdl-c-rect
-		 (foreign-alloc (ftype-sizeof sdl-c-rect)))]
-	 [has   (func c-a c-b c-res)])
+		 (foreign-alloc (ftype-sizeof sdl-c-rect))))
+	 (has   (func c-a c-b c-res)))
     (foreign-free (ftype-pointer-address c-a))
     (foreign-free (ftype-pointer-address c-b))
     (foreign-free (ftype-pointer-address c-res))
@@ -943,26 +933,26 @@
 
 
 (define (sdl-intersect-and-line rect x1 y1 x2 y2)
-  (let ([func (sdl-procedure "SDL_IntersectRectAndLine"
+  (let ((func (sdl-procedure "SDL_IntersectRectAndLine"
 				 ((* sdl-c-rect)
 				  (* int)
 				  (* int)
 				  (* int)
 				  (* int))
-				 int)]
-	[c-x1   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
-	[c-y1   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
-	[c-x2   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
-	[c-y2   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))]
-	[c-rect (rect->c-rect rect)])
+				 int))
+	(c-x1   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	(c-y1   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	(c-x2   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	(c-y2   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	(c-rect (rect->c-rect rect)))
     (ftype-set! int () c-x1 x1)
     (ftype-set! int () c-y1 y1)
     (ftype-set! int () c-x2 x2)
     (ftype-set! int () c-y2 y2)
-    (let* ([has (func c-rect c-x1 c-y1 c-x2 c-y2)]
-	   [res (list (= 1 has)
+    (let* ((has (func c-rect c-x1 c-y1 c-x2 c-y2))
+	   (res (list (= 1 has)
 		      (make-sdl-point c-x1 c-y1)
-		      (make-sdl-point c-x2 c-y2))])
+		      (make-sdl-point c-x2 c-y2))))
       (foreign-free (ftype-pointer-address c-x1))
       (foreign-free (ftype-pointer-address c-y1))
       (foreign-free (ftype-pointer-address c-x2))
@@ -972,54 +962,54 @@
 
 
 (define (sdl-point-in-rect? point rect)
-  (let* ([func (sdl-procedure "SDL_PointInRect"
+  (let* ((func (sdl-procedure "SDL_PointInRect"
 				  ((* sdl-c-point) (* sdl-c-rect))
-				  int)]
-	 [c-point (point->c-point point)]
-	 [c-rect  (rect->c-rect rect)]
-	 [res     (func c-point c-rect)])
+				  int))
+	 (c-point (point->c-point point))
+	 (c-rect  (rect->c-rect rect))
+	 (res     (func c-point c-rect)))
     (foreign-free (ftype-pointer-address c-point))
     (foreign-free (ftype-pointer-address c-rect))
     (= 1 res)))
 
 
 (define (sdl-rect-empty? rect)
-  (let* ([func (sdl-procedure "SDL_RectEmpty"
+  (let* ((func (sdl-procedure "SDL_RectEmpty"
 				  ((* sdl-c-rect))
-				  int)]
-	 [c-rect  (rect->c-rect rect)]
-	 [res     (func c-rect)])
+				  int))
+	 (c-rect  (rect->c-rect rect))
+	 (res     (func c-rect)))
     (foreign-free (ftype-pointer-address c-rect))
     (= 1 res)))
 
 
 (define (sdl-rect-equal? a b)
-  (let* ([func (sdl-procedure "SDL_RectEquals"
+  (let* ((func (sdl-procedure "SDL_RectEquals"
 				  ((* sdl-c-rect) (* sdl-c-rect))
-				  int)]
-	 [c-rect-a (rect->c-rect a)]
-	 [c-rect-b (rect->c-rect b)]
-	 [res     (func c-rect-a c-rect-b)])
+				  int))
+	 (c-rect-a (rect->c-rect a))
+	 (c-rect-b (rect->c-rect b))
+	 (res     (func c-rect-a c-rect-b)))
     (foreign-free (ftype-pointer-address c-rect-a))
     (foreign-free (ftype-pointer-address c-rect-b))
     (= 1 res)))
 
 
 (define (sdl-union-rect a b)
-  (let* ([func (sdl-procedure "SDL_UnionRect"
+  (let* ((func (sdl-procedure "SDL_UnionRect"
 				  ((* sdl-c-rect)
 				   (* sdl-c-rect)
 				   (* sdl-c-rect))
-				  void)]
-	 [c-rect-a (rect->c-rect a)]
-	 [c-rect-b (rect->c-rect b)]
-	 [c-union  (make-ftype-pointer
+				  void))
+	 (c-rect-a (rect->c-rect a))
+	 (c-rect-b (rect->c-rect b))
+	 (c-union  (make-ftype-pointer
 		    sdl-c-rect
-		    (foreign-alloc (ftype-sizeof sdl-c-rect)))])
+		    (foreign-alloc (ftype-sizeof sdl-c-rect)))))
     (func c-rect-a
 	  c-rect-b
 	  c-union)
-    (let ([union (c-rect->rect c-union)])
+    (let ((union (c-rect->rect c-union)))
       (foreign-free (ftype-pointer-address c-rect-a))
       (foreign-free (ftype-pointer-address c-rect-b))
       (foreign-free (ftype-pointer-address c-union))

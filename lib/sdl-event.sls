@@ -5,241 +5,241 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-ftype sdl-c-keysym
-  (struct [scancode unsigned]
-	  [sym      integer-32]
-	  [mod      unsigned-16]
-	  [unused   unsigned-32]))
+  (struct (scancode unsigned)
+	  (sym      integer-32)
+	  (mod      unsigned-16)
+	  (unused   unsigned-32)))
 
 (define-ftype sdl-c-common-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)))
 
 (define-ftype sdl-c-window-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [windowID  unsigned-32]
-	  [event     unsigned-8]
-	  [padding1  unsigned-8]
-	  [padding2  unsigned-8]
-	  [padding3  unsigned-8]
-	  [data1     integer-32]
-	  [data2     integer-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (windowID  unsigned-32)
+	  (event     unsigned-8)
+	  (padding1  unsigned-8)
+	  (padding2  unsigned-8)
+	  (padding3  unsigned-8)
+	  (data1     integer-32)
+	  (data2     integer-32)))
 
 (define-ftype sdl-c-keyboard-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [windowID  unsigned-32]
-	  [state     unsigned-8]
-	  [repeat    unsigned-8]
-	  [keysym    sdl-c-keysym]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (windowID  unsigned-32)
+	  (state     unsigned-8)
+	  (repeat    unsigned-8)
+	  (keysym    sdl-c-keysym)))
 
 (define-ftype sdl-c-text-editing-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [windowID  unsigned-32]
-	  [text      (array 32 char)]
-	  [start     integer-32]
-	  [length    integer-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (windowID  unsigned-32)
+	  (text      (array 32 char))
+	  (start     integer-32)
+	  (length    integer-32)))
 
 (define-ftype sdl-c-text-input-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [windowID  unsigned-32]
-	  [text      (array 32 char)]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (windowID  unsigned-32)
+	  (text      (array 32 char))))
 
 (define-ftype sdl-c-mouse-motion-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [windowID  unsigned-32]
-	  [which     unsigned-32]
-	  [state     unsigned-32]
-	  [x         integer-32]
-	  [y         integer-32]
-	  [xrel      integer-32]
-	  [yrel      integer-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (windowID  unsigned-32)
+	  (which     unsigned-32)
+	  (state     unsigned-32)
+	  (x         integer-32)
+	  (y         integer-32)
+	  (xrel      integer-32)
+	  (yrel      integer-32)))
 
 (define-ftype sdl-c-mouse-button-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [windowID  unsigned-32]
-	  [which     unsigned-32]
-	  [button    unsigned-8]
-	  [state     unsigned-8]
-	  [clicks    unsigned-8]
-	  [padding1  unsigned-8]
-	  [x         integer-32]
-	  [y         integer-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (windowID  unsigned-32)
+	  (which     unsigned-32)
+	  (button    unsigned-8)
+	  (state     unsigned-8)
+	  (clicks    unsigned-8)
+	  (padding1  unsigned-8)
+	  (x         integer-32)
+	  (y         integer-32)))
 
 (define-ftype sdl-c-mouse-wheel-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [windowID  unsigned-32]
-	  [which     unsigned-32]
-	  [x         integer-32]
-	  [y         integer-32]
-	  [direction unsigned-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (windowID  unsigned-32)
+	  (which     unsigned-32)
+	  (x         integer-32)
+	  (y         integer-32)
+	  (direction unsigned-32)))
 
 (define-ftype sdl-c-joy-axis-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     integer-32]
-	  [axis      unsigned-8]
-	  [padding1  unsigned-8]
-	  [padding2  unsigned-8]
-	  [padding3  unsigned-8]
-	  [value     integer-16]
-	  [padding4  unsigned-16]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     integer-32)
+	  (axis      unsigned-8)
+	  (padding1  unsigned-8)
+	  (padding2  unsigned-8)
+	  (padding3  unsigned-8)
+	  (value     integer-16)
+	  (padding4  unsigned-16)))
 
 (define-ftype sdl-c-joy-ball-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     integer-32]
-	  [ball      unsigned-8]
-	  [padding1  unsigned-8]
-	  [padding2  unsigned-8]
-	  [padding3  unsigned-8]
-	  [xrel      integer-16]
-	  [yrel      integer-16]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     integer-32)
+	  (ball      unsigned-8)
+	  (padding1  unsigned-8)
+	  (padding2  unsigned-8)
+	  (padding3  unsigned-8)
+	  (xrel      integer-16)
+	  (yrel      integer-16)))
 
 (define-ftype sdl-c-joy-hat-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     integer-32]
-	  [hat       unsigned-8]
-	  [value     unsigned-8]
-	  [padding1  unsigned-8]
-	  [padding2  unsigned-8]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     integer-32)
+	  (hat       unsigned-8)
+	  (value     unsigned-8)
+	  (padding1  unsigned-8)
+	  (padding2  unsigned-8)))
 
 (define-ftype sdl-c-joy-button-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     integer-32]
-	  [button    unsigned-8]
-	  [state     unsigned-8]
-	  [padding1  unsigned-8]
-	  [padding2  unsigned-8]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     integer-32)
+	  (button    unsigned-8)
+	  (state     unsigned-8)
+	  (padding1  unsigned-8)
+	  (padding2  unsigned-8)))
 
 (define-ftype sdl-c-joy-device-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     integer-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     integer-32)))
 
 (define-ftype sdl-c-controller-axis-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     integer-32]
-	  [axis      unsigned-8]
-	  [padding1  unsigned-8]
-	  [padding2  unsigned-8]
-	  [padding3  unsigned-8]
-	  [value     unsigned-16]
-	  [padding4  unsigned-16]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     integer-32)
+	  (axis      unsigned-8)
+	  (padding1  unsigned-8)
+	  (padding2  unsigned-8)
+	  (padding3  unsigned-8)
+	  (value     unsigned-16)
+	  (padding4  unsigned-16)))
 
 (define-ftype sdl-c-controller-button-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     integer-32]
-	  [button    unsigned-8]
-	  [state     unsigned-8]
-	  [padding1  unsigned-8]
-	  [padding2  unsigned-8]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     integer-32)
+	  (button    unsigned-8)
+	  (state     unsigned-8)
+	  (padding1  unsigned-8)
+	  (padding2  unsigned-8)))
 
 (define-ftype sdl-c-controller-device-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     integer-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     integer-32)))
 
 (define-ftype sdl-c-audio-device-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [which     unsigned-32]
-	  [iscapture unsigned-8]
-	  [padding1  unsigned-8]
-	  [padding2  unsigned-8]
-	  [padding3  unsigned-8]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (which     unsigned-32)
+	  (iscapture unsigned-8)
+	  (padding1  unsigned-8)
+	  (padding2  unsigned-8)
+	  (padding3  unsigned-8)))
 
 (define-ftype sdl-c-quit-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)))
 
 (define-ftype sdl-c-user-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [windowID  unsigned-32]
-	  [code      integer-32]
-	  [data1     void*]
-	  [data2     void*]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (windowID  unsigned-32)
+	  (code      integer-32)
+	  (data1     void*)
+	  (data2     void*)))
 
 (define-ftype sdl-c-sys-wm-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [msg       void*]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (msg       void*)))
 
 (define-ftype sdl-c-touch-finger-event
-  (struct [type      unsigned-32]
-	  [timestamp unsigned-32]
-	  [touchId   integer-64]
-	  [fingerId  integer-64]
-	  [x         float]
-	  [y         float]
-	  [dx        float]
-	  [dy        float]
-	  [pressure  float]))
+  (struct (type      unsigned-32)
+	  (timestamp unsigned-32)
+	  (touchId   integer-64)
+	  (fingerId  integer-64)
+	  (x         float)
+	  (y         float)
+	  (dx        float)
+	  (dy        float)
+	  (pressure  float)))
 
 (define-ftype sdl-c-multi-gesture-event
-  (struct [type       unsigned-32]
-	  [timestamp  unsigned-32]
-	  [touchId    integer-64]
-	  [dTheta     float]
-	  [dDist      float]
-	  [x          float]
-	  [y          float]
-	  [numFingers unsigned-16]
-	  [padding    unsigned-16]))
+  (struct (type       unsigned-32)
+	  (timestamp  unsigned-32)
+	  (touchId    integer-64)
+	  (dTheta     float)
+	  (dDist      float)
+	  (x          float)
+	  (y          float)
+	  (numFingers unsigned-16)
+	  (padding    unsigned-16)))
 
 (define-ftype sdl-c-dollar-gesture-event
-  (struct [type       unsigned-32]
-	  [timestamp  unsigned-32]
-	  [touchId    integer-64]
-	  [gestureId  integer-64]
-	  [numFingers unsigned-32]
-	  [error      float]
-	  [x          float]
-	  [y          float]))
+  (struct (type       unsigned-32)
+	  (timestamp  unsigned-32)
+	  (touchId    integer-64)
+	  (gestureId  integer-64)
+	  (numFingers unsigned-32)
+	  (error      float)
+	  (x          float)
+	  (y          float)))
 
 (define-ftype sdl-c-drop-event
-  (struct [type       unsigned-32]
-	  [timestamp  unsigned-32]
-	  [file       (* char)]
-	  [windowID   unsigned-32]))
+  (struct (type       unsigned-32)
+	  (timestamp  unsigned-32)
+	  (file       (* char))
+	  (windowID   unsigned-32)))
 
 (define-ftype sdl-c-event
-  (union [type     unsigned-32]
-	 [common   sdl-c-common-event]
-	 [window   sdl-c-window-event]
-	 [key      sdl-c-keyboard-event]
-	 [edit     sdl-c-text-editing-event]
-	 [text     sdl-c-text-input-event]
-	 [motion   sdl-c-mouse-motion-event]
-	 [button   sdl-c-mouse-button-event]
-	 [wheel    sdl-c-mouse-wheel-event]
-	 [jaxis    sdl-c-joy-axis-event]
-	 [jball    sdl-c-joy-ball-event]
-	 [jhat     sdl-c-joy-hat-event]
-	 [jbutton  sdl-c-joy-button-event]
-	 [jdevice  sdl-c-joy-device-event]
-	 [caxis    sdl-c-controller-axis-event]
-	 [cbutton  sdl-c-controller-button-event]
-	 [cdevice  sdl-c-controller-device-event]
-	 [adevice  sdl-c-audio-device-event]
-	 [quit     sdl-c-quit-event]
-	 [user     sdl-c-user-event]
-	 [syswm    sdl-c-sys-wm-event]
-	 [tfinger  sdl-c-touch-finger-event]
-	 [mgesture sdl-c-multi-gesture-event]
-	 [dgesture sdl-c-dollar-gesture-event]
-	 [drop     sdl-c-drop-event]
-	 [padding  (array 56 unsigned-8)]))
+  (union (type     unsigned-32)
+	 (common   sdl-c-common-event)
+	 (window   sdl-c-window-event)
+	 (key      sdl-c-keyboard-event)
+	 (edit     sdl-c-text-editing-event)
+	 (text     sdl-c-text-input-event)
+	 (motion   sdl-c-mouse-motion-event)
+	 (button   sdl-c-mouse-button-event)
+	 (wheel    sdl-c-mouse-wheel-event)
+	 (jaxis    sdl-c-joy-axis-event)
+	 (jball    sdl-c-joy-ball-event)
+	 (jhat     sdl-c-joy-hat-event)
+	 (jbutton  sdl-c-joy-button-event)
+	 (jdevice  sdl-c-joy-device-event)
+	 (caxis    sdl-c-controller-axis-event)
+	 (cbutton  sdl-c-controller-button-event)
+	 (cdevice  sdl-c-controller-device-event)
+	 (adevice  sdl-c-audio-device-event)
+	 (quit     sdl-c-quit-event)
+	 (user     sdl-c-user-event)
+	 (syswm    sdl-c-sys-wm-event)
+	 (tfinger  sdl-c-touch-finger-event)
+	 (mgesture sdl-c-multi-gesture-event)
+	 (dgesture sdl-c-dollar-gesture-event)
+	 (drop     sdl-c-drop-event)
+	 (padding  (array 56 unsigned-8))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -639,9 +639,9 @@
 
 (define (sdl-event-text-input-text)
   (define (loop x)
-    (let ([c (ftype-ref char ()
+    (let ((c (ftype-ref char ()
 			(ftype-&ref sdl-c-text-input-event (text)
-				    (ftype-&ref sdl-c-event (text) event-obj)) x)])
+				    (ftype-&ref sdl-c-event (text) event-obj)) x)))
 
       (if (char=? c #\nul)
 	  '()
@@ -730,8 +730,8 @@
   (if (or sdl-event-mouse-button-up?
 	  sdl-event-mouse-button-down?)
       (let
-	  ([b (ftype-ref sdl-c-mouse-button-event (button)
-			 (ftype-&ref sdl-c-event (motion) event-obj))])
+	  ((b (ftype-ref sdl-c-mouse-button-event (button)
+			 (ftype-&ref sdl-c-event (motion) event-obj))))
 	(cond
 	 ((bitwise-and b sdl-button-l-mask)  'SDL-BUTTON-LEFT)
 	 ((bitwise-and b sdl-button-m-mask)  'SDL-BUTTON-MIDDLE)
@@ -782,8 +782,8 @@
 
 (define (sdl-event-mouse-wheel-direction)
   (if (sdl-event-mouse-wheel?)
-      (let ([d (ftype-ref sdl-c-mouse-wheel-event (direction)
-			  (ftype-&ref sdl-c-event (wheel) event-obj))])
+      (let ((d (ftype-ref sdl-c-mouse-wheel-event (direction)
+			  (ftype-&ref sdl-c-event (wheel) event-obj))))
 	(cond
 	 ((= d 0) 'SDL-MOUSE-WHEEL-NORMAL)
 	 ((= d 1) 'SDL-MOUSE-WHEEL-FLIPPED)
@@ -844,8 +844,8 @@
 
   (if (sdl-event-joy-hat?)
       (let
-	  ([pos (ftype-ref sdl-c-joy-hat-event (value)
-			   (ftype-&ref sdl-c-event (jhat) event-obj))])
+	  ((pos (ftype-ref sdl-c-joy-hat-event (value)
+			   (ftype-&ref sdl-c-event (jhat) event-obj))))
 	(cond
 	 ((= pos SDL_HAT_CENTERED)  'SDL-HAT-CENTERED)
 	 ((= pos SDL_HAT_UP)        'SDL-HAT-UP)
@@ -918,8 +918,8 @@
 (define (sdl-event-con-axis)
   (if (sdl-event-con-axis?)
       (let
-	  ([axis (ftype-ref sdl-c-controller-axis-event (axis)
-			    (ftype-&ref sdl-c-event (caxis) event-obj))])
+	  ((axis (ftype-ref sdl-c-controller-axis-event (axis)
+			    (ftype-&ref sdl-c-event (caxis) event-obj))))
 	(cond
 	 ((= 0 axis) 'SDL-CONTROLLER-AXIS-LEFT-X)
 	 ((= 1 axis) 'SDL-CONTROLLER-AXIS-LEFT-Y)
@@ -949,8 +949,8 @@
 (define (sdl-event-con-button)
   (if (sdl-event-con-button?)
       (let
-	  ([button (ftype-ref sdl-c-controller-button-event (button)
-			      (ftype-&ref sdl-c-event (cbutton) event-obj))])
+	  ((button (ftype-ref sdl-c-controller-button-event (button)
+			      (ftype-&ref sdl-c-event (cbutton) event-obj))))
 	(cond
 	 ((=  0 button) 'SDL-CONTROLLER-BUTTON-A)
 	 ((=  1 button) 'SDL-CONTROLLER-BUTTON-B)
@@ -1111,16 +1111,16 @@
   ;; This is a little messy.
   (define (read-all)
     (letrec
-	([e-ptr (ftype-&ref sdl-c-event (drop) event-obj)]
-	 [c-ptr (ftype-ref sdl-c-drop-event (file) e-ptr)]
-	 [loop (lambda (x)
+	((e-ptr (ftype-&ref sdl-c-event (drop) event-obj))
+	 (c-ptr (ftype-ref sdl-c-drop-event (file) e-ptr))
+	 (loop (lambda (x)
 		 (let
-		     ([c (ftype-ref char () c-ptr x)])
+		     ((c (ftype-ref char () c-ptr x)))
 		   (if (char=? c #\nul)
 		       '()
-		       (cons c (loop (+ x 1))))))])
+		       (cons c (loop (+ x 1))))))))
       (let
-	  ([chars (loop 0)])
+	  ((chars (loop 0)))
 	;; Free the memory
 	(sdl-free c-ptr)
 	;; Eval to string

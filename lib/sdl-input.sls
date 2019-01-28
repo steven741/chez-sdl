@@ -9,20 +9,20 @@
 (define-ftype sdl-c-game-controller void*)
 
 (define-ftype sdl-c-finger
-  (struct [id       integer-64]
-	  [x        float]
-	  [y        float]
-	  [pressure float]))
+  (struct (id       integer-64)
+	  (x        float)
+	  (y        float)
+	  (pressure float)))
 
 (define-ftype sdl-c-joystick-guid
-  (struct [data (array 16 unsigned-8)]))
+  (struct (data (array 16 unsigned-8))))
 
 (define-ftype sdl-c-game-controller-button-bind
-  (struct [bind-type int]
-	  [value (union [button int]
-			[axis int]
-			[hat (struct [hat      int]
-				     [hat-mask int])])]))
+  (struct (bind-type int)
+	  (value (union (button int)
+			(axis int)
+			(hat (struct (hat      int)
+				     (hat-mask int)))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -144,7 +144,7 @@
 
 (define (sdl-get-keyboard-state)
   (let
-      ([keys ((foreign-procedure "SDL_GetKeyboardState" (void*) (* unsigned-8)) 0)])
+      ((keys ((foreign-procedure "SDL_GetKeyboardState" (void*) (* unsigned-8)) 0)))
     (lambda (key)
       (= 1 (ftype-ref unsigned-8 () keys key)))))
 
@@ -180,7 +180,7 @@
 
 (define sdl-set-mod-state!
   (lambda mods
-    (let ([func (foreign-procedure "SDL_SetModState" (int) void)])
+    (let ((func (foreign-procedure "SDL_SetModState" (int) void)))
       (if (null? mods)
 	  (error 'SDL "No modifiers in procedure call." sdl-set-mod-state!)
 	  (func (fold-left bitwise-ior 0 mods))))
@@ -209,7 +209,7 @@
 
 (define sdl-capture-mouse
   (lambda (enable)
-    (let ([func (foreign-procedure "SDL_CaptureMouse" (int) int)])
+    (let ((func (foreign-procedure "SDL_CaptureMouse" (int) int)))
       (= 0 (func (if enable 1 0))))))
 
 (define sdl-create-color-cursor
@@ -219,9 +219,9 @@
 
 (define sdl-create-system-cursor
   (lambda (id)
-    (let ([func (foreign-procedure "SDL_CreateSystemCursor"
+    (let ((func (foreign-procedure "SDL_CreateSystemCursor"
 				   (int)
-				   (* sdl-c-cursor))])
+				   (* sdl-c-cursor))))
       (cond
        ((eq? id 'SDL-SYSTEM-CURSOR-ARROW)      (func 0))
        ((eq? id 'SDL-SYSTEM-CURSOR-IBEAM)      (func 1))
@@ -256,9 +256,9 @@
 (define sdl-warp-mouse-in-window
   (lambda (window x y)
     (let
-	([ func (foreign-procedure "SDL_WarpMouseInWindow"
+	(( func (foreign-procedure "SDL_WarpMouseInWindow"
 				   ((* sdl-c-window) int int)
-				   void)])
+				   void)))
       (func window x y)
       '())))
 
@@ -268,9 +268,9 @@
 (define sdl-set-cursor!
   (lambda (cursor)
     (let
-	([func (foreign-procedure "SDL_SetCursor"
+	((func (foreign-procedure "SDL_SetCursor"
 				  ((* sdl-c-cursor))
-				  void)])
+				  void)))
       (func cursor)
       '())))
 
@@ -348,9 +348,9 @@
 (define sdl-joystick-is-button-pressed?
   (lambda (joystick button)
     (let
-	([func (foreign-procedure "SDL_JoystickGetButton"
+	((func (foreign-procedure "SDL_JoystickGetButton"
 				  ((* sdl-c-joystick) int)
-				  unsigned-8)])
+				  unsigned-8)))
       (= 1 (func joystick button)))))
 
 (define _sdl-joystick-get-hat
@@ -366,7 +366,7 @@
   (define SDL_HAT_RIGHTDOWN   (bitwise-ior SDL_HAT_RIGHT SDL_HAT_DOWN))
   (define SDL_HAT_LEFTUP      (bitwise-ior SDL_HAT_LEFT  SDL_HAT_UP))
   (define SDL_HAT_LEFTDOWN    (bitwise-ior SDL_HAT_LEFT  SDL_HAT_DOWN))
-  (let ([pos (_sdl-joystick-get-hat joystick index)])
+  (let ((pos (_sdl-joystick-get-hat joystick index)))
     (cond
      ((= pos SDL_HAT_CENTERED)  'SDL-HAT-CENTERED)
      ((= pos SDL_HAT_UP)        'SDL-HAT-UP)
@@ -409,14 +409,14 @@
 
 (define (sdl-game-controller-attached? controller)
   (let
-      ([func (foreign-procedure "SDL_GameControllerGetAttached"
+      ((func (foreign-procedure "SDL_GameControllerGetAttached"
 				((* sdl-c-game-controller))
-				int)])
+				int)))
     (= 1 (func controller))))
 
 (define (sdl-game-controller? index)
   (let
-      ([func (foreign-procedure "SDL_IsGameController" (int) int)])
+      ((func (foreign-procedure "SDL_IsGameController" (int) int)))
     (= 1 (func index))))
 
 (define sdl-game-controller-open

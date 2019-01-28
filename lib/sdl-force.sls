@@ -7,96 +7,96 @@
 (define-ftype sdl-c-haptic void*)
 
 (define-ftype sdl-c-haptic-direction
-  (struct [type unsigned-8]
-	  [dir  (array 3 integer-32)]))
+  (struct (type unsigned-8)
+	  (dir  (array 3 integer-32))))
 
 (define-ftype sdl-c-haptic-constant
-  (struct [type          unsigned-16]
-	  [direction     sdl-c-haptic-direction]
-	  [length        unsigned-32]
-	  [delay         unsigned-16]
-	  [button        unsigned-16]
-	  [interval      unsigned-16]
-	  [level         integer-16]
-	  [attack-length unsigned-16]
-	  [attack-level  unsigned-16]
-	  [fade-length   unsigned-16]
-	  [fade-level    unsigned-16]))
+  (struct (type          unsigned-16)
+	  (direction     sdl-c-haptic-direction)
+	  (length        unsigned-32)
+	  (delay         unsigned-16)
+	  (button        unsigned-16)
+	  (interval      unsigned-16)
+	  (level         integer-16)
+	  (attack-length unsigned-16)
+	  (attack-level  unsigned-16)
+	  (fade-length   unsigned-16)
+	  (fade-level    unsigned-16)))
 
 (define-ftype sdl-c-haptic-periodic
-  (struct [type          unsigned-16]
-	  [direction     sdl-c-haptic-direction]
-	  [length        unsigned-32]
-	  [delay         unsigned-16]
-	  [button        unsigned-16]
-	  [interval      unsigned-16]
-	  [period        unsigned-16]
-	  [magnitude     integer-16]
-	  [offset        integer-16]
-	  [phase         unsigned-16]
-	  [attack-length unsigned-16]
-	  [attack-level  unsigned-16]
-	  [fade-length   unsigned-16]
-	  [fade-level    unsigned-16]))
+  (struct (type          unsigned-16)
+	  (direction     sdl-c-haptic-direction)
+	  (length        unsigned-32)
+	  (delay         unsigned-16)
+	  (button        unsigned-16)
+	  (interval      unsigned-16)
+	  (period        unsigned-16)
+	  (magnitude     integer-16)
+	  (offset        integer-16)
+	  (phase         unsigned-16)
+	  (attack-length unsigned-16)
+	  (attack-level  unsigned-16)
+	  (fade-length   unsigned-16)
+	  (fade-level    unsigned-16)))
 
 (define-ftype sdl-c-haptic-condition
-  (struct [type          unsigned-16]
-	  [direction     sdl-c-haptic-direction]
-	  [length        unsigned-32]
-	  [delay         unsigned-16]
-	  [button        unsigned-16]
-	  [interval      unsigned-16]
-	  [right-sat     (array 3 unsigned-16)]
-	  [left-sat      (array 3 unsigned-16)]
-	  [right-coeff   (array 3 integer-16)]
-	  [left-coeff    (array 3 integer-16)]
-	  [deadband      (array 3 unsigned-16)]
-	  [center        (array 3 integer-16)]))
+  (struct (type          unsigned-16)
+	  (direction     sdl-c-haptic-direction)
+	  (length        unsigned-32)
+	  (delay         unsigned-16)
+	  (button        unsigned-16)
+	  (interval      unsigned-16)
+	  (right-sat     (array 3 unsigned-16))
+	  (left-sat      (array 3 unsigned-16))
+	  (right-coeff   (array 3 integer-16))
+	  (left-coeff    (array 3 integer-16))
+	  (deadband      (array 3 unsigned-16))
+	  (center        (array 3 integer-16))))
 
 (define-ftype sdl-c-haptic-ramp
-  (struct [type          unsigned-16]
-	  [direction     sdl-c-haptic-direction]
-	  [length        unsigned-32]
-	  [delay         unsigned-16]
-	  [button        unsigned-16]
-	  [interval      unsigned-16]
-	  [start         integer-16]
-	  [end           integer-16]
-	  [attack-length unsigned-16]
-	  [attack-level  unsigned-16]
-	  [fade-length   unsigned-16]
-	  [fade-level    unsigned-16]))
+  (struct (type          unsigned-16)
+	  (direction     sdl-c-haptic-direction)
+	  (length        unsigned-32)
+	  (delay         unsigned-16)
+	  (button        unsigned-16)
+	  (interval      unsigned-16)
+	  (start         integer-16)
+	  (end           integer-16)
+	  (attack-length unsigned-16)
+	  (attack-level  unsigned-16)
+	  (fade-length   unsigned-16)
+	  (fade-level    unsigned-16)))
 
 (define-ftype sdl-c-haptic-left-right
-  (struct [type            unsigned-16]
-	  [length          unsigned-32]
-	  [large-magnitude unsigned-16]
-	  [small-magnitude unsigned-16]))
+  (struct (type            unsigned-16)
+	  (length          unsigned-32)
+	  (large-magnitude unsigned-16)
+	  (small-magnitude unsigned-16)))
 
 (define-ftype sdl-c-haptic-custom
-  (struct [type          unsigned-16]
-	  [direction     sdl-c-haptic-direction]
-	  [length        unsigned-32]
-	  [delay         unsigned-16]
-	  [button        unsigned-16]
-	  [interval      unsigned-16]
-	  [channels      unsigned-8]
-	  [period        unsigned-16]
-	  [samples       unsigned-16]
-	  [data          (* unsigned-16)]
-	  [attack-length unsigned-16]
-	  [attack-level  unsigned-16]
-	  [fade-length   unsigned-16]
-	  [fade-level    unsigned-16]))
+  (struct (type          unsigned-16)
+	  (direction     sdl-c-haptic-direction)
+	  (length        unsigned-32)
+	  (delay         unsigned-16)
+	  (button        unsigned-16)
+	  (interval      unsigned-16)
+	  (channels      unsigned-8)
+	  (period        unsigned-16)
+	  (samples       unsigned-16)
+	  (data          (* unsigned-16))
+	  (attack-length unsigned-16)
+	  (attack-level  unsigned-16)
+	  (fade-length   unsigned-16)
+	  (fade-level    unsigned-16)))
 
 (define-ftype sdl-c-haptic-effect
-  (struct [type       unsigned-16]
-	  [constant   sdl-c-haptic-constant]
-	  [periodic   sdl-c-haptic-periodic]
-	  [condition  sdl-c-haptic-condition]
-	  [ramp       sdl-c-haptic-ramp]
-	  [left-right sdl-c-haptic-left-right]
-	  [custom     sdl-c-haptic-custom]))
+  (struct (type       unsigned-16)
+	  (constant   sdl-c-haptic-constant)
+	  (periodic   sdl-c-haptic-periodic)
+	  (condition  sdl-c-haptic-condition)
+	  (ramp       sdl-c-haptic-ramp)
+	  (left-right sdl-c-haptic-left-right)
+	  (custom     sdl-c-haptic-custom)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;

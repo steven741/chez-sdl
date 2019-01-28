@@ -11,8 +11,7 @@ This is an interface to SDL 2 for the Chez Scheme system. (in development)
                      SDL-WINDOWPOS-UNDEFINED
                      SDL-WINDOWPOS-UNDEFINED
                      640
-		     480
-		     SDL-WINDOW-SHOWN))
+		     480))
 
 (define (event-loop)
   (sdl-poll-event)
