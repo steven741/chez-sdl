@@ -31,9 +31,10 @@ This is an interface to SDL 2 for the Chez Scheme system. (in development)
 # Features
 
 * Scheme style interface to SDL 2
-* Full marshalling of Scheme data to C data
 * Minimal overhead wrapping
-* Adequate documentation
+* Full marshalling of Scheme data to C data
+* Lower level ftype interface provided
+* Developer friendly documentation
 
 
 # Quickstart Guide

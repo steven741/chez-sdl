@@ -1,30 +1,5 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;;;;;;;;;;;;;;;;;;;;
-;;; Foreign C Types ;;;
-;;;;;;;;;;;;;;;;;;;;;;;
-
-(define-ftype sdl-c-cursor          void*)
-(define-ftype sdl-c-joystick        void*)
-(define-ftype sdl-c-game-controller void*)
-
-(define-ftype sdl-c-finger
-  (struct (id       integer-64)
-	  (x        float)
-	  (y        float)
-	  (pressure float)))
-
-(define-ftype sdl-c-joystick-guid
-  (struct (data (array 16 unsigned-8))))
-
-(define-ftype sdl-c-game-controller-button-bind
-  (struct (bind-type int)
-	  (value (union (button int)
-			(axis int)
-			(hat (struct (hat      int)
-				     (hat-mask int)))))))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; Scheme Records ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -32,274 +7,70 @@
 (define-record-type sdl-finger
   (fields id x y p))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; C Function Bindings ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define *sdl-get-key-from-name*                      (sdl-procedure "SDL_GetKeyFromName" (string) int))
-(define *sdl-get-key-from-scancode*                  (sdl-procedure "SDL_GetKeyFromScancode" (int) int))
-(define *sdl-get-key-name*                           (sdl-procedure "SDL_GetKeyName" (int) string))
-(define *sdl-get-keyboard-focus*                     (sdl-procedure "SDL_GetKeyboardFocus" () (* sdl-c-window)))
-(define *sdl-get-keyboard-state*                     (sdl-procedure "SDL_GetKeyboardState" (void*) (* unsigned-8)))
-(define *sdl-get-mod-state*                          (sdl-procedure "SDL_GetModState" () int))
-(define *sdl-get-scancode-from-key*                  (sdl-procedure "SDL_GetScancodeFromKey" (int) int))
-(define *sdl-get-scancode-from-name*                 (sdl-procedure "SDL_GetScancodeFromName" (string) int))
-(define *sdl-get-scancode-name*                      (sdl-procedure "SDL_GetScancodeName" (int) string))
-(define *sdl-has-screen-keyboard-support*            (sdl-procedure "SDL_HasScreenKeyboardSupport" () int))
-(define *sdl-is-screen-keyboard-shown*               (sdl-procedure "SDL_IsScreenKeyboardShown" ((* sdl-c-window)) int))
-(define *sdl-is-text-input-active*                   (sdl-procedure "SDL_IsTextInputActive" () int))
-(define *sdl-set-mod-state*                          (sdl-procedure "SDL_SetModState" (int) void))
-(define *sdl-set-text-input-rect*                    (sdl-procedure "SDL_SetTextInputRect" ((* sdl-c-rect)) void))
-(define *sdl-start-text-input*                       (sdl-procedure "SDL_StartTextInput" () void))
-(define *sdl-stop-text-input*                        (sdl-procedure "SDL_StopTextInput" () void))
-
-(define *sdl-capture-mouse*                          (sdl-procedure "SDL_CaptureMouse" (int) int))
-(define *sdl-create-color-cursor*                    (sdl-procedure "SDL_CreateColorCursor" ((* sdl-c-surface) int int) (* sdl-c-cursor)))
-(define *sdl-create-cursor*                          (sdl-procedure "SDL_CreateCursor" ((* unsigned-8) (* unsigned-8) int int int int) (* sdl-c-cursor)))
-(define *sdl-create-system-cursor*                   (sdl-procedure "SDL_CreateSystemCursor" (int) (* sdl-c-cursor)))
-(define *sdl-free-cursor*                            (sdl-procedure "SDL_FreeCursor" ((* sdl-c-cursor)) void))
-(define *sdl-get-cursor*                             (sdl-procedure "SDL_GetCursor" () (* sdl-c-cursor)))
-(define *sdl-get-default-cursor*                     (sdl-procedure "SDL_GetDefaultCursor" () (* sdl-c-cursor)))
-(define *sdl-get-global-mouse-state*                 (sdl-procedure "SDL_GetGlobalMouseState" ((* int) (* int)) unsigned-32))
-(define *sdl-get-mouse-focus*                        (sdl-procedure "SDL_GetMouseFocus" () (* sdl-c-window)))
-(define *sdl-get-mouse-state*                        (sdl-procedure "SDL_GetMouseState" ((* int) (* int)) unsigned-32))
-(define *sdl-get-relative-mouse-mode*                (sdl-procedure "SDL_GetRelativeMouseMode" () int))
-(define *sdl-get-relative-mouse-state*               (sdl-procedure "SDL_GetRelativeMouseMode" () int))
-(define *sdl-set-cursor*                             (sdl-procedure "SDL_SetCursor" ((* sdl-c-cursor)) void))
-(define *sdl-set-relative-mouse-mode*                (sdl-procedure "SDL_SetRelativeMouseMode" (int) int))
-(define *sdl-show-cursor*                            (sdl-procedure "SDL_ShowCursor" (int) int))
-(define *sdl-warp-mouse-global*                      (sdl-procedure "SDL_WarpMouseGlobal" (int int) int))
-(define *sdl-warp-mouse-in-window*                   (sdl-procedure "SDL_WarpMouseInWindow" ((* sdl-c-window) int int) void))
-
-(define *sdl-joystick-close*                         (sdl-procedure "SDL_JoystickClose" ((* sdl-c-joystick)) void))
-(define *sdl-joystick-current-power-level*           (sdl-procedure "SDL_JoystickCurrentPowerLevel" ((* sdl-c-joystick)) int))
-(define *sdl-joystick-event-state*                   (sdl-procedure "SDL_JoystickEventState" (int) int))
-(define *sdl-joystick-from-instance-id*              (sdl-procedure "SDL_JoystickFromInstanceID" (integer-32) (* sdl-c-joystick)))
-(define *sdl-joystick-get-attached*                  (sdl-procedure "SDL_JoystickGetAttached" ((* sdl-c-joystick)) int))
-(define *sdl-joystick-get-axis*                      (sdl-procedure "SDL_JoystickGetAxis" ((* sdl-c-joystick) int) integer-16))
-(define *sdl-joystick-get-ball*                      (sdl-procedure "SDL_JoystickGetBall" ((* sdl-c-joystick) int (* int) (* int)) int))
-(define *sdl-joystick-get-button*                    (sdl-procedure "SDL_JoystickGetButton" ((* sdl-c-joystick) int) unsigned-8))
-(define *sdl-joystick-get-device-guid*               (sdl-procedure "SDL_JoystickGetDeviceGUID" (int) (& sdl-c-joystick-guid)))
-(define *sdl-joystick-get-guid*                      (sdl-procedure "SDL_JoystickGetGUID" ((* sdl-c-joystick)) (& sdl-c-joystick-guid)))
-(define *sdl-joystick-get-guid-from-string*          (sdl-procedure "SDL_JoystickGetGUIDFromString" (string) (& sdl-c-joystick-guid)))
-(define *sdl-joystick-get-guid-string*               (sdl-procedure "SDL_JoystickGetGUIDString" ((& sdl-c-joystick-guid) (* char) int) void))
-(define *sdl-joystick-get-hat*                       (sdl-procedure "SDL_JoystickGetHat" ((* sdl-c-joystick) int) unsigned-8))
-(define *sdl-joystick-instance-id*                   (sdl-procedure "SDL_JoystickInstanceID" ((* sdl-c-joystick)) integer-32))
-(define *sdl-joystick-name*                          (sdl-procedure "SDL_JoystickName" ((* sdl-c-joystick)) string))
-(define *sdl-joystick-name-for-index*                (sdl-procedure "SDL_JoystickNameForIndex" (int) string))
-(define *sdl-joystick-num-axes*                      (sdl-procedure "SDL_JoystickNumAxes" ((* sdl-c-joystick)) int))
-(define *sdl-joystick-num-balls*                     (sdl-procedure "SDL_JoystickNumBalls" ((* sdl-c-joystick)) int))
-(define *sdl-joystick-num-buttons*                   (sdl-procedure "SDL_JoystickNumButtons" ((* sdl-c-joystick)) int))
-(define *sdl-joystick-num-hats*                      (sdl-procedure "SDL_JoystickNumHats" ((* sdl-c-joystick)) int))
-(define *sdl-joystick-open*                          (sdl-procedure "SDL_JoystickOpen" (int) (* sdl-c-joystick)))
-(define *sdl-joystick-update*                        (sdl-procedure "SDL_JoystickUpdate" () void))
-(define *sdl-num-joysticks*                          (sdl-procedure "SDL_NumJoysticks" () int))
-
-(define *sdl-game-controller-add-mapping*            (sdl-procedure "SDL_GameControllerAddMapping" (string) int))
-(define *sdl-game-controller-add-mappings-from-file* (lambda (path) (*sdl-game-controller-add-mappings-from-rw* (sdl-rw-from-file path "rb") 1)))
-(define *sdl-game-controller-add-mappings-from-rw*   (sdl-procedure "SDL_GameControllerAddMappingsFromRW" (void* int) int))
-(define *sdl-game-controller-close*                  (sdl-procedure "SDL_GameControllerClose" ((* sdl-c-game-controller)) void))
-(define *sdl-game-controller-event-state*            (sdl-procedure "SDL_GameControllerEventState" (int) int))
-(define *sdl-game-controller-from-instance-id*       (sdl-procedure "SDL_GameControllerFromInstanceID" (integer-32) (* sdl-c-game-controller)))
-(define *sdl-game-controller-get-attached*           (sdl-procedure "SDL_GameControllerGetAttached" ((* sdl-c-game-controller)) int))
-(define *sdl-game-controller-get-axis*               (sdl-procedure "SDL_GameControllerGetAxis" ((* sdl-c-game-controller) int) integer-16))
-(define *sdl-game-controller-get-axis-from-string*   (sdl-procedure "SDL_GameControllerGetAxisFromString" (string) int))
-(define *sdl-game-controller-get-bind-for-axis*      (sdl-procedure "SDL_GameControllerGetBindForAxis" ((* sdl-c-game-controller) int) (& sdl-c-game-controller-button-bind)))
-(define *sdl-game-controller-get-bind-for-button*    (sdl-procedure "SDL_GameControllerGetBindForButton" ((* sdl-c-game-controller) int) (& sdl-c-game-controller-button-bind)))
-(define *sdl-game-controller-get-button*             (sdl-procedure "SDL_GameControllerGetButton" ((* sdl-c-game-controller) int) unsigned-8))
-(define *sdl-game-controller-get-button-from-string* (sdl-procedure "SDL_GameControllerGetButtonFromString" (string) int))
-(define *sdl-game-controller-get-joystick*           (sdl-procedure "SDL_GameControllerGetJoystick" ((* sdl-c-game-controller)) (* sdl-c-joystick)))
-(define *sdl-game-controller-get-string-for-axis*    (sdl-procedure "SDL_GameControllerGetStringForAxis" (int) string))
-(define *sdl-game-controller-get-string-for-button*  (sdl-procedure "SDL_GameControllerGetStringForButton" (int) string))
-(define *sdl-game-controller-mapping*                (sdl-procedure "SDL_GameControllerMapping" ((* sdl-c-game-controller)) string))
-(define *sdl-game-controller-mapping-for-guid*       (sdl-procedure "SDL_GameControllerMappingForGUID" ((& sdl-c-joystick-guid)) string))
-(define *sdl-game-controller-name*                   (sdl-procedure "SDL_GameControllerName" ((* sdl-c-game-controller)) string))
-(define *sdl-game-controller-name-for-index*         (sdl-procedure "SDL_GameControllerNameForIndex" (int) string))
-(define *sdl-game-controller-open*                   (sdl-procedure "SDL_GameControllerOpen" (int) (* sdl-c-game-controller)))
-(define *sdl-game-controller-update*                 (sdl-procedure "SDL_GameControllerUpdate" () void))
-(define *sdl-is-game-controller*                     (sdl-procedure "SDL_IsGameController" (int) int))
-
-(define *sdl-get-num-touch-devices*                  (sdl-procedure "SDL_GetNumTouchDevices" () int))
-(define *sdl-get-touch-device*                       (sdl-procedure "SDL_GetTouchDevice" (int) integer-64))
-(define *sdl-get-num-touch-fingers*                  (sdl-procedure "SDL_GetNumTouchFingers" (integer-64) int))
-(define *sdl-get-touch-finger*                       (sdl-procedure "SDL_GetTouchFinger" (integer-64 int) (* sdl-c-finger)))
-
-
 ;;;;;;;;;;;;;;;;;;;
 ;;; Marshalling ;;;
 ;;;;;;;;;;;;;;;;;;;
 
-(define sdl-get-key-from-name
-  (foreign-procedure "SDL_GetKeyFromName" (string) int))
-
-(define sdl-get-key-from-scancode
-  (foreign-procedure "SDL_GetKeyFromScancode" (int) int))
-
-(define sdl-get-key-name
-  (foreign-procedure "SDL_GetKeyName" (int) string))
-
-(define sdl-get-keyboard-focus
-  (foreign-procedure "SDL_GetKeyboardFocus" () (* sdl-c-window)))
+(define sdl-get-key-from-name     SDL_GetKeyFromName)
+(define sdl-get-key-from-scancode SDL_GetKeyFromScancode)
+(define sdl-get-key-name          SDL_GetKeyFromName)
+(define sdl-get-keyboard-focus    SDL_GetKeyboardFocus)
 
 (define (sdl-get-keyboard-state)
   (let
-      ((keys ((foreign-procedure "SDL_GetKeyboardState" (void*) (* unsigned-8)) 0)))
+      ((keys (SDL_GetKeyboardState 0)))
     (lambda (key)
       (= 1 (ftype-ref unsigned-8 () keys key)))))
 
-(define sdl-get-mod-state
-  (foreign-procedure "SDL_GetModState" () int))
-
-(define sdl-get-scancode-from-key
-  (foreign-procedure "SDL_GetScancodeFromKey" (int) int))
-
-(define sdl-get-scancode-from-name
-  (foreign-procedure "SDL_GetScancodeFromName" (string) int))
-
-(define sdl-get-scancode-name
-  (foreign-procedure "SDL_GetScancodeName" (int) string))
-
-(define _sdl-has-screen-keyboard-support?
-  (foreign-procedure "SDL_HasScreenKeyboardSupport" () int))
+(define sdl-get-mod-state          SDL_GetModState)
+(define sdl-get-scancode-from-key  SDL_GetScancodeFromKey)
+(define sdl-get-scancode-from-name SDL_GetScancodeFromName)
+(define sdl-get-scancode-name      SDL_GetScancodeName)
 
 (define (sdl-has-screen-keyboard-support?)
-  (= 1 _sdl-has-screen-keyboard-support?))
+  (= 1 (SDL_HasScreenKeyboardSupport)))
 
-(define _sdl-is-screen-keyboard-shown?
-  (foreign-procedure "SDL_IsScreenKeyboardShown" ((* sdl-c-window)) int))
+(define (sdl-screen-keyboard-shown? window)
+  (= 1 (SDL_IsScreenKeyboardShown window)))
 
-(define (sdl-is-screen-keyboard-shown?)
-  (= 1 _sdl-is-screen-keyboard-shown?))
+(define (sdl-text-input-active?)
+  (= 1 (SDL_IsTextInputActive)))
 
-(define _sdl-is-text-input-active?
-  (foreign-procedure "SDL_IsTextInputActive" () int))
+(define (sdl-set-mod-state! first-modifier . other-modifier)
+  (SDL_SetModState (fold-left bitwise-ior first-modifier other-modifier)))
 
-(define (sdl-is-text-input-active?)
-  (= 1 _sdl-is-text-input-active?))
+(define (sdl-set-text-input-rect! sdl-rect)
+  (with-c-rect sdl-rect SDL_SetTextInputRect))
 
-(define sdl-set-mod-state!
-  (lambda mods
-    (let ((func (foreign-procedure "SDL_SetModState" (int) void)))
-      (if (null? mods)
-	  (error 'SDL "No modifiers in procedure call." sdl-set-mod-state!)
-	  (func (fold-left bitwise-ior 0 mods))))
-    '()))
+(define sdl-start-text-input SDL_StartTextInput)
+(define sdl-stop-text-input  SDL_StopTextInput)
 
-(define _sdl-set-text-input-rect!
-  (foreign-procedure "SDL_SetTextInputRect" ((* sdl-c-rect)) void))
 
-;; TODO: sdl-set-text-input-rect!
-(define (sdl-set-text-input-rect!)
-  (error 'SDL-INPUT "not implemented" sdl-set-text-input-rect!))
-
-(define sdl-start-text-input
-  (foreign-procedure "SDL_StartTextInput" () void))
-
-(define sdl-stop-text-input
-  (foreign-procedure "SDL_StopTextInput" () void))
+(define sdl-capture-mouse            SDL_CaptureMouse)
+(define sdl-create-color-cursor      SDL_CreateColorCursor)
+(define sdl-create-system-cursor     SDL_CreateSystemCursor)
+(define sdl-free-cursor              SDL_FreeCursor)
+(define sdl-get-cursor               SDL_GetCursor)
+(define sdl-show-cursor              SDL_ShowCursor)
+(define sdl-get-mouse-focus          SDL_GetMouseFocus)
+(define sdl-get-default-cursor       SDL_GetDefaultCursor)
+(define sdl-warp-mouse-in-window     SDL_WarpMouseInWindow)
+(define sdl-warp-mouse-global        SDL_WarpMouseGlobal)
+(define sdl-set-cursor!              SDL_SetCursor)
+(define sdl-set-relative-mouse-mode! SDL_GetRelativeMouseMode)
+(define sdl-get-relative-mouse-mode  SDL_SetRelativeMouseMode)
 
 
 
 
-;;;
-;;;
-;;;
 
 
-(define sdl-capture-mouse
-  (lambda (enable)
-    (let ((func (foreign-procedure "SDL_CaptureMouse" (int) int)))
-      (= 0 (func (if enable 1 0))))))
-
-(define sdl-create-color-cursor
-  (foreign-procedure "SDL_CreateColorCursor"
-		     ((* sdl-c-surface) int int)
-		     (* sdl-c-cursor)))
-
-(define sdl-create-system-cursor
-  (lambda (id)
-    (let ((func (foreign-procedure "SDL_CreateSystemCursor"
-				   (int)
-				   (* sdl-c-cursor))))
-      (cond
-       ((eq? id 'SDL-SYSTEM-CURSOR-ARROW)      (func 0))
-       ((eq? id 'SDL-SYSTEM-CURSOR-IBEAM)      (func 1))
-       ((eq? id 'SDL-SYSTEM-CURSOR-WAIT)       (func 2))
-       ((eq? id 'SDL-SYSTEM-CURSOR-CROSSHAIR)  (func 3))
-       ((eq? id 'SDL-SYSTEM-CURSOR-WAIT-ARROW) (func 4))
-       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-NWSE)  (func 5))
-       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-NESW)  (func 6))
-       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-WE)    (func 7))
-       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-NS)    (func 8))
-       ((eq? id 'SDL-SYSTEM-CURSOR-SIZE-ALL)   (func 9))
-       ((eq? id 'SDL-SYSTEM-CURSOR-NO)         (func 10))
-       ((eq? id 'SDL-SYSTEM-CURSOR-HAND)       (func 11))
-       (else
-	(error 'SDL-CREATE-SYSTEM-CURSOR "Unknown symbol."))))))
-
-(define sdl-free-cursor
-  (foreign-procedure "SDL_FreeCursor" ((* sdl-c-cursor)) void))
-
-(define sdl-get-cursor
-  (foreign-procedure "SDL_GetCursor" () (* sdl-c-cursor)))
-
-(define sdl-show-cursor
-  (foreign-procedure "SDL_ShowCursor" (int) int))
-
-(define sdl-get-mouse-focus
-  (foreign-procedure "SDL_GetMouseFocus" () (* sdl-c-window)))
-
-(define sdl-get-default-cursor
-  (foreign-procedure "SDL_GetDefaultCursor" () (* sdl-c-cursor)))
-
-(define sdl-warp-mouse-in-window
-  (lambda (window x y)
-    (let
-	(( func (foreign-procedure "SDL_WarpMouseInWindow"
-				   ((* sdl-c-window) int int)
-				   void)))
-      (func window x y)
-      '())))
-
-(define sdl-warp-mouse-global
-  (foreign-procedure "SDL_WarpMouseGlobal" (int int) int))
-
-(define sdl-set-cursor!
-  (lambda (cursor)
-    (let
-	((func (foreign-procedure "SDL_SetCursor"
-				  ((* sdl-c-cursor))
-				  void)))
-      (func cursor)
-      '())))
-
-(define _sdl-set-relative-mouse-mode!
-  (foreign-procedure "SDL_SetRelativeMouseMode" (int) int))
-
-(define (sdl-set-relative-mouse-mode! enable)
-  (= 0 (_sdl-set-relative-mouse-mode! (if enable 1 0))))
-
-(define _sdl-get-relative-mouse-mode
-  (foreign-procedure "SDL_GetRelativeMouseMode" () int))
-
-(define (sdl-get-relative-mouse-mode)
-  (= 1 (_sdl-get-relative-mouse-mode)))
-
-(define sdl-joystick-open
-  (foreign-procedure "SDL_JoystickOpen" (int) (* sdl-c-joystick)))
-
-(define sdl-joystick-close
-  (foreign-procedure "SDL_JoystickClose" ((* sdl-c-joystick)) void))
-
-(define sdl-joystick-num
-  (foreign-procedure "SDL_NumJoysticks" () int))
-
-(define _sdl-joystick-current-power-level
-  (foreign-procedure "SDL_JoystickCurrentPowerLevel" ((* sdl-c-joystick)) int))
+(define sdl-joystick-open  SDL_JoystickOpen)
+(define sdl-joystick-close SDL_JoystickClose)
+(define sdl-joystick-num   SDL_NumJoysticks)
 
 (define (sdl-joystick-current-power-level joystick)
-  (let ((level (_sdl-joystick-current-power-level joystick)))
+  (let ((level (SDL_JoystickCurrentPowerLevel joystick)))
     (cond
      ((= level -1) 'SDL-JOYSTICK-POWER-UNKNOWN)
      ((= level  0) 'SDL-JOYSTICK-POWER-EMPTY)
@@ -317,20 +88,20 @@
 (define sdl-joystick-from-instance-id
   (foreign-procedure "SDL_JoystickFromInstanceID"
 		     (integer-32)
-		     (* sdl-c-joystick)))
+		     (* SDL_Joystick)))
 
 (define _sdl-joystick-is-attached?
-  (foreign-procedure "SDL_JoystickGetAttached" ((* sdl-c-joystick)) int))
+  (foreign-procedure "SDL_JoystickGetAttached" ((* SDL_Joystick)) int))
 
 (define (sdl-joystick-is-attached? joystick)
   (= 1 (_sdl-joystick-is-attached? joystick)))
 
 (define sdl-joystick-get-axis
-  (foreign-procedure "SDL_JoystickGetAxis" ((* sdl-c-joystick) int) integer-16))
+  (foreign-procedure "SDL_JoystickGetAxis" ((* SDL_Joystick) int) integer-16))
 
 (define _sdl-joystick-get-ball
   (foreign-procedure "SDL_JoystickGetBall"
-		     ((* sdl-c-joystick) int (* int) (* int))
+		     ((* SDL_Joystick) int (* int) (* int))
 		     int))
 
 (define (sdl-joystick-get-ball joystick ball)
@@ -349,12 +120,12 @@
   (lambda (joystick button)
     (let
 	((func (foreign-procedure "SDL_JoystickGetButton"
-				  ((* sdl-c-joystick) int)
+				  ((* SDL_Joystick) int)
 				  unsigned-8)))
       (= 1 (func joystick button)))))
 
 (define _sdl-joystick-get-hat
-  (foreign-procedure "SDL_JoystickGetHat" ((* sdl-c-joystick) int) unsigned-8))
+  (foreign-procedure "SDL_JoystickGetHat" ((* SDL_Joystick) int) unsigned-8))
 
 (define (sdl-joystick-get-hat joystick index)
   (define SDL_HAT_CENTERED    #x00)
@@ -381,36 +152,47 @@
 
 (define sdl-joystick-instance-id
   (foreign-procedure "SDL_JoystickInstanceID"
-		     ((* sdl-c-joystick))
+		     ((* SDL_Joystick))
 		     integer-32))
 
 (define sdl-joystick-name
-  (foreign-procedure "SDL_JoystickName" ((* sdl-c-joystick)) string))
+  (foreign-procedure "SDL_JoystickName" ((* SDL_Joystick)) string))
 
 (define sdl-joystick-name-for-index
   (foreign-procedure "SDL_JoystickNameForIndex" (int) string))
 
 (define sdl-joystick-num-axes
-  (foreign-procedure "SDL_JoystickNumAxes" ((* sdl-c-joystick)) int))
+  (foreign-procedure "SDL_JoystickNumAxes" ((* SDL_Joystick)) int))
 
 (define sdl-joystick-num-balls
-  (foreign-procedure "SDL_JoystickNumBalls" ((* sdl-c-joystick)) int))
+  (foreign-procedure "SDL_JoystickNumBalls" ((* SDL_Joystick)) int))
 
 (define sdl-joystick-num-buttons
-  (foreign-procedure "SDL_JoystickNumButtons" ((* sdl-c-joystick)) int))
+  (foreign-procedure "SDL_JoystickNumButtons" ((* SDL_Joystick)) int))
 
 (define sdl-joystick-num-hats
-  (foreign-procedure "SDL_JoystickNumHats" ((* sdl-c-joystick)) int))
+  (foreign-procedure "SDL_JoystickNumHats" ((* SDL_Joystick)) int))
+
+
+
+
+
+
+
+
+
+
+
 
 (define sdl-joystick-id->sdl-controller
   (foreign-procedure "SDL_GameControllerFromInstanceID"
 		     (integer-32)
-		     (* sdl-c-game-controller)))
+		     (* SDL_GameController)))
 
 (define (sdl-game-controller-attached? controller)
   (let
       ((func (foreign-procedure "SDL_GameControllerGetAttached"
-				((* sdl-c-game-controller))
+				((* SDL_GameController))
 				int)))
     (= 1 (func controller))))
 
@@ -420,7 +202,7 @@
     (= 1 (func index))))
 
 (define sdl-game-controller-open
-  (foreign-procedure "SDL_GameControllerOpen" (int) (* sdl-c-game-controller)))
+  (foreign-procedure "SDL_GameControllerOpen" (int) (* SDL_GameController)))
 
 (define sdl-game-controller-update
   (lambda ()
@@ -429,7 +211,7 @@
 
 (define sdl-game-controller-close
   (foreign-procedure "SDL_GameControllerClose"
-		     ((* sdl-c-game-controller))
+		     ((* SDL_GameController))
 		     void))
 
 (define sdl-game-controller-name-for-index
@@ -437,12 +219,12 @@
 
 (define sdl-game-controller-name
   (foreign-procedure "SDL_GameControllerName"
-		     ((* sdl-c-game-controller))
+		     ((* SDL_GameController))
 		     string))
 
 (define sdl-game-controller-mapping
   (foreign-procedure "SDL_GameControllerMapping"
-		     ((* sdl-c-game-controller))
+		     ((* SDL_GameController))
 		     string))
 
 (define _sdl-game-controller-get-string-for-button
@@ -515,7 +297,7 @@
 
 (define _sdl-game-controller-get-axis
   (foreign-procedure "SDL_GameControllerGetAxis"
-		     ((* sdl-c-game-controller) int)
+		     ((* SDL_GameController) int)
 		     integer-16))
 
 (define (sdl-game-controller-axis controller axis)
@@ -538,8 +320,8 @@
 
 (define sdl-controller->sdl-joystick
   (foreign-procedure "SDL_GameControllerGetJoystick"
-		     ((* sdl-c-game-controller))
-		     (* sdl-c-joystick)))
+		     ((* SDL_GameController))
+		     (* SDL_Joystick)))
 
 (define _sdl-game-controller-get-button-from-string
   (foreign-procedure "SDL_GameControllerGetButtonFromString" (string) int))
@@ -566,7 +348,7 @@
 
 (define _sdl-game-controller-get-button?
   (foreign-procedure "SDL_GameControllerGetButton"
-		     ((* sdl-c-game-controller) int)
+		     ((* SDL_GameController) int)
 		     unsigned-8))
 
 (define (sdl-game-controller-button-pressed? controller button)
@@ -604,9 +386,11 @@
 	 (error 'SDL-GAME-CONTROLLER-BUTTON-PRESSED?
 		"Invalid symbol"
 		button))))
-;;;
-;;;
-;;;
+
+
+
+
+
 
 
 (define sdl-get-num-touch-devices
@@ -619,11 +403,11 @@
   (foreign-procedure "SDL_GetNumTouchFingers" (integer-64) int))
 
 (define _sdl-get-touch-finger
-  (foreign-procedure "SDL_GetTouchFinger" (integer-64 int) (* sdl-c-finger)))
+  (foreign-procedure "SDL_GetTouchFinger" (integer-64 int) (* SDL_Finger)))
 
 (define (sdl-get-touch-finger touch-id index)
   (let ((finger (_sdl-get-touch-finger touch-id index)))
-    (make-sdl-finger (ftype-ref sdl-c-finger (id)       finger)
-		     (ftype-ref sdl-c-finger (x)        finger)
-		     (ftype-ref sdl-c-finger (y)        finger)
-		     (ftype-ref sdl-c-finger (pressure) finger))))
+    (make-sdl-finger (ftype-ref SDL_Finger (id)       finger)
+		     (ftype-ref SDL_Finger (x)        finger)
+		     (ftype-ref SDL_Finger (y)        finger)
+		     (ftype-ref SDL_Finger (pressure) finger))))

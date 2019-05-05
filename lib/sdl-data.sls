@@ -1,5 +1,18 @@
 ;;;; -*- mode: Scheme; -*-
 
+(define SDL-SYSTEM-CURSOR-ARROW       0)
+(define SDL-SYSTEM-CURSOR-IBEAM       1)
+(define SDL-SYSTEM-CURSOR-WAIT        2)
+(define SDL-SYSTEM-CURSOR-CROSSHAIR   3)
+(define SDL-SYSTEM-CURSOR-WAIT-ARROW  4)
+(define SDL-SYSTEM-CURSOR-SIZE-NWSE   5)
+(define SDL-SYSTEM-CURSOR-SIZE-NESW   6)
+(define SDL-SYSTEM-CURSOR-SIZE-WE     7)
+(define SDL-SYSTEM-CURSOR-SIZE-NS     8)
+(define SDL-SYSTEM-CURSOR-SIZE-ALL    9)
+(define SDL-SYSTEM-CURSOR-NO         10)
+(define SDL-SYSTEM-CURSOR-HAND       11)
+
 (define SDL-HAPTIC-CONSTANT     (bitwise-arithmetic-shift-left 1 0))
 (define SDL-HAPTIC-SINE         (bitwise-arithmetic-shift-left 1 1))
 (define SDL-HAPTIC-LEFTRIGHT    (bitwise-arithmetic-shift-left 1 2))
@@ -51,6 +64,10 @@
                SDL-INIT-JOYSTICK
                SDL-INIT-HAPTIC
                SDL-INIT-GAMECONTROLLER))
+
+(define SDL-HINT-DEFAULT  0)
+(define SDL-HINT-NORMAL   1)
+(define SDL-HINT-OVERRIDE 2)
 
 (define SDL-HINT-FRAMEBUFFER-ACCELERATION                 "SDL_FRAMEBUFFER_ACCELERATION")
 (define SDL-HINT-RENDER-DRIVER                            "SDL_RENDER_DRIVER")

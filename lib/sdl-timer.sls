@@ -1,17 +1,5 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; C Function Bindings ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define *sdl-add-timer*                 (sdl-procedure "SDL_AddTimer" (unsigned-32 void* void*) int))
-(define *sdl-delay*                     (sdl-procedure "SDL_Delay" (unsigned-32) void))
-(define *sdl-get-performance-counter*   (sdl-procedure "SDL_GetPerformanceCounter" () unsigned-64))
-(define *sdl-get-performance-frequency* (sdl-procedure "SDL_GetPerformanceFrequency" () unsigned-64))
-(define *sdl-get-ticks*                 (sdl-procedure "SDL_GetTicks" () unsigned-32))
-(define *sdl-remove-timer*              (sdl-procedure "SDL_RemoveTimer" (int) int))
-
-
 ;;;;;;;;;;;;;;;;;;;
 ;;; Marshalling ;;;
 ;;;;;;;;;;;;;;;;;;;
@@ -27,12 +15,12 @@
     (foreign-callable-entry-point proc)))
 
 (define (sdl-add-timer! interval procedure)
-  (*sdl-add-timer* interval
-		   (sdl-make-timer-callback procedure)
-		   0))
+  (SDL_AddTimer interval
+		(sdl-make-timer-callback procedure)
+		0))
 
-(define sdl-delay                     *sdl-delay*)
-(define sdl-get-performance-counter   *sdl-get-performance-counter*)
-(define sdl-get-performance-frequency *sdl-get-performance-frequency*)
-(define sdl-get-ticks                 *sdl-get-ticks*)
-(define sdl-remove-timer!             *sdl-remove-timer*)
+(define sdl-delay                     SDL_Delay)
+(define sdl-get-performance-counter   SDL_GetPerformanceCounter)
+(define sdl-get-performance-frequency SDL_GetPerformanceFrequency)
+(define sdl-get-ticks                 SDL_GetTicks)
+(define sdl-remove-timer!             SDL_RemoveTimer)

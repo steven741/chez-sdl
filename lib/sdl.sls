@@ -101,8 +101,8 @@
 	  sdl-get-scancode-from-name
 	  sdl-get-scancode-name
 	  sdl-has-screen-keyboard-support?
-	  sdl-is-screen-keyboard-shown?
-	  sdl-is-text-input-active?
+	  sdl-screen-keyboard-shown?
+	  sdl-text-input-active?
 	  sdl-set-mod-state!
 	  sdl-set-text-input-rect!
 	  sdl-start-text-input
@@ -165,7 +165,6 @@
 
 	  sdl-poll-event
 
-	  sdl-event-timestamp
 	  sdl-event-none?
 	  sdl-event-quit?
 	  sdl-event-clipboard?
@@ -197,6 +196,8 @@
 	  sdl-event-win-close?
 	  sdl-event-win-take-focus?
 	  sdl-event-win-hit-test?
+
+	  sdl-event-timestamp
 
 	  sdl-event-win-id
 	  sdl-event-win-x
@@ -342,6 +343,10 @@
 	  SDL-INIT-GAMECONTROLLER
 	  SDL-INIT-EVENTS
 	  SDL-INIT-EVERYTHING
+
+	  SDL-HINT-DEFAULT
+	  SDL-HINT-NORMAL
+	  SDL-HINT-OVERRIDE
 
 	  SDL-HINT-FRAMEBUFFER-ACCELERATION
 	  SDL-HINT-RENDER-DRIVER
@@ -771,29 +776,8 @@
 	  KMOD-ALT
 	  KMOD-GUI)
 
-  (import (chezscheme))
-
-  (define *sdl*
-    (case (machine-type)
-      ((i3nt  ti3nt  a6nt  ta6nt)  (load-shared-object "SDL2.dll"))
-      ((i3le  ti3le  a6le  ta6le)  (load-shared-object "libSDL2.so"))
-      ((i3osx ti3osx a6osx ta6osx) (load-shared-object "libSDL2.dylib"))))
-
-  (define event-obj)
-
-  (define-syntax sdl-procedure
-    (syntax-rules ()
-      ((sdl-procedure name params return)
-       (if (foreign-entry? name)
-	   (foreign-procedure name params return)
-	   (begin
-	     (printf "SDL Function: ~a unavailable.~n" name)
-	     (lambda args
-	       (error 'SDL "Function not exported in libSDL2." name)))))))
-
-  (define sdl-free         (sdl-procedure "SDL_free" (void*) void))
-  (define sdl-free-rw      (sdl-procedure "SDL_FreeRW" (void*) void))
-  (define sdl-rw-from-file (sdl-procedure "SDL_RWFromFile" (string string) void*))
+  (import (sdl ftype)
+	  (chezscheme))
 
   (include "sdl-data.sls")
   (include "sdl-basic.sls")

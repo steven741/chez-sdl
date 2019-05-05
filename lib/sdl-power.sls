@@ -1,12 +1,5 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; C Function Bindings ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define *sdl-get-power-info* (sdl-procedure "SDL_GetPowerInfo" ((* int) (* int)) int))
-
-
 ;;;;;;;;;;;;;;;;;;;
 ;;; Marshalling ;;;
 ;;;;;;;;;;;;;;;;;;;
@@ -16,7 +9,7 @@
       ((t (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
        (% (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
 
-       (state (*sdl-get-power-info* t %))
+       (state (SDL_GetPowerInfo t %))
        (pinfo (list (ftype-ref int () t)
 		    (ftype-ref int () %)
 		    (cond ((= state 0) 'SDL-POWERSTATE-UNKNOWN)
