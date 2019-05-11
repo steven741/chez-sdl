@@ -2,7 +2,7 @@
 This is an interface to SDL 2 for the Chez Scheme system. (in development)
 
 ```scheme
-(import (sdl (2)))
+(import (sdl))
 
 (sdl-init SDL-INIT-VIDEO)
 

@@ -507,7 +507,7 @@
 (define SDLK-TAB          (char->integer #\t))
 (define SDLK-SPACE        (char->integer #\space))
 (define SDLK-EXCLAIM      (char->integer #\!))
-(define SDLK-QUOTEDBL     (char->integer #\")) ;"
+(define SDLK-QUOTEDBL     (char->integer #\"))
 (define SDLK-HASH         (char->integer #\#))
 (define SDLK-PERCENT      (char->integer #\%))
 (define SDLK-DOLLAR       (char->integer #\$))
