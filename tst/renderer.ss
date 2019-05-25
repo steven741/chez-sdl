@@ -31,11 +31,21 @@
 (define *texture* (sdl-create-texture-from-surface *renderer* *bitmap*))
 
 
+(pretty-print (sdl-get-renderer-info *renderer*))
+
 (sdl-render-clear *renderer*)
-(sdl-render-copy *renderer* *texture*)
+(sdl-render-copy *renderer* *texture* 0 0)
+(sdl-set-render-draw-color! *renderer* 0 0 0 255)
+(sdl-render-draw-rects *renderer* (list (make-sdl-rect   0   0 50 50)
+					(make-sdl-rect 100   0 50 50)
+					(make-sdl-rect   0 100 50 50)))
+(sdl-set-render-draw-color! *renderer* 255 255 255 255)
+(sdl-render-fill-rects *renderer* (list (make-sdl-rect 200 200 50 50)
+					(make-sdl-rect 300   0 50 50)
+					(make-sdl-rect   0 300 50 50)))
 (sdl-render-present *renderer*)
 
-(sdl-delay 2000)
+(sdl-delay 5000)
 
 
 ;; Exit

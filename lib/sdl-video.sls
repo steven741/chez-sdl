@@ -1,13 +1,21 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;;;;;;;;;;;;;;;;;;;
-;;; Scheme Records ;;;
-;;;;;;;;;;;;;;;;;;;;;;
-
 (define-record-type sdl-rect
   (fields x y w h))
 
-(define (with-c-rect rect procedure)
+(define-record-type sdl-point
+  (fields x y))
+
+(define-record-type sdl-renderer-info
+  (fields name
+	  flags
+	  texture-formats
+	  max-texture-width
+	  max-texture-height))
+
+
+
+(define (sdl-rect->ftype rect)
   (let*
       ((size (ftype-sizeof SDL_Rect))
        (addr (foreign-alloc size))
@@ -16,19 +24,59 @@
     (ftype-set! SDL_Rect (y) fptr (sdl-rect-y rect))
     (ftype-set! SDL_Rect (w) fptr (sdl-rect-w rect))
     (ftype-set! SDL_Rect (h) fptr (sdl-rect-h rect))
-    (let
-	((ret (procedure fptr)))
-      (foreign-free addr)
-      ret)))
+    fptr))
+
+(define (ftype->sdl-rect rect)
+  (if (ftype-pointer-null? rect)
+      '()
+      (let ((return (make-sdl-rect (ftype-ref SDL_Rect (x) rect)
+				   (ftype-ref SDL_Rect (y) rect)
+				   (ftype-ref SDL_Rect (w) rect)
+				   (ftype-ref SDL_Rect (h) rect))))
+	(foreign-free (ftype-pointer-address rect))
+	return)))
 
 
-(define-record-type sdl-point
-  (fields x y))
+(define (sdl-point->ftype point)
+  (let*
+      ((size (ftype-sizeof SDL_Point))
+       (addr (foreign-alloc size))
+       (fptr (make-ftype-pointer SDL_Point addr)))
+    (ftype-set! SDL_Point (x) fptr (sdl-point-x point))
+    (ftype-set! SDL_Point (y) fptr (sdl-point-y point))
+    fptr))
+
+(define (ftype->sdl-point point)
+  (error 'SDL-HELPER "Unimplemented" ftype->sdl-point))
 
 
-;;;;;;;;;;;;;;;;;;;
-;;; Marshalling ;;;
-;;;;;;;;;;;;;;;;;;;
+(define (sdl-renderer-info->ftype info)
+  (error 'SDL-HELPER "Unimplemented" sdl-renderer-info->ftype))
+
+(define (ftype->sdl-renderer-info info)
+  (define (get-formats count renderer-info)
+    (define (loop index)
+      (if (= index count)
+	  '()
+	  (cons (ftype-ref SDL_RendererInfo (texture_formats index) renderer-info)
+		(loop (+ index 1)))))
+    (loop 0))
+
+  (define (read-string name)
+    (define (loop index)
+      (let ((c (ftype-ref char () name index)))
+	(if (char=? c #\nul)
+	    '()
+	    (cons c (loop (+ index 1))))))
+    (list->string (loop 0)))
+
+  (make-sdl-renderer-info (read-string (ftype-ref SDL_RendererInfo (name) info))
+			  (ftype-ref SDL_RendererInfo (flags) info)
+			  (get-formats (ftype-ref SDL_RendererInfo (num_texture_formats) info) info)
+			  (ftype-ref SDL_RendererInfo (max_texture_width)  info)
+			  (ftype-ref SDL_RendererInfo (max_texture_height) info)))
+
+
 
 (define sdl-show-window              SDL_ShowWindow)
 (define sdl-destroy-window           SDL_DestroyWindow)
@@ -54,14 +102,11 @@
 (define sdl-gl-set-swap-interval!    SDL_GL_SetSwapInterval)
 (define sdl-gl-swap-window           SDL_GL_SwapWindow)
 
-
 (define (sdl-create-window title x y w h . flags)
   (SDL_CreateWindow title x y w h (fold-left bitwise-ior 0 flags)))
 
-
 (define (sdl-gl-extension-supported? extension)
   (= SDL-TRUE (SDL_GL_ExtensionSupported extension)))
-
 
 (define (sdl-gl-get-attribute attribute)
   (let*
@@ -70,7 +115,6 @@
        (value (ftype-ref int () c-val)))
     (foreign-free (ftype-pointer-address c-val))
     (if (= ret 0) value ret)))
-
 
 (define (sdl-gl-get-drawable-size window)
   (let
@@ -84,11 +128,9 @@
       (foreign-free (ftype-pointer-address c-h))
       (list w h))))
 
-
 (define (sdl-get-display-bounds display-index)
   (let*
-      ((c-rect (make-ftype-pointer SDL_Rect
-				   (foreign-alloc (ftype-sizeof SDL_Rect))))
+      ((c-rect (make-ftype-pointer SDL_Rect (foreign-alloc (ftype-sizeof SDL_Rect))))
        (ret (SDL_GetDisplayBounds display-index c-rect))
        (val (if (= ret 0)
 		(make-sdl-rect (ftype-ref SDL_Rect (x) c-rect)
@@ -98,7 +140,6 @@
 		ret)))
     (foreign-free (ftype-pointer-address c-rect))
     val))
-
 
 (define (sdl-get-display-dpi display-index)
   (let*
@@ -116,7 +157,6 @@
     (foreign-free (ftype-pointer-address c-vdpi))
     val))
 
-
 (define (sdl-get-display-usable-bounds display-index)
   (let*
       ((c-rect (make-ftype-pointer SDL_Rect (foreign-alloc (ftype-sizeof SDL_Rect))))
@@ -132,436 +172,326 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(define (c-point->point c-point)
-  (make-sdl-point (ftype-ref SDL_Point (x) c-point)
-		  (ftype-ref SDL_Point (y) c-point)))
-
-(define (point->c-point point)
-  (let ((c-point (make-ftype-pointer
-		  SDL_Point
-		  (foreign-alloc (ftype-sizeof SDL_Point)))))
-    (ftype-set! SDL_Point (x) c-point (sdl-point-x point))
-    (ftype-set! SDL_Point (y) c-point (sdl-point-y point))
-    c-point))
-
-(define (points->c-points points count)
-  (define (load-point point c-point)
-    (ftype-set! SDL_Point (x) c-point (sdl-point-x point))
-    (ftype-set! SDL_Point (y) c-point (sdl-point-y point))
-    c-point)
-
-  (define (load-all points mem index)
-    (if (= index count)
-	mem
-	(let ((c-point (ftype-&ref SDL_Point () mem index))
-	      (point   (car points)))
-	  (load-point point c-point)
-	  (load-all (cdr points) mem (+ index 1)))))
-
-  (let ((c-points (make-ftype-pointer
-		   SDL_Point
-                   (foreign-alloc (* count
-                                     (ftype-sizeof SDL_Point))))))
-    (load-all points c-points 0)))
-
-
-(define (c-rect->rect c-rect)
-  (make-sdl-rect (ftype-ref SDL_Rect (x) c-rect)
-		 (ftype-ref SDL_Rect (y) c-rect)
-		 (ftype-ref SDL_Rect (w) c-rect)
-		 (ftype-ref SDL_Rect (h) c-rect)))
-
-(define (rect->c-rect rect)
-  (let ((c-rect (make-ftype-pointer
-		 SDL_Rect
-		 (foreign-alloc (ftype-sizeof SDL_Rect)))))
-    (ftype-set! SDL_Rect (x) c-rect (sdl-rect-x rect))
-    (ftype-set! SDL_Rect (y) c-rect (sdl-rect-y rect))
-    (ftype-set! SDL_Rect (w) c-rect (sdl-rect-w rect))
-    (ftype-set! SDL_Rect (h) c-rect (sdl-rect-h rect))
-    c-rect))
-
-
-(define (rects->c-rects rects count)
-  (define (load-rect rect c-rect)
-    (ftype-set! SDL_Rect (x) c-rect (sdl-rect-x rect))
-    (ftype-set! SDL_Rect (y) c-rect (sdl-rect-y rect))
-    (ftype-set! SDL_Rect (w) c-rect (sdl-rect-w rect))
-    (ftype-set! SDL_Rect (h) c-rect (sdl-rect-h rect))
-    c-rect)
-
-  (define (load-all rects mem index)
-    (if (= index count)
-	mem
-	(let ((c-rect (ftype-&ref SDL_Rect () mem index))
-	      (rect   (car rects)))
-	  (load-rect rect c-rect)
-	  (load-all (cdr rects) mem (+ index 1)))))
-
-  (let ((c-rects (make-ftype-pointer
-		  SDL_Rect
-                  (foreign-alloc (* count
-                                    (ftype-sizeof SDL_Rect))))))
-    (load-all rects c-rects 0)))
-
-
 ;;;          ;;;
 ;;; Renderer ;;;
 ;;;          ;;;
 
+(define sdl-compose-custom-blend-mode SDL_ComposeCustomBlendMode)
+
 (define (sdl-create-renderer window index . flags)
-  (let ((func SDL_CreateRenderer))
-    (if (null? flags)
-	(error 'SDL-CREATE-RENDERER "No flags set.")
-	(func window index (fold-left bitwise-ior 0 flags)))))
+  (SDL_CreateRenderer window index (fold-left bitwise-ior 0 flags)))
 
+(define sdl-create-software-renderer    SDL_CreateSoftwareRenderer)
+(define sdl-create-texture              SDL_CreateTexture)
+(define sdl-create-texture-from-surface SDL_CreateTextureFromSurface)
+(define sdl-destroy-renderer            SDL_DestroyRenderer)
+(define sdl-destroy-texture             SDL_DestroyTexture)
 
-(define sdl-create-software-renderer
-  SDL_CreateSoftwareRenderer)
+(define (sdl-gl-bind-texture texture)
+  (let* ((texw (make-ftype-pointer float (foreign-alloc (ftype-sizeof float))))
+	 (texh (make-ftype-pointer float (foreign-alloc (ftype-sizeof float))))
+	 (return (if (= 0 (SDL_GL_BindTexture texture texw texh))
+		     (cons (ftype-ref float () texw)
+			   (ftype-ref float () texh))
+		     '())))
+    (foreign-free (ftype-pointer-address texw))
+    (foreign-free (ftype-pointer-address texh))
+    return))
 
-
-(define sdl-create-texture
-  SDL_CreateTexture)
-
-
-(define sdl-create-texture-from-surface
-  (foreign-procedure "SDL_CreateTextureFromSurface"
-		     ((* SDL_Renderer) (* SDL_Surface))
-		     (* SDL_Texture)))
-
-
-(define sdl-destroy-renderer
-  (foreign-procedure "SDL_DestroyRenderer" ((* SDL_Renderer)) void))
-
-
-(define sdl-destroy-texture
-  (foreign-procedure "SDL_DestroyTexture" ((* SDL_Texture)) void))
-
-
-(define sdl-get-num-render-drivers
-  (foreign-procedure "SDL_GetNumRenderDrivers" () int))
-
-
-(define _sdl-get-render-draw-blend-mode
-  (foreign-procedure "SDL_GetRenderDrawBlendMode"
-		     ((* SDL_Renderer) (* int))
-		     int))
+(define sdl-gl-unbind-texture      SDL_GL_UnbindTexture)
+(define sdl-get-num-render-drivers SDL_GetNumRenderDrivers)
 
 (define (sdl-get-render-draw-blend-mode renderer)
-  (let* ((blend (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
-	 (error (_sdl-get-render-draw-blend-mode renderer blend))
-	 (blend-val (ftype-ref int () blend)))
-    (foreign-free (ftype-pointer-address blend))
-    (if (= 0 error)
-	blend-val
-	'())))
-
-
-(define _sdl-get-render-draw-color
-  (foreign-procedure "SDL_GetRenderDrawColor"
-		     ((* SDL_Renderer)
-		      (* unsigned-8)
-		      (* unsigned-8)
-		      (* unsigned-8)
-		      (* unsigned-8))
-		     int))
+(let* ((blend  (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+       (error  (SDL_GetRenderDrawBlendMode renderer blend))
+       (return (if (= 0 error)
+		   (ftype-ref int () blend)
+		   error)))
+  (foreign-free (ftype-pointer-address blend))
+  return))
 
 (define (sdl-get-render-draw-color renderer)
-  (let* ((r (make-ftype-pointer unsigned-8 (foreign-alloc 1)))
-	 (g (make-ftype-pointer unsigned-8 (foreign-alloc 1)))
-	 (b (make-ftype-pointer unsigned-8 (foreign-alloc 1)))
-	 (a (make-ftype-pointer unsigned-8 (foreign-alloc 1)))
+  (let* ((r      (make-ftype-pointer unsigned-8 (foreign-alloc 1)))
+	 (g      (make-ftype-pointer unsigned-8 (foreign-alloc 1)))
+	 (b      (make-ftype-pointer unsigned-8 (foreign-alloc 1)))
+	 (a      (make-ftype-pointer unsigned-8 (foreign-alloc 1)))
+	 (return (if (= 0 (SDL_GetRenderDrawColor renderer r g b a))
+		     (list (ftype-ref unsigned-8 () r)
+			   (ftype-ref unsigned-8 () g)
+			   (ftype-ref unsigned-8 () b)
+			   (ftype-ref unsigned-8 () a))
+		     '())))
+    (foreign-free (ftype-pointer-address r))
+    (foreign-free (ftype-pointer-address g))
+    (foreign-free (ftype-pointer-address b))
+    (foreign-free (ftype-pointer-address a))
+    return))
 
-	 (error   (_sdl-get-render-draw-color renderer r g b a))
-	 (color-r (ftype-ref unsigned-8 () r))
-	 (color-g (ftype-ref unsigned-8 () g))
-	 (color-b (ftype-ref unsigned-8 () b))
-	 (color-a (ftype-ref unsigned-8 () a)))
-    (foreign-free (ftype-pointer-address color-r))
-    (foreign-free (ftype-pointer-address color-g))
-    (foreign-free (ftype-pointer-address color-b))
-    (foreign-free (ftype-pointer-address color-a))
-    (if (= 0 error)
-	(list color-r color-g color-b color-a)
-	'())))
+(define (sdl-get-render-driver-info index)
+  (let* ((info   (make-ftype-pointer SDL_RendererInfo (foreign-alloc (ftype-sizeof SDL_RendererInfo))))
+	 (error  (SDL_GetRenderDriverInfo index info))
+	 (return (if (= 0 error)
+		     (ftype->sdl-renderer-info info)
+		     error)))
+    (foreign-free (ftype-pointer-address info))
+    return))
 
+(define sdl-get-render-target SDL_GetRenderTarget)
+(define sdl-get-renderer      SDL_GetRenderer)
 
-(define sdl-get-render-target
-  (foreign-procedure "SDL_GetRenderTarget"
-		     ((* SDL_Renderer))
-		     (* SDL_Texture)))
+(define (sdl-get-renderer-info renderer)
+  (let* ((info   (make-ftype-pointer SDL_RendererInfo (foreign-alloc (ftype-sizeof SDL_RendererInfo))))
+	 (error  (SDL_GetRendererInfo renderer info))
+	 (return (if (= 0 error)
+		     (ftype->sdl-renderer-info info)
+		     error)))
+    (foreign-free (ftype-pointer-address info))
+    return))
 
+(define (sdl-get-renderer-output-size renderer)
+  (let* ((w      (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	 (h      (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	 (return (if (= 0 (SDL_GetRendererOutputSize renderer w h))
+		     (cons (ftype-ref int () w)
+			   (ftype-ref int () h))
+		     '())))
+    (foreign-free (ftype-pointer-address w))
+    (foreign-free (ftype-pointer-address h))
+    return))
 
-(define sdl-get-renderer
-  (foreign-procedure "SDL_GetRenderer"
-		     ((* SDL_Window))
-		     (* SDL_Renderer)))
+(define (sdl-get-texture-alpha-mod texture)
+  (let* ((alpha  (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (error  (SDL_GetTextureAlphaMod texture alpha))
+	 (return (if (= 0 error)
+		     (ftype-ref unsigned-8 () alpha)
+		     error)))
+    (foreign-free (ftype-pointer-address alpha))
+    return))
 
+(define (sdl-get-texture-blend-mode texture)
+  (let* ((blend  (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	 (error  (SDL_GetTextureBlendMode texture blend))
+	 (return (if (= 0 error)
+		     (ftype-ref int () blend)
+		     error)))
+    (foreign-free (ftype-pointer-address blend))
+    return))
 
-(define _sdl-render-clear
-  (foreign-procedure "SDL_RenderClear" ((* SDL_Renderer)) int))
+(define (sdl-get-texture-color-mod texture)
+  (let* ((r      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (g      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (b      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (return (if (= 0 (SDL_GetTextureColorMod texture r g b))
+		     (list (ftype-ref unsigned-8 () r)
+			   (ftype-ref unsigned-8 () g)
+			   (ftype-ref unsigned-8 () b))
+		     '())))
+    (foreign-free (ftype-pointer-address r))
+    (foreign-free (ftype-pointer-address g))
+    (foreign-free (ftype-pointer-address b))
+    return))
 
-(define (sdl-render-clear renderer)
-  (= 0 (_sdl-render-clear renderer)))
+;; SDL_LockTexture  -- WILL NOT SUPPORT USE FTYPE
+;; SDL_QueryTexture -- WILL NOT SUPPORT USE FTYPE
 
+(define sdl-render-clear SDL_RenderClear)
 
-(define _sdl-render-copy
-  (foreign-procedure "SDL_RenderCopy"
-		     ((* SDL_Renderer)
-		      (* SDL_Texture)
-		      (* SDL_Rect)
-		      (* SDL_Rect))
-		     int))
+(define (sdl-render-copy renderer texture src-rect dst-rect)
+  (let* ((src    (if (sdl-rect? src-rect)
+		     (sdl-rect->ftype src-rect)
+		     (make-ftype-pointer SDL_Rect 0)))
+	 (dst    (if (sdl-rect? dst-rect)
+		     (sdl-rect->ftype dst-rect)
+		     (make-ftype-pointer SDL_Rect 0)))
+	 (return (SDL_RenderCopy renderer texture src dst)))
+    (if (sdl-rect? src-rect) (foreign-free (ftype-pointer-address src)))
+    (if (sdl-rect? dst-rect) (foreign-free (ftype-pointer-address dst)))
+    return))
 
-(define (sdl-render-copy renderer texture . opts)
-  (if (null? opts)
-      (= 0 (_sdl-render-copy renderer
-			     texture
-			     (make-ftype-pointer SDL_Rect 0)
-			     (make-ftype-pointer SDL_Rect 0)))
-      (let ((c-src (rect->c-rect (car opts)))
-	    (c-dst (rect->c-rect (cadr opts))))
-	(let ((ret (= 0 (_sdl-render-copy renderer texture c-src c-dst))))
-	  (foreign-free (ftype-pointer-address c-src))
-	  (foreign-free (ftype-pointer-address c-dst))
-	  ret))))
+(define (sdl-render-copy-ex renderer texture src-rect dst-rect angle center-point flip)
+  (let* ((src    (if (sdl-rect? src-rect)
+		     (sdl-rect->ftype src-rect)
+		     (make-ftype-pointer SDL_Rect 0)))
+	 (dst    (if (sdl-rect? dst-rect)
+		     (sdl-rect->ftype dst-rect)
+		     (make-ftype-pointer SDL_Rect 0)))
+	 (center (if (sdl-point? center-point)
+		     (sdl-point->ftype center-point)
+		     (make-ftype-pointer SDL_Point 0)))
+	 (return (SDL_RenderCopyEx renderer
+				   texture
+				   src dst
+				   angle
+				   center
+				   flip)))
+    (if (sdl-rect? src-rect)      (foreign-free (ftype-pointer-address src)))
+    (if (sdl-rect? dst-rect)      (foreign-free (ftype-pointer-address dst)))
+    (if (sdl-point? center-point) (foreign-free (ftype-pointer-address center)))
+    return))
 
+(define sdl-render-draw-line SDL_RenderDrawLine)
 
-(define sdl-render-present
-  (foreign-procedure "SDL_RenderPresent" ((* SDL_Renderer)) void))
+(define (sdl-render-draw-lines renderer points)
+  (define (fill data count index points-list)
+    (if (= index count)
+	'()
+	(begin
+	  (ftype-set! SDL_Point (x) data index (sdl-point-x (car points-list)))
+	  (ftype-set! SDL_Point (y) data index (sdl-point-y (car points-list)))
+	  (fill data count (+ index 1) (cdr points-list)))))
+  (let* ((count (length points))
+	 (chunk (make-ftype-pointer SDL_Point (foreign-alloc (* count (ftype-sizeof SDL_Point))))))
+    (fill chunk count 0 points)
+    (let ((return (SDL_RenderDrawLines renderer chunk count)))
+      (foreign-free (ftype-pointer-address chunk))
+      return)))
 
+(define sdl-render-draw-point SDL_RenderDrawPoint)
 
-(define (sdl-set-texture-color-mod! texture r g b)
-  (let ((func (foreign-procedure "SDL_SetTextureColorMod"
-				 ((* SDL_Texture)
-				  unsigned-8
-				  unsigned-8
-				  unsigned-8)
-				 int)))
-    (= 0 (func texture r g b))))
+(define (sdl-render-draw-points renderer points)
+  (define (fill data count index points-list)
+    (if (= index count)
+	'()
+	(begin
+	  (ftype-set! SDL_Point (x) data index (sdl-point-x (car points-list)))
+	  (ftype-set! SDL_Point (y) data index (sdl-point-y (car points-list)))
+	  (fill data count (+ index 1) (cdr points-list)))))
+  (let* ((count (length points))
+	 (chunk (make-ftype-pointer SDL_Point (foreign-alloc (* count (ftype-sizeof SDL_Point))))))
+    (fill chunk count 0 points)
+    (let ((return (SDL_RenderDrawPoints renderer chunk count)))
+      (foreign-free (ftype-pointer-address chunk))
+      return)))
 
+(define (sdl-render-draw-rect renderer rect)
+  (let* ((frect (if (sdl-rect? rect)
+		    (sdl-rect->ftype rect)
+		    (make-ftype-pointer SDL_Rect 0)))
+	 (return (SDL_RenderDrawRect renderer frect)))
+    (if (sdl-rect? rect) (foreign-free (ftype-pointer-address frect)))
+    return))
 
-(define (sdl-set-texture-blend-mode! texture mode)
-  (let ((func (foreign-procedure "SDL_SetTextureBlendMode"
-				 ((* SDL_Texture)
-				  int)
-				 int)))
-    (= 0 (func texture mode))))
+(define (sdl-render-draw-rects renderer rects)
+  (define (fill data count index rects-list)
+    (if (= index count)
+	'()
+	(begin
+	  (ftype-set! SDL_Rect (x) data index (sdl-rect-x (car rects-list)))
+	  (ftype-set! SDL_Rect (y) data index (sdl-rect-y (car rects-list)))
+	  (ftype-set! SDL_Rect (w) data index (sdl-rect-w (car rects-list)))
+	  (ftype-set! SDL_Rect (h) data index (sdl-rect-h (car rects-list)))
+	  (fill data count (+ index 1) (cdr rects-list)))))
+  (let* ((count (length rects))
+	 (chunk (make-ftype-pointer SDL_Rect (foreign-alloc (* count (ftype-sizeof SDL_Rect))))))
+    (fill chunk count 0 rects)
+    (let ((return (SDL_RenderDrawRects renderer chunk count)))
+      (foreign-free (ftype-pointer-address chunk))
+      return)))
 
+(define (sdl-render-fill-rect renderer rect)
+  (let* ((frect (if (sdl-rect? rect)
+		    (sdl-rect->ftype rect)
+		    (make-ftype-pointer SDL_Rect 0)))
+	 (return (SDL_RenderFillRect renderer frect)))
+    (if (sdl-rect? rect) (foreign-free (ftype-pointer-address frect)))
+    return))
 
-(define (sdl-set-texture-alpha-mod! texture alpha)
-  (let ((func (foreign-procedure "SDL_SetTextureAlphaMod"
-				 ((* SDL_Texture)
-				  unsigned-8)
-				 int)))
-    (= 0 (func texture mod))))
+(define (sdl-render-fill-rects renderer rects)
+  (define (fill data count index rects-list)
+    (if (= index count)
+	'()
+	(begin
+	  (ftype-set! SDL_Rect (x) data index (sdl-rect-x (car rects-list)))
+	  (ftype-set! SDL_Rect (y) data index (sdl-rect-y (car rects-list)))
+	  (ftype-set! SDL_Rect (w) data index (sdl-rect-w (car rects-list)))
+	  (ftype-set! SDL_Rect (h) data index (sdl-rect-h (car rects-list)))
+	  (fill data count (+ index 1) (cdr rects-list)))))
+  (let* ((count (length rects))
+	 (chunk (make-ftype-pointer SDL_Rect (foreign-alloc (* count (ftype-sizeof SDL_Rect))))))
+    (fill chunk count 0 rects)
+    (let ((return (SDL_RenderFillRects renderer chunk count)))
+      (foreign-free (ftype-pointer-address chunk))
+      return)))
 
+(define (sdl-render-get-clip-rect renderer)
+  (let ((rect (make-ftype-pointer SDL_Rect (foreign-alloc (ftype-sizeof SDL_Rect)))))
+    (SDL_RenderGetClipRect renderer rect)
+    (ftype->sdl-rect rect)))
 
-(define (sdl-set-render-target! renderer . texture)
-  (let ((func (foreign-procedure "SDL_SetRenderTarget"
-				 ((* SDL_Renderer)
-				  (* SDL_Texture))
-				 int)))
-    (= 0 (func renderer (if (null? texture)
-			    (make-ftype-pointer SDL_Texture 0)
-			    (car texture))))))
+(define (sdl-render-get-integer-scale renderer)
+  (= (SDL_RenderGetIntegerScale renderer) SDL-TRUE))
 
+(define (sdl-render-get-logical-size renderer)
+  (let ((w (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	(h (make-ftype-pointer int (foreign-alloc (ftype-sizeof int)))))
+    (SDL_RenderGetLogicalSize renderer w h)
+    (let ((return (cons (ftype-ref int () w)
+			(ftype-ref int () h))))
+      (foreign-free (ftype-pointer-address w))
+      (foreign-free (ftype-pointer-address h))
+      return)))
 
-(define (sdl-set-render-draw-color! renderer r g b a)
-  (let ((func (foreign-procedure "SDL_SetRenderDrawColor"
-				 ((* SDL_Renderer)
-				  unsigned-8
-				  unsigned-8
-				  unsigned-8
-				  unsigned-8)
-				 int)))
-    (= 0 (func renderer r g b a))))
+(define (sdl-render-get-scale renderer)
+  (let ((x (make-ftype-pointer float (foreign-alloc (ftype-sizeof float))))
+	(y (make-ftype-pointer float (foreign-alloc (ftype-sizeof float)))))
+    (SDL_RenderGetScale renderer x y)
+    (let ((return (cons (ftype-ref float () x)
+			(ftype-ref float () y))))
+      (foreign-free (ftype-pointer-address x))
+      (foreign-free (ftype-pointer-address y))
+      return)))
 
+(define (sdl-render-get-viewport renderer)
+  (let ((rect (make-ftype-pointer SDL_Rect (foreign-alloc (ftype-sizeof SDL_Rect)))))
+    (SDL_RenderGetViewport renderer rect)
+    (ftype->sdl-rect rect)))
 
-(define (sdl-set-render-draw-blend-mode! renderer mode)
-  (let ((func (foreign-procedure "SDL_SetRenderDrawBlendMode"
-				 ((* SDL_Renderer)
-				  int)
-				 int)))
-    (= 0 (func renderer mode))))
+(define (sdl-render-is-clip-enabled? renderer)
+  (= (SDL_RenderIsClipEnabled renderer) SDL-TRUE))
 
+(define sdl-render-present SDL_RenderPresent)
 
-(define (sdl-set-render-viewport! renderer . rect)
-  (let ((func (foreign-procedure "SDL_RenderSetViewport"
-				 ((* SDL_Renderer)
-				  (* SDL_Rect))
-				 int)))
-    (if (null? rect)
-	(= 0 (func renderer (make-ftype-pointer SDL_Rect 0)))
-	(let* ((c-rect (rect->c-rect (car rect)))
-	       (error (func renderer c-rect)))
-	  (foreign-free (ftype-pointer-address c-rect))
-	  (= 0 error)))))
+;; SDL_RenderReadPixels -- WILL NOT SUPPORT USE FTYPE
 
+(define (sdl-render-set-clip! renderer rect)
+  (let* ((clip   (if (sdl-rect? rect)
+		     (sdl-rect->ftype rect)
+		     (make-ftype-pointer SDL_Rect 0)))
+	 (return (SDL_RenderSetClipRect renderer clip)))
+    (if (sdl-rect? rect) (foreign-free (ftype-pointer-address clip)))
+    return))
 
-(define (sdl-set-render-scale! renderer x y)
-  (let ((func (foreign-procedure "SDL_RenderSetScale"
-				 ((* SDL_Renderer)
-				  float
-				  float)
-				 int)))
-    (= 0 (func renderer x y))))
+(define sdl-render-set-integer-scale! SDL_RenderSetIntegerScale)
+(define sdl-render-set-logical-size!  SDL_RenderSetLogicalSize)
+(define sdl-render-set-scale!         SDL_RenderSetScale)
 
-
-(define (sdl-set-render-logical-size! renderer w h)
-  (let ((func (foreign-procedure "SDL_RenderSetLogicalSize"
-				 ((* SDL_Renderer)
-				  int
-				  int)
-				 int)))
-    (= 0 (func renderer w h))))
-
-
-(define (sdl-set-render-integer-scale! renderer bool)
-  (let ((func (foreign-procedure "SDL_RenderSetIntegerScale"
-				 ((* SDL_Renderer)
-				  int)
-				 int)))
-    (= 0 (func renderer (if (bool) 1 0)))))
-
-
-(define (sdl-set-render-clip! renderer . rect)
-  (let ((func (foreign-procedure "SDL_RenderSetClipRect"
-				 ((* SDL_Renderer)
-				  (* SDL_Rect))
-				 int)))
-    (if (null? rect)
-	(= 0 (func renderer (make-ftype-pointer SDL_Rect 0)))
-	(let* ((c-rect (rect->c-rect (car rect)))
-	       (error (func renderer c-rect)))
-	  (foreign-free (ftype-pointer-address c-rect))
-	  (= 0 error)))))
-
+(define (sdl-render-set-viewport! renderer rect)
+  (let* ((view   (if (sdl-rect? rect)
+		     (sdl-rect->ftype rect)
+		     (make-ftype-pointer SDL_Rect 0)))
+	 (return (SDL_RenderSetViewport renderer view)))
+    (if (sdl-rect? rect) (foreign-free (ftype-pointer-address view)))
+    return))
 
 (define (sdl-render-target-supported? renderer)
-  (let ((func (foreign-procedure "SDL_RenderTargetSupported"
-				 ((* SDL_Renderer))
-				 int)))
-    (= 1 (func renderer))))
+  (= (SDL_RenderTargetSupported renderer) SDL-TRUE))
+
+(define sdl-set-render-draw-blend-mode! SDL_SetRenderDrawBlendMode)
+(define sdl-set-render-draw-color!      SDL_SetRenderDrawColor)
+
+(define (sdl-set-render-target! renderer texture)
+  (SDL_SetRenderTarget renderer (if (= 0 texture)
+				    (make-ftype-pointer SDL_Texture 0)
+				    texture)))
+
+(define sdl-set-texture-alpha-mod!  SDL_SetTextureAlphaMod)
+(define sdl-set-texture-blend-mode! SDL_SetTextureBlendMode)
+(define sdl-set-texture-color-mod!  SDL_SetTextureColorMod)
+
+;; SDL_UnlockTexture    -- WILL NOT SUPPORT USE FTYPE
+;; SDL_UpdateTexture    -- WILL NOT SUPPORT USE FTYPE
+;; SDL_UpdateYUVTexture -- WILL NOT SUPPORT USE FTYPE
+
 
 
 
@@ -569,12 +499,7 @@
 ;;; Pixels ;;;
 ;;;        ;;;
 
-(define sdl-map-rgb
-  (foreign-procedure "SDL_MapRGB"
-		     ((* SDL_PixelFormat)
-		      unsigned-8
-		      unsigned-8
-		      unsigned-8) unsigned-32))
+(define sdl-map-rgb SDL_MapRGB)
 
 
 
@@ -582,6 +507,7 @@
 ;;; Rect ;;;
 ;;;      ;;;
 
+#|
 (define (sdl-enclude-points points . clip)
   (let* ((func (foreign-procedure "SDL_EnclosePoints"
 				  ((* SDL_Point)
@@ -729,6 +655,7 @@
       (foreign-free (ftype-pointer-address c-rect-b))
       (foreign-free (ftype-pointer-address c-union))
       union)))
+|#
 
 
 
@@ -736,16 +663,9 @@
 ;;; Surfaces ;;;
 ;;;          ;;;
 
-(define sdl-free-surface
-  (foreign-procedure "SDL_FreeSurface" ((* SDL_Surface)) void))
-
-
-(define sdl-load-bmp SDL_LoadBMP)
-
-
-(define sdl-fill-rect
-  (foreign-procedure "SDL_FillRect"
-		     ((* SDL_Surface) void* unsigned-32) int))
+(define sdl-free-surface SDL_FreeSurface)
+(define sdl-load-bmp     SDL_LoadBMP)
+(define sdl-fill-rect    SDL_FillRect)
 
 
 
@@ -753,17 +673,8 @@
 ;;; Clipboard ;;;
 ;;;           ;;;
 
-(define sdl-get-clipboard-text
-  (foreign-procedure "SDL_GetClipboardText" () string))
+(define sdl-get-clipboard-text SDL_GetClipboardText)
 
-(define _sdl-has-clipboard-text?
-  (foreign-procedure "SDL_HasClipboardText" () int))
+(define (sdl-has-clipboard-text?) (= 1 (SDL_HasClipboardText)))
 
-(define sdl-has-clipboard-text?
-  (= 1 (_sdl-has-clipboard-text?)))
-
-(define _sdl-set-clipboard-text!
-  (foreign-procedure "SDL_SetClipboardText" (string) int))
-
-(define (sdl-set-clipboard-text! text)
-  (= 1 (_sdl-set-clipboard-text! text)))
+(define (sdl-set-clipboard-text! text) (= 1 (SDL_SetClipboardText text)))

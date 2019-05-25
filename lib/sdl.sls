@@ -66,13 +66,56 @@
 	  sdl-gl-set-swap-interval!
 	  sdl-gl-swap-window
 
+	  sdl-compose-custom-blend-mode
 	  sdl-create-renderer
+	  sdl-create-software-renderer
+	  sdl-create-texture
 	  sdl-create-texture-from-surface
+	  sdl-destroy-renderer
+	  sdl-destroy-texture
+	  sdl-gl-bind-texture
+	  sdl-gl-unbind-texture
+	  sdl-get-num-render-drivers
+	  sdl-get-render-draw-blend-mode
+	  sdl-get-render-draw-color
+	  sdl-get-render-driver-info
+	  sdl-get-render-target
+	  sdl-get-renderer
+	  sdl-get-renderer-info
+	  sdl-get-renderer-output-size
+	  sdl-get-texture-alpha-mod
+	  sdl-get-texture-blend-mode
+	  sdl-get-texture-color-mod
 	  sdl-render-clear
 	  sdl-render-copy
+	  sdl-render-copy-ex
+	  sdl-render-draw-line
+	  sdl-render-draw-lines
+	  sdl-render-draw-point
+	  sdl-render-draw-points
+	  sdl-render-draw-rect
+	  sdl-render-draw-rects
+	  sdl-render-fill-rect
+	  sdl-render-fill-rects
+	  sdl-render-get-clip-rect
+	  sdl-render-get-integer-scale
+	  sdl-render-get-logical-size
+	  sdl-render-get-scale
+	  sdl-render-get-viewport
+	  sdl-render-is-clip-enabled?
 	  sdl-render-present
-	  sdl-destroy-texture
-	  sdl-destroy-renderer
+	  sdl-render-set-clip!
+	  sdl-render-set-integer-scale!
+	  sdl-render-set-logical-size!
+	  sdl-render-set-scale!
+	  sdl-render-set-viewport!
+	  sdl-render-target-supported?
+	  sdl-set-render-draw-blend-mode!
+	  sdl-set-render-draw-color!
+	  sdl-set-render-target!
+	  sdl-set-texture-alpha-mod!
+	  sdl-set-texture-blend-mode!
+	  sdl-set-texture-color-mod!
 
 	  sdl-load-bmp
 	  sdl-map-rgb

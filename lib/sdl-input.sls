@@ -33,8 +33,12 @@
 (define (sdl-set-mod-state! first-modifier . other-modifier)
   (SDL_SetModState (fold-left bitwise-ior first-modifier other-modifier)))
 
-(define (sdl-set-text-input-rect! sdl-rect)
-  (with-c-rect sdl-rect SDL_SetTextInputRect))
+(define (sdl-set-text-input-rect! rect)
+  (let ((frect (if (sdl-rect? rect)
+		   (sdl-rect->ftype rect)
+		   (make-ftype-pointer SDL_Rect 0))))
+    (SDL_SetTextInputRect frect)
+    (if (sdl-rect? rect) (foreign-free (ftype-pointer-address frect)))))
 
 (define sdl-start-text-input SDL_StartTextInput)
 (define sdl-stop-text-input  SDL_StopTextInput)

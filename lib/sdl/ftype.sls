@@ -855,16 +855,21 @@
 	    (pixels    void*)
 	    (userdata  void*)
 	    (locked    int)
-	    (lock-data void*)
-	    (clip-rect SDL_Rect)
-	    (b-map     void*)
+	    (lock_data void*)
+	    (clip_rect SDL_Rect)
+	    (b_map     void*)
 	    (refcount  int)))
 
   (define-ftype SDL_DisplayMode
     (struct (format unsigned-32)))
 
   (define-ftype SDL_RendererInfo
-    (struct (flags unsigned-32)))
+    (struct (name                (* char))
+	    (flags               unsigned-32)
+	    (num_texture_formats unsigned-32)
+	    (texture_formats     (array 16 unsigned-32))
+	    (max_texture_width   int)
+	    (max_texture_height  int)))
 
   (define-ftype SDL_SysWMinfo
     (struct (format unsigned-32)))
@@ -1242,7 +1247,7 @@
   (define SDL_CreateRGBSurfaceWithFormatFrom (sdl-procedure "SDL_CreateRGBSurfaceWithFormatFrom" () void))
   (define SDL_FillRect                       (sdl-procedure "SDL_FillRect" () void))
   (define SDL_FillRects                      (sdl-procedure "SDL_FillRects" () void))
-  (define SDL_FreeSurface                    (sdl-procedure "SDL_FreeSurface" () void))
+  (define SDL_FreeSurface                    (sdl-procedure "SDL_FreeSurface" ((* SDL_Surface)) void))
   (define SDL_GetClipRect                    (sdl-procedure "SDL_GetClipRect" () void))
   (define SDL_GetColorKey                    (sdl-procedure "SDL_GetColorKey" () void))
   (define SDL_GetSurfaceAlphaMod             (sdl-procedure "SDL_GetSurfaceAlphaMod" () void))
