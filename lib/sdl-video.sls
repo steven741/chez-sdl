@@ -64,17 +64,21 @@
 
   (define (read-string name)
     (define (loop index)
-      (let ((c (ftype-ref char () name index)))
-	(if (char=? c #\nul)
+      (let ((letter (ftype-ref char () name index)))
+	(if (char=? letter #\nul)
 	    '()
-	    (cons c (loop (+ index 1))))))
+	    (cons letter (loop (+ index 1))))))
     (list->string (loop 0)))
 
-  (make-sdl-renderer-info (read-string (ftype-ref SDL_RendererInfo (name) info))
-			  (ftype-ref SDL_RendererInfo (flags) info)
-			  (get-formats (ftype-ref SDL_RendererInfo (num_texture_formats) info) info)
-			  (ftype-ref SDL_RendererInfo (max_texture_width)  info)
-			  (ftype-ref SDL_RendererInfo (max_texture_height) info)))
+  (if (ftype-pointer-null? info)
+      '()
+      (let ((return (make-sdl-renderer-info (read-string (ftype-ref SDL_RendererInfo (name) info))
+					    (ftype-ref SDL_RendererInfo (flags) info)
+					    (get-formats (ftype-ref SDL_RendererInfo (num_texture_formats) info) info)
+					    (ftype-ref SDL_RendererInfo (max_texture_width)  info)
+					    (ftype-ref SDL_RendererInfo (max_texture_height) info))))
+	(foreign-free (ftype-pointer-address info))
+	return)))
 
 
 
@@ -172,9 +176,10 @@
 
 
 
-;;;          ;;;
-;;; Renderer ;;;
-;;;          ;;;
+#| 2D Accelerated Rendering
+   ------------------------
+   https://wiki.libsdl.org/CategoryRender
+|#
 
 (define sdl-compose-custom-blend-mode SDL_ComposeCustomBlendMode)
 
@@ -228,25 +233,21 @@
     return))
 
 (define (sdl-get-render-driver-info index)
-  (let* ((info   (make-ftype-pointer SDL_RendererInfo (foreign-alloc (ftype-sizeof SDL_RendererInfo))))
-	 (error  (SDL_GetRenderDriverInfo index info))
-	 (return (if (= 0 error)
-		     (ftype->sdl-renderer-info info)
-		     error)))
-    (foreign-free (ftype-pointer-address info))
-    return))
+  (let* ((info  (make-ftype-pointer SDL_RendererInfo (foreign-alloc (ftype-sizeof SDL_RendererInfo))))
+	 (error (SDL_GetRenderDriverInfo index info)))
+    (if (= 0 error)
+	(ftype->sdl-renderer-info info)
+	error)))
 
 (define sdl-get-render-target SDL_GetRenderTarget)
 (define sdl-get-renderer      SDL_GetRenderer)
 
 (define (sdl-get-renderer-info renderer)
-  (let* ((info   (make-ftype-pointer SDL_RendererInfo (foreign-alloc (ftype-sizeof SDL_RendererInfo))))
-	 (error  (SDL_GetRendererInfo renderer info))
-	 (return (if (= 0 error)
-		     (ftype->sdl-renderer-info info)
-		     error)))
-    (foreign-free (ftype-pointer-address info))
-    return))
+  (let* ((info  (make-ftype-pointer SDL_RendererInfo (foreign-alloc (ftype-sizeof SDL_RendererInfo))))
+	 (error (SDL_GetRendererInfo renderer info)))
+    (if (= 0 error)
+	(ftype->sdl-renderer-info info)
+	error)))
 
 (define (sdl-get-renderer-output-size renderer)
   (let* ((w      (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
