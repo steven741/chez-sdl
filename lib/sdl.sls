@@ -20,6 +20,20 @@
 	  sdl-finger-y
 	  sdl-finger-p
 
+	  make-sdl-color
+	  sdl-color?
+	  sdl-color-r
+	  sdl-color-g
+	  sdl-color-b
+	  sdl-color-a
+
+	  sdl-renderer-info?
+	  sdl-renderer-info-name
+	  sdl-renderer-info-flags
+	  sdl-renderer-info-texture-formats
+	  sdl-renderer-info-max-texture-width
+	  sdl-renderer-info-max-texture-height
+
 	  sdl-init
 	  sdl-init-sub-system
 	  sdl-quit
@@ -819,10 +833,10 @@
 	  KMOD-ALT
 	  KMOD-GUI)
 
-  (import (sdl ftype)
-	  (chezscheme))
+  (import (chezscheme)
+	  (sdl ftype))
 
-  (include "sdl-data.sls")
+  (include "sdl-value.sls")
   (include "sdl-basic.sls")
   (include "sdl-video.sls")
   (include "sdl-audio.sls")

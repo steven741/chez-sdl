@@ -36,13 +36,16 @@
 
 (sdl-render-clear *renderer*)
 
+;; Blit the texture.
 (sdl-render-copy *renderer* *texture* 0 0)
 
+;; Draw a few black boxes
 (sdl-set-render-draw-color! *renderer* 0 0 0 255)
 (sdl-render-draw-rects *renderer* (list (make-sdl-rect   0   0 50 50)
 					(make-sdl-rect 100   0 50 50)
 					(make-sdl-rect   0 100 50 50)))
 
+;; Draw a few white squares
 (sdl-set-render-draw-color! *renderer* 255 255 255 255)
 (sdl-render-fill-rects *renderer* (list (make-sdl-rect 200 200 50 50)
 					(make-sdl-rect 300   0 50 50)

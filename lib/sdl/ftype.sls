@@ -388,6 +388,15 @@
 	  SDL_PixelFormatEnumToMasks
 	  SDL_SetPaletteColors
 	  SDL_SetPixelFormatPalette
+	  SDL_EnclosePoints
+	  SDL_HasIntersection
+	  SDL_IntersectRect
+	  SDL_IntersectRectAndLine
+	  SDL_PointInRect
+	  SDL_RectEmpty
+	  SDL_RectEquals
+	  SDL_UnionRect
+	  SDL_GetSpanEnclosingRect
 	  SDL_UpperBlitScaled
 	  SDL_UpperBlit
 	  SDL_ConvertPixels
@@ -444,10 +453,8 @@
       ((sdl-procedure name params return)
        (if (foreign-entry? name)
 	   (foreign-procedure name params return)
-	   (begin
-	     (printf "SDL Function: ~a unavailable.~n" name)
-	     (lambda args
-	       (error 'SDL "Function not exported in libSDL2." name)))))))
+	   (lambda args
+	     (error 'SDL "Function not exported in libSDL2." name))))))
 
 
   (define-ftype SDL_SysWMinfo      void*)
@@ -1243,20 +1250,30 @@
   (define SDL_UpdateTexture              (sdl-procedure "SDL_UpdateTexture" (SDL_Texture (* SDL_Rect) void* int) int))
   (define SDL_UpdateYUVTexture           (sdl-procedure "SDL_UpdateYUVTexture" (SDL_Texture (* SDL_Rect) u8* int u8* int u8* int) int))
 
-  (define SDL_AllocFormat                (sdl-procedure "SDL_AllocFormat" () void))
-  (define SDL_AllocPalette               (sdl-procedure "SDL_AllocPalette" () void))
-  (define SDL_CalculateGammaRamp         (sdl-procedure "SDL_CalculateGammaRamp" () void))
-  (define SDL_FreeFormat                 (sdl-procedure "SDL_FreeFormat" () void))
-  (define SDL_FreePalette                (sdl-procedure "SDL_FreePalette" () void))
-  (define SDL_GetPixelFormatName         (sdl-procedure "SDL_GetPixelFormatName" () void))
-  (define SDL_GetRGB                     (sdl-procedure "SDL_GetRGB" () void))
-  (define SDL_GetRGBA                    (sdl-procedure "SDL_GetRGBA" () void))
-  (define SDL_MapRGB                     (sdl-procedure "SDL_MapRGB" () void))
-  (define SDL_MapRGBA                    (sdl-procedure "SDL_MapRGBA" () void))
-  (define SDL_MasksToPixelFormatEnum     (sdl-procedure "SDL_MasksToPixelFormatEnum" () void))
-  (define SDL_PixelFormatEnumToMasks     (sdl-procedure "SDL_PixelFormatEnumToMasks" () void))
-  (define SDL_SetPaletteColors           (sdl-procedure "SDL_SetPaletteColors" () void))
-  (define SDL_SetPixelFormatPalette      (sdl-procedure "SDL_SetPixelFormatPalette" () void))
+  (define SDL_AllocFormat                (sdl-procedure "SDL_AllocFormat" (unsigned-32) (* SDL_PixelFormat)))
+  (define SDL_AllocPalette               (sdl-procedure "SDL_AllocPalette" (int) (* SDL_Palette)))
+  (define SDL_CalculateGammaRamp         (sdl-procedure "SDL_CalculateGammaRamp" (float (* unsigned-16)) void))
+  (define SDL_FreeFormat                 (sdl-procedure "SDL_FreeFormat" ((* SDL_PixelFormat)) void))
+  (define SDL_FreePalette                (sdl-procedure "SDL_FreePalette" ((* SDL_Palette)) void))
+  (define SDL_GetPixelFormatName         (sdl-procedure "SDL_GetPixelFormatName" (unsigned-32) string))
+  (define SDL_GetRGB                     (sdl-procedure "SDL_GetRGB" (unsigned-32 (* SDL_PixelFormat) (* unsigned-8) (* unsigned-8) (* unsigned-8)) void))
+  (define SDL_GetRGBA                    (sdl-procedure "SDL_GetRGBA" (unsigned-32 (* SDL_PixelFormat) (* unsigned-8) (* unsigned-8) (* unsigned-8) (* unsigned-8)) void))
+  (define SDL_MapRGB                     (sdl-procedure "SDL_MapRGB" ((* SDL_PixelFormat) unsigned-8 unsigned-8 unsigned-8) unsigned-32))
+  (define SDL_MapRGBA                    (sdl-procedure "SDL_MapRGBA" ((* SDL_PixelFormat) unsigned-8 unsigned-8 unsigned-8 unsigned-8) unsigned-32))
+  (define SDL_MasksToPixelFormatEnum     (sdl-procedure "SDL_MasksToPixelFormatEnum" (int unsigned-32 unsigned-32 unsigned-32 unsigned-32) unsigned-32))
+  (define SDL_PixelFormatEnumToMasks     (sdl-procedure "SDL_PixelFormatEnumToMasks" (unsigned-32 (* int) (* unsigned-32) (* unsigned-32) (* unsigned-32) (* unsigned-32)) int))
+  (define SDL_SetPaletteColors           (sdl-procedure "SDL_SetPaletteColors" ((* SDL_Palette) (* SDL_Color) int int) int))
+  (define SDL_SetPixelFormatPalette      (sdl-procedure "SDL_SetPixelFormatPalette" ((* SDL_PixelFormat) (* SDL_Palette)) int))
+
+  (define SDL_EnclosePoints        (sdl-procedure "SDL_EnclosePoints" ((* SDL_Point) int (* SDL_Rect) (* SDL_Rect)) int))
+  (define SDL_HasIntersection      (sdl-procedure "SDL_HasIntersection" ((* SDL_Rect) (* SDL_Rect)) int))
+  (define SDL_IntersectRect        (sdl-procedure "SDL_IntersectRect" ((* SDL_Rect) (* SDL_Rect) (* SDL_Rect)) int))
+  (define SDL_IntersectRectAndLine (sdl-procedure "SDL_IntersectRectAndLine" ((* SDL_Rect) (* int) (* int) (* int) (* int)) int))
+  (define SDL_PointInRect          (sdl-procedure "SDL_PointInRect" ((* SDL_Point) (* SDL_Rect)) int))
+  (define SDL_RectEmpty            (sdl-procedure "SDL_RectEmpty" ((* SDL_Rect)) int))
+  (define SDL_RectEquals           (sdl-procedure "SDL_RectEquals" ((* SDL_Rect) (* SDL_Rect)) int))
+  (define SDL_UnionRect            (sdl-procedure "SDL_UnionRect" ((* SDL_Rect) (* SDL_Rect) (* SDL_Rect)) void))
+  (define SDL_GetSpanEnclosingRect (sdl-procedure "SDL_GetSpanEnclosingRect" (int int int (* SDL_Rect) (* SDL_Rect)) int))
 
   (define SDL_UpperBlitScaled                (sdl-procedure "SDL_UpperBlitScaled" ((* SDL_Surface) (* SDL_Rect) (* SDL_Surface) (* SDL_Rect)) int))
   (define SDL_UpperBlit                      (sdl-procedure "SDL_UpperBlit" ((* SDL_Surface) (* SDL_Rect) (* SDL_Surface) (* SDL_Rect)) int))

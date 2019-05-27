@@ -6,6 +6,9 @@
 (define-record-type sdl-point
   (fields x y))
 
+(define-record-type sdl-color
+  (fields r g b a))
+
 (define-record-type sdl-renderer-info
   (fields name
 	  flags
@@ -292,9 +295,6 @@
     (foreign-free (ftype-pointer-address b))
     return))
 
-;; SDL_LockTexture  -- WILL NOT SUPPORT USE FTYPE
-;; SDL_QueryTexture -- WILL NOT SUPPORT USE FTYPE
-
 (define sdl-render-clear SDL_RenderClear)
 
 (define (sdl-render-copy renderer texture src-rect dst-rect)
@@ -452,8 +452,6 @@
 
 (define sdl-render-present SDL_RenderPresent)
 
-;; SDL_RenderReadPixels -- WILL NOT SUPPORT USE FTYPE
-
 (define (sdl-render-set-clip! renderer rect)
   (let* ((clip   (if (sdl-rect? rect)
 		     (sdl-rect->ftype rect)
@@ -479,184 +477,166 @@
 
 (define sdl-set-render-draw-blend-mode! SDL_SetRenderDrawBlendMode)
 (define sdl-set-render-draw-color!      SDL_SetRenderDrawColor)
-
-(define (sdl-set-render-target! renderer texture)
-  (SDL_SetRenderTarget renderer (if (= 0 texture)
-				    (make-ftype-pointer SDL_Texture 0)
-				    texture)))
-
-(define sdl-set-texture-alpha-mod!  SDL_SetTextureAlphaMod)
-(define sdl-set-texture-blend-mode! SDL_SetTextureBlendMode)
-(define sdl-set-texture-color-mod!  SDL_SetTextureColorMod)
-
-;; SDL_UnlockTexture    -- WILL NOT SUPPORT USE FTYPE
-;; SDL_UpdateTexture    -- WILL NOT SUPPORT USE FTYPE
-;; SDL_UpdateYUVTexture -- WILL NOT SUPPORT USE FTYPE
+(define sdl-set-render-target!          SDL_SetRenderTarget)
+(define sdl-set-texture-alpha-mod!      SDL_SetTextureAlphaMod)
+(define sdl-set-texture-blend-mode!     SDL_SetTextureBlendMode)
+(define sdl-set-texture-color-mod!      SDL_SetTextureColorMod)
 
 
 
+#| Pixel Formats and Conversion Routines
+   -------------------
+   https://wiki.libsdl.org/CategoryPixels
+|#
 
-;;;        ;;;
-;;; Pixels ;;;
-;;;        ;;;
+(define sdl-alloc-format SDL_AllocFormat)
+(define sdl-alloc-palette SDL_AllocPalette)
+
+(define (sdl-calc-gamma-ramp gamma)
+  (define (to-list arr)
+    (define (loop index)
+      (if (= index 256)
+	  '()
+	  (cons (ftype-ref unsigned-16 () arr index)
+		(loop (+ index 1)))))
+    (loop 0))
+  (let* ((ramp   (make-ftype-pointer unsigned-16 (foreign-alloc (* 256 (ftype-sizeof unsigned-16)))))
+	 (****   (SDL_CalculateGammaRamp gamma ramp))
+	 (return (to-list ramp)))
+    (foreign-free (ftype-pointer-address ramp))
+    return))
+
+(define sdl-free-format SDL_FreeFormat)
+(define sdl-free-palette SDL_FreePalette)
+(define sdl-get-pixel-format-name SDL_GetPixelFormatName)
+
+(define (sdl-get-rgb pixel format)
+  (let* ((r      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (g      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (b      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (****   (SDL_GetRGB pixel format r g b))
+	 (return (list (ftype-ref unsigned-8 () r)
+		       (ftype-ref unsigned-8 () g)
+		       (ftype-ref unsigned-8 () b))))
+    (foreign-free (ftype-pointer-address r))
+    (foreign-free (ftype-pointer-address g))
+    (foreign-free (ftype-pointer-address b))
+    return))
+
+(define (sdl-get-rgba pixel format)
+  (let* ((r      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (g      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (b      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (a      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (****   (SDL_GetRGBA pixel format r g b a))
+	 (return (list (ftype-ref unsigned-8 () r)
+		       (ftype-ref unsigned-8 () g)
+		       (ftype-ref unsigned-8 () b)
+		       (ftype-ref unsigned-8 () a))))
+    (foreign-free (ftype-pointer-address r))
+    (foreign-free (ftype-pointer-address g))
+    (foreign-free (ftype-pointer-address b))
+    (foreign-free (ftype-pointer-address a))
+    return))
 
 (define sdl-map-rgb SDL_MapRGB)
+(define sdl-map-rgba SDL_MapRGBA)
+(define sdl-masks->pixel-format SDL_MasksToPixelFormatEnum)
+
+(define (sdl-pixel-format->masks format)
+  (let* ((bpp    (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	 (Rmask  (make-ftype-pointer unsigned-32 (foreign-alloc (ftype-sizeof unsigned-32))))
+	 (Gmask  (make-ftype-pointer unsigned-32 (foreign-alloc (ftype-sizeof unsigned-32))))
+	 (Bmask  (make-ftype-pointer unsigned-32 (foreign-alloc (ftype-sizeof unsigned-32))))
+	 (Amask  (make-ftype-pointer unsigned-32 (foreign-alloc (ftype-sizeof unsigned-32))))
+	 (result (SDL_PixelFormatEnumToMasks format bpp Rmask Gmask Bmask Amask))
+	 (return (if (= result SDL-TRUE)
+		     (list (ftype-ref unsigned-8 () bpp)
+			   (ftype-ref unsigned-8 () Rmask)
+			   (ftype-ref unsigned-8 () Gmask)
+			   (ftype-ref unsigned-8 () Bmask)
+			   (ftype-ref unsigned-8 () Amask))
+		     '())))
+    (foreign-free (ftype-pointer-address bpp))
+    (foreign-free (ftype-pointer-address Rmask))
+    (foreign-free (ftype-pointer-address Gmask))
+    (foreign-free (ftype-pointer-address Bmask))
+    (foreign-free (ftype-pointer-address Amask))
+    return))
+
+(define (sdl-set-palette-colors! palette index colors)
+  (let* ((ncolors (length colors))
+	 (fcolors (make-ftype-pointer SDL_Color (foreign-alloc (* ncolors (ftype-sizeof SDL_Color))))))
+    (define (colors->ftype colors)
+      (define (loop index colors)
+	(if (null? colors)
+	    fcolors
+	    (begin
+	      (ftype-set! SDL_Color (r) fcolors (sdl-color-r (car colors)) index)
+	      (ftype-set! SDL_Color (g) fcolors (sdl-color-g (car colors)) index)
+	      (ftype-set! SDL_Color (b) fcolors (sdl-color-b (car colors)) index)
+	      (ftype-set! SDL_Color (a) fcolors (sdl-color-a (car colors)) index)
+	      (loop (+ index 1) (cdr colors)))))
+      (loop 0 colors))
+    (let ((result (SDL_SetPaletteColors palette fcolors index ncolors)))
+      (foreign-free (ftype-pointer-address fcolors))
+      result)))
+
+(define sdl-set-pixel-format-palette! SDL_SetPixelFormatPalette)
 
 
 
-;;;      ;;;
-;;; Rect ;;;
-;;;      ;;;
+#| Rectangle Utilities
+   -------------------
+   https://wiki.libsdl.org/CategoryRect
+|#
 
-#|
-(define (sdl-enclude-points points . clip)
-  (let* ((func (foreign-procedure "SDL_EnclosePoints"
-				  ((* SDL_Point)
-				   int
-				   (* SDL_Rect)
-				   (* SDL_Rect))
-				  int))
-	 (c-result (make-ftype-pointer
-		    SDL_Rect
-		    (foreign-alloc (ftype-sizeof SDL_Rect))))
-	 (count    (length points))
-	 (c-points (points->c-points points count)))
-    (if (null? clip)
-	(let* ((error (func c-points
-			    count
-			    (make-ftype-pointer SDL_Rect 0)
-			    c-result))
-	       (result (if (= 1 error) (c-rect->rect c-result) '())))
-	  (foreign-free (ftype-pointer-address c-result))
-	  (foreign-free (ftype-pointer-address c-points))
-	  result)
-	(let* ((c-clip (rect->c-rect (car clip)))
-	       (error  (func c-points
-			     count
-			     clip
-			     c-result))
-	       (result (if (= 1 error) (c-rect->rect c-result) '())))
-	  (foreign-free (ftype-pointer-address c-clip))
-	  (foreign-free (ftype-pointer-address c-result))
-	  (foreign-free (ftype-pointer-address c-points))
-	  result))))
-
-
-(define (sdl-has-intersection? a b)
-  (let* ((func (foreign-procedure "SDL_HasIntersection"
-				  ((* SDL_Rect) (* SDL_Rect))
-				  int))
-	 (c-a (rect->c-rect a))
-	 (c-b (rect->c-rect b))
-	 (res (func c-a c-b)))
-    (foreign-free (ftype-pointer-address c-a))
-    (foreign-free (ftype-pointer-address c-b))
-    (= 1 res)))
-
-
-(define (sdl-intersect-rect a b)
-  (let* ((func (foreign-procedure "SDL_IntersectRect"
-				  ((* SDL_Rect)
-				   (* SDL_Rect)
-				   (* SDL_Rect))
-				  int))
-	 (c-a   (rect->c-rect a))
-	 (c-b   (rect->c-rect b))
-	 (c-res (make-ftype-pointer
-		 SDL_Rect
-		 (foreign-alloc (ftype-sizeof SDL_Rect))))
-	 (has   (func c-a c-b c-res)))
-    (foreign-free (ftype-pointer-address c-a))
-    (foreign-free (ftype-pointer-address c-b))
-    (foreign-free (ftype-pointer-address c-res))
-    (if (= 1 has)
-	(c-rect->rect c-res)
-	'())))
-
-
-(define (sdl-intersect-and-line rect x1 y1 x2 y2)
-  (let ((func (foreign-procedure "SDL_IntersectRectAndLine"
-				 ((* SDL_Rect)
-				  (* int)
-				  (* int)
-				  (* int)
-				  (* int))
-				 int))
-	(c-x1   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
-	(c-y1   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
-	(c-x2   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
-	(c-y2   (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
-	(c-rect (rect->c-rect rect)))
-    (ftype-set! int () c-x1 x1)
-    (ftype-set! int () c-y1 y1)
-    (ftype-set! int () c-x2 x2)
-    (ftype-set! int () c-y2 y2)
-    (let* ((has (func c-rect c-x1 c-y1 c-x2 c-y2))
-	   (res (list (= 1 has)
-		      (make-sdl-point c-x1 c-y1)
-		      (make-sdl-point c-x2 c-y2))))
-      (foreign-free (ftype-pointer-address c-x1))
-      (foreign-free (ftype-pointer-address c-y1))
-      (foreign-free (ftype-pointer-address c-x2))
-      (foreign-free (ftype-pointer-address c-y2))
-      (foreign-free (ftype-pointer-address c-rect))
-      res)))
-
-
-(define (sdl-point-in-rect? point rect)
-  (let* ((func (foreign-procedure "SDL_PointInRect"
-				  ((* SDL_Point) (* SDL_Rect))
-				  int))
-	 (c-point (point->c-point point))
-	 (c-rect  (rect->c-rect rect))
-	 (res     (func c-point c-rect)))
-    (foreign-free (ftype-pointer-address c-point))
-    (foreign-free (ftype-pointer-address c-rect))
-    (= 1 res)))
-
+(define (sdl-rect=? rect-a rect-b)
+  (and (= (sdl-rect-x rect-a) (sdl-rect-x rect-b))
+       (= (sdl-rect-y rect-a) (sdl-rect-y rect-b))
+       (= (sdl-rect-w rect-a) (sdl-rect-w rect-b))
+       (= (sdl-rect-h rect-a) (sdl-rect-h rect-b))))
 
 (define (sdl-rect-empty? rect)
-  (let* ((func (foreign-procedure "SDL_RectEmpty"
-				  ((* SDL_Rect))
-				  int))
-	 (c-rect  (rect->c-rect rect))
-	 (res     (func c-rect)))
-    (foreign-free (ftype-pointer-address c-rect))
-    (= 1 res)))
+  (or (<= (sdl-rect-w rect) 0)
+      (<= (sdl-rect-h rect) 0)))
 
+(define (sdl-rect-intersection? rect-a rect-b)
+  (error 'SDL "Unimplemented" sdl-rect-intersection?))
 
-(define (sdl-rect-equal? a b)
-  (let* ((func (foreign-procedure "SDL_RectEquals"
-				  ((* SDL_Rect) (* SDL_Rect))
-				  int))
-	 (c-rect-a (rect->c-rect a))
-	 (c-rect-b (rect->c-rect b))
-	 (res     (func c-rect-a c-rect-b)))
-    (foreign-free (ftype-pointer-address c-rect-a))
-    (foreign-free (ftype-pointer-address c-rect-b))
-    (= 1 res)))
+(define (sdl-rect-intersect rect-a rect-b)
+  (error 'SDL "Unimplemented" sdl-rect-intersect))
 
+(define (sdl-rect-union rect-a rect-b)
+  (if (sdl-rect-empty? rect-a)
+      (if (sdl-rect-empty? rect-b)
+	  (make-sdl-rect 0 0 0 0)
+	  rect-b)
+      (if (sdl-rect-empty? rect-b)
+	  rect-a
+	  (let* ((a-min (sdl-rect-x rect-a))
+		 (a-max (+ a-min (sdl-rect-w rect-a)))
+		 (b-min (sdl-rect-x rect-b))
+		 (b-max (+ b-min (sdl-rect-w rect-b)))
+		 (min   (if (< b-min a-min) b-min a-min))
+		 (max   (if (> b-max a-max) b-max a-max))
+		 (x     min)
+		 (w     (- max min))
+		 (a-min (sdl-rect-y rect-a))
+		 (a-max (+ a-min (sdl-rect-h rect-a)))
+		 (b-min (sdl-rect-y rect-b))
+		 (b-max (+ b-min (sdl-rect-h rect-b)))
+		 (min   (if (< b-min a-min) b-min a-min))
+		 (max   (if (> b-max a-max) b-max a-max))
+		 (y     min)
+		 (h     (- max min)))
+	    (make-sdl-rect x y w h)))))
 
-(define (sdl-union-rect a b)
-  (let* ((func (foreign-procedure "SDL_UnionRect"
-				  ((* SDL_Rect)
-				   (* SDL_Rect)
-				   (* SDL_Rect))
-				  void))
-	 (c-rect-a (rect->c-rect a))
-	 (c-rect-b (rect->c-rect b))
-	 (c-union  (make-ftype-pointer
-		    SDL_Rect
-		    (foreign-alloc (ftype-sizeof SDL_Rect)))))
-    (func c-rect-a
-	  c-rect-b
-	  c-union)
-    (let ((union (c-rect->rect c-union)))
-      (foreign-free (ftype-pointer-address c-rect-a))
-      (foreign-free (ftype-pointer-address c-rect-b))
-      (foreign-free (ftype-pointer-address c-union))
-      union)))
-|#
+(define (sdl-rect-enclose-points points clip)
+  (error 'SDL "Unimplemented" sdl-rect-enclose-points))
+
+(define (sdl-rect-intersect-line rect x1 y1 x2 yx)
+  (error 'SDL "Unimplemented" sdl-rect-intersect-line))
 
 
 
@@ -674,8 +654,6 @@
 ;;; Clipboard ;;;
 ;;;           ;;;
 
-(define sdl-get-clipboard-text SDL_GetClipboardText)
-
-(define (sdl-has-clipboard-text?) (= 1 (SDL_HasClipboardText)))
-
+(define sdl-get-clipboard-text         SDL_GetClipboardText)
+(define (sdl-has-clipboard-text?)      (= 1 (SDL_HasClipboardText)))
 (define (sdl-set-clipboard-text! text) (= 1 (SDL_SetClipboardText text)))
