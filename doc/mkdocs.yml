@@ -3,7 +3,7 @@ site_author: Steven Watson
 repo_url: https://github.com/steven741/chez-sdl
 
 nav:
-    - 'Getting Strated': index.md
+    - 'Getting Started': index.md
     - 'Overview of SDL 2': sdl.md
     - Tutorials:
       - 'Handling Events':          'tuts/events.md'
