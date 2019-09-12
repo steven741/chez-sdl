@@ -652,6 +652,13 @@
     (foreign-free (ftype-pointer-address fsrc-rect))
     (foreign-free (ftype-pointer-address fdst-rect))))
 
+(define (sdl-blit-scaled src src-rect dst dst-rect)
+  (let ((fsrc-rect (sdl-rect->ftype src-rect))
+	(fdst-rect (sdl-rect->ftype dst-rect)))
+    (SDL_UpperBlit src fsrc-rect dst fdst-rect)
+    (foreign-free (ftype-pointer-address fsrc-rect))
+    (foreign-free (ftype-pointer-address fdst-rect))))
+
 (define sdl-free-surface SDL_FreeSurface)
 (define sdl-load-bmp     SDL_LoadBMP)
 (define sdl-fill-rect    SDL_FillRect)
