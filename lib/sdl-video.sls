@@ -659,6 +659,12 @@
     (foreign-free (ftype-pointer-address fsrc-rect))
     (foreign-free (ftype-pointer-address fdst-rect))))
 
+(define sdl-convert-surface                SDL_ConvertSurface)
+(define sdl-convert-surface-format         SDL_ConvertSurfaceFormat)
+(define sdl-create-rgb-surface             SDL_CreateRGBSurface)
+(define bytevector->sdl-surface            SDL_CreateRGBSurfaceFrom) ;; SDL_CreateRGBSurfaceWithFormatFrom
+(define sdl-create-rgb-surface-with-format SDL_CreateRGBSurfaceWithFormat)
+
 (define sdl-free-surface SDL_FreeSurface)
 (define sdl-load-bmp     SDL_LoadBMP)
 (define sdl-fill-rect    SDL_FillRect)
