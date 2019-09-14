@@ -688,7 +688,6 @@
 
 (define sdl-free-surface SDL_FreeSurface)
 (define sdl-load-bmp     SDL_LoadBMP)
-(define sdl-fill-rect    SDL_FillRect)
 
 
 
