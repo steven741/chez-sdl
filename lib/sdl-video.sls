@@ -665,6 +665,27 @@
 (define bytevector->sdl-surface            SDL_CreateRGBSurfaceFrom) ;; SDL_CreateRGBSurfaceWithFormatFrom
 (define sdl-create-rgb-surface-with-format SDL_CreateRGBSurfaceWithFormat)
 
+(define (sdl-fill-rect dst rect color)
+  (let (frect (sdl-rect->ftype rect))
+    (SDL_FillRect dst frect color)
+    (foreign-free (ftype-pointer-address frect))))
+
+(define (sdl-fill-rects dst rects color)
+  (define (fill data count index rects-list)
+    (if (= index count)
+	'()
+	(begin
+	  (ftype-set! SDL_Rect (x) data index (sdl-rect-x (car rects-list)))
+	  (ftype-set! SDL_Rect (y) data index (sdl-rect-y (car rects-list)))
+	  (ftype-set! SDL_Rect (w) data index (sdl-rect-w (car rects-list)))
+	  (ftype-set! SDL_Rect (h) data index (sdl-rect-h (car rects-list)))
+	  (fill data count (+ index 1) (cdr rects-list)))))
+  (let* ((count (length rects))
+	 (chunk (make-ftype-pointer SDL_Rect (foreign-alloc (* count (ftype-sizeof SDL_Rect))))))
+    (fill chunk count 0 rects)
+    (SDL_FillRects dst chunk count color)
+    (foreign-free (ftype-pointer-address chunk))))
+
 (define sdl-free-surface SDL_FreeSurface)
 (define sdl-load-bmp     SDL_LoadBMP)
 (define sdl-fill-rect    SDL_FillRect)
