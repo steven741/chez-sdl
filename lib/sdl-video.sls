@@ -666,7 +666,7 @@
 (define sdl-create-rgb-surface-with-format SDL_CreateRGBSurfaceWithFormat)
 
 (define (sdl-fill-rect dst rect color)
-  (let (frect (sdl-rect->ftype rect))
+  (let ((frect (sdl-rect->ftype rect)))
     (SDL_FillRect dst frect color)
     (foreign-free (ftype-pointer-address frect))))
 
