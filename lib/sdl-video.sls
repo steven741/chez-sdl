@@ -693,6 +693,15 @@
     (SDL_GetClipRect surface c-rect)
     (ftype->sdl-rect c-rect)))
 
+(define (sdl-get-color-key surface)
+  (let* ((c-key (make-ftype-pointer unsigned-32 (foreign-alloc (ftype-sizeof unsigned-32))))
+	 (ret   (SDL_GetColorKey surface c-key)))
+    (if (= 0 ret)
+	(let ((key (ftype-ref unsigned-32 () c-key)))
+	  (foreign-free (ftype-pointer-address c-key))
+	  key)
+	-1)))
+
 (define sdl-load-bmp     SDL_LoadBMP)
 
 
