@@ -687,6 +687,12 @@
     (foreign-free (ftype-pointer-address chunk))))
 
 (define sdl-free-surface SDL_FreeSurface)
+
+(define (sdl-get-clip-rect surface)
+  (let ((c-rect (make-ftype-pointer SDL_Rect (foreign-alloc (ftype-sizeof SDL_Rect)))))
+    (SDL_GetClipRect surface c-rect)
+    (ftype->sdl-rect c-rect)))
+
 (define sdl-load-bmp     SDL_LoadBMP)
 
 
