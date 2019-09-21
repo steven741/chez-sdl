@@ -711,6 +711,15 @@
 	  mod)
 	-1)))
 
+(define (sdl-get-surface-blend-mode surface)
+  (let* ((blend  (make-ftype-pointer int (foreign-alloc (ftype-sizeof int))))
+	 (error  (SDL_GetSurfaceBlendMode surface blend))
+	 (return (if (= 0 error)
+		     (ftype-ref int () blend)
+		     error)))
+    (foreign-free (ftype-pointer-address blend))
+    return))
+
 (define sdl-load-bmp     SDL_LoadBMP)
 
 
