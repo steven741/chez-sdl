@@ -702,6 +702,15 @@
 	  key)
 	-1)))
 
+(define (sdl-get-surface-alpha-mod surface)
+  (let* ((c-mod (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (ret   (SDL_GetSurfaceAlphaMod surface c-mod)))
+    (if (= 0 ret)
+	(let ((mod (ftype-ref unsigned-8 () c-mod)))
+	  (foreign-free (ftype-pointer-address c-mod))
+	  mod)
+	-1)))
+
 (define sdl-load-bmp     SDL_LoadBMP)
 
 
