@@ -720,6 +720,20 @@
     (foreign-free (ftype-pointer-address blend))
     return))
 
+(define (sdl-get-surface-color-mod surface)
+  (let* ((r      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (g      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (b      (make-ftype-pointer unsigned-8 (foreign-alloc (ftype-sizeof unsigned-8))))
+	 (return (if (= 0 (SDL_GetSurfaceColorMod surface r g b))
+		     (list (ftype-ref unsigned-8 () r)
+			   (ftype-ref unsigned-8 () g)
+			   (ftype-ref unsigned-8 () b))
+		     '())))
+    (foreign-free (ftype-pointer-address r))
+    (foreign-free (ftype-pointer-address g))
+    (foreign-free (ftype-pointer-address b))
+    return))
+
 (define sdl-load-bmp     SDL_LoadBMP)
 
 
