@@ -752,6 +752,8 @@
     (foreign-free (ftype-pointer-address fsrc-rect))
     (foreign-free (ftype-pointer-address fdst-rect))))
 
+(define sdl-must-lock? SDL_MUSTLOCK)
+
 
 ;;;           ;;;
 ;;; Clipboard ;;;
