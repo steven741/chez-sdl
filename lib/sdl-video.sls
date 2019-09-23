@@ -763,6 +763,9 @@
     (if (sdl-rect? rect) (foreign-free (ftype-pointer-address clip)))
     return))
 
+(define (sdl-set-color-key! surface flag key)
+  (= 0 (SDL_SetColorKey surface flag key)))
+
 
 
 ;;;           ;;;
