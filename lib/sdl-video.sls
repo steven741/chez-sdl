@@ -753,6 +753,8 @@
     (foreign-free (ftype-pointer-address fdst-rect))))
 
 (define sdl-must-lock? SDL_MUSTLOCK)
+(define sdl-save-bmp SDL_SaveBMP)
+
 
 
 ;;;           ;;;
