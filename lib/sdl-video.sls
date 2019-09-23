@@ -735,7 +735,7 @@
     return))
 
 (define sdl-load-bmp     SDL_LoadBMP)
-
+(define sdl-lock-surface SDL_LockSurface)
 
 
 ;;;           ;;;
