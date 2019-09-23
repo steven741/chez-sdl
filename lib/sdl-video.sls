@@ -755,6 +755,14 @@
 (define sdl-must-lock? SDL_MUSTLOCK)
 (define sdl-save-bmp SDL_SaveBMP)
 
+(define (sdl-set-clip! surface rect)
+  (let* ((clip   (if (sdl-rect? rect)
+		     (sdl-rect->ftype rect)
+		     (make-ftype-pointer SDL_Rect 0)))
+	 (return (SDL_SetClipRect surface clip)))
+    (if (sdl-rect? rect) (foreign-free (ftype-pointer-address clip)))
+    return))
+
 
 
 ;;;           ;;;
