@@ -734,8 +734,9 @@
     (foreign-free (ftype-pointer-address b))
     return))
 
-(define sdl-load-bmp     SDL_LoadBMP)
-(define sdl-lock-surface SDL_LockSurface)
+(define sdl-load-bmp       SDL_LoadBMP)
+(define sdl-lock-surface   SDL_LockSurface)
+(define sdl-unlock-surface SDL_UnlockSurface)
 
 
 ;;;           ;;;
