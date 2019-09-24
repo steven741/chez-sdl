@@ -769,6 +769,8 @@
 (define (sdl-set-alpha-mod! surface alpha)
   (= 0 (SDL_SetSurfaceAlphaMod surface alpha)))
 
+(define (sdl-set-blend-mode! surface blend)
+  (= 0 (SDL_SetSurfaceBlendMode surface blend)))
 
 
 ;;;           ;;;
