@@ -131,10 +131,35 @@
 	  sdl-set-texture-blend-mode!
 	  sdl-set-texture-color-mod!
 
-	  sdl-load-bmp
-	  sdl-map-rgb
+	  sdl-blit-scaled
+	  sdl-blit-surface
+	  sdl-convert-surface
+	  sdl-convert-surface-format
+	  sdl-create-rgb-surface
+	  bytevector->sdl-surface
+	  sdl-create-rgb-surface-with-format
 	  sdl-fill-rect
+	  sdl-fill-rects
 	  sdl-free-surface
+	  sdl-get-clip-rect
+	  sdl-get-color-key
+	  sdl-get-surface-alpha-mod
+	  sdl-get-surface-blend-mode
+	  sdl-get-surface-color-mod
+	  sdl-load-bmp
+	  sdl-lock-surface
+	  sdl-unlock-surface
+	  sdl-lower-blit
+	  sdl-lower-blit-scaled
+	  sdl-must-lock?
+	  sdl-save-bmp
+	  sdl-set-clip!
+	  sdl-set-color-key!
+	  sdl-set-alpha-mod!
+	  sdl-set-blend-mode!
+	  sdl-set-color-mod!
+	  sdl-set-palette!
+	  sdl-set-rle!
 
 	  sdl-get-clipboard-text
 	  sdl-has-clipboard-text?
