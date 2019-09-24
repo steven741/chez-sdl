@@ -775,6 +775,9 @@
 (define (sdl-set-color-mod! surface r g b)
   (= 0 (SDL_SetSurfaceColorMod surface r g b)))
 
+(define (sdl-set-palette! surface palette)
+  (= 0 (SDL_SetSurfacePalette surface palette)))
+
 
 
 ;;;           ;;;
