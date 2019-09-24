@@ -763,23 +763,12 @@
     (if (sdl-rect? rect) (foreign-free (ftype-pointer-address clip)))
     return))
 
-(define (sdl-set-color-key! surface flag key)
-  (= 0 (SDL_SetColorKey surface flag key)))
-
-(define (sdl-set-alpha-mod! surface alpha)
-  (= 0 (SDL_SetSurfaceAlphaMod surface alpha)))
-
-(define (sdl-set-blend-mode! surface blend)
-  (= 0 (SDL_SetSurfaceBlendMode surface blend)))
-
-(define (sdl-set-color-mod! surface r g b)
-  (= 0 (SDL_SetSurfaceColorMod surface r g b)))
-
-(define (sdl-set-palette! surface palette)
-  (= 0 (SDL_SetSurfacePalette surface palette)))
-
-(define (sdl-set-rle! surface flag)
-  (= 0 (SDL_SetSurfaceRLE surface flag)))
+(define sdl-set-color-key!  SDL_SetColorKey)
+(define sdl-set-alpha-mod!  SDL_SetSurfaceAlphaMod)
+(define sdl-set-blend-mode! SDL_SetSurfaceBlendMode)
+(define sdl-set-color-mod!  SDL_SetSurfaceColorMod)
+(define sdl-set-palette!    SDL_SetSurfacePalette)
+(define sdl-set-rle!        SDL_SetSurfaceRLE)
 
 
 
