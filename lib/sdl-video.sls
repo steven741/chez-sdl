@@ -766,6 +766,9 @@
 (define (sdl-set-color-key! surface flag key)
   (= 0 (SDL_SetColorKey surface flag key)))
 
+(define (sdl-set-alpha-mod! surface alpha)
+  (= 0 (SDL_SetSurfaceAlphaMod surface alpha)))
+
 
 
 ;;;           ;;;
