@@ -772,6 +772,10 @@
 (define (sdl-set-blend-mode! surface blend)
   (= 0 (SDL_SetSurfaceBlendMode surface blend)))
 
+(define (sdl-set-color-mod! surface r g b)
+  (= 0 (SDL_SetSurfaceColorMod surface r g b)))
+
+
 
 ;;;           ;;;
 ;;; Clipboard ;;;
