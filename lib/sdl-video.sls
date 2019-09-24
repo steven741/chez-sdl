@@ -778,6 +778,9 @@
 (define (sdl-set-palette! surface palette)
   (= 0 (SDL_SetSurfacePalette surface palette)))
 
+(define (sdl-set-rle! surface flag)
+  (= 0 (SDL_SetSurfaceRLE surface flag)))
+
 
 
 ;;;           ;;;
