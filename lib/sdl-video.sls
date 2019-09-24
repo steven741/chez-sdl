@@ -641,7 +641,7 @@
 
 
 #| Surface Creation and Simple Drawing
-   -------------------
+   -----------------------------------
    https://wiki.libsdl.org/CategorySurface
 |#
 
@@ -772,9 +772,10 @@
 
 
 
-;;;           ;;;
-;;; Clipboard ;;;
-;;;           ;;;
+#| Clipboard Handling
+   ------------------
+   https://wiki.libsdl.org/CategoryClipboard
+|#
 
 (define sdl-get-clipboard-text         SDL_GetClipboardText)
 (define (sdl-has-clipboard-text?)      (= 1 (SDL_HasClipboardText)))
