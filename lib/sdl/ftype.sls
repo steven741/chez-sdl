@@ -945,6 +945,9 @@
 	    (filters      (array 10 SDL_AudioFilter))
 	    (filter_index int))) ;; TODO add proper spec
 
+  (define-ftype SDL_AudioStream
+    void*)
+
 
   (define SDL_free       (sdl-procedure "SDL_free" (void*) void))
   (define SDL_FreeRW     (sdl-procedure "SDL_FreeRW" (void*) void))
