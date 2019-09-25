@@ -917,6 +917,17 @@
   (define-ftype SDL_AudioFormat
     unsigned-16)
 
+  (define-ftype SDL_AudioSpec
+    (struct (freq     int)
+	    (format   SDL_AudioFormat)
+	    (channels unsigned-8)
+	    (silence  unsigned-8)
+	    (samples  unsigned-16)
+	    (padding  unsigned-16)
+	    (size     unsigned-32)
+	    (callback SDL_AudioCallback)
+	    (userdata void*)))
+
 
   (define SDL_free       (sdl-procedure "SDL_free" (void*) void))
   (define SDL_FreeRW     (sdl-procedure "SDL_FreeRW" (void*) void))
