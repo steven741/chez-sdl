@@ -60,7 +60,13 @@
 	  SDL_Renderer
 	  SDL_Texture
 	  SDL_GLContext
-
+	  SDL_AudioCallback
+	  SDL_AudioFilter
+	  SDL_AudioFormat
+	  SDL_AudioSpec
+	  SDL_AudioCVT
+	  SDL_AudioStream
+  
 	  SDL_free
 	  SDL_FreeRW
 	  SDL_RWFromFile
@@ -914,10 +920,6 @@
   (define-ftype SDL_AudioCallback
     (function (void* u8* int) void))
 
-  (define-ftype SDL_AudioFilter
-    (function (void* unsigned-16) void)) ;void* should be SDL_AudioCVT*
-					 ;u16 should be SDL_AudioFormat
-
   (define-ftype SDL_AudioFormat
     unsigned-16)
 
@@ -929,7 +931,7 @@
 	    (samples  unsigned-16)
 	    (padding  unsigned-16)
 	    (size     unsigned-32)
-	    (callback SDL_AudioCallback)
+	    (callback void*)
 	    (userdata void*)))
 
   (define-ftype SDL_AudioCVT
@@ -937,16 +939,19 @@
 	    (src_format   SDL_AudioFormat)
 	    (dst_format   SDL_AudioFormat)
 	    (rate_incr    double)
-	    (buf          u8*)
+	    (buf          (* unsigned-8))
 	    (len          int)
 	    (len_cvt      int)
 	    (len_mult     int)
 	    (len_ratio    double)
-	    (filters      (array 10 SDL_AudioFilter))
-	    (filter_index int))) ;; TODO add proper spec
+	    (filters      (array 10 void*))
+	    (filter_index int)))
 
   (define-ftype SDL_AudioStream
     void*)
+
+  (define-ftype SDL_AudioFilter
+    (function ((* SDL_AudioCVT) SDL_AudioFormat) void))
 
 
   (define SDL_free       (sdl-procedure "SDL_free" (void*) void))
