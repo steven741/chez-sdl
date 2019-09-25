@@ -932,6 +932,19 @@
 	    (callback SDL_AudioCallback)
 	    (userdata void*)))
 
+  (define-ftype SDL_AudioCVT
+    (struct (needed int)
+	    (src_format   SDL_AudioFormat)
+	    (dst_format   SDL_AudioFormat)
+	    (rate_incr    double)
+	    (buf          u8*)
+	    (len          int)
+	    (len_cvt      int)
+	    (len_mult     int)
+	    (len_ratio    double)
+	    (filters      (array 10 SDL_AudioFilter))
+	    (filter_index int))) ;; TODO add proper spec
+
 
   (define SDL_free       (sdl-procedure "SDL_free" (void*) void))
   (define SDL_FreeRW     (sdl-procedure "SDL_FreeRW" (void*) void))
