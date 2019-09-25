@@ -914,6 +914,10 @@
   (define-ftype SDL_AudioCallback
     (function (void* u8* int) void))
 
+  (define-ftype SDL_AudioFilter
+    (function (void* unsigned-16) void)) ;void* should be SDL_AudioCVT*
+					 ;u16 should be SDL_AudioFormat
+
   (define-ftype SDL_AudioFormat
     unsigned-16)
 
