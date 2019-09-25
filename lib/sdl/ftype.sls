@@ -935,17 +935,17 @@
 	    (userdata void*)))
 
   (define-ftype SDL_AudioCVT
-    (struct (needed int)
-	    (src_format   SDL_AudioFormat)
-	    (dst_format   SDL_AudioFormat)
-	    (rate_incr    double)
-	    (buf          (* unsigned-8))
-	    (len          int)
-	    (len_cvt      int)
-	    (len_mult     int)
-	    (len_ratio    double)
-	    (filters      (array 10 void*))
-	    (filter_index int)))
+    (packed (struct (needed int)
+		    (src_format   SDL_AudioFormat)
+		    (dst_format   SDL_AudioFormat)
+		    (rate_incr    double)
+		    (buf          (* unsigned-8))
+		    (len          int)
+		    (len_cvt      int)
+		    (len_mult     int)
+		    (len_ratio    double)
+		    (filters      (array 10 void*))
+		    (filter_index int))))
 
   (define-ftype SDL_AudioStream
     void*)
