@@ -911,6 +911,9 @@
 	    (buttons     (* SDL_MessageBoxButtonData))
 	    (colorScheme (* SDL_MessageBoxColorScheme))))
 
+  (define-ftype SDL_AudioCallback
+    (function (void* u8* int) void))
+
   (define-ftype SDL_AudioFormat
     unsigned-16)
 
