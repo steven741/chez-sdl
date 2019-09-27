@@ -950,6 +950,9 @@
   (define-ftype SDL_AudioStream
     void*)
 
+ (define-ftype SDL_AudioDeviceID
+    unsigned-32)
+
   (define-ftype SDL_AudioFilter
     (function ((* SDL_AudioCVT) SDL_AudioFormat) void))
 
