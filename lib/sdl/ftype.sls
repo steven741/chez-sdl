@@ -975,7 +975,7 @@
   (define SDL_GetAudioDeviceStatus  (sdl-procedure "SDL_GetAudioDeviceStatus" (int) SDL_AudioDeviceID))
   (define SDL_GetAudioDriver        (sdl-procedure "SDL_GetAudioDriver" (int) string))
   (define SDL_GetAudioStatus        (sdl-procedure "SDL_GetAudioStatus" () int))
-  (define SDL_GetCurrentAudioDriver (sdl-procedure "SDL_GetCurrentAudioDriver" () void))
+  (define SDL_GetCurrentAudioDriver (sdl-procedure "SDL_GetCurrentAudioDriver" () string))
   (define SDL_GetNumAudioDevices    (sdl-procedure "SDL_GetNumAudioDevices" () void))
   (define SDL_GetNumAudioDrivers    (sdl-procedure "SDL_GetNumAudioDrivers" () void))
   (define SDL_GetQueuedAudioSize    (sdl-procedure "SDL_GetQueuedAudioSize" () void))
