@@ -959,9 +959,9 @@
   (define SDL_RWFromFile (sdl-procedure "SDL_RWFromFile" (string string) void*))
 
 
-  (define SDL_AudioInit             (sdl-procedure "SDL_AudioInit" () void))
+  (define SDL_AudioInit             (sdl-procedure "SDL_AudioInit" (string) int))
   (define SDL_AudioQuit             (sdl-procedure "SDL_AudioQuit" () void))
-  (define SDL_BuildAudioCVT         (sdl-procedure "SDL_BuildAudioCVT" () void))
+  (define SDL_BuildAudioCVT         (sdl-procedure "SDL_BuildAudioCVT" () int))
   (define SDL_ClearQueuedAudio      (sdl-procedure "SDL_ClearQueuedAudio" () void))
   (define SDL_CloseAudio            (sdl-procedure "SDL_CloseAudio" () void))
   (define SDL_CloseAudioDevice      (sdl-procedure "SDL_CloseAudioDevice" () void))
