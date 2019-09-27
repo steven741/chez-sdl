@@ -973,7 +973,7 @@
   (define SDL_FreeWAV               (sdl-procedure "SDL_FreeWAV" (u8*) void))
   (define SDL_GetAudioDeviceName    (sdl-procedure "SDL_GetAudioDeviceName" (int int) string))
   (define SDL_GetAudioDeviceStatus  (sdl-procedure "SDL_GetAudioDeviceStatus" (int) SDL_AudioDeviceID))
-  (define SDL_GetAudioDriver        (sdl-procedure "SDL_GetAudioDriver" () void))
+  (define SDL_GetAudioDriver        (sdl-procedure "SDL_GetAudioDriver" (int) string))
   (define SDL_GetAudioStatus        (sdl-procedure "SDL_GetAudioStatus" () void))
   (define SDL_GetCurrentAudioDriver (sdl-procedure "SDL_GetCurrentAudioDriver" () void))
   (define SDL_GetNumAudioDevices    (sdl-procedure "SDL_GetNumAudioDevices" () void))
