@@ -965,7 +965,7 @@
   (define SDL_AudioInit             (sdl-procedure "SDL_AudioInit" (string) int))
   (define SDL_AudioQuit             (sdl-procedure "SDL_AudioQuit" () void))
   (define SDL_BuildAudioCVT         (sdl-procedure "SDL_BuildAudioCVT" ((* SDL_AudioCVT) SDL_AudioFormat unsigned-8 int SDL_AudioFormat unsigned-8 int) int))
-  (define SDL_ClearQueuedAudio      (sdl-procedure "SDL_ClearQueuedAudio" () void))
+  (define SDL_ClearQueuedAudio      (sdl-procedure "SDL_ClearQueuedAudio" (SDL_AudioDeviceID) void))
   (define SDL_CloseAudio            (sdl-procedure "SDL_CloseAudio" () void))
   (define SDL_CloseAudioDevice      (sdl-procedure "SDL_CloseAudioDevice" () void))
   (define SDL_ConvertAudio          (sdl-procedure "SDL_ConvertAudio" () void))
