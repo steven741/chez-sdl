@@ -976,7 +976,7 @@
   (define SDL_GetAudioDriver        (sdl-procedure "SDL_GetAudioDriver" (int) string))
   (define SDL_GetAudioStatus        (sdl-procedure "SDL_GetAudioStatus" () int))
   (define SDL_GetCurrentAudioDriver (sdl-procedure "SDL_GetCurrentAudioDriver" () string))
-  (define SDL_GetNumAudioDevices    (sdl-procedure "SDL_GetNumAudioDevices" () void))
+  (define SDL_GetNumAudioDevices    (sdl-procedure "SDL_GetNumAudioDevices" (int) int))
   (define SDL_GetNumAudioDrivers    (sdl-procedure "SDL_GetNumAudioDrivers" () void))
   (define SDL_GetQueuedAudioSize    (sdl-procedure "SDL_GetQueuedAudioSize" () void))
   (define SDL_LoadWAV               (lambda (path spec buff length) (SDL_LoadWAV_RW (SDL_RWFromFile path "rb") 1 spec buff length)))
