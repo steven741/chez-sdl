@@ -961,7 +961,6 @@
   (define SDL_FreeRW     (sdl-procedure "SDL_FreeRW" (void*) void))
   (define SDL_RWFromFile (sdl-procedure "SDL_RWFromFile" (string string) void*))
 
-
   (define SDL_AudioInit             (sdl-procedure "SDL_AudioInit" (string) int))
   (define SDL_AudioQuit             (sdl-procedure "SDL_AudioQuit" () void))
   (define SDL_BuildAudioCVT         (sdl-procedure "SDL_BuildAudioCVT" ((* SDL_AudioCVT) SDL_AudioFormat unsigned-8 int SDL_AudioFormat unsigned-8 int) int))
@@ -980,7 +979,7 @@
   (define SDL_GetNumAudioDrivers    (sdl-procedure "SDL_GetNumAudioDrivers" () int))
   (define SDL_GetQueuedAudioSize    (sdl-procedure "SDL_GetQueuedAudioSize" (SDL_AudioDeviceID) unsigned-32))
   (define SDL_LoadWAV               (lambda (path spec buff length) (SDL_LoadWAV_RW (SDL_RWFromFile path "rb") 1 spec buff length)))
-  (define SDL_LoadWAV_RW            (sdl-procedure "SDL_LoadWAV_RW" () void))
+  (define SDL_LoadWAV_RW            (sdl-procedure "SDL_LoadWAV_RW" (void* int (* SDL_AudioSpec) void* u32*) (* SDL_AudioSpec)))
   (define SDL_LockAudio             (sdl-procedure "SDL_LockAudio" () void))
   (define SDL_LockAudioDevice       (sdl-procedure "SDL_LockAudioDevice" () void))
   (define SDL_MixAudio              (sdl-procedure "SDL_MixAudio" () void))
