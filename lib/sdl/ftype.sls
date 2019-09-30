@@ -988,9 +988,9 @@
   (define SDL_OpenAudioDevice       (sdl-procedure "SDL_OpenAudioDevice" (string int (* SDL_AudioSpec) (* SDL_AudioSpec) int) SDL_AudioDeviceID))
   (define SDL_PauseAudio            (sdl-procedure "SDL_PauseAudio" (int) void))
   (define SDL_PauseAudioDevice      (sdl-procedure "SDL_PauseAudioDevice" (SDL_AudioDeviceID int) void))
-  (define SDL_QueueAudio            (sdl-procedure "SDL_QueueAudio" () void))
+  (define SDL_QueueAudio            (sdl-procedure "SDL_QueueAudio" (SDL_AudioDeviceID u8* unsigned-32) int))
   (define SDL_UnlockAudio           (sdl-procedure "SDL_UnlockAudio" () void))
-  (define SDL_UnlockAudioDevice     (sdl-procedure "SDL_UnlockAudioDevice" () void))
+  (define SDL_UnlockAudioDevice     (sdl-procedure "SDL_UnlockAudioDevice" (SDL_AudioDeviceID) void))
 
 
   (define SDL_Init                  (sdl-procedure "SDL_Init" (unsigned-32) int))
