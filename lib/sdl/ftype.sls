@@ -981,7 +981,7 @@
   (define SDL_LoadWAV               (lambda (path spec buff length) (SDL_LoadWAV_RW (SDL_RWFromFile path "rb") 1 spec buff length)))
   (define SDL_LoadWAV_RW            (sdl-procedure "SDL_LoadWAV_RW" (void* int (* SDL_AudioSpec) void* u32*) (* SDL_AudioSpec)))
   (define SDL_LockAudio             (sdl-procedure "SDL_LockAudio" () void))
-  (define SDL_LockAudioDevice       (sdl-procedure "SDL_LockAudioDevice" () void))
+  (define SDL_LockAudioDevice       (sdl-procedure "SDL_LockAudioDevice" (SDL_AudioDeviceID) void))
   (define SDL_MixAudio              (sdl-procedure "SDL_MixAudio" () void))
   (define SDL_MixAudioFormat        (sdl-procedure "SDL_MixAudioFormat" () void))
   (define SDL_OpenAudio             (sdl-procedure "SDL_OpenAudio" () void))
