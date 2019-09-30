@@ -982,7 +982,7 @@
   (define SDL_LoadWAV_RW            (sdl-procedure "SDL_LoadWAV_RW" (void* int (* SDL_AudioSpec) void* u32*) (* SDL_AudioSpec)))
   (define SDL_LockAudio             (sdl-procedure "SDL_LockAudio" () void))
   (define SDL_LockAudioDevice       (sdl-procedure "SDL_LockAudioDevice" (SDL_AudioDeviceID) void))
-  (define SDL_MixAudio              (sdl-procedure "SDL_MixAudio" () void))
+  (define SDL_MixAudio              (sdl-procedure "SDL_MixAudio" (u8* u8* unsigned-32 int) void))
   (define SDL_MixAudioFormat        (sdl-procedure "SDL_MixAudioFormat" () void))
   (define SDL_OpenAudio             (sdl-procedure "SDL_OpenAudio" () void))
   (define SDL_OpenAudioDevice       (sdl-procedure "SDL_OpenAudioDevice" () void))
