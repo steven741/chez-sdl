@@ -985,7 +985,7 @@
   (define SDL_MixAudio              (sdl-procedure "SDL_MixAudio" (u8* u8* unsigned-32 int) void))
   (define SDL_MixAudioFormat        (sdl-procedure "SDL_MixAudioFormat" (u8* u8* SDL_AudioFormat format unsigned-32 int) void))
   (define SDL_OpenAudio             (sdl-procedure "SDL_OpenAudio" ((* SDL_AudioSpec) (* SDL_AudioSpec)) int))
-  (define SDL_OpenAudioDevice       (sdl-procedure "SDL_OpenAudioDevice" () void))
+  (define SDL_OpenAudioDevice       (sdl-procedure "SDL_OpenAudioDevice" (string int (* SDL_AudioSpec) (* SDL_AudioSpec) int) SDL_AudioDeviceID))
   (define SDL_PauseAudio            (sdl-procedure "SDL_PauseAudio" () void))
   (define SDL_PauseAudioDevice      (sdl-procedure "SDL_PauseAudioDevice" () void))
   (define SDL_QueueAudio            (sdl-procedure "SDL_QueueAudio" () void))
