@@ -1321,7 +1321,7 @@
 
   (define SDL_UpperBlitScaled                (sdl-procedure "SDL_UpperBlitScaled" ((* SDL_Surface) (* SDL_Rect) (* SDL_Surface) (* SDL_Rect)) int))
   (define SDL_UpperBlit                      (sdl-procedure "SDL_UpperBlit" ((* SDL_Surface) (* SDL_Rect) (* SDL_Surface) (* SDL_Rect)) int))
-  (define SDL_ConvertPixels                  (sdl-procedure "SDL_ConvertPixels" () void))
+  (define SDL_ConvertPixels                  (sdl-procedure "SDL_ConvertPixels" (int int unsigned-32 void* int unsigned-32 void* int) int))
   (define SDL_ConvertSurface                 (sdl-procedure "SDL_ConvertSurface" () void))
   (define SDL_ConvertSurfaceFormat           (sdl-procedure "SDL_ConvertSurfaceFormat" () void))
   (define SDL_CreateRGBSurface               (sdl-procedure "SDL_CreateRGBSurface" () void))
