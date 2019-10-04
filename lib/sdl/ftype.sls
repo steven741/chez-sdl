@@ -1325,7 +1325,7 @@
   (define SDL_ConvertSurface                 (sdl-procedure "SDL_ConvertSurface" ((* SDL_Surface) (* SDL_PixelFormat) unsigned-32) (* SDL_Surface)))
   (define SDL_ConvertSurfaceFormat           (sdl-procedure "SDL_ConvertSurfaceFormat" ((* SDL_Surface) unsigned-32 unsigned-32) (* SDL_Surface)))
   (define SDL_CreateRGBSurface               (sdl-procedure "SDL_CreateRGBSurface" (unsigned-32 int int int unsigned-32 unsigned-32 unsigned-32 unsigned-32) (* SDL_Surface)))
-  (define SDL_CreateRGBSurfaceFrom           (sdl-procedure "SDL_CreateRGBSurfaceFrom" () void))
+  (define SDL_CreateRGBSurfaceFrom           (sdl-procedure "SDL_CreateRGBSurfaceFrom" (void* int int int int unsigned-32 unsigned-32 unsigned-32 unsigned-32) (* SDL_Surface)))
   (define SDL_CreateRGBSurfaceWithFormat     (sdl-procedure "SDL_CreateRGBSurfaceWithFormat" () void))
   (define SDL_CreateRGBSurfaceWithFormatFrom (sdl-procedure "SDL_CreateRGBSurfaceWithFormatFrom" () void))
   (define SDL_FillRect                       (sdl-procedure "SDL_FillRect" () void))
