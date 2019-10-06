@@ -1333,7 +1333,7 @@
   (define SDL_FreeSurface                    (sdl-procedure "SDL_FreeSurface" ((* SDL_Surface)) void))
   (define SDL_GetClipRect                    (sdl-procedure "SDL_GetClipRect" ((* SDL_Surface) (* SDL_Rect)) void))
   (define SDL_GetColorKey                    (sdl-procedure "SDL_GetColorKey" ((* SDL_Surface) (* unsigned-32)) int))
-  (define SDL_GetSurfaceAlphaMod             (sdl-procedure "SDL_GetSurfaceAlphaMod" () void))
+  (define SDL_GetSurfaceAlphaMod             (sdl-procedure "SDL_GetSurfaceAlphaMod" ((* SDL_Surface) (* unsigned-8)) int))
   (define SDL_GetSurfaceBlendMode            (sdl-procedure "SDL_GetSurfaceBlendMode" () void))
   (define SDL_GetSurfaceColorMod             (sdl-procedure "SDL_GetSurfaceColorMod" () void))
   (define SDL_LoadBMP                        (lambda (path) (SDL_LoadBMP_RW (SDL_RWFromFile path "rb") 1)))
