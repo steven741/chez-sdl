@@ -1344,7 +1344,7 @@
   (define SDL_MUSTLOCK                       (lambda (surface) (not (= (bitwise-and (ftype-ref SDL_Surface (flags) surface) #x00000002) 0))))
   (define SDL_SaveBMP                        (lambda (surface path) (SDL_SaveBMP_RW surface (SDL_RWFromFile path "wb") 1)))
   (define SDL_SaveBMP_RW                     (sdl-procedure "SDL_SaveBMP_RW" ((* SDL_Surface) void* int) int))
-  (define SDL_SetClipRect                    (sdl-procedure "SDL_SetClipRect" () void))
+  (define SDL_SetClipRect                    (sdl-procedure "SDL_SetClipRect" ((* SDL_Surface) (* SDL_Rect)) int))
   (define SDL_SetColorKey                    (sdl-procedure "SDL_SetColorKey" () void))
   (define SDL_SetSurfaceAlphaMod             (sdl-procedure "SDL_SetSurfaceAlphaMod" () void))
   (define SDL_SetSurfaceBlendMode            (sdl-procedure "SDL_SetSurfaceBlendMode" () void))
