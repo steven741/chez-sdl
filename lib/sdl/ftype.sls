@@ -1350,7 +1350,7 @@
   (define SDL_SetSurfaceBlendMode            (sdl-procedure "SDL_SetSurfaceBlendMode" ((* SDL_Surface) unsigned) int))
   (define SDL_SetSurfaceColorMod             (sdl-procedure "SDL_SetSurfaceColorMod" ((* SDL_Surface) unsigned-8 unsigned-8 unsigned-8) int))
   (define SDL_SetSurfacePalette              (sdl-procedure "SDL_SetSurfacePalette" ((* SDL_Surface) (* SDL_Palette)) int))
-  (define SDL_SetSurfaceRLE                  (sdl-procedure "SDL_SetSurfaceRLE" () void))
+  (define SDL_SetSurfaceRLE                  (sdl-procedure "SDL_SetSurfaceRLE" ((* SDL_Surface) int) int))
   (define SDL_UnlockSurface                  (sdl-procedure "SDL_UnlockSurface" () void))
 
   (define SDL_GetClipboardText (sdl-procedure "SDL_GetClipboardText" () void))
