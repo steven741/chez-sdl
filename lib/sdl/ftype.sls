@@ -1346,7 +1346,7 @@
   (define SDL_SaveBMP_RW                     (sdl-procedure "SDL_SaveBMP_RW" ((* SDL_Surface) void* int) int))
   (define SDL_SetClipRect                    (sdl-procedure "SDL_SetClipRect" ((* SDL_Surface) (* SDL_Rect)) int))
   (define SDL_SetColorKey                    (sdl-procedure "SDL_SetColorKey" ((* SDL_Surface) int unsigned-32) int))
-  (define SDL_SetSurfaceAlphaMod             (sdl-procedure "SDL_SetSurfaceAlphaMod" () void))
+  (define SDL_SetSurfaceAlphaMod             (sdl-procedure "SDL_SetSurfaceAlphaMod" ((* SDL_Surface) unsigned-8) int))
   (define SDL_SetSurfaceBlendMode            (sdl-procedure "SDL_SetSurfaceBlendMode" () void))
   (define SDL_SetSurfaceColorMod             (sdl-procedure "SDL_SetSurfaceColorMod" () void))
   (define SDL_SetSurfacePalette              (sdl-procedure "SDL_SetSurfacePalette" () void))
