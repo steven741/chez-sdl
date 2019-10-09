@@ -1353,7 +1353,7 @@
   (define SDL_SetSurfaceRLE                  (sdl-procedure "SDL_SetSurfaceRLE" ((* SDL_Surface) int) int))
   (define SDL_UnlockSurface                  (sdl-procedure "SDL_UnlockSurface" ((* SDL_Surface)) void))
 
-  (define SDL_GetClipboardText (sdl-procedure "SDL_GetClipboardText" () void))
+  (define SDL_GetClipboardText (sdl-procedure "SDL_GetClipboardText" (string) int))
   (define SDL_HasClipboardText (sdl-procedure "SDL_HasClipboardText" () void))
   (define SDL_SetClipboardText (sdl-procedure "SDL_SetClipboardText" () void))
 
