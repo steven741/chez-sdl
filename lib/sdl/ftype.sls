@@ -1354,7 +1354,7 @@
   (define SDL_UnlockSurface                  (sdl-procedure "SDL_UnlockSurface" ((* SDL_Surface)) void))
 
   (define SDL_GetClipboardText (sdl-procedure "SDL_GetClipboardText" (string) int))
-  (define SDL_HasClipboardText (sdl-procedure "SDL_HasClipboardText" () void))
+  (define SDL_HasClipboardText (sdl-procedure "SDL_HasClipboardText" () int))
   (define SDL_SetClipboardText (sdl-procedure "SDL_SetClipboardText" () void))
 
   (define SDL_Vulkan_CreateSurface            (sdl-procedure "SDL_Vulkan_CreateSurface" () void))
