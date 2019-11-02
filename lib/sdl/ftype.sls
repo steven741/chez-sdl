@@ -1358,7 +1358,7 @@
   (define SDL_SetClipboardText (sdl-procedure "SDL_SetClipboardText" (string) int))
 
   (define SDL_Vulkan_CreateSurface            (sdl-procedure "SDL_Vulkan_CreateSurface" (SDL_Window void* void*) int))
-  (define SDL_Vulkan_GetDrawableSize          (sdl-procedure "SDL_Vulkan_GetDrawableSize" () void))
+  (define SDL_Vulkan_GetDrawableSize          (sdl-procedure "SDL_Vulkan_GetDrawableSize" (SDL_Window (* int) (* int)) void))
   (define SDL_Vulkan_GetInstanceExtensions    (sdl-procedure "SDL_Vulkan_GetInstanceExtensions" () void))
   (define SDL_Vulkan_GetVkGetInstanceProcAddr (sdl-procedure "SDL_Vulkan_GetVkGetInstanceProcAddr" () void))
   (define SDL_Vulkan_LoadLibrary              (sdl-procedure "SDL_Vulkan_LoadLibrary" () void))
