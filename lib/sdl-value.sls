@@ -235,6 +235,53 @@
 (define SDL-GL-CONTEXT-ROBUST-ACCESS-FLAG      #x0004)
 (define SDL-GL-CONTEXT-RESET-ISOLATION-FLAG    #x0008)
 
+
+
+(define SDL-AUDIO-MASK-BITSIZE       #xFF)
+(define SDL-AUDIO-MASK-DATATYPE      (bitwise-arithmetic-shift-left 1 8))
+(define SDL-AUDIO-MASK-ENDIAN        (bitwise-arithmetic-shift-left 1 12))
+(define SDL-AUDIO-MASK-SIGNED        (bitwise-arithmetic-shift-left 1 15))
+(define (SDL-AUDIO-BITSIZE x)        (bitwise-and x SDL-AUDIO-MASK-BITSIZE))
+(define (SDL-AUDIO-ISFLOAT x)        (> (bitwise-and x SDL-AUDIO-MASK-DATATYPE) 0))
+(define (SDL-AUDIO-ISBIGENDIAN x)    (> (bitwise-and x SDL-AUDIO-MASK-ENDIAN) 0))
+(define (SDL-AUDIO-ISSIGNED x)       (> (bitwise-and x SDL-AUDIO-MASK-SIGNED) 0))
+(define (SDL-AUDIO-ISINT x)          (not (SDL-AUDIO-ISFLOAT x)))
+(define (SDL-AUDIO-ISLITTLEENDIAN x) (not (SDL-AUDIO-ISBIGENDIAN x)))
+(define (SDL-AUDIO-ISUNSIGNED x)     (not (SDL-AUDIO-ISSIGNED x)))
+
+(define AUDIO-U8        #x0008)
+(define AUDIO-S8        #x8008)
+(define AUDIO-U16LSB    #x0010)
+(define AUDIO-S16LSB    #x8010)
+(define AUDIO-U16MSB    #x1010)
+(define AUDIO-S16MSB    #x9010)
+(define AUDIO-U16       AUDIO-U16LSB)
+(define AUDIO-S16       AUDIO-S16LSB)
+
+(define AUDIO-S32LSB    #x8020)
+(define AUDIO-S32MSB    #x9020)
+(define AUDIO-S32       AUDIO-S32LSB)
+
+(define AUDIO-F32LSB    #x8120)
+(define AUDIO-F32MSB    #x9120)
+(define AUDIO-F32       AUDIO-F32LSB)
+
+(define AUDIO-U16SYS (if (eq? (native-endianness) 'little) AUDIO-U16LSB AUDIO-U16MSB))
+(define AUDIO-S16SYS (if (eq? (native-endianness) 'little) AUDIO-S16LSB AUDIO-S16MSB))
+(define AUDIO-S32SYS (if (eq? (native-endianness) 'little) AUDIO-S32LSB AUDIO-S32MSB))
+(define AUDIO-F32SYS (if (eq? (native-endianness) 'little) AUDIO-F32LSB AUDIO-F32MSB))
+
+(define SDL-AUDIO-ALLOW-FREQUENCY-CHANGE    #x00000001)
+(define SDL-AUDIO-ALLOW-FORMAT-CHANGE       #x00000002)
+(define SDL-AUDIO-ALLOW-CHANNELS-CHANGE     #x00000004)
+(define SDL-AUDIO-ALLOW-SAMPLES-CHANGE      #x00000008)
+(define SDL-AUDIO-ALLOW-ANY-CHANGE          (bitwise-ior SDL-AUDIO-ALLOW-FREQUENCY-CHANGE
+							 SDL-AUDIO-ALLOW-FORMAT-CHANGE
+							 SDL-AUDIO-ALLOW-CHANNELS-CHANGE
+							 SDL-AUDIO-ALLOW-SAMPLES-CHANGE))
+
+
+
 (define SDL-SCANCODE-UNKNOWN 0)
 (define SDL-SCANCODE-A 4)
 (define SDL-SCANCODE-B 5)
