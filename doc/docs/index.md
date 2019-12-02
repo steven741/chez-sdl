@@ -27,7 +27,7 @@ The [documentation](https://github.com/cisco/ChezScheme/blob/master/BUILDING#L22
 
 Navigate to [SDL2's website](https://www.libsdl.org/download-2.0.php) and, download the runtime library. This guide will be using the the 64-bit version. Unzip the library and place the dll file in a directory for libraries. This can be any directory of your choosing. I recommend placing the file in Chez's installation directory.
 
-Another, highly recommended, alternative would be to use a package manager for Windows like [MSYS2](https://www.msys2.org/). This will handle downloading, installing, and maintaining the library for you. All that's required for installing the library is a single command.
+A highly recommended alternative would be to use a package manager for Windows like [MSYS2](https://www.msys2.org/). This will handle downloading, installing, and maintaining the library for you. All that's required for installing the library is a single command.
 
 ```bash
 pacman -S mingw-w64-x86_64-SDL2
@@ -49,3 +49,9 @@ Add the path of the library to `CHEZSCHEMELIBDIRS` and, verify that sdl can be i
 ## Linux
 
 # Navigating Documentation
+
+The documentation is seperated into 2 main parts. There is a section containing tutorials and, there is an API reference guide.
+
+The tutorials move at a very fast pace and, try to cover as much useful information as possible. They are provided to give a realistic overview of using SDL2 with Chez.
+
+The API reference guide contains all the SDL2 procedures avaliable in the library. The entries also provide details about any inconsistencies in the interface. The conventional C function names are provided where applicable to help improve searchability of procedures.
