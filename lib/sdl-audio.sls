@@ -13,8 +13,20 @@
 ;; SDL_BuildAudioCVT - won't support
 ;; SDL_ConvertAudio  - won't support
 
-(define (sdl-new-audio-stream src-fmt src-chs src-rate
-			      dst-fmt dst-chs dst rate) 0)
+(define sdl-new-audio-stream SDL_NewAudioStream)
+
+(define (sdl-audio-stream-put stream buffer)
+  (SDL_AudioStreamPut stream buffer (bytevector-length buffer)))
+
+(define (sdl-audio-stream-get stream buffer)
+  (SDL_AudioStreamGet stream buffer (bytevector-length buffer)))
+
+(define sdl-audio-stream-available SDL_AudioStreamAvailable)
+
+(define sdl-audio-stream-flush SDL_AudioStreamFlush)
+(define sdl-audio-stream-clear SDL_AudioStreamClear)
+(define sdl-free-audio-stream SDL_FreeAudioStream)
+
 
 (define sdl-audio-init SDL_AudioInit)
 

@@ -70,6 +70,13 @@
 	  SDL_free
 	  SDL_FreeRW
 	  SDL_RWFromFile
+	  SDL_NewAudioStream
+	  SDL_AudioStreamPut
+	  SDL_AudioStreamGet
+	  SDL_AudioStreamAvailable
+	  SDL_AudioStreamFlush
+	  SDL_AudioStreamClear
+	  SDL_FreeAudioStream
 	  SDL_AudioInit
 	  SDL_AudioQuit
 	  SDL_BuildAudioCVT
@@ -961,6 +968,13 @@
   (define SDL_FreeRW     (sdl-procedure "SDL_FreeRW" (void*) void))
   (define SDL_RWFromFile (sdl-procedure "SDL_RWFromFile" (string string) void*))
 
+  (define SDL_NewAudioStream        (sdl-procedure "SDL_NewAudioStream" (SDL_AudioFormat unsigned-8 int SDL_AudioFormat unsigned-8 int) SDL_AudioStream))
+  (define SDL_AudioStreamPut        (sdl-procedure "SDL_AudioStreamPut" (SDL_AudioStream u8* int) int))
+  (define SDL_AudioStreamGet        (sdl-procedure "SDL_AudioStreamGet" (SDL_AudioStream u8* int) int))
+  (define SDL_AudioStreamAvailable  (sdl-procedure "SDL_AudioStreamAvailable" (SDL_AudioStream) int))
+  (define SDL_AudioStreamFlush      (sdl-procedure "SDL_AudioStreamFlush" (SDL_AudioStream) int))
+  (define SDL_AudioStreamClear      (sdl-procedure "SDL_AudioStreamClear" (SDL_AudioStream) void))
+  (define SDL_FreeAudioStream       (sdl-procedure "SDL_FreeAudioStream" (SDL_AudioStream) void))
   (define SDL_AudioInit             (sdl-procedure "SDL_AudioInit" (string) int))
   (define SDL_AudioQuit             (sdl-procedure "SDL_AudioQuit" () void))
   (define SDL_BuildAudioCVT         (sdl-procedure "SDL_BuildAudioCVT" ((* SDL_AudioCVT) SDL_AudioFormat unsigned-8 int SDL_AudioFormat unsigned-8 int) int))
