@@ -58,6 +58,14 @@
 	  sdl-get-revision
 	  sdl-get-revision-num
 
+	  sdl-new-audio-stream
+	  sdl-audio-stream-put
+	  sdl-audio-stream-get
+	  sdl-audio-stream-available
+	  sdl-audio-stream-flush
+	  sdl-audio-stream-clear
+	  sdl-free-audio-stream
+
 	  sdl-show-window
 	  sdl-create-window
 	  sdl-destroy-window

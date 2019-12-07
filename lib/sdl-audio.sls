@@ -25,7 +25,7 @@
 
 (define sdl-audio-stream-flush SDL_AudioStreamFlush)
 (define sdl-audio-stream-clear SDL_AudioStreamClear)
-(define sdl-free-audio-stream SDL_FreeAudioStream)
+(define sdl-free-audio-stream  SDL_FreeAudioStream)
 
 
 (define sdl-audio-init SDL_AudioInit)

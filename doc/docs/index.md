@@ -44,9 +44,13 @@ git clone https://github.com/steven741/chez-sdl.git
 Add the path of the library to `CHEZSCHEMELIBDIRS` and, verify that sdl can be imported in Chez.
 
 
-## macOS
+## macOS & Linux
 
-## Linux
+Building on macOS and Linux is about the same. For macOS, common development tools should be installed. [Xcode](https://developer.apple.com/xcode/) with CLI tooling and [brew](https://brew.sh/). The most common Linux distributions should have the required tools and libraries avaliable in their package manager.
+
+The [documentation](https://github.com/cisco/ChezScheme/blob/master/BUILDING) for building Chez goes into enough detail for building on a *nix type system and, I will only go over a brief overview here.
+
+Install libuuid, libncurses and, libX. Install the typical GNU build tools like gcc and make. Run `./configure` and `make`. If project builds correctly run `make install`. To install the SDL2 bindings clone the Chez-SDL repo somewhere and, export `CHEZSCHEMELIBDIRS` with the path to the library's source.
 
 # Navigating Documentation
 
