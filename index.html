@@ -53,7 +53,18 @@
     <a class="current" href=".">Getting Started</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#under-construction">Under Construction</a></li>
+    <li class="toctree-l2"><a href="#setup-guide">Setup Guide</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#windows">Windows</a></li>
+        
+            <li><a class="toctree-l3" href="#macos-linux">macOS &amp; Linux</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#navigating-documentation">Navigating Documentation</a></li>
     
 
     </ul>
@@ -125,7 +136,7 @@
                 </li>
                 <li class="">
                     
-    <a class="" href="ref/data/">Data</a>
+    <a class="" href="ref/data/">Values</a>
                 </li>
     </ul>
 	    </li>
@@ -165,12 +176,45 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="under-construction">Under Construction</h1>
-<pre><code class="scheme">(import (sdl))
-
-(sdl-init SDL-VIDEO-INIT)
-(sdl-quit)
+                <p>SDL2 is a cross platform library for interfacing with multimedia and HID hardware and software devices. The library is free, open-source and, currently has permissive licensing. SDL2 is suitable for professional products and, has found use in both large and small projects.</p>
+<h1 id="setup-guide">Setup Guide</h1>
+<p>In general, setting up an environment to work with Chez-SDL is about the same across all supported platforms.</p>
+<ul>
+<li>Install Chez Scheme</li>
+<li>Install the SDL2 development library</li>
+<li>Install Chez-SDL</li>
+</ul>
+<p>It is always recommended to build Chez Scheme from it's source code.</p>
+<h2 id="windows">Windows</h2>
+<h3 id="installing-chez-scheme">Installing Chez Scheme</h3>
+<p>For an installation on Windows, a development environment should have the following installed:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a></li>
+<li><a href="https://visualstudio.microsoft.com/vs/community/">Visual Studio Community</a></li>
+<li><a href="https://wixtoolset.org/releases/">WiX Toolset</a></li>
+<li><a href="https://www.libsdl.org/download-2.0.php">SDL2</a></li>
+</ul>
+<p>The <a href="https://github.com/cisco/ChezScheme/blob/master/BUILDING#L229">documentation</a> for building Chez provides instructions for building on Windows.</p>
+<h3 id="install-libsdl2">Install libSDL2</h3>
+<p>Navigate to <a href="https://www.libsdl.org/download-2.0.php">SDL2's website</a> and, download the runtime library. This guide will be using the the 64-bit version. Unzip the library and place the dll file in a directory for libraries. This can be any directory of your choosing. I recommend placing the file in Chez's installation directory.</p>
+<p>A highly recommended alternative would be to use a package manager for Windows like <a href="https://www.msys2.org/">MSYS2</a>. This will handle downloading, installing, and maintaining the library for you. All that's required for installing the library is a single command.</p>
+<pre><code class="bash">pacman -S mingw-w64-x86_64-SDL2
 </code></pre>
+
+<h3 id="install-chez-sdl">Install Chez-SDL</h3>
+<p>To install Chez-SDL, simply clone the repository into a directory for your Chez libraries. This can be any directory of your choosing.</p>
+<pre><code class="bash">git clone https://github.com/steven741/chez-sdl.git
+</code></pre>
+
+<p>Add the path of the library to <code>CHEZSCHEMELIBDIRS</code> and, verify that sdl can be imported in Chez.</p>
+<h2 id="macos-linux">macOS &amp; Linux</h2>
+<p>Building on macOS and Linux is about the same. For macOS, common development tools should be installed. <a href="https://developer.apple.com/xcode/">Xcode</a> with CLI tooling and <a href="https://brew.sh/">brew</a>. The most common Linux distributions should have the required tools and libraries avaliable in their package manager.</p>
+<p>The <a href="https://github.com/cisco/ChezScheme/blob/master/BUILDING">documentation</a> for building Chez goes into enough detail for building on a *nix type system and, I will only go over a brief overview here.</p>
+<p>Install libuuid, libncurses and, libX. Install the typical GNU build tools like gcc and make. Run <code>./configure</code> and <code>make</code>. If project builds correctly run <code>make install</code>. To install the SDL2 bindings clone the Chez-SDL repo somewhere and, export <code>CHEZSCHEMELIBDIRS</code> with the path to the library's source.</p>
+<h1 id="navigating-documentation">Navigating Documentation</h1>
+<p>The documentation is seperated into 2 main parts. There is a section containing tutorials and, there is an API reference guide.</p>
+<p>The tutorials move at a very fast pace and, try to cover as much useful information as possible. They are provided to give a realistic overview of using SDL2 with Chez.</p>
+<p>The API reference guide contains all the SDL2 procedures avaliable in the library. The entries also provide details about any inconsistencies in the interface. The conventional C function names are provided where applicable to help improve searchability of procedures.</p>
               
             </div>
           </div>
@@ -223,5 +267,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2019-08-31 03:44:44
+Build Date UTC : 2019-12-07 13:47:54
 -->
