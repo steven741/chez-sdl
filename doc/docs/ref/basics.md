@@ -2,10 +2,10 @@
 
 ---
 Procedure:
->(**SDL-INIT** *flags*) → boolean
+>(**sdl-init** *flags...*) → number
 
 Parameters:
->| *flags* : number        |
+>| *flags*                 |
  | :---------------------- |
  | SDL-INIT-TIMER          |
  | SDL-INIT-AUDIO          |
@@ -17,34 +17,152 @@ Parameters:
  | SDL-INIT-EVERYTHING     |
 
 Returns:
->`#f` if there was a detectable error or `#t` otherwise.
+> 0 on proper startup or a negative number on error.
 
 C Function Name:
 >`SDL_Init`
 
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_Init)
+
 Examples:
-```scheme
-(sdl-init) ;Equivalent to (sdl-init SDL-INIT-VIDEO)
-```
 ```scheme
 (sdl-init
   SDL-INIT-EVERYTHING)
 ```
 ```scheme
 (sdl-init SDL-INIT-VIDEO
-          SDL-INIT-AUDIO)
+          SDL-INIT-AUDIO
+          SDL-INIT-JOYSTICK)
 ```
-
-Notes:
->Initializes the video subsystem by default.
 
 ---
 Procedure:
->(**SDL-QUIT**) → void
+>(**sdl-init-sub-system** *flags...*) → number
+
+Parameters:
+>| *flags*                 |
+ | :---------------------- |
+ | SDL-INIT-TIMER          |
+ | SDL-INIT-AUDIO          |
+ | SDL-INIT-VIDEO          |
+ | SDL-INIT-JOYSTICK       |
+ | SDL-INIT-HAPTIC         |
+ | SDL-INIT-GAMECONTROLLER |
+ | SDL-INIT-EVENTS         |
+ | SDL-INIT-EVERYTHING     |
+
+Returns:
+> 0 on proper startup or a negative number on error.
+
+C Function Name:
+>`SDL_InitSubSystem`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_InitSubSystem)
+
+Examples:
+```scheme
+(sdl-init-sub-system
+  SDL-INIT-EVERYTHING)
+```
+```scheme
+(sdl-init-sub-system SDL-INIT-VIDEO
+                     SDL-INIT-AUDIO
+                     SDL-INIT-JOYSTICK)
+```
+
+---
+Procedure:
+>(**sdl-quit**) → void
 
 C Function Name:
 >`SDL_Quit`
 
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_Quit)
+
+---
+Procedure:
+>(**sdl-quit-sub-system** *flags...*) → void
+
+Parameters:
+>| *flags*                 |
+ | :---------------------- |
+ | SDL-INIT-TIMER          |
+ | SDL-INIT-AUDIO          |
+ | SDL-INIT-VIDEO          |
+ | SDL-INIT-JOYSTICK       |
+ | SDL-INIT-HAPTIC         |
+ | SDL-INIT-GAMECONTROLLER |
+ | SDL-INIT-EVENTS         |
+ | SDL-INIT-EVERYTHING     |
+
+C Function Name:
+>`SDL_QuitSubSystem`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_QuitSubSystem)
+
+Examples:
+```scheme
+(sdl-quit-sub-system
+  SDL-INIT-EVERYTHING)
+```
+```scheme
+(sdl-quit-sub-system SDL-INIT-VIDEO
+                     SDL-INIT-AUDIO
+                     SDL-INIT-JOYSTICK)
+```
+
+---
+Procedure:
+>(**sdl-set-main-ready!**) → void
+
+C Function Name:
+>`SDL_SetMainReady`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_SetMainReady)
+
+---
+Procedure:
+>(**sdl-init?** *flags...*) → boolean
+
+Parameters:
+>| *flags*                 |
+ | :---------------------- |
+ | SDL-INIT-TIMER          |
+ | SDL-INIT-AUDIO          |
+ | SDL-INIT-VIDEO          |
+ | SDL-INIT-JOYSTICK       |
+ | SDL-INIT-HAPTIC         |
+ | SDL-INIT-GAMECONTROLLER |
+ | SDL-INIT-EVENTS         |
+ | SDL-INIT-EVERYTHING     |
+
+Returns:
+> `#t` if systems were initialized and `#f` otherwise.
+
+C Function Name:
+>`SDL_WasInit`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_WasInit)
+
+Examples:
+```scheme
+(if (sdl-init? SDL-INIT-EVERYTHING)
+    <everything-was-initialized>
+    <noting-was-initialized>)
+```
+```scheme
+(if (sdl-init? SDL-INIT-VIDEO
+               SDL-INIT-AUDIO
+               SDL-INIT-JOYSTICK)
+    <systems-were-initialized>
+    <systems-were-not-initialized>)
+```
 
 
 
