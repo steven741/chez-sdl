@@ -308,20 +308,42 @@ Other Docs:
 
 ---
 Procedure:
->(**SDL-CLEAR-ERROR!**) → void
+>(**sdl-clear-error!**) → void
 
 C Function Name:
 >`SDL_ClearError`
 
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_ClearError)
+
 ---
 Procedure:
->(**SDL-GET-ERROR**) → string
+>(**sdl-get-error**) → string
 
 Returns:
 >A message describing an error that has occured.
 
 C Function Name:
 >`SDL_GetError`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetError)
+
+---
+Procedure:
+>(**sdl-set-error!** *msg*) → number
+
+Parameters:
+>***msg*** : A string.
+
+Returns:
+>Always returns `-1`.
+
+C Function Name:
+>`SDL_SetError`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_SetError)
 
 
 
