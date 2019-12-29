@@ -170,19 +170,38 @@ Examples:
 
 ---
 Procedure:
->(**SDL-CLEAR-HINTS!**) → void
+>(**sdl-clear-hints!**) → void
 
 C Function Name:
 >`SDL_ClearHints`
 
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_ClearHints)
+
 ---
 Procedure:
->(**SDL-GET-HINT-BOOLEAN** *name* *default*) → boolean
+>(**sdl-get-hint** *name*) → string
 
 Parameters:
->***name*** : A string. Name of the hint.
+>***name*** : A string. Name of the [hint.](data.md#hints)
 
->***default*** : Return value if hint not found.
+Returns:
+>Returns the string value of a hint.
+
+C Function Name:
+>`SDL_GetHint`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetHint)
+
+---
+Procedure:
+>(**sdl-get-hint-boolean** *name* *default*) → boolean
+
+Parameters:
+>***name*** : A string. Name of the [hint.](data.md#hints)
+
+>***default*** : A boolean. Return value if hint not found.
 
 Returns:
 >The setting of the hint or, ***default*** if the hint isn't applicable to the system.
@@ -190,9 +209,12 @@ Returns:
 C Function Name:
 >`SDL_GetHintBoolean`
 
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetHintBoolean)
+
 ---
 Procedure:
->(**SDL-SET-HINT!** *name* *value*) → boolean
+>(**sdl-set-hint!** *name* *value*) → boolean
 
 Parameters:
 >***name*** : A string. Name of the [hint.](data.md#hints)
@@ -205,9 +227,12 @@ Returns:
 C Function Name:
 >`SDL_SetHint`
 
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_SetHint)
+
 ---
 Procedure:
->(**SDL-SET-HINT-W/-PRIORITY!** *name* *value* *priority*) → boolean
+>(**sdl-set-hint-w/-priority!** *name* *value* *priority*) → boolean
 
 Parameters:
 >***name*** : A string. Name of the [hint.](data.md#hints)
@@ -225,6 +250,57 @@ Returns:
 
 C Function Name:
 >`SDL_SetHintWithPriority`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_SetHintWithPriority)
+
+---
+Procedure:
+>(**sdl-make-hint-callback** *procedure*) → hint-callback
+
+Parameters:
+>***procedure*** : A procedure of 3 arguments.
+
+Returns:
+>A callback that can be used with `sdl-add-hint-callback!` and `sdl-del-hint-callback!`.
+
+Examples:
+```scheme
+(define my-hint-callback
+    (sdl-make-hint-callback
+     (lambda (name old-val new-val)
+       (printf "~s~n~d~n~d~n" name old-val new-val))))
+```
+
+---
+Procedure:
+>(**sdl-add-hint-callback!** *name* *callback*) → void
+
+Parameters:
+>***name*** : A string. Name of the [hint.](data.md#hints)
+
+>***callback*** : A callback made with `sdl-make-hint-callback`.
+
+C Function Name:
+>`SDL_AddHintCallback`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_AddHintCallback)
+
+---
+Procedure:
+>(**sdl-del-hint-callback!** *name* *callback*) → void
+
+Parameters:
+>***name*** : A string. Name of the [hint.](data.md#hints)
+
+>***callback*** : A callback made with `sdl-make-hint-callback`.
+
+C Function Name:
+>`SDL_DelHintCallback`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_DelHintCallback)
 
 
 
