@@ -460,21 +460,46 @@
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-CLEAR-HINTS!</strong>) → void</p>
+<p>(<strong>sdl-clear-hints!</strong>) → void</p>
 </blockquote>
 <p>C Function Name:</p>
 <blockquote>
 <p><code>SDL_ClearHints</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_ClearHints">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-GET-HINT-BOOLEAN</strong> <em>name</em> <em>default</em>) → boolean</p>
+<p>(<strong>sdl-get-hint</strong> <em>name</em>) → string</p>
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>name</em></strong> : A string. Name of the hint.</p>
-<p><strong><em>default</em></strong> : Return value if hint not found.</p>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="../data/#hints">hint.</a></p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Returns the string value of a hint.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetHint</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetHint">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-hint-boolean</strong> <em>name</em> <em>default</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="../data/#hints">hint.</a></p>
+<p><strong><em>default</em></strong> : A boolean. Return value if hint not found.</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -484,10 +509,14 @@
 <blockquote>
 <p><code>SDL_GetHintBoolean</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetHintBoolean">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-SET-HINT!</strong> <em>name</em> <em>value</em>) → boolean</p>
+<p>(<strong>sdl-set-hint!</strong> <em>name</em> <em>value</em>) → boolean</p>
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
@@ -502,10 +531,14 @@
 <blockquote>
 <p><code>SDL_SetHint</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetHint">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-SET-HINT-W/-PRIORITY!</strong> <em>name</em> <em>value</em> <em>priority</em>) → boolean</p>
+<p>(<strong>sdl-set-hint-w/-priority!</strong> <em>name</em> <em>value</em> <em>priority</em>) → boolean</p>
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
@@ -538,20 +571,84 @@
 <blockquote>
 <p><code>SDL_SetHintWithPriority</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetHintWithPriority">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-make-hint-callback</strong> <em>procedure</em>) → hint-callback</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>procedure</em></strong> : A procedure of 3 arguments.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A callback that can be used with <code>sdl-add-hint-callback!</code> and <code>sdl-del-hint-callback!</code>.</p>
+</blockquote>
+<p>Examples:</p>
+<pre><code class="scheme">(define my-hint-callback
+    (sdl-make-hint-callback
+     (lambda (name old-val new-val)
+       (printf &quot;~s~n~d~n~d~n&quot; name old-val new-val))))
+</code></pre>
+
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-add-hint-callback!</strong> <em>name</em> <em>callback</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="../data/#hints">hint.</a></p>
+<p><strong><em>callback</em></strong> : A callback made with <code>sdl-make-hint-callback</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_AddHintCallback</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_AddHintCallback">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-del-hint-callback!</strong> <em>name</em> <em>callback</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>name</em></strong> : A string. Name of the <a href="../data/#hints">hint.</a></p>
+<p><strong><em>callback</em></strong> : A callback made with <code>sdl-make-hint-callback</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_DelHintCallback</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_DelHintCallback">SDL Wiki</a></p>
+</blockquote>
 <h1 id="error-handling">Error Handling</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-CLEAR-ERROR!</strong>) → void</p>
+<p>(<strong>sdl-clear-error!</strong>) → void</p>
 </blockquote>
 <p>C Function Name:</p>
 <blockquote>
 <p><code>SDL_ClearError</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_ClearError">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-GET-ERROR</strong>) → string</p>
+<p>(<strong>sdl-get-error</strong>) → string</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -561,11 +658,36 @@
 <blockquote>
 <p><code>SDL_GetError</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetError">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-set-error!</strong> <em>msg</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>msg</em></strong> : A string.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Always returns <code>-1</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetError</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetError">SDL Wiki</a></p>
+</blockquote>
 <h1 id="querying-sdl-version">Querying SDL Version</h1>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-GET-VERSION</strong>) → list</p>
+<p>(<strong>sdl-get-version</strong>) → list</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -575,10 +697,14 @@
 <blockquote>
 <p><code>SDL_GetVersion</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetVersion">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-GET-REVISION</strong>) → string</p>
+<p>(<strong>sdl-get-revision</strong>) → string</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -588,10 +714,14 @@
 <blockquote>
 <p><code>SDL_GetRevision</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRevision">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-GET-REVISION-NUM</strong>) → number</p>
+<p>(<strong>sdl-get-revision-num</strong>) → number</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -600,6 +730,10 @@
 <p>C Function Name:</p>
 <blockquote>
 <p><code>SDL_GetRevisionNumber</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRevisionNumber">SDL Wiki</a></p>
 </blockquote>
               
             </div>
