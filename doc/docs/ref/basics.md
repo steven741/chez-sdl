@@ -351,7 +351,7 @@ Other Docs:
 
 ---
 Procedure:
->(**SDL-GET-VERSION**) → list
+>(**sdl-get-version**) → list
 
 Returns:
 >A list of 3 numbers. (major minor patch)
@@ -359,9 +359,12 @@ Returns:
 C Function Name:
 >`SDL_GetVersion`
 
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetVersion)
+
 ---
 Procedure:
->(**SDL-GET-REVISION**) → string
+>(**sdl-get-revision**) → string
 
 Returns:
 >A string identifying the version of SDL being used.
@@ -369,12 +372,18 @@ Returns:
 C Function Name:
 >`SDL_GetRevision`
 
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetRevision)
+
 ---
 Procedure:
->(**SDL-GET-REVISION-NUM**) → number
+>(**sdl-get-revision-num**) → number
 
 Returns:
 >A number identifying the version of SDL being used.
 
 C Function Name:
 >`SDL_GetRevisionNumber`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetRevisionNumber)
