@@ -338,7 +338,7 @@
 
 # Key Modifers
 
-|*Key Modifer*|
+|*modifers*|
 |:------------|
 |KMOD-NONE|
 |KMOD-LSHIFT|
@@ -360,9 +360,111 @@
 
 # Device Queries
 
-|*Device Query*|
+|*queries*|
 |:-------------|
 |SDL-QUERY     |
 |SDL-IGNORE    |
 |SDL-DISABLE   |
 |SDL-ENABLE    |
+
+# Window Flags
+
+| *flags*                       |
+| :---------------------------- |
+| SDL-WINDOW-FULLSCREEN         |
+| SDL-WINDOW-OPENGL             |
+| SDL-WINDOW-SHOWN              |
+| SDL-WINDOW-HIDDEN             |
+| SDL-WINDOW-BORDERLESS         |
+| SDL-WINDOW-RESIZABLE          |
+| SDL-WINDOW-MINIMIZED          |
+| SDL-WINDOW-MAXIMIZED          |
+| SDL-WINDOW-INPUT-GRABBED      |
+| SDL-WINDOW-INPUT-FOCUS        |
+| SDL-WINDOW-MOUSE-FOCUS        |
+| SDL-WINDOW-FULLSCREEN-DESKTOP |
+| SDL-WINDOW-FOREIGN            |
+| SDL-WINDOW-ALLOW-HIGHDPI      |
+| SDL-WINDOW-MOUSE-CAPTURE      |
+| SDL-WINDOW-ALWAYS-ON-TOP      |
+| SDL-WINDOW-SKIP-TASKBAR       |
+| SDL-WINDOW-UTILITY            |
+| SDL-WINDOW-TOOLTIP            |
+| SDL-WINDOW-POPUP-MENU         |
+| SDL-WINDOW-VULKAN             |
+
+# Initialize Flags
+
+| *flags*                 |
+| :---------------------- |
+| SDL-INIT-TIMER          |
+| SDL-INIT-AUDIO          |
+| SDL-INIT-VIDEO          |
+| SDL-INIT-JOYSTICK       |
+| SDL-INIT-HAPTIC         |
+| SDL-INIT-GAMECONTROLLER |
+| SDL-INIT-EVENTS         |
+| SDL-INIT-EVERYTHING     |
+
+# Blend Modes
+
+| *modes*                 |
+| :---------------------- |
+| SDL-BLEND-MODE-NONE     |
+| SDL-BLEND-MODE-BLEND    |
+| SDL-BLEND-MODE-ADD      |
+| SDL-BLEND-MODE-MOD      |
+
+# OpenGL Attributes
+
+| *attributes*                      |
+| :-------------------------------- |
+| SDL-GL-RED-SIZE                   |
+| SDL-GL-GREEN-SIZE                 |
+| SDL-GL-BLUE-SIZE                  |
+| SDL-GL-ALPHA-SIZE                 |
+| SDL-GL-BUFFER-SIZE                |
+| SDL-GL-DOUBLEBUFFER               |
+| SDL-GL-DEPTH-SIZE                 |
+| SDL-GL-STENCIL-SIZE               |
+| SDL-GL-ACCUM-RED-SIZE             |
+| SDL-GL-ACCUM-GREEN-SIZE           |
+| SDL-GL-ACCUM-BLUE-SIZE            |
+| SDL-GL-ACCUM-ALPHA-SIZE           |
+| SDL-GL-STEREO                     |
+| SDL-GL-MULTISAMPLEBUFFERS         |
+| SDL-GL-MULTISAMPLESAMPLES         |
+| SDL-GL-ACCELERATED-VISUAL         |
+| SDL-GL-RETAINED-BACKING           |
+| SDL-GL-CONTEXT-MAJOR-VERSION      |
+| SDL-GL-CONTEXT-MINOR-VERSION      |
+| SDL-GL-CONTEXT-EGL                |
+| SDL-GL-CONTEXT-FLAGS              |
+| SDL-GL-CONTEXT-PROFILE-MASK       |
+| SDL-GL-SHARE-WITH-CURRENT-CONTEXT |
+| SDL-GL-FRAMEBUFFER-SRGB-CAPABLE   |
+| SDL-GL-CONTEXT-RELEASE-BEHAVIOR   |
+| SDL-GL-CONTEXT-RESET-NOTIFICATION |
+| SDL-GL-CONTEXT-NO-ERROR           |
+| SDL-GL-ACCUM-ALPHA-SIZE           |
+| SDL-GL-STEREO                     |
+| SDL-GL-MULTISAMPLEBUFFERS         |
+| SDL-GL-MULTISAMPLESAMPLES         |
+| SDL-GL-ACCELERATED-VISUAL         |
+
+# OpenGL Context Flags
+
+| *flags*                                |
+| :------------------------------------- |
+| SDL-GL-CONTEXT-DEBUG-FLAG              |
+| SDL-GL-CONTEXT-FORWARD-COMPATIBLE-FLAG |
+| SDL-GL-CONTEXT-ROBUST-ACCESS-FLAG      |
+| SDL-GL-CONTEXT-RESET-ISOLATION-FLAG    |
+
+# OpenGL Profile Flags
+
+| *flags*                                |
+| :------------------------------------- |
+| SDL-GL-CONTEXT-PROFILE-CORE            |
+| SDL-GL-CONTEXT-PROFILE-COMPATIBILITY   |
+| SDL-GL-CONTEXT-PROFILE-ES              |
