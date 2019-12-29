@@ -1,9 +1,5 @@
 ;;;; -*- mode: Scheme; -*-
 
-;;;;;;;;;;;;;;;;;;;
-;;; Marshalling ;;;
-;;;;;;;;;;;;;;;;;;;
-
 (define (sdl-make-timer-callback procedure)
   (let
       ((proc (foreign-callable __collect_safe
