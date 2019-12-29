@@ -173,7 +173,7 @@
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-DELAY</strong> <em>ms</em>) → void</p>
+<p>(<strong>sdl-delay</strong> <em>ms</em>) → void</p>
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
@@ -183,10 +183,14 @@
 <blockquote>
 <p><code>SDL_Delay</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_Delay">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-GET-TICKS</strong>) → number</p>
+<p>(<strong>sdl-get-ticks</strong>) → number</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -196,10 +200,14 @@
 <blockquote>
 <p><code>SDL_GetTicks</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetTicks">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-GET-PERFORMANCE-COUNTER</strong>) → number</p>
+<p>(<strong>sdl-get-performance-counter</strong>) → number</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -209,10 +217,14 @@
 <blockquote>
 <p><code>SDL_GetPerformanceCounter</code></p>
 </blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetPerformanceCounter">SDL Wiki</a></p>
+</blockquote>
 <hr />
 <p>Procedure:</p>
 <blockquote>
-<p>(<strong>SDL-GET-PERFORMANCE-FREQUENCY</strong>) → number</p>
+<p>(<strong>sdl-get-performance-frequency</strong>) → number</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -221,6 +233,61 @@
 <p>C Function Name:</p>
 <blockquote>
 <p><code>SDL_GetPerformanceFrequency</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetPerformanceFrequency">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-add-timer!</strong> <em>interval</em> <em>procedure</em>) → sdl-timer-id</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>interval</em></strong> : A number. Delay in milliseconds.</p>
+<p><strong><em>procedure</em></strong> : A procedure of 1 argument. Must return a number which is the new delay interval.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A number representing the timer id. If id is 0 an error occured.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_AddTimer</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_AddTimer">SDL Wiki</a></p>
+</blockquote>
+<p>Examples:</p>
+<pre><code class="scheme">(define my-timer
+  (sdl-add-timer! 500
+    (lambda (interval)
+      (printf &quot;~d~n&quot; interval)
+      interval)))
+</code></pre>
+
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-remove-timer!</strong> <em>timer-id</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>timer-id</em></strong> : A number created by calling <code>sdl-add-timer!</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>SDL-TRUE</code> or <code>SDL-FALSE</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RemoveTimer</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RemoveTimer">SDL Wiki</a></p>
 </blockquote>
               
             </div>
