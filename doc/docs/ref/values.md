@@ -406,14 +406,111 @@
 | SDL-INIT-EVENTS         |
 | SDL-INIT-EVERYTHING     |
 
+# Pixel Formats
+
+| *formats*                   |
+| :-------------------------- |
+| SDL-PIXELFORMAT-UNKNOWN     |
+| SDL-PIXELFORMAT-INDEX1LSB   |
+| SDL-PIXELFORMAT-INDEX1MSB   |
+| SDL-PIXELFORMAT-INDEX4LSB   |
+| SDL-PIXELFORMAT-INDEX4MSB   |
+| SDL-PIXELFORMAT-INDEX8      |
+| SDL-PIXELFORMAT-RGB332      |
+| SDL-PIXELFORMAT-RGB444      |
+| SDL-PIXELFORMAT-RGB555      |
+| SDL-PIXELFORMAT-BGR555      |
+| SDL-PIXELFORMAT-ARGB4444    |
+| SDL-PIXELFORMAT-RGBA4444    |
+| SDL-PIXELFORMAT-ABGR4444    |
+| SDL-PIXELFORMAT-BGRA4444    |
+| SDL-PIXELFORMAT-ARGB1555    |
+| SDL-PIXELFORMAT-RGBA5551    |
+| SDL-PIXELFORMAT-ABGR1555    |
+| SDL-PIXELFORMAT-BGRA5551    |
+| SDL-PIXELFORMAT-RGB565      |
+| SDL-PIXELFORMAT-BGR565      |
+| SDL-PIXELFORMAT-RGB24       |
+| SDL-PIXELFORMAT-BGR24       |
+| SDL-PIXELFORMAT-RGB888      |
+| SDL-PIXELFORMAT-RGBX8888    |
+| SDL-PIXELFORMAT-BGR888      |
+| SDL-PIXELFORMAT-BGRX8888    |
+| SDL-PIXELFORMAT-ARGB8888    |
+| SDL-PIXELFORMAT-RGBA8888    |
+| SDL-PIXELFORMAT-ABGR8888    |
+| SDL-PIXELFORMAT-BGRA8888    |
+| SDL-PIXELFORMAT-ARGB2101010 |
+| SDL-PIXELFORMAT-RGBA32      |
+| SDL-PIXELFORMAT-ARGB32      |
+| SDL-PIXELFORMAT-BGRA32      |
+| SDL-PIXELFORMAT-ABGR32      |
+| SDL-PIXELFORMAT-YV12        |
+| SDL-PIXELFORMAT-IYUV        |
+| SDL-PIXELFORMAT-YUY2        |
+| SDL-PIXELFORMAT-UYVY        |
+| SDL-PIXELFORMAT-YVYU        |
+| SDL-PIXELFORMAT-NV12        |
+| SDL-PIXELFORMAT-NV21        |
+
+# Renderer Flags
+
+| *flags*                    |
+| :------------------------- |
+| SDL-RENDERER-SOFTWARE      |
+| SDL-RENDERER-ACCELERATED   |
+| SDL-RENDERER-PRESENTVSYNC  |
+| SDL-RENDERER-TARGETTEXTURE |
+
+# Texture Access
+
+| *access*                    |
+| :-------------------------- |
+| SDL-TEXTUREACCESS-STATIC    |
+| SDL-TEXTUREACCESS-STREAMING |
+| SDL-TEXTUREACCESS-TARGET    |
+
+# Renderer Flip
+
+| *flip*                      |
+| :-------------------------- |
+| SDL-FLIP-NONE               |
+| SDL-FLIP-HORIZONTAL         |
+| SDL-FLIP-VERTICAL           |
+
 # Blend Modes
 
-| *modes*                 |
-| :---------------------- |
-| SDL-BLEND-MODE-NONE     |
-| SDL-BLEND-MODE-BLEND    |
-| SDL-BLEND-MODE-ADD      |
-| SDL-BLEND-MODE-MOD      |
+| *modes*                |
+| :--------------------- |
+| SDL-BLENDMODE-NONE     |
+| SDL-BLENDMODE-BLEND    |
+| SDL-BLENDMODE-ADD      |
+| SDL-BLENDMODE-MOD      |
+
+# Blend Operations
+
+| *operations*                    |
+| :------------------------------ |
+| SDL-BLENDOPERATION-ADD          |
+| SDL-BLENDOPERATION-SUBTRACT     |
+| SDL-BLENDOPERATION-REV-SUBTRACT |
+| SDL-BLENDOPERATION-MINIMUM      |
+| SDL-BLENDOPERATION-MAXIMUM      |
+
+# Blend Factors
+
+| *factors*                           |
+| :---------------------------------- |
+| SDL-BLENDFACTOR-ZERO                |
+| SDL-BLENDFACTOR-ONE                 |
+| SDL-BLENDFACTOR-SRC-COLOR           |
+| SDL-BLENDFACTOR-ONE-MINUS-SRC-COLOR |
+| SDL-BLENDFACTOR-SRC-ALPHA           |
+| SDL-BLENDFACTOR-ONE-MINUS-SRC-ALPHA |
+| SDL-BLENDFACTOR-DST-COLOR           |
+| SDL-BLENDFACTOR-ONE-MINUS-DST-COLOR |
+| SDL-BLENDFACTOR-DST-ALPHA           |
+| SDL-BLENDFACTOR-ONE-MINUS-DST-ALPHA |
 
 # OpenGL Attributes
 
