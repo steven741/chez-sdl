@@ -20,7 +20,8 @@ nav:
       - 'Force Feedback':   'ref/force.md'
       - 'Power Management': 'ref/power.md'
       - 'Timers':           'ref/timers.md'
-      - 'Values':           'ref/data.md'
+      - 'Values':           'ref/values.md'
+      - 'Data Objects':     'ref/data.md'
 
 theme: readthedocs
 

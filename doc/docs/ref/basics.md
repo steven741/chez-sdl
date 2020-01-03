@@ -5,16 +5,7 @@ Procedure:
 >(**sdl-init** *flags...*) → number
 
 Parameters:
->| *flags*                 |
- | :---------------------- |
- | SDL-INIT-TIMER          |
- | SDL-INIT-AUDIO          |
- | SDL-INIT-VIDEO          |
- | SDL-INIT-JOYSTICK       |
- | SDL-INIT-HAPTIC         |
- | SDL-INIT-GAMECONTROLLER |
- | SDL-INIT-EVENTS         |
- | SDL-INIT-EVERYTHING     |
+>***flags*** : One or more [flags](values.md#initialize-flags).
 
 Returns:
 > 0 on proper startup or a negative number on error.
@@ -41,16 +32,7 @@ Procedure:
 >(**sdl-init-sub-system** *flags...*) → number
 
 Parameters:
->| *flags*                 |
- | :---------------------- |
- | SDL-INIT-TIMER          |
- | SDL-INIT-AUDIO          |
- | SDL-INIT-VIDEO          |
- | SDL-INIT-JOYSTICK       |
- | SDL-INIT-HAPTIC         |
- | SDL-INIT-GAMECONTROLLER |
- | SDL-INIT-EVENTS         |
- | SDL-INIT-EVERYTHING     |
+>***flags*** : One or more [flags](values.md#initialize-flags).
 
 Returns:
 > 0 on proper startup or a negative number on error.
@@ -87,16 +69,7 @@ Procedure:
 >(**sdl-quit-sub-system** *flags...*) → void
 
 Parameters:
->| *flags*                 |
- | :---------------------- |
- | SDL-INIT-TIMER          |
- | SDL-INIT-AUDIO          |
- | SDL-INIT-VIDEO          |
- | SDL-INIT-JOYSTICK       |
- | SDL-INIT-HAPTIC         |
- | SDL-INIT-GAMECONTROLLER |
- | SDL-INIT-EVENTS         |
- | SDL-INIT-EVERYTHING     |
+>***flags*** : One or more [flags](values.md#initialize-flags).
 
 C Function Name:
 >`SDL_QuitSubSystem`
@@ -130,16 +103,7 @@ Procedure:
 >(**sdl-init?** *flags...*) → boolean
 
 Parameters:
->| *flags*                 |
- | :---------------------- |
- | SDL-INIT-TIMER          |
- | SDL-INIT-AUDIO          |
- | SDL-INIT-VIDEO          |
- | SDL-INIT-JOYSTICK       |
- | SDL-INIT-HAPTIC         |
- | SDL-INIT-GAMECONTROLLER |
- | SDL-INIT-EVENTS         |
- | SDL-INIT-EVERYTHING     |
+>***flags*** : One or more [flags](values.md#initialize-flags).
 
 Returns:
 > `#t` if systems were initialized and `#f` otherwise.
@@ -183,7 +147,7 @@ Procedure:
 >(**sdl-get-hint** *name*) → string
 
 Parameters:
->***name*** : A string. Name of the [hint.](data.md#hints)
+>***name*** : A string. Name of the [hint.](values.md#hints)
 
 Returns:
 >Returns the string value of a hint.
@@ -199,7 +163,7 @@ Procedure:
 >(**sdl-get-hint-boolean** *name* *default*) → boolean
 
 Parameters:
->***name*** : A string. Name of the [hint.](data.md#hints)
+>***name*** : A string. Name of the [hint.](values.md#hints)
 
 >***default*** : A boolean. Return value if hint not found.
 
@@ -217,7 +181,7 @@ Procedure:
 >(**sdl-set-hint!** *name* *value*) → boolean
 
 Parameters:
->***name*** : A string. Name of the [hint.](data.md#hints)
+>***name*** : A string. Name of the [hint.](values.md#hints)
 
 >***value*** : A string. Value to set hint.
 
@@ -235,7 +199,7 @@ Procedure:
 >(**sdl-set-hint-w/-priority!** *name* *value* *priority*) → boolean
 
 Parameters:
->***name*** : A string. Name of the [hint.](data.md#hints)
+>***name*** : A string. Name of the [hint.](values.md#hints)
 
 >***value*** : A string. Value to set hint.
 
@@ -277,7 +241,7 @@ Procedure:
 >(**sdl-add-hint-callback!** *name* *callback*) → void
 
 Parameters:
->***name*** : A string. Name of the [hint.](data.md#hints)
+>***name*** : A string. Name of the [hint.](values.md#hints)
 
 >***callback*** : A callback made with `sdl-make-hint-callback`.
 
@@ -292,7 +256,7 @@ Procedure:
 >(**sdl-del-hint-callback!** *name* *callback*) → void
 
 Parameters:
->***name*** : A string. Name of the [hint.](data.md#hints)
+>***name*** : A string. Name of the [hint.](values.md#hints)
 
 >***callback*** : A callback made with `sdl-make-hint-callback`.
 

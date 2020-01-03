@@ -15,29 +15,7 @@ Parameters:
 
 >***h*** : An integer. The height of the viewport of the window.
 
->| *flags*                       |
- | :---------------------------- |
- | SDL-WINDOW-FULLSCREEN         |
- | SDL-WINDOW-OPENGL             |
- | SDL-WINDOW-SHOWN              |
- | SDL-WINDOW-HIDDEN             |
- | SDL-WINDOW-BORDERLESS         |
- | SDL-WINDOW-RESIZABLE          |
- | SDL-WINDOW-MINIMIZED          |
- | SDL-WINDOW-MAXIMIZED          |
- | SDL-WINDOW-INPUT-GRABBED      |
- | SDL-WINDOW-INPUT-FOCUS        |
- | SDL-WINDOW-MOUSE-FOCUS        |
- | SDL-WINDOW-FULLSCREEN-DESKTOP |
- | SDL-WINDOW-FOREIGN            |
- | SDL-WINDOW-ALLOW-HIGHDPI      |
- | SDL-WINDOW-MOUSE-CAPTURE      |
- | SDL-WINDOW-ALWAYS-ON-TOP      |
- | SDL-WINDOW-SKIP-TASKBAR       |
- | SDL-WINDOW-UTILITY            |
- | SDL-WINDOW-TOOLTIP            |
- | SDL-WINDOW-POPUP-MENU         |
- | SDL-WINDOW-VULKAN             |
+>***flags*** : Zero or more [flags](values.md#window-flags).
 
 Returns:
 > A `SDL_Window` object.
@@ -139,6 +117,172 @@ C Function Name:
 
 Other Docs:
 >[SDL Wiki](https://wiki.libsdl.org/SDL_GL_ExtensionSupported)
+
+---
+Procedure:
+>(**sdl-gl-get-attribute** *attribute*) → number
+
+Parameters:
+>***attribute*** : A SDL OpenGL [attribute](values.md#opengl-attributes).
+
+Returns:
+> The value of the attribute or a negative value.
+
+C Function Name:
+>`SDL_GL_GetAttribute`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_GetAttribute)
+
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GLattr)
+
+---
+Procedure:
+>(**sdl-gl-get-current-context**) → SDL_GLContext
+
+Returns:
+> The window with an OpenGL context.
+
+C Function Name:
+>`SDL_GL_GetCurrentWindow`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_GetCurrentWindow)
+
+---
+Procedure:
+>(**sdl-gl-get-current-window**) → SDL_Window
+
+Returns:
+> The current OpenGL context.
+
+C Function Name:
+>`SDL_GL_GetCurrentContext`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_GetCurrentContext)
+
+---
+Procedure:
+>(**sdl-gl-get-drawable-size** *window*) → list
+
+Parameters:
+>***window*** : A SDL_Window.
+
+Returns:
+> The list `(x, y)` of the window.
+
+C Function Name:
+>`SDL_GL_GetDrawableSize`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_GetDrawableSize)
+
+---
+Procedure:
+>(**sdl-gl-get-drawable-size** *window*) → list
+
+Parameters:
+>***window*** : A SDL_Window.
+
+Returns:
+> The list `(x, y)` of the window.
+
+C Function Name:
+>`SDL_GL_GetDrawableSize`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_GetDrawableSize)
+
+---
+Procedure:
+>(**sdl-gl-get-swap-interval**) → number
+
+Returns:
+> `0` if no v-sync; `1` if v-sync; `-1` if adaptive v-sync;
+
+C Function Name:
+>`SDL_GL_GetSwapInterval`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_GetSwapInterval)
+
+---
+Procedure:
+>(**sdl-gl-make-current** *window* *context*) → number
+
+Parameters:
+>***window*** : A SDL_Window.
+
+>***context*** : A SDL_GLContext.
+
+Returns:
+> Result code. `0` for no failure.
+
+C Function Name:
+>`SDL_GL_MakeCurrent`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_MakeCurrent)
+
+---
+Procedure:
+>(**sdl-gl-reset-attributes!**) → void
+
+C Function Name:
+>`SDL_GL_ResetAttributes`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_ResetAttributes)
+
+---
+Procedure:
+>(**sdl-gl-set-attribute!** *attribute* *value*) → number
+
+Parameters:
+>***attribute*** : A SDL OpenGL [attribute](values.md#opengl-attributes).
+
+>***value*** : A number to set the attribute.
+
+Returns:
+> Result code. `0` if no failure.
+
+C Function Name:
+>`SDL_GL_SetAttribute`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_SetAttribute)
+
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GLattr)
+
+---
+Procedure:
+>(**sdl-gl-set-swap-interval!** *interval*) → number
+
+Parameters:
+>***interval*** : `0` for no v-sync; `1` for v-sync; `-1` for adaptive v-sync;
+
+Returns:
+> Result code. `0` for no failure.
+
+C Function Name:
+>`SDL_GL_SetSwapInterval`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_SetSwapInterval)
+
+---
+Procedure:
+>(**sdl-gl-swap-window** *window*) → void
+
+Parameters:
+>***window*** : A SDL_Window.
+
+C Function Name:
+>`SDL_GL_SwapWindow`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GL_SwapWindow)
 
 
 
