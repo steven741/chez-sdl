@@ -143,7 +143,11 @@
                 </li>
                 <li class="">
                     
-    <a class="" href="../data/">Values</a>
+    <a class="" href="../values/">Values</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../data/">Data Objects</a>
                 </li>
     </ul>
 	    </li>
@@ -188,6 +192,611 @@
             <div class="section">
               
                 <h1 id="display-window-management">Display &amp; Window Management</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-create-window</strong> <em>title</em> <em>x</em> <em>y</em> <em>w</em> <em>h</em> <em>flags...</em>) → SDL_Window</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>title</em></strong> : A string. Title of the window.</p>
+<p><strong><em>x</em></strong> : An integer or <code>SDL-WINDOWPOS-UNDEFINED</code>. x-position of the window.</p>
+<p><strong><em>y</em></strong> : An integer or <code>SDL-WINDOWPOS-UNDEFINED</code>. y-position of the window.</p>
+<p><strong><em>w</em></strong> : An integer. The width of the viewport of the window.</p>
+<p><strong><em>h</em></strong> : An integer. The height of the viewport of the window.</p>
+<p><strong><em>flags</em></strong> : Zero or more <a href="../values/#window-flags">flags</a>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>SDL_Window</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CreateWindow</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_CreateWindow">SDL Wiki</a>
+<a href="https://wiki.libsdl.org/SDL_WindowFlags">SDL Wiki</a></p>
+</blockquote>
+<p>Examples:</p>
+<pre><code class="scheme">(define *window*
+  (sdl-create-window
+    &quot;SDL2 on Scheme&quot;
+    SDL-WINDOWPOS-UNDEFINED
+    SDL-WINDOWPOS-UNDEFINED
+    800
+    600
+    SDL-WINDOW-SHOWN
+    SDL-WINDOW-OPENGL))
+</code></pre>
+
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-destroy-window</strong> <em>window</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_DestroyWindow</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_DestroyWindow">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-disable-screen-saver</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_DisableScreenSaver</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_DisableScreenSaver">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-enable-screen-saver</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_EnableScreenSaver</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_EnableScreenSaver">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-create-context</strong> <em>window</em>) → SDL_GLContext</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>SDL_GLContext</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_CreateContext</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_CreateContext">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-delete-context</strong> <em>gl-context</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>gl-context</em></strong> : A <code>SDL_GLContext</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_DeleteContext</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_DeleteContext">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-extension-supported?</strong> <em>extension</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>extension</em></strong> : A string. Name of the OpenGL extension.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> if extension is supported otherwise <code>#f</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_ExtensionSupported</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_ExtensionSupported">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-get-attribute</strong> <em>attribute</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>attribute</em></strong> : A SDL OpenGL <a href="../values/#opengl-attributes">attribute</a>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The value of the attribute or a negative value.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_GetAttribute</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_GetAttribute">SDL Wiki</a></p>
+<p><a href="https://wiki.libsdl.org/SDL_GLattr">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-get-current-context</strong>) → SDL_GLContext</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The window with an OpenGL context.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_GetCurrentWindow</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_GetCurrentWindow">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-get-current-window</strong>) → SDL_Window</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The current OpenGL context.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_GetCurrentContext</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_GetCurrentContext">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-get-drawable-size</strong> <em>window</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A SDL_Window.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The list <code>(x, y)</code> of the window.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_GetDrawableSize</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_GetDrawableSize">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-get-drawable-size</strong> <em>window</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A SDL_Window.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The list <code>(x, y)</code> of the window.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_GetDrawableSize</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_GetDrawableSize">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-get-swap-interval</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> if no v-sync; <code>1</code> if v-sync; <code>-1</code> if adaptive v-sync;</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_GetSwapInterval</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_GetSwapInterval">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-make-current</strong> <em>window</em> <em>context</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A SDL_Window.</p>
+<p><strong><em>context</em></strong> : A SDL_GLContext.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Result code. <code>0</code> for no failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_MakeCurrent</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_MakeCurrent">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-reset-attributes!</strong>) → void</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_ResetAttributes</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_ResetAttributes">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-set-attribute!</strong> <em>attribute</em> <em>value</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>attribute</em></strong> : A SDL OpenGL <a href="../values/#opengl-attributes">attribute</a>.</p>
+<p><strong><em>value</em></strong> : A number to set the attribute.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Result code. <code>0</code> if no failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_SetAttribute</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_SetAttribute">SDL Wiki</a></p>
+<p><a href="https://wiki.libsdl.org/SDL_GLattr">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-set-swap-interval!</strong> <em>interval</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>interval</em></strong> : <code>0</code> for no v-sync; <code>1</code> for v-sync; <code>-1</code> for adaptive v-sync;</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Result code. <code>0</code> for no failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_SetSwapInterval</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_SetSwapInterval">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-swap-window</strong> <em>window</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A SDL_Window.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_SwapWindow</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_SwapWindow">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-current-video-driver</strong>) → string</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Name of current video driver.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetCurrentVideoDriver</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetCurrentVideoDriver">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-display-bounds</strong> <em>display-index</em>) → sdl-rect | number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>display-index</em></strong> : A number. The index to query.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>An <code>sdl-rect</code> or an error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetDisplayBounds</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetDisplayBounds">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-display-dpi</strong> <em>display-index</em>) → list | number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>display-index</em></strong> : A number. The index to query.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list <code>(ddpi hdpi vdpi)</code> or an error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetDisplayDPI</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetDisplayDPI">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-display-name</strong> <em>display-index</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>display-index</em></strong> : A number. The index to query.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The display name.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetDisplayName</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetDisplayName">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-display-usable-bounds</strong> <em>display-index</em>) → sdl-rect | number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>display-index</em></strong> : A number. The index to query.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>sdl-rect</code> or and error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetDisplayUsableBounds</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetDisplayUsableBounds">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-grabbed-window</strong>) → SDL_Window</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The <code>SDL_Window</code> that's grabbed.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetGrabbedWindow</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetGrabbedWindow">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-num-display-modes</strong> <em>display-index</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>display-index</em></strong> : A number. The index to query.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of display modes or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetNumDisplayModes</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetNumDisplayModes">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-num-video-displays</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of video modes or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetNumVideoDisplays</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetNumVideoDisplays">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-num-video-drivers</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>Number of video modes or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetNumVideoDrivers</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetNumVideoDrivers">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-video-driver</strong> <em>index</em>) → string</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>index</em></strong> : A number. The index to query.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The video driver name.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetVideoDriver</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetVideoDriver">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-window-surface</strong> <em>window</em>) → SDL_Surface</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The <code>SDL_Surface</code> of the window.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetWindowSurface</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetWindowSurface">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-show-window</strong> <em>window</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_ShowWindow</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_ShowWindow">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-update-window-surface</strong> <em>window</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> if no failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_UpdateWindowSurface</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_UpdateWindowSurface">SDL Wiki</a></p>
+</blockquote>
 <h1 id="2d-accelerated-rendering">2D Accelerated Rendering</h1>
 <h1 id="pixel-formats-conversion-routines">Pixel Formats &amp; Conversion Routines</h1>
 <h1 id="rectangle-functions">Rectangle Functions</h1>
