@@ -284,6 +284,199 @@ C Function Name:
 Other Docs:
 >[SDL Wiki](https://wiki.libsdl.org/SDL_GL_SwapWindow)
 
+---
+Procedure:
+>(**sdl-get-current-video-driver**) → string
+
+Returns:
+> Name of current video driver.
+
+C Function Name:
+>`SDL_GetCurrentVideoDriver`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetCurrentVideoDriver)
+
+---
+Procedure:
+>(**sdl-get-display-bounds** *display-index*) → sdl-rect | number
+
+Parameters:
+>***display-index*** : A number. The index to query.
+
+Returns:
+> An `sdl-rect` or an error code.
+
+C Function Name:
+>`SDL_GetDisplayBounds`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetDisplayBounds)
+
+---
+Procedure:
+>(**sdl-get-display-dpi** *display-index*) → list | number
+
+Parameters:
+>***display-index*** : A number. The index to query.
+
+Returns:
+> A list `(ddpi hdpi vdpi)` or an error code.
+
+C Function Name:
+>`SDL_GetDisplayDPI`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetDisplayDPI)
+
+---
+Procedure:
+>(**sdl-get-display-name** *display-index*) → string
+
+Parameters:
+>***display-index*** : A number. The index to query.
+
+Returns:
+> The display name.
+
+C Function Name:
+>`SDL_GetDisplayName`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetDisplayName)
+
+---
+Procedure:
+>(**sdl-get-display-usable-bounds** *display-index*) → sdl-rect | number
+
+Parameters:
+>***display-index*** : A number. The index to query.
+
+Returns:
+> A `sdl-rect` or and error code.
+
+C Function Name:
+>`SDL_GetDisplayUsableBounds`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetDisplayUsableBounds)
+
+---
+Procedure:
+>(**sdl-get-grabbed-window**) → SDL_Window
+
+Returns:
+> The `SDL_Window` that's grabbed.
+
+C Function Name:
+>`SDL_GetGrabbedWindow`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetGrabbedWindow)
+
+---
+Procedure:
+>(**sdl-get-num-display-modes** *display-index*) → number
+
+Parameters:
+>***display-index*** : A number. The index to query.
+
+Returns:
+> Number of display modes or a negative number error code.
+
+C Function Name:
+>`SDL_GetNumDisplayModes`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetNumDisplayModes)
+
+---
+Procedure:
+>(**sdl-get-num-video-displays**) → number
+
+Returns:
+> Number of video modes or a negative number error code.
+
+C Function Name:
+>`SDL_GetNumVideoDisplays`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetNumVideoDisplays)
+
+---
+Procedure:
+>(**sdl-get-num-video-drivers**) → number
+
+Returns:
+> Number of video modes or a negative number error code.
+
+C Function Name:
+>`SDL_GetNumVideoDrivers`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetNumVideoDrivers)
+
+---
+Procedure:
+>(**sdl-get-video-driver** *index*) → string
+
+Parameters:
+>***index*** : A number. The index to query.
+
+Returns:
+> The video driver name.
+
+C Function Name:
+>`SDL_GetVideoDriver`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetVideoDriver)
+
+---
+Procedure:
+>(**sdl-get-window-surface** *window*) → SDL_Surface
+
+Parameters:
+>***window*** : A `SDL_Window`.
+
+Returns:
+> The `SDL_Surface` of the window.
+
+C Function Name:
+>`SDL_GetWindowSurface`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_GetWindowSurface)
+
+---
+Procedure:
+>(**sdl-show-window** *window*) → void
+
+Parameters:
+>***window*** : A `SDL_Window`.
+
+C Function Name:
+>`SDL_ShowWindow`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_ShowWindow)
+
+---
+Procedure:
+>(**sdl-update-window-surface** *window*) → number
+
+Parameters:
+>***window*** : A `SDL_Window`.
+
+Returns:
+> `0` if no failure.
+
+C Function Name:
+>`SDL_UpdateWindowSurface`
+
+Other Docs:
+>[SDL Wiki](https://wiki.libsdl.org/SDL_UpdateWindowSurface)
+
 
 
 # 2D Accelerated Rendering
