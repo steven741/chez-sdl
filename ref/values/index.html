@@ -140,7 +140,25 @@
     <li class="toctree-l3"><a href="#initialize-flags">Initialize Flags</a></li>
     
 
+    <li class="toctree-l3"><a href="#pixel-formats">Pixel Formats</a></li>
+    
+
+    <li class="toctree-l3"><a href="#renderer-flags">Renderer Flags</a></li>
+    
+
+    <li class="toctree-l3"><a href="#texture-access">Texture Access</a></li>
+    
+
+    <li class="toctree-l3"><a href="#renderer-flip">Renderer Flip</a></li>
+    
+
     <li class="toctree-l3"><a href="#blend-modes">Blend Modes</a></li>
+    
+
+    <li class="toctree-l3"><a href="#blend-operations">Blend Operations</a></li>
+    
+
+    <li class="toctree-l3"><a href="#blend-factors">Blend Factors</a></li>
     
 
     <li class="toctree-l3"><a href="#opengl-attributes">OpenGL Attributes</a></li>
@@ -1655,6 +1673,202 @@
 </tr>
 </tbody>
 </table>
+<h1 id="pixel-formats">Pixel Formats</h1>
+<table>
+<thead>
+<tr>
+<th align="left"><em>formats</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-PIXELFORMAT-UNKNOWN</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-INDEX1LSB</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-INDEX1MSB</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-INDEX4LSB</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-INDEX4MSB</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-INDEX8</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGB332</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGB444</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGB555</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGR555</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ARGB4444</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGBA4444</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ABGR4444</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGRA4444</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ARGB1555</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGBA5551</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ABGR1555</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGRA5551</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGB565</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGR565</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGB24</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGR24</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGB888</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGBX8888</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGR888</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGRX8888</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ARGB8888</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGBA8888</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ABGR8888</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGRA8888</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ARGB2101010</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-RGBA32</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ARGB32</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-BGRA32</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-ABGR32</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-YV12</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-IYUV</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-YUY2</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-UYVY</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-YVYU</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-NV12</td>
+</tr>
+<tr>
+<td align="left">SDL-PIXELFORMAT-NV21</td>
+</tr>
+</tbody>
+</table>
+<h1 id="renderer-flags">Renderer Flags</h1>
+<table>
+<thead>
+<tr>
+<th align="left"><em>flags</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-RENDERER-SOFTWARE</td>
+</tr>
+<tr>
+<td align="left">SDL-RENDERER-ACCELERATED</td>
+</tr>
+<tr>
+<td align="left">SDL-RENDERER-PRESENTVSYNC</td>
+</tr>
+<tr>
+<td align="left">SDL-RENDERER-TARGETTEXTURE</td>
+</tr>
+</tbody>
+</table>
+<h1 id="texture-access">Texture Access</h1>
+<table>
+<thead>
+<tr>
+<th align="left"><em>access</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-TEXTUREACCESS-STATIC</td>
+</tr>
+<tr>
+<td align="left">SDL-TEXTUREACCESS-STREAMING</td>
+</tr>
+<tr>
+<td align="left">SDL-TEXTUREACCESS-TARGET</td>
+</tr>
+</tbody>
+</table>
+<h1 id="renderer-flip">Renderer Flip</h1>
+<table>
+<thead>
+<tr>
+<th align="left"><em>flip</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-FLIP-NONE</td>
+</tr>
+<tr>
+<td align="left">SDL-FLIP-HORIZONTAL</td>
+</tr>
+<tr>
+<td align="left">SDL-FLIP-VERTICAL</td>
+</tr>
+</tbody>
+</table>
 <h1 id="blend-modes">Blend Modes</h1>
 <table>
 <thead>
@@ -1664,16 +1878,81 @@
 </thead>
 <tbody>
 <tr>
-<td align="left">SDL-BLEND-MODE-NONE</td>
+<td align="left">SDL-BLENDMODE-NONE</td>
 </tr>
 <tr>
-<td align="left">SDL-BLEND-MODE-BLEND</td>
+<td align="left">SDL-BLENDMODE-BLEND</td>
 </tr>
 <tr>
-<td align="left">SDL-BLEND-MODE-ADD</td>
+<td align="left">SDL-BLENDMODE-ADD</td>
 </tr>
 <tr>
-<td align="left">SDL-BLEND-MODE-MOD</td>
+<td align="left">SDL-BLENDMODE-MOD</td>
+</tr>
+</tbody>
+</table>
+<h1 id="blend-operations">Blend Operations</h1>
+<table>
+<thead>
+<tr>
+<th align="left"><em>operations</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-BLENDOPERATION-ADD</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDOPERATION-SUBTRACT</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDOPERATION-REV-SUBTRACT</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDOPERATION-MINIMUM</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDOPERATION-MAXIMUM</td>
+</tr>
+</tbody>
+</table>
+<h1 id="blend-factors">Blend Factors</h1>
+<table>
+<thead>
+<tr>
+<th align="left"><em>factors</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SDL-BLENDFACTOR-ZERO</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-ONE</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-SRC-COLOR</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-ONE-MINUS-SRC-COLOR</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-SRC-ALPHA</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-ONE-MINUS-SRC-ALPHA</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-DST-COLOR</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-ONE-MINUS-DST-COLOR</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-DST-ALPHA</td>
+</tr>
+<tr>
+<td align="left">SDL-BLENDFACTOR-ONE-MINUS-DST-ALPHA</td>
 </tr>
 </tbody>
 </table>

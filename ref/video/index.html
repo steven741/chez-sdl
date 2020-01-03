@@ -216,8 +216,8 @@
 </blockquote>
 <p>Other Docs:</p>
 <blockquote>
-<p><a href="https://wiki.libsdl.org/SDL_CreateWindow">SDL Wiki</a>
-<a href="https://wiki.libsdl.org/SDL_WindowFlags">SDL Wiki</a></p>
+<p><a href="https://wiki.libsdl.org/SDL_CreateWindow">SDL Wiki</a></p>
+<p><a href="https://wiki.libsdl.org/SDL_WindowFlags">SDL Wiki</a></p>
 </blockquote>
 <p>Examples:</p>
 <pre><code class="scheme">(define *window*
@@ -400,7 +400,7 @@
 </blockquote>
 <p>Returns:</p>
 <blockquote>
-<p>The list <code>(x, y)</code> of the window.</p>
+<p>The list <code>(x y)</code> of the window.</p>
 </blockquote>
 <p>C Function Name:</p>
 <blockquote>
@@ -421,7 +421,7 @@
 </blockquote>
 <p>Returns:</p>
 <blockquote>
-<p>The list <code>(x, y)</code> of the window.</p>
+<p>The list <code>(x y)</code> of the window.</p>
 </blockquote>
 <p>C Function Name:</p>
 <blockquote>
@@ -745,7 +745,7 @@
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>window</em></strong> : A <code>SDL_Window</code>.</p>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code> object.</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -783,7 +783,7 @@
 </blockquote>
 <p>Parameters:</p>
 <blockquote>
-<p><strong><em>window</em></strong> : A <code>SDL_Window</code>.</p>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code> object.</p>
 </blockquote>
 <p>Returns:</p>
 <blockquote>
@@ -798,6 +798,1083 @@
 <p><a href="https://wiki.libsdl.org/SDL_UpdateWindowSurface">SDL Wiki</a></p>
 </blockquote>
 <h1 id="2d-accelerated-rendering">2D Accelerated Rendering</h1>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-compose-custom-blend-mode</strong> <em>src-color-factor</em> <em>dst-color-factor</em> <em>color-operation</em> <em>src-alpha-factor</em> <em>dst-alpha-factor</em> <em>alpha-operation</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>src-color-factor</em></strong> : A <a href="../values/#blend-factors">blend factor</a>.</p>
+<p><strong><em>dst-color-factor</em></strong> : A <a href="../values/#blend-factors">blend factor</a>.</p>
+<p><strong><em>color-operation</em></strong> : A <a href="../values/#blend-operations">blend operations</a>.</p>
+<p><strong><em>src-alpha-factor</em></strong> : A <a href="../values/#blend-factors">blend factor</a>.</p>
+<p><strong><em>dst-alpha-factor</em></strong> : A <a href="../values/#blend-factors">blend factor</a>.</p>
+<p><strong><em>alpha-operation</em></strong> : A <a href="../values/#blend-operations">blend operations</a>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <a href="../values/#blend-modes">blend mode</a>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_ComposeCustomBlendMode</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_ComposeCustomBlendMode">SDL Wiki</a></p>
+<p><a href="https://wiki.libsdl.org/SDL_BlendFactor">SDL Wiki</a></p>
+<p><a href="https://wiki.libsdl.org/SDL_BlendOperation">SDL Wiki</a></p>
+<p><a href="https://wiki.libsdl.org/SDL_BlendMode">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-create-renderer</strong> <em>window</em> <em>index</em> <em>flags...</em>) → SDL_Renderer</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code> object.</p>
+<p><strong><em>index</em></strong> : An integer. The index of the driver to use or, <code>-1</code> to use the first driver that supports the requested flags.</p>
+<p><strong><em>flags</em></strong> : Zero or more <a href="../values/#renderer-flags">flags</a>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CreateRenderer</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_CreateRenderer">SDL Wiki</a></p>
+<p><a href="https://wiki.libsdl.org/SDL_RendererFlags">SDL Wiki</a></p>
+</blockquote>
+<p>Examples:</p>
+<pre><code class="scheme">(define *renderer*
+  (sdl-create-renderer
+    *window*
+    -1
+    SDL-RENDERER-ACCELERATED
+    SDL-RENDERER-PRESENTVSYNC))
+</code></pre>
+
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-create-software-renderer</strong> <em>surface</em>) → SDL_Renderer</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>surface</em></strong> : A <code>SDL_Surface</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CreateSoftwareRenderer</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_CreateSoftwareRenderer">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-create-texture</strong> <em>renderer</em> <em>format</em> <em>access</em> <em>w</em> <em>h</em>) → SDL_Texture</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>format</em></strong> : A pixel <a href="../values/#pixel-formats">format</a>.</p>
+<p><strong><em>access</em></strong> : A texture <a href="../values/#texture-access">access</a>.</p>
+<p><strong><em>x</em></strong> : An integer. The texture's width.</p>
+<p><strong><em>y</em></strong> : An integer. The texture's height.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CreateTexture</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_CreateTexture">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-create-texture-from-surface</strong> <em>renderer</em> <em>surface</em>) → SDL_Texture</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>surface</em></strong> : A <code>SDL_Surface</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_CreateTextureFromSurface</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_CreateTextureFromSurface">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-destroy-renderer</strong> <em>renderer</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_DestroyRenderer</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_DestroyRenderer">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-destroy-texture</strong> <em>texture</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_DestroyTexture</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_DestroyTexture">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-bind-texture</strong> <em>texture</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list <code>(width height)</code> of the texture or <code>'()</code> if operation failed.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_BindTexture</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_BindTexture">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-gl-unbind-texture</strong> <em>texture</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> if the operation didn't fail.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GL_UnbindTexture</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GL_UnbindTexture">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-num-render-drivers</strong>) → number</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The number of render drivers or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetNumRenderDrivers</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetNumRenderDrivers">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-render-draw-blend-mode</strong> <em>renderer</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <a href="../values/#blend-modes">blend mode</a> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRenderDrawBlendMode</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRenderDrawBlendMode">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-render-draw-color</strong> <em>renderer</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list <code>(r g b a)</code> or <code>'()</code> on failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRenderDrawColor</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRenderDrawColor">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-render-driver-info</strong> <em>index</em>) → sdl-renderer-info | number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>index</em></strong> : The index of the driver to query.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>sdl-renderer-info</code> object or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRenderDriverInfo</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRenderDriverInfo">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-render-target</strong> <em>renderer</em>) → SDL_Texture</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRenderTarget</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRenderTarget">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-renderer</strong> <em>window</em>) → SDL_Renderer</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>window</em></strong> : A <code>SDL_Window</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRenderer</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRenderer">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-renderer-info</strong> <em>renderer</em>) → sdl-renderer-info | number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>sdl-renderer-info</code> object or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRendererInfo</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRendererInfo">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-renderer-output-size</strong> <em>renderer</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list <code>(width height)</code> or <code>'()</code> on failure.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetRendererOutputSize</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetRendererOutputSize">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-texture-alpha-mod</strong> <em>texture</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>The value of the alpha modifier or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetTextureAlphaMod</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetTextureAlphaMod">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-texture-blend-mode</strong> <em>texture</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <a href="../values/#blend-modes">blend mode</a> value or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetTextureBlendMode</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetTextureBlendMode">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-get-texture-color-mod</strong> <em>texture</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list of <code>(r g b)</code> or <code>'()</code> on error.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_GetTextureColorMod</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_GetTextureColorMod">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-clear</strong> <em>renderer</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderClear</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderClear">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-copy</strong> <em>renderer</em> <em>texture</em> <em>src-rect</em> <em>dst-rect</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+<p><strong><em>src-rect</em></strong> : An <code>sdl-rect</code> object or <code>'()</code>.</p>
+<p><strong><em>dst-rect</em></strong> : An <code>sdl-rect</code> object or <code>'()</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderCopy</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderCopy">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-copy-ex</strong> <em>renderer</em> <em>texture</em> <em>src-rect</em> <em>dst-rect</em> <em>angle</em> <em>center-point</em> <em>flip</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+<p><strong><em>src-rect</em></strong> : An <code>sdl-rect</code> object or <code>'()</code>.</p>
+<p><strong><em>dst-rect</em></strong> : An <code>sdl-rect</code> object or <code>'()</code>.</p>
+<p><strong><em>angle</em></strong> : A floating point. An angle in degrees clockwise.</p>
+<p><strong><em>center-point</em></strong> : An <code>sdl-point</code> object or <code>'()</code>.</p>
+<p><strong><em>flip</em></strong> : A <a href="../values/#renderer-flip">flip</a> value.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderCopyEx</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderCopyEx">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-draw-line</strong> <em>renderer</em> <em>x1</em> <em>y1</em> <em>x2</em> <em>y2</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>x1</em></strong> : x-coordinate of the first point.</p>
+<p><strong><em>y1</em></strong> : y-coordinate of the first point.</p>
+<p><strong><em>x2</em></strong> : x-coordinate of the second point.</p>
+<p><strong><em>y2</em></strong> : y-coordinate of the second point.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderDrawLine</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderDrawLine">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-draw-lines</strong> <em>renderer</em> <em>points</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>points</em></strong> : A list of <code>sdl-point</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderDrawLines</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderDrawLines">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-draw-point</strong> <em>renderer</em> <em>x</em> <em>y</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>x</em></strong> : x-coordinate of the point.</p>
+<p><strong><em>y</em></strong> : y-coordinate of the point.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderDrawPoint</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderDrawPoint">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-draw-points</strong> <em>renderer</em> <em>points</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>points</em></strong> : A list of <code>sdl-point</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderDrawPoints</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderDrawPoints">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-draw-rect</strong> <em>renderer</em> <em>rect</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>x</em></strong> : A <code>sdl-rect</code> or <code>'()</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderDrawRect</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderDrawRect">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-draw-rects</strong> <em>renderer</em> <em>rects</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>x</em></strong> : A list of <code>sdl-rect</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderDrawRects</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderDrawRects">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-fill-rect</strong> <em>renderer</em> <em>rect</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>x</em></strong> : A <code>sdl-rect</code> or <code>'()</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderFillRect</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderFillRect">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-fill-rects</strong> <em>renderer</em> <em>rects</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>x</em></strong> : A list of <code>sdl-rect</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderFillRects</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderFillRects">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-get-integer-scale</strong> <em>renderer</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>SDL-TRUE</code> or <code>SDL-FALSE</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderGetIntegerScale</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderGetIntegerScale">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-get-logical-size</strong> <em>renderer</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list <code>(width height)</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderGetLogicalSize</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderGetLogicalSize">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-get-scale</strong> <em>renderer</em>) → list</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A list <code>(scale-x scale-y)</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderGetScale</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderGetScale">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-get-viewport</strong> <em>renderer</em>) → sdl-rect</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p>A <code>sdl-rect</code> of the viewport.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderGetViewport</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderGetViewport">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-is-clip-enabled?</strong> <em>renderer</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> or <code>#f</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderIsClipEnabled</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderIsClipEnabled">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-present</strong> <em>renderer</em>) → void</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderPresent</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderPresent">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-set-clip!</strong> <em>renderer</em> <em>rect</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>rect</em></strong> : A <code>sdl-rect</code> object or <code>'()</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderSetClipRect</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderSetClipRect">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-set-integer-scale!</strong> <em>renderer</em> <em>enable</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>enable</em></strong> : <code>SDL-TRUE</code> or <code>SDL-FALSE</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderSetIntegerScale</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderSetIntegerScale">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-set-logical-size!</strong> <em>renderer</em> <em>w</em> <em>h</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>w</em></strong> : An integer. Width of logical resolution.</p>
+<p><strong><em>h</em></strong> : An integer. Height of logical resolution.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderSetLogicalSize</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderSetLogicalSize">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-set-scale!</strong> <em>renderer</em> <em>scale-x</em> <em>scale-y</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>scale-x</em></strong> : An float. Scale with respect to the x-axis.</p>
+<p><strong><em>scale-y</em></strong> : An float. Scale with respect to the y-axis.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderSetScale</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderSetScale">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-set-viewport!</strong> <em>renderer</em> <em>rect</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>rect</em></strong> : A <code>sdl-rect</code> object or <code>'()</code>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderSetViewport</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderSetViewport">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-render-target-supported?</strong> <em>renderer</em>) → boolean</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>#t</code> or <code>#f</code>.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_RenderTargetSupported</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_RenderTargetSupported">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-set-render-draw-blend-mode!</strong> <em>renderer</em> <em>blend-mode</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>blend-mode</em></strong> : A <a href="../values/#blend-modes">blend mode</a>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetRenderDrawBlendMode</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetRenderDrawBlendMode">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-set-render-draw-color!</strong> <em>renderer</em> <em>r</em> <em>g</em> <em>b</em> <em>a</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>r</em></strong> : An integer. Red value.</p>
+<p><strong><em>g</em></strong> : An integer. Green value.</p>
+<p><strong><em>b</em></strong> : An integer. Blue value.</p>
+<p><strong><em>a</em></strong> : An integer. Alpha value.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetRenderDrawColor</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetRenderDrawColor">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-set-render-target!</strong> <em>renderer</em> <em>target</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>renderer</em></strong> : A <code>SDL_Renderer</code> object.</p>
+<p><strong><em>target</em></strong> : A <code>SDL_Texture</code> object.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetRenderTarget</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetRenderTarget">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-set-texture-alpha-mod!</strong> <em>texture</em> <em>alpha</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_texture</code> object.</p>
+<p><strong><em>alpha</em></strong> : An integer. The texture's alpha modifier.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetTextureAlphaMod</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetTextureAlphaMod">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-set-texture-blend-mode!</strong> <em>texture</em> <em>blend-mode</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+<p><strong><em>blend-mode</em></strong> : A <a href="../values/#blend-modes">blend mode</a>.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetTextureBlendMode</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetTextureBlendMode">SDL Wiki</a></p>
+</blockquote>
+<hr />
+<p>Procedure:</p>
+<blockquote>
+<p>(<strong>sdl-set-texture-color-mod!</strong> <em>texture</em> <em>r</em> <em>g</em> <em>b</em>) → number</p>
+</blockquote>
+<p>Parameters:</p>
+<blockquote>
+<p><strong><em>texture</em></strong> : A <code>SDL_Texture</code> object.</p>
+<p><strong><em>r</em></strong> : An integer. Red value.</p>
+<p><strong><em>g</em></strong> : An integer. Green value.</p>
+<p><strong><em>b</em></strong> : An integer. Blue value.</p>
+</blockquote>
+<p>Returns:</p>
+<blockquote>
+<p><code>0</code> or a negative number error code.</p>
+</blockquote>
+<p>C Function Name:</p>
+<blockquote>
+<p><code>SDL_SetTextureColorMod</code></p>
+</blockquote>
+<p>Other Docs:</p>
+<blockquote>
+<p><a href="https://wiki.libsdl.org/SDL_SetTextureColorMod">SDL Wiki</a></p>
+</blockquote>
 <h1 id="pixel-formats-conversion-routines">Pixel Formats &amp; Conversion Routines</h1>
 <h1 id="rectangle-functions">Rectangle Functions</h1>
 <h1 id="surface-creation-simple-drawing">Surface Creation &amp; Simple Drawing</h1>
